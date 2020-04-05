@@ -1,0 +1,39 @@
+select {
+  padding: 8px;
+  background: var(--background-base);
+  border: 1px solid var(--border-main);
+  border-radius: 5px;
+  outline-color: var(--border-main);
+  appearance: none;
+}
+
+.select-group {
+  position: relative;
+  display: inline-block;
+}
+
+.select-group-chaticon {
+  position: absolute;
+  top: 18px;
+  right: 8px;
+  width: 12px;
+  transform: rotate(180deg);
+}
+
+input {
+  padding: 8px;
+  background: var(--background-base);
+  border: 1px solid var(--border-main);
+  border-radius: 5px;
+  outline-color: var(--border-main);
+
+  & [type='text'],
+  [type='button'] {
+    appearance: none;
+  }
+}
+
+.button-primary {
+  color: var(--text-revert);
+  background-color: var(--button-primary);
+}

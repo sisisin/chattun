@@ -1,0 +1,35 @@
+{
+  "name": "chattun-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10.14.0",
+    "yarn": "^1.21.1"
+  },
+  "scripts": {
+    "start": "node ./index.js",
+    "dev": "nodemon --inspect ./index.js"
+  },
+  "dependencies": {
+    "@slack/client": "4.8.0",
+    "body-parser": "1.18.3",
+    "connect-redis": "3.4.0",
+    "cookie-parser": "1.4.3",
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "express-session": "1.17.0",
+    "helmet": "3.15.0",
+    "http-errors": "1.7.1",
+    "lodash": "4.17.11",
+    "morgan": "1.9.1",
+    "passport": "0.4.0",
+    "passport-slack-oauth2": "1.0.2",
+    "passport.socketio": "3.7.0",
+    "redis": "2.8.0",
+    "socket.io": "2.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.6"
+  }
+}

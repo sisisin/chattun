@@ -1,0 +1,11 @@
+{
+  "plugins": ["stylelint-order", "stylelint-color-format"],
+  "extends": ["stylelint-prettier/recommended", "stylelint-config-recess-order"],
+  "rules": {
+    "prettier/prettier": true,
+    "at-rule-no-unknown": null,
+    "color-format/format": {
+      "format": "hsl"
+    }
+  }
+}

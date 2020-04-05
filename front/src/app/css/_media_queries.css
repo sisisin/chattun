@@ -1,0 +1,4 @@
+@custom-media --large (min-width: 480px);
+@custom-media --main (min-width: 960px);
+@custom-media --sehack only screen and (max-width: 375px);
+@custom-media --extra-large only screen and (min-width: 1920);

@@ -1,0 +1,7 @@
+*.svg
+build/
+public/
+node_modules/
+src/app/css/libs/emoji-mart.css
+src/app/css/_reboot.css
+

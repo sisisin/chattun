@@ -1,0 +1,202 @@
+.tweet {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 48px 1fr 144px;
+  grid-gap: 0 8px;
+  padding: 8px;
+  margin: 1px 0;
+  border-bottom: 1px solid var(--border-sub);
+
+  &:hover {
+    box-shadow: var(--shadow-normal);
+  }
+
+  & p {
+    margin-bottom: 8px;
+  }
+
+  & a {
+    word-wrap: break-word;
+  }
+
+  & img {
+    max-width: 90%;
+  }
+}
+
+.tweet-displayname {
+  min-height: 28px;
+  max-height: 56px;
+  overflow: hidden;
+  font-weight: bold;
+  line-height: 28px;
+  word-wrap: break-word;
+}
+
+.tweet-edited-marker {
+  color: var(--text-sub);
+}
+
+.tweet-channelname {
+  max-width: 144px;
+  height: 16px;
+  margin: 6px 0;
+  font-size: var(--font-small-ex);
+  font-weight: bold;
+  line-height: 16px;
+  color: var(--text-revert);
+  text-align: center;
+  background: var(--label-base);
+  border-radius: 4px;
+}
+
+.tweet-icon-link {
+  grid-row: span 3;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: var(--shadow-weak);
+  }
+}
+
+.tweet-ts {
+  display: none;
+}
+
+.tweet-contents {
+  display: inline-block;
+  grid-column: span 2;
+  max-width: 100%;
+  word-wrap: break-word;
+
+  & code {
+    padding: 4px;
+    background: var(--background-sub);
+    border-radius: 4px;
+  }
+
+  & pre {
+    padding: 8px;
+    background: var(--background-sub);
+    border-radius: 8px;
+
+    & code {
+      background: transparent;
+    }
+  }
+
+  & ul {
+    list-style-type: disc;
+  }
+
+  & ul,
+  & ol {
+    padding-left: 24px;
+    margin: 8px 0;
+  }
+
+  & ul ul {
+    margin: 0 0;
+    list-style-type: circle;
+  }
+
+  & ul ul ul {
+    margin: 0 0;
+    list-style-type: square;
+  }
+}
+
+.tweet-contents-slack-emoji {
+  width: var(--font-large-ex);
+  height: var(--font-large-ex);
+  object-fit: contain;
+}
+
+.tweet-contents-image {
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+
+.tweet-actions {
+  grid-column: span 2;
+}
+
+.tweet-actions-reaction,
+.tweet-actions-list-thread {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  margin: 0 8px 0 0;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid var(--border-sub);
+  border-radius: 4px;
+
+  &:hover {
+    border-color: var(--border-base);
+  }
+}
+
+.tweet-actions-list {
+  display: grid;
+  grid-template-rows: 28px;
+  grid-template-columns: auto auto 1fr;
+}
+
+.tweet-actions-list-openslack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: right;
+  width: 34px;
+  margin: 0 8px 0 0;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid var(--border-sub);
+  border-radius: 4px;
+
+  &:hover {
+    border-color: var(--border-base);
+  }
+}
+
+.tweet-actions-list-emojis {
+  display: flex;
+  padding: 4px 0;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.tweet-actions-list-emojis-emoji {
+  padding: 0 6px 2px;
+  margin-right: 8px;
+  border: 1px solid var(--border-sub);
+  border-radius: 4px;
+
+  &:hover {
+    border-color: var(--border-base);
+  }
+
+  & .emoji-mart-emoji {
+    vertical-align: middle;
+  }
+}
+
+.tweet-actions-reacted {
+  background-color: var(--reacted);
+}
+
+.tweet-actions-list-emojis-count {
+  margin-left: 4px;
+  font-weight: bold;
+  color: var(--icon);
+  vertical-align: middle;
+}
+
+.tweet-actions-list-thread-icon,
+.tweet-actions-reaction-icon,
+.tweet-actions-list-openslack-icon {
+  width: 50%;
+  stroke: var(--icon);
+}

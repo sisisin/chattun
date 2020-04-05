@@ -1,0 +1,94 @@
+:root {
+  --light-main: hsl(323, 51%, 72%);
+  --light-main-alt: hsl(323, 51%, 62%);
+  --dark-main: hsl(323, 51%, 32%);
+  --dark-main-alt: hsl(323, 51%, 42%);
+  --light-sub: hsl(197, 100%, 45%);
+  --dark-sub: hsl(197, 100%, 12%);
+  --grayscale00: hsl(0, 0%, 0%);
+  --grayscale01: hsl(0, 0%, 10%);
+  --grayscale02: hsl(0, 0%, 20%);
+  --grayscale03: hsl(0, 0%, 30%);
+  --grayscale04: hsl(0, 0%, 40%);
+  --grayscale05: hsl(0, 0%, 50%);
+  --grayscale06: hsl(0, 0%, 67%);
+  --grayscale07: hsl(0, 0%, 80%);
+  --grayscale08: hsl(0, 0%, 88%);
+  --grayscale09: hsl(0, 0%, 94%);
+  --grayscale10: hsl(0, 0%, 100%);
+  --alpha-black01: hsla(0, 0%, 0%, 0.1);
+  --alpha-black02: hsla(0, 0%, 0%, 0.15);
+  --alpha-black03: hsla(0, 0%, 0%, 0.2);
+  --alpha-black04: hsla(0, 0%, 0%, 0.25);
+  --alpha-black05: hsla(0, 0%, 0%, 0.3);
+  --text-main: var(--light-main);
+  --text-main-alt: var(--light-main-alt);
+  --text-base: var(--grayscale00);
+  --text-sub: var(--grayscale05);
+  --text-revert: var(--grayscale10);
+  --border-main: var(--light-main);
+  --border-base: var(--grayscale07);
+  --border-sub: var(--grayscale09);
+  --border-revert: var(--grayscale10);
+  --background-main: var(--light-main);
+  --background-base: var(--grayscale10);
+  --background-sub: var(--grayscale09);
+  --label-base: var(--light-sub);
+  --icon: var(--grayscale01);
+  --shadow-color-weakest: var(--alpha-black01);
+  --shadow-color-weak: var(--alpha-black02);
+  --shadow-color-normal: var(--alpha-black03);
+  --shadow-color-strong: var(--alpha-black04);
+  --shadow-color-strongest: var(--alpha-black05);
+  --reacted: hsl(240, 84%, 63%);
+  --button-primary: var(--light-main);
+}
+
+/* Docker Image変えたらこちらに切り替え
+@media (prefers-color-scheme: light) {
+  :root {
+    --text-main: var(--light-main);
+    --text-main-alt: var(--light-main-alt);
+    --text-base: var(--grayscale00);
+    --text-sub: var(--grayscale05);
+    --text-revert: var(--grayscale10);
+    --border-main: var(--light-main);
+    --border-base: var(--grayscale07);
+    --border-sub: var(--grayscale09);
+    --border-revert: var(--grayscale10);
+    --background-main: var(--light-main);
+    --background-base: var(--grayscale10);
+    --background-sub: var(--grayscale09);
+    --label-base: var(--light-sub);
+    --icon: var(--grayscale01);
+    --shadow-color-weakest: var(--alpha-black01);
+    --shadow-color-weak: var(--alpha-black02);
+    --shadow-color-normal: var(--alpha-black03);
+    --shadow-color-strong: var(--alpha-black04);
+    --shadow-color-strongest: var(--alpha-black05);
+  }
+} */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-main: var(--dark-main);
+    --text-main-alt: var(--dark-main-alt);
+    --text-base: var(--grayscale09);
+    --text-sub: var(--grayscale06);
+    --text-revert: var(--grayscale10);
+    --border-main: var(--dark-main);
+    --border-base: var(--grayscale05);
+    --border-sub: var(--grayscale06);
+    --border-revert: var(--grayscale10);
+    --background-main: var(--dark-main);
+    --background-base: var(--grayscale02);
+    --background-sub: var(--grayscale04);
+    --label-base: var(--dark-sub);
+    --icon: var(--grayscale07);
+    --shadow-color-weakest: var(--alpha-black01);
+    --shadow-color-weak: var(--alpha-black02);
+    --shadow-color-normal: var(--alpha-black03);
+    --shadow-color-strong: var(--alpha-black04);
+    --shadow-color-strongest: var(--alpha-black05);
+  }
+}
