@@ -1,0 +1,74 @@
+.login {
+  display: grid;
+  height: 100vh;
+}
+
+.login-visual {
+  display: grid;
+  grid-template-rows: 256px 1fr;
+  justify-content: center;
+  background-image: url(../assets/background_chattun.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (prefers-color-scheme: dark) {
+  .login-visual {
+    background-image: url(../assets/background_chattun_dark.jpg);
+  }
+}
+
+.login-input {
+  background: var(--background-main);
+}
+
+.login-visual-logo {
+  display: block;
+  width: 128px;
+  margin: 92px auto 36px;
+  text-align: center;
+}
+
+.login-visual-text {
+  max-width: 96%;
+  margin: 0 auto 16px;
+  font-size: var(--font-large);
+  font-weight: bold;
+  text-align: center;
+}
+
+@media (--large) {
+  .login-visual-text {
+    max-width: 100%;
+  }
+}
+
+.login-visual-text-name {
+  font-size: 2rem;
+}
+
+.login-input-message {
+  margin-top: 64px;
+  margin-bottom: 28px;
+  font-size: var(--font-large);
+  font-weight: bold;
+  color: var(--text-revert);
+  text-align: center;
+}
+
+.login-input-link {
+  display: block;
+  min-width: 192px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+@media (--main) {
+  .login {
+    grid-template-columns: 60% 40%;
+  }
+
+  .login-input-message {
+    margin-top: 32vh;
+  }
+}

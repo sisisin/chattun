@@ -1,0 +1,21 @@
+.tweetlist {
+  padding: 0;
+  list-style: none;
+}
+
+.tweetlist.is-empty {
+  display: grid;
+  height: 100vh;
+  padding: 20vh 0 30vh;
+}
+
+.tweetlist-empty-logo {
+  width: 192px;
+  margin: 0 auto;
+  color: var(--text-revert);
+  text-align: center;
+}
+
+.tweetlist-empty-text {
+  text-align: center;
+}

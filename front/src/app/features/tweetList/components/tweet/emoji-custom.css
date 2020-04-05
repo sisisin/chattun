@@ -1,0 +1,40 @@
+/* .emoji-mart {
+  display: none;
+} */
+
+.emoji-parent {
+  position: relative;
+}
+
+.emoji-mart {
+  position: absolute;
+  z-index: 1;
+  max-width: 72%;
+  margin: 8px 0;
+  border-radius: 8px;
+  /* padding: 8px; */
+  box-shadow: var(--shadow-strong);
+}
+
+.emoji-mart.is-show {
+  display: block;
+}
+
+.emoji-mart-anchors {
+  display: grid;
+  grid-template-columns: repeat(9, 28px);
+  grid-gap: 0 8px;
+}
+
+.emoji-mart-title-label {
+  display: none;
+}
+
+.emoji-mart-bar {
+  overflow: scroll;
+}
+
+.emoji-mart-anchors {
+  display: grid;
+  grid-template-columns: repeat(10, 24px);
+}

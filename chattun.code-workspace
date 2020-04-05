@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "path": "server"
+    },
+    {
+      "path": "front"
+    },
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "cSpell.words": [
+      "SOURCEMAP",
+      "chaticon",
+      "chattun",
+      "docgen",
+      "goback",
+      "hoge",
+      "keygen",
+      "postbuild",
+      "stylelint",
+      "uirouter",
+      "zisui"
+    ]
+  }
+}

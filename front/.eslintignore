@@ -1,0 +1,8 @@
+!*.js
+!*.jsx
+!*.ts
+!*.tsx
+build/
+node_modules/
+.pnp/
+.blueprints/
