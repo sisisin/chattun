@@ -187,8 +187,11 @@ export const getTimelineMessages = createSelector(
   [getSlackState, slack => slack.users],
   [getSlackState, slack => slack.emojis],
   [getSlackState, slack => slack.profile],
-  (filtered, channels, users, emojis, profile) => {
-    return filtered.map(msg => slackMessageToTweet(msg, { channels, emojis, users, profile }));
+  [getGlobalSettingState, s => s.deepLinking],
+  (filtered, channels, users, emojis, profile, deepLinking) => {
+    return filtered.map(msg =>
+      slackMessageToTweet(msg, { channels, emojis, users, profile }, deepLinking),
+    );
   },
 );
 

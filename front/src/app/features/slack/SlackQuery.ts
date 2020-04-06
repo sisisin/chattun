@@ -1,10 +1,11 @@
 import { getSlackState, Message, SlackState } from 'app/features/slack/interface';
+import { SlackEntity } from 'app/types/slack';
 import { assertNever } from 'app/types/typeAssertions';
 import { CustomEmoji } from 'emoji-mart';
 import { createSelector } from 'typeless';
-import { Tweet, Reaction } from '../timeline/interface';
+import { GlobalSettingState } from '../globalSetting/interface';
+import { Reaction, Tweet } from '../timeline/interface';
 import { getChannelName, getMessageProfile, textToHtml } from '../timeline/TimelineQuery';
-import { SlackEntity } from 'app/types/slack';
 
 function getReactions(
   reactions: SlackEntity.Message.Reaction[] | undefined,
@@ -42,6 +43,7 @@ export function slackMessageToTweet(
     emojis,
     profile,
   }: Pick<SlackState, 'channels' | 'users' | 'emojis' | 'profile'>,
+  deepLinking: GlobalSettingState['deepLinking'],
 ): Tweet {
   const reactions = getReactions(msg.reactions, { users, emojis, profile });
   const channelName = getChannelName(channels, users, msg);
@@ -51,31 +53,53 @@ export function slackMessageToTweet(
   // todo: botなどのattachmentが全然対応できてない
   const text = textToHtml(msg, users, emojis);
 
-  const channelId = msg.channel!;
-  const ts = msg.ts;
-  const timestamp = 'p' + ts.replace('.', '');
-
   return {
     threadTs: msg.thread_ts,
     channelId: msg.channel,
-    ts,
+    ts: msg.ts,
     channelName,
     displayName,
     fullName,
     iconUrl,
     reactions,
     text,
-    deepLink: {
-      web:
-        `https://${profile.domain}.slack.com/archives/${channelId}/${timestamp}` +
-        (msg.thread_ts ? `?thread_ts=${msg.thread_ts}&cid=${channelId}` : ''),
-      slack:
-        `slack://channel?team=${msg.user_team || msg.team}&id=${channelId}&message=${ts}` +
-        (msg.thread_ts ? `&thread_ts=${msg.thread_ts}` : ''),
-    },
+    slackLink: getSlackLink(profile, msg, deepLinking),
     edited: msg.edited,
     updatedAt: msg.updatedAt,
   };
+}
+
+function getSlackLink(
+  profile: SlackState['profile'],
+  msg: Message,
+  deepLinking: GlobalSettingState['deepLinking'],
+): Tweet['slackLink'] {
+  const base = { type: deepLinking };
+  const channelId = msg.channel!;
+  const ts = msg.ts;
+  const timestamp = 'p' + ts.replace('.', '');
+
+  switch (deepLinking) {
+    case 'viaBrowser':
+      return {
+        ...base,
+        link:
+          profile.domain === undefined
+            ? undefined
+            : `https://${profile.domain}.slack.com/archives/${channelId}/${timestamp}${
+                msg.thread_ts ? `?thread_ts=${msg.thread_ts}&cid=${channelId}` : ''
+              }`,
+      };
+    case 'directly':
+      return {
+        ...base,
+        link: `slack://channel?team=${msg.user_team || msg.team}&id=${channelId}&message=${ts}${
+          msg.thread_ts ? `&thread_ts=${msg.thread_ts}` : ''
+        }`,
+      };
+    default:
+      assertNever(deepLinking);
+  }
 }
 
 export function convertEmoji(name: string, imageUrl: string): CustomEmoji {
