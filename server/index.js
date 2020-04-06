@@ -65,19 +65,19 @@ app.post('/connection', (req, res) => {
   if (!(req.session && req.session.passport && req.session.passport.user)) {
     return res.status(401).end();
   }
-  const { userId, accessToken, domain } = req.session.passport.user;
+  const { userId, accessToken } = req.session.passport.user;
 
-  if (!(userId && accessToken && domain)) {
+  if (!(userId && accessToken)) {
     return res.status(401).end();
   }
 
   if (hasClient(userId)) {
-    return res.json({ userId, accessToken, domain });
+    return res.json({ userId, accessToken });
   }
   // note: async function使うと例外が出たときにunhandledRjectionをルーター処理内でcatch出来なくてサーバーが応答できなくなるので仕方なくpromiseチェインでやってる
   return startSocket(io, { userId, accessToken })
     .then(() => {
-      res.json({ userId, accessToken, domain });
+      res.json({ userId, accessToken });
     })
     .catch(err => {
       res.status(401).end();

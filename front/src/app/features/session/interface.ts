@@ -5,7 +5,7 @@ import { SessionSymbol } from './symbol';
 export const [handle, SessionActions, getSessionState] = createModule(SessionSymbol)
   .withActions({
     authRequiredRoutesTransitionStarted: null,
-    connectionInitialized: (payload: { userId: string; accessToken: string; domain: string }) => ({
+    connectionInitialized: (payload: { userId: string; accessToken: string }) => ({
       payload,
     }),
   })

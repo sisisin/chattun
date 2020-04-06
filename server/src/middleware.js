@@ -43,7 +43,7 @@ module.exports = {
           name: 'slack-identity',
         },
         (accessToken, refreshToken, profile, done) => {
-          done(null, { accessToken, userId: profile.id, domain: profile.team.domain });
+          done(null, { accessToken, userId: profile.id });
         },
       ),
     );
@@ -58,7 +58,7 @@ module.exports = {
           name: 'slack-client',
         },
         (accessToken, refreshToken, profile, done) => {
-          done(null, { accessToken, userId: profile.id, domain: profile.team.domain });
+          done(null, { accessToken, userId: profile.id });
         },
       ),
     );

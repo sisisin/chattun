@@ -13,7 +13,7 @@ export const epic = handle
     }
 
     const result = await httpClient
-      .post<{}, { userId: string; accessToken: string; domain: string }>('/connection')
+      .post<{}, { userId: string; accessToken: string }>('/connection')
       .toPromise();
     if (result.left != null) {
       // サーバーの実装的に401以外は異常系
@@ -26,10 +26,10 @@ export const epic = handle
       return null;
     }
 
-    const { userId, accessToken, domain } = result.right.body;
+    const { userId, accessToken } = result.right.body;
     connect(userId);
     instantiateSlackClient(accessToken);
-    return SessionActions.connectionInitialized({ userId, accessToken, domain });
+    return SessionActions.connectionInitialized({ userId, accessToken });
   });
 
 // --- Reducer ---
