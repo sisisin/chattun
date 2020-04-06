@@ -94,7 +94,7 @@ export const TweetItem = ({ message, parentRef }: Props) => {
               <IconThread className="tweet-actions-list-thread-icon" />
             </span>
           </AppLink>
-          <DeepLinkingButton urls={message.deepLink} />
+          <DeepLinkingButton {...message.slackLink} />
         </div>
       </div>
 

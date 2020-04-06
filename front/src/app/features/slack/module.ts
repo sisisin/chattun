@@ -18,6 +18,10 @@ export const epic = handle
   .on(SessionActions.connectionInitialized, async () => {
     const channels = await getSlackClient().listChannels();
     return SlackActions.fetchChannels(channels);
+  })
+  .on(SessionActions.connectionInitialized, async () => {
+    const team = await getSlackClient().teamInfo();
+    return SlackActions.fetchTeamInfo(team);
   });
 
 // --- Reducer ---
@@ -44,6 +48,9 @@ export const reducer = handle
   .reducer(initialState)
   .on(SessionActions.connectionInitialized, (state, { userId }) => {
     state.profile = { userId };
+  })
+  .on(SlackActions.fetchTeamInfo, (state, { teamInfo }) => {
+    state.profile.domain = teamInfo.team.domain;
   })
   .on(SlackActions.fetchEmojis, (state, { emojis }) => {
     state.emojis = emojis.emoji;

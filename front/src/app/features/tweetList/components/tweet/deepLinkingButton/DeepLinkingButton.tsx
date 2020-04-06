@@ -1,28 +1,31 @@
 import { IconOpenSlack } from 'app/components/icons/Icons';
-import { getGlobalSettingState } from 'app/features/globalSetting/interface';
+import { Tweet } from 'app/features/timeline/interface';
+import { assertNever } from 'app/types/typeAssertions';
 import * as React from 'react';
 
-type DeepLinkingUrls = {
-  web: string;
-  slack: string;
-};
+type Props = Tweet['slackLink'];
 
-export const DeepLinkingButton = ({ urls }: { urls: DeepLinkingUrls }) => {
-  const globalSettingState = getGlobalSettingState.useState();
-  const deepLinkingType = globalSettingState.deepLinking;
+export const DeepLinkingButton: React.FC<Props> = ({ link, type }) => {
+  if (link === undefined) {
+    return (
+      <span className="tweet-actions-list-openslack">
+        <IconOpenSlack className="tweet-actions-list-openslack-icon" />
+      </span>
+    );
+  }
+
   const props: React.AnchorHTMLAttributes<HTMLAnchorElement> = (() => {
-    if (deepLinkingType === 'directly') {
-      return { href: urls.slack, className: 'tweet-actions-list-openslack' };
-    } else if (deepLinkingType === 'viaBrowser') {
+    const base = { href: link, className: 'tweet-actions-list-openslack' };
+    if (type === 'directly') {
+      return base;
+    } else if (type === 'viaBrowser') {
       return {
-        href: urls.web,
+        ...base,
         target: '_blank',
         rel: 'noopener noreferrer',
-        className: 'tweet-actions-list-openslack',
       };
     } else {
-      const exhaustiveCheck: never = deepLinkingType;
-      return exhaustiveCheck;
+      assertNever(type);
     }
   })();
   return (
