@@ -28,6 +28,6 @@ export interface SlackState {
   markedByChannels: Record<ChannelId, Ts>;
   profile: {
     userId: string;
-    domain: string;
+    domain?: string;
   };
 }
