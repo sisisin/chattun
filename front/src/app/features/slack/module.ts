@@ -42,8 +42,8 @@ export function toObject<T extends { id: string }>(target: T[]): Partial<Record<
 
 export const reducer = handle
   .reducer(initialState)
-  .on(SessionActions.connectionInitialized, (state, { userId, domain }) => {
-    state.profile = { userId, domain };
+  .on(SessionActions.connectionInitialized, (state, { userId }) => {
+    state.profile = { userId };
   })
   .on(SlackActions.fetchEmojis, (state, { emojis }) => {
     state.emojis = emojis.emoji;
