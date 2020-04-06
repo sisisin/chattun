@@ -32,4 +32,12 @@ export namespace SlackAPI {
       emoji: SlackEmoji;
     }
   }
+
+  export namespace Team {
+    export interface Info extends Response {
+      team: {
+        domain: string;
+      };
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import { CustomEmoji } from 'emoji-mart';
 import { createModule } from 'typeless';
 import { TimelineSymbol } from './symbol';
+import { DeepLinking } from 'app/types/TimelineSettings';
 
 // --- Actions ---
 export const [handle, TimelineActions, getTimelineState] = createModule(TimelineSymbol)
@@ -36,9 +37,9 @@ export interface Tweet {
   iconUrl: string;
   text: string;
   reactions: Reaction[];
-  deepLink: {
-    web: string;
-    slack: string;
+  slackLink: {
+    type: DeepLinking;
+    link: string | undefined;
   };
   edited?: {
     ts: string;

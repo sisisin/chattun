@@ -1,5 +1,5 @@
 import { SlackAPI } from 'app/types/slack/SlackAPI';
-import { auth, channels, conversations, emoji, reactions, users } from 'slack';
+import { auth, channels, conversations, emoji, reactions, users, team } from 'slack';
 import { EitherFactory } from '../EitherContainer';
 import { SlackEntity } from 'app/types/slack';
 
@@ -106,5 +106,8 @@ class SlackClient {
   }
   mark(channel: string, ts: string) {
     return channels.mark({ token: this.token, channel, ts });
+  }
+  teamInfo(): Promise<SlackAPI.Team.Info> {
+    return team.info({ token: this.token }) as Promise<SlackAPI.Team.Info>;
   }
 }

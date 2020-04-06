@@ -8,6 +8,7 @@ export const [handle, SlackActions, getSlackState] = createModule(SlackSymbol)
     fetchEmojis: (emojis: SlackAPI.Emoji.List) => ({ payload: { emojis } }),
     fetchUsers: (users: SlackAPI.Users.List) => ({ payload: { users } }),
     fetchChannels: (channels: SlackAPI.Conversations.List) => ({ payload: { channels } }),
+    fetchTeamInfo: (teamInfo: SlackAPI.Team.Info) => ({ payload: { teamInfo } }),
     mergeMessages: (messages: SlackEntity.Message.Basic[]) => ({ payload: { messages } }),
     onMessage: (message: SlackRTM.Message) => ({ payload: { message } }),
     onReactionAdded: (reaction: SlackRTM.Reaction.Added) => ({ payload: { reaction } }),
@@ -28,6 +29,6 @@ export interface SlackState {
   markedByChannels: Record<ChannelId, Ts>;
   profile: {
     userId: string;
-    domain: string;
+    domain?: string;
   };
 }
