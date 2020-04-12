@@ -9,7 +9,7 @@ import { handle, ThreadActions, ThreadParam, ThreadState } from './interface';
 // --- Epic ---
 handle.epic().on(ThreadActions.mounted, async ({ channelId, ts }) => {
   const res = await slackClient.repliesConversations(channelId, ts);
-  return SlackActions.mergeMessages([...res.messages].reverse());
+  return SlackActions.mergeMessages(res.messages);
 });
 
 // --- Reducer ---
