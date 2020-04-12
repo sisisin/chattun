@@ -31,3 +31,5 @@ actual_img
 .envrc
 
 stories.asketch.json
+
+public/sw.js

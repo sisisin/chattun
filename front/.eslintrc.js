@@ -83,5 +83,12 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 0,
       },
     },
+    {
+      files: ['./swSrc/**/*.ts'],
+      ...tsBaseConfig,
+      parserOptions: {
+        project: './swSrc/tsconfig.json',
+      },
+    },
   ],
 };
