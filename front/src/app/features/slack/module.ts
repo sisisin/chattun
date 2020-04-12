@@ -3,10 +3,29 @@ import { slackClient } from 'app/services/http/SlackClient';
 import { SessionActions } from '../session/interface';
 import { TimelineActions } from '../timeline/interface';
 import { handle, SlackActions, SlackState } from './interface';
+import { connect } from 'app/services/rtm-socket';
 
 // --- Epic ---
 export const epic = handle
   .epic()
+  .on(SessionActions.connectionInitialized, async () => {
+    await connect();
+    return null;
+  })
+  .on(SlackActions.onRTMEmitted, ({ msg }) => {
+    switch (msg.type) {
+      case 'message':
+        return SlackActions.onMessage(msg);
+      case 'reaction_added':
+        return SlackActions.onReactionAdded(msg);
+      case 'reaction_removed':
+        return SlackActions.onReactionRemoved(msg);
+      case 'channel_marked':
+        return SlackActions.onChannelMarked(msg);
+      default:
+        return null;
+    }
+  })
   .on(SessionActions.connectionInitialized, async () => {
     const emojis = await slackClient.listEmojis();
     return SlackActions.fetchEmojis(emojis);

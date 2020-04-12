@@ -1,6 +1,5 @@
 import { appHistory } from 'app/services/appHistory';
 import { httpClient } from 'app/services/http/HttpClient';
-import { connect } from 'app/services/rtm-socket';
 import { getSessionState, handle, SessionActions, SessionState } from './interface';
 
 // --- Epic ---
@@ -24,10 +23,7 @@ export const epic = handle
       appHistory.push('/login');
       return null;
     }
-
-    const { userId, accessToken } = result.right.body;
-    connect(accessToken);
-    return SessionActions.connectionInitialized({ userId, accessToken });
+    return SessionActions.connectionInitialized(result.right.body);
   });
 
 // --- Reducer ---
