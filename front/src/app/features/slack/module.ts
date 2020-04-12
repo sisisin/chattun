@@ -1,5 +1,5 @@
 import { isAfterMarked } from 'app/features/slack/SlackQuery';
-import { getSlackClient } from 'app/services/http/SlackClient';
+import { slackClient } from 'app/services/http/SlackClient';
 import { SessionActions } from '../session/interface';
 import { TimelineActions } from '../timeline/interface';
 import { handle, SlackActions, SlackState } from './interface';
@@ -8,19 +8,19 @@ import { handle, SlackActions, SlackState } from './interface';
 export const epic = handle
   .epic()
   .on(SessionActions.connectionInitialized, async () => {
-    const emojis = await getSlackClient().listEmojis();
+    const emojis = await slackClient.listEmojis();
     return SlackActions.fetchEmojis(emojis);
   })
   .on(SessionActions.connectionInitialized, async () => {
-    const users = await getSlackClient().listUsers();
+    const users = await slackClient.listUsers();
     return SlackActions.fetchUsers(users);
   })
   .on(SessionActions.connectionInitialized, async () => {
-    const channels = await getSlackClient().listChannels();
+    const channels = await slackClient.listChannels();
     return SlackActions.fetchChannels(channels);
   })
   .on(SessionActions.connectionInitialized, async () => {
-    const team = await getSlackClient().teamInfo();
+    const team = await slackClient.teamInfo();
     return SlackActions.fetchTeamInfo(team);
   });
 

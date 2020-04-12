@@ -1,5 +1,5 @@
 import { useRouter } from 'app/hooks/useRouter';
-import { getSlackClient } from 'app/services/http/SlackClient';
+import { slackClient } from 'app/services/http/SlackClient';
 import React from 'react';
 import { useActions } from 'typeless';
 import { SlackActions } from '../slack/interface';
@@ -8,7 +8,7 @@ import { handle, ThreadActions, ThreadParam, ThreadState } from './interface';
 
 // --- Epic ---
 handle.epic().on(ThreadActions.mounted, async ({ channelId, ts }) => {
-  const res = await getSlackClient().repliesConversations(channelId, ts);
+  const res = await slackClient.repliesConversations(channelId, ts);
   return SlackActions.mergeMessages([...res.messages].reverse());
 });
 
