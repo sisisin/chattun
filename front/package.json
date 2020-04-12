@@ -113,7 +113,6 @@
     "react-docgen-typescript-webpack-plugin": "1.1.0",
     "react-hook-form": "5.1.1",
     "react-outside-click-handler": "1.3.0",
-    "react-router": "5.1.2",
     "react-router-dom": "5.1.2",
     "reg-keygen-git-hash-plugin": "0.8.5",
     "reg-notify-github-plugin": "0.8.5",
