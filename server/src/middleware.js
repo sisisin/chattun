@@ -1,36 +1,34 @@
-const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 const redis = require('redis');
-const promisify = require('util').promisify;
 const passport = require('passport');
 const SlackStrategy = require('passport-slack-oauth2').Strategy;
 const { CLIENT_ID, CLIENT_SECRET } = process.env;
 const helmet = require('helmet');
-const passportSocketIo = require('passport.socketio');
-const { getSessionConfig, serverBasePath, frontBasePathSecondary, frontBasePath, redisConfig } = require('./config');
+const { serverBasePath, frontBasePathSecondary, frontBasePath, redisConfig } = require('./config');
 
 const redisClient = redis.createClient(redisConfig);
 
 const redisStore = new RedisStore({ client: redisClient, ttl: 86400 }); // 1day
 const cors = require('cors');
 module.exports = {
-  redisClient: {
-    get: promisify(redisClient.get).bind(redisClient),
-    keys: promisify(redisClient.keys).bind(redisClient),
-  },
   redisStore,
   applySession() {
-    return session(getSessionConfig(redisStore));
-  },
-  applyPassportSocketIo() {
-    return passportSocketIo.authorize({
-      cookieParser: cookieParser,
-      key: 'connect.sid',
-      secret: 'abkl;aew',
+    return session({
       store: redisStore,
+      name: 'connect.sid',
+      secret: 'abkl;aew',
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+        path: '/',
+        sameSite: 'none'
+      },
     });
   },
+
   createPassport() {
     passport.use(
       new SlackStrategy(

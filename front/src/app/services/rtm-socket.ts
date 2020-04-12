@@ -1,33 +1,35 @@
 import { SlackActions } from 'app/features/slack/interface';
 import { appRegistry } from 'app/services/AppRegistry';
 import { SlackRTM } from 'app/types/slack';
-import * as ioClient from 'socket.io-client';
-import { basePath } from '../config';
-const io = (ioClient as any).default;
-let socket: SocketIOClient.Socket | null = null;
-// const io = process.env.NODE_ENV === 'test'?(ioClient.default):ioClient
+import { rtm } from 'slack';
 
-export function connect(userId: string) {
-  socket = io(`${basePath}/${userId}`, {
-    reconnection: true,
-    reconnectionDelay: 1000,
-    reconnectionDelayMax: 5000,
-    reconnectionAttempts: 99999,
-  }) as SocketIOClient.Socket;
-  socket.on('message', (e: SlackRTM.Message) => {
-    appRegistry.dispatch(SlackActions.onMessage(e));
-  });
-  socket.on('reaction_added', (e: SlackRTM.Reaction.Added) => {
-    appRegistry.dispatch(SlackActions.onReactionAdded(e));
-  });
-  socket.on('reaction_removed', (e: SlackRTM.Reaction.Removed) => {
-    appRegistry.dispatch(SlackActions.onReactionRemoved(e));
-  });
-  socket.on('channel_marked', (e: SlackRTM.Channels.Mark) => {
-    appRegistry.dispatch(SlackActions.onChannelMarked(e));
-  });
+let started = false;
+export async function connect(token: string) {
+  const res = await rtm.start({ token });
+  const socket = new WebSocket(res.url);
+  socket.onmessage = e => {
+    const msg: SlackRTM.Event = JSON.parse(e.data);
+
+    switch (msg.type) {
+      case 'message':
+        appRegistry.dispatch(SlackActions.onMessage(msg));
+        break;
+
+      case 'reaction_added':
+        appRegistry.dispatch(SlackActions.onReactionAdded(msg));
+        break;
+      case 'reaction_removed':
+        appRegistry.dispatch(SlackActions.onReactionRemoved(msg));
+        break;
+
+      case 'channel_marked':
+        appRegistry.dispatch(SlackActions.onChannelMarked(msg));
+        break;
+    }
+  };
+  started = true;
 }
 
 export function isConnected() {
-  return socket != null;
+  return started;
 }
