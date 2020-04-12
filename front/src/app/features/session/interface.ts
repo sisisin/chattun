@@ -14,4 +14,5 @@ export const [handle, SessionActions, getSessionState] = createModule(SessionSym
 // --- Types ---
 export interface SessionState {
   isConnected: boolean;
+  accessToken: string | undefined;
 }

@@ -1,5 +1,5 @@
 import { TweetActions } from 'app/features/tweetList/interface';
-import { getSlackClient } from 'app/services/http/SlackClient';
+import { slackClient } from 'app/services/http/SlackClient';
 import React from 'react';
 import { OperatorFunction } from 'rxjs';
 import * as Rx from 'typeless/rx';
@@ -36,7 +36,7 @@ handle.epic().onMany([TimelineActions.$mounted, TimelineActions.$remounted], (_,
     withInterval(1000), // mergeMapされたstreamはほぼインターバルなしで流れてくるので1secずつ間をもたせる
     Rx.mergeMap(async msg => {
       try {
-        await getSlackClient().mark(msg.channelId, msg.ts);
+        await slackClient.mark(msg.channelId, msg.ts);
         return TimelineActions.markFulfilled(msg);
       } catch {
         return null;
