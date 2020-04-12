@@ -1,7 +1,7 @@
 import React from 'react';
 import { EmojiMenuView } from './components/EmojiMenuView';
 import { EmojiMenuActions, EmojiMenuState, handle, getEmojiMenuState } from './interface';
-import { getSlackClient } from 'app/services/http/SlackClient';
+import { slackClient } from 'app/services/http/SlackClient';
 
 // --- Epic ---
 handle
@@ -19,14 +19,14 @@ handle
       return null;
     }
 
-    await getSlackClient().addReaction(message.channelId, message.ts, reaction);
+    await slackClient.addReaction(message.channelId, message.ts, reaction);
     return null;
   })
   .on(EmojiMenuActions.removeReaction, async ({ message, reaction }) => {
     if (message === undefined) {
       return null;
     }
-    await getSlackClient().removeReaction(message.channelId, message.ts, reaction);
+    await slackClient.removeReaction(message.channelId, message.ts, reaction);
     return null;
   });
 

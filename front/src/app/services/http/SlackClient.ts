@@ -1,33 +1,30 @@
 import { SlackAPI } from 'app/types/slack/SlackAPI';
-import { auth, channels, conversations, emoji, reactions, users, team } from 'slack';
+import { auth, channels, conversations, emoji, reactions, users, team, rtm } from 'slack';
 import { EitherFactory } from '../EitherContainer';
 import { SlackEntity } from 'app/types/slack';
+import { getSessionState } from 'app/features/session/interface';
 
-let slackClient: SlackClient | null = null;
-export function instantiateSlackClient(token: string) {
-  slackClient = new SlackClient(token);
-}
-export function getSlackClient() {
-  if (!slackClient) {
-    throw new Error('slack client is not instantiated');
-  }
-  return slackClient;
-}
 class SlackClient {
-  constructor(private token: string) {}
+  private getToken() {
+    const { accessToken } = getSessionState();
+    if (accessToken === undefined) {
+      throw new Error('SessionState.accessToken is uninitialized');
+    }
+    return { token: accessToken };
+  }
   authTest() {
-    return auth.test({ token: this.token }).then(
+    return auth.test(this.getToken()).then(
       res => EitherFactory.createRight(res),
       err => EitherFactory.createLeft(err),
     );
   }
 
   listEmojis(): Promise<SlackAPI.Emoji.List> {
-    return emoji.list({ token: this.token }) as Promise<SlackAPI.Emoji.List>;
+    return emoji.list(this.getToken()) as Promise<SlackAPI.Emoji.List>;
   }
 
   listUsers(): Promise<SlackAPI.Users.List> {
-    const baseParam = { token: this.token, limit: 200 };
+    const baseParam = { ...this.getToken(), limit: 200 };
     function rec(
       members: SlackEntity.Member[],
       cursor: string | undefined,
@@ -46,7 +43,7 @@ class SlackClient {
   }
   listChannels(): Promise<SlackAPI.Conversations.List> {
     const baseParam = {
-      token: this.token,
+      ...this.getToken(),
       types: 'public_channel,private_channel,im,mpim',
       exclude_archived: true,
       limit: 200,
@@ -80,7 +77,7 @@ class SlackClient {
 
   addReaction(channelId: string, ts: string, reaction: string): Promise<SlackAPI.Response> {
     return reactions.add({
-      token: this.token,
+      ...this.getToken(),
       name: reaction,
       channel: channelId,
       timestamp: ts,
@@ -88,7 +85,7 @@ class SlackClient {
   }
   removeReaction(channelId: string, ts: string, reaction: string): Promise<SlackAPI.Response> {
     return reactions.remove({
-      token: this.token,
+      ...this.getToken(),
       name: reaction,
       channel: channelId,
       timestamp: ts,
@@ -96,7 +93,7 @@ class SlackClient {
   }
   repliesConversations(channel: string, ts: string): Promise<SlackAPI.Conversations.Replies> {
     return (conversations.replies({
-      token: this.token,
+      ...this.getToken(),
       channel,
       ts,
     }) as Promise<SlackAPI.Conversations.Replies>).then(res => ({
@@ -105,9 +102,14 @@ class SlackClient {
     })) as Promise<SlackAPI.Conversations.Replies>;
   }
   mark(channel: string, ts: string) {
-    return channels.mark({ token: this.token, channel, ts });
+    return channels.mark({ ...this.getToken(), channel, ts });
   }
   teamInfo(): Promise<SlackAPI.Team.Info> {
-    return team.info({ token: this.token }) as Promise<SlackAPI.Team.Info>;
+    return team.info(this.getToken()) as Promise<SlackAPI.Team.Info>;
+  }
+  startRtm(): Promise<SlackAPI.RTM.Start> {
+    return rtm.start(this.getToken()) as Promise<SlackAPI.RTM.Start>;
   }
 }
+
+export const slackClient = new SlackClient();

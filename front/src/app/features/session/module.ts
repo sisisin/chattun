@@ -1,7 +1,5 @@
 import { appHistory } from 'app/services/appHistory';
 import { httpClient } from 'app/services/http/HttpClient';
-import { instantiateSlackClient } from 'app/services/http/SlackClient';
-import { connect } from 'app/services/rtm-socket';
 import { getSessionState, handle, SessionActions, SessionState } from './interface';
 
 // --- Epic ---
@@ -25,22 +23,20 @@ export const epic = handle
       appHistory.push('/login');
       return null;
     }
-
-    const { userId, accessToken } = result.right.body;
-    connect(accessToken);
-    instantiateSlackClient(accessToken);
-    return SessionActions.connectionInitialized({ userId, accessToken });
+    return SessionActions.connectionInitialized(result.right.body);
   });
 
 // --- Reducer ---
 const initialState: SessionState = {
   isConnected: false,
+  accessToken: undefined,
 };
 
 export const reducer = handle
   .reducer(initialState)
-  .on(SessionActions.connectionInitialized, state => {
+  .on(SessionActions.connectionInitialized, (state, { accessToken }) => {
     state.isConnected = true;
+    state.accessToken = accessToken;
   });
 
 // --- Module ---
