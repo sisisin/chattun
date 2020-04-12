@@ -10,6 +10,7 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read http://bit.ly/CRA-PWA
 
+const isDebug = false;
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -19,7 +20,9 @@ const isLocalhost = Boolean(
 );
 
 export function register(config: any) {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  const shouldRegister =
+    isDebug || (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator);
+  if (shouldRegister) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
