@@ -33,11 +33,7 @@ const tsBaseConfig = {
           {
             name: 'react-router-dom',
             importNames: ['useLocation', 'useParams', 'useHistory'],
-            message: 'useRouteState.tsを使って（API足りない場合はこっちに追加して）',
-          },
-          {
-            name: 'react-router',
-            message: 'react-router-domを使いましょう',
+            message: 'useRouter.tsを使って（API足りない場合はこっちに追加して）',
           },
         ],
       },
