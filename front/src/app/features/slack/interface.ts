@@ -10,6 +10,9 @@ export const [handle, SlackActions, getSlackState] = createModule(SlackSymbol)
     fetchChannels: (channels: SlackAPI.Conversations.List) => ({ payload: { channels } }),
     fetchTeamInfo: (teamInfo: SlackAPI.Team.Info) => ({ payload: { teamInfo } }),
     mergeMessages: (messages: SlackEntity.Message.Basic[]) => ({ payload: { messages } }),
+
+    // RTM
+    onRTMEmitted: (msg: SlackRTM.Event) => ({ payload: { msg } }),
     onMessage: (message: SlackRTM.Message) => ({ payload: { message } }),
     onReactionAdded: (reaction: SlackRTM.Reaction.Added) => ({ payload: { reaction } }),
     onReactionRemoved: (reaction: SlackRTM.Reaction.Removed) => ({ payload: { reaction } }),

@@ -1,26 +1,45 @@
 import { isAfterMarked } from 'app/features/slack/SlackQuery';
-import { getSlackClient } from 'app/services/http/SlackClient';
+import { slackClient } from 'app/services/http/SlackClient';
 import { SessionActions } from '../session/interface';
 import { TimelineActions } from '../timeline/interface';
 import { handle, SlackActions, SlackState } from './interface';
+import { connect } from 'app/services/rtm-socket';
 
 // --- Epic ---
 export const epic = handle
   .epic()
   .on(SessionActions.connectionInitialized, async () => {
-    const emojis = await getSlackClient().listEmojis();
+    await connect();
+    return null;
+  })
+  .on(SlackActions.onRTMEmitted, ({ msg }) => {
+    switch (msg.type) {
+      case 'message':
+        return SlackActions.onMessage(msg);
+      case 'reaction_added':
+        return SlackActions.onReactionAdded(msg);
+      case 'reaction_removed':
+        return SlackActions.onReactionRemoved(msg);
+      case 'channel_marked':
+        return SlackActions.onChannelMarked(msg);
+      default:
+        return null;
+    }
+  })
+  .on(SessionActions.connectionInitialized, async () => {
+    const emojis = await slackClient.listEmojis();
     return SlackActions.fetchEmojis(emojis);
   })
   .on(SessionActions.connectionInitialized, async () => {
-    const users = await getSlackClient().listUsers();
+    const users = await slackClient.listUsers();
     return SlackActions.fetchUsers(users);
   })
   .on(SessionActions.connectionInitialized, async () => {
-    const channels = await getSlackClient().listChannels();
+    const channels = await slackClient.listChannels();
     return SlackActions.fetchChannels(channels);
   })
   .on(SessionActions.connectionInitialized, async () => {
-    const team = await getSlackClient().teamInfo();
+    const team = await slackClient.teamInfo();
     return SlackActions.fetchTeamInfo(team);
   });
 

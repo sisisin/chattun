@@ -40,4 +40,9 @@ export namespace SlackAPI {
       };
     }
   }
+  export namespace RTM {
+    export interface Start extends Response {
+      url: string;
+    }
+  }
 }
