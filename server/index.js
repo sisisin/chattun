@@ -1,11 +1,11 @@
 const express = require('express');
-const app = express();
-const http = require('http').Server(app);
-const middlewares = require('./src/middleware');
 const createError = require('http-errors');
 const logger = require('morgan');
+
+const middlewares = require('./src/middleware');
 const { serverBasePath, frontBasePath } = require('./src/config');
 
+const app = express();
 app.use(middlewares.applyHelmet());
 app.set('trust proxy', 1);
 app.use(middlewares.applySession());
@@ -61,6 +61,6 @@ app.use(function (err, req, res) {
   res.json({ message: err.message, ...error });
 });
 
-http.listen(process.env.PORT || 3100, () => {
+app.listen(process.env.PORT || 3100, () => {
   console.log(`server running at ${serverBasePath}`);
 });
