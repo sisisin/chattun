@@ -1,13 +1,23 @@
 import { SlackEntity } from './SlackEntity';
 
 export namespace SlackRTM {
+  type Event = Channels | Reaction | Message;
+
+  type Channels = Channels.Mark;
   export namespace Channels {
-    export type Mark = SlackEntity.Mark;
+    export type Mark = SlackEntity.Mark & {
+      type: 'channel_marked';
+    };
   }
 
+  type Reaction = Reaction.Added | Reaction.Removed;
   export namespace Reaction {
-    export type Added = SlackEntity.Reaction;
-    export type Removed = SlackEntity.Reaction;
+    export type Added = SlackEntity.Reaction & {
+      type: 'reaction_added';
+    };
+    export type Removed = SlackEntity.Reaction & {
+      type: 'reaction_removed';
+    };
   }
 
   export type Message = SlackEntity.Message.Basic | Message.Changed | Message.Deleted;
