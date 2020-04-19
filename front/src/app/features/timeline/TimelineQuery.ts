@@ -170,17 +170,20 @@ export const textToHtml = (
   emojis: SlackState['emojis'],
 ) => {
   const fromFile = fileToText(message);
-  if (fromFile) {
-    return fromFile;
-  }
 
   const userReplacedMessage = toMention(message, memberMap);
-
   // fixme: image以外が死ぬ
   const imageAttachedText = textWithAttachmentToText(message, userReplacedMessage);
   const emojifiedText = textToEmojified(imageAttachedText, emojis);
   const mdfied = textToMd(emojifiedText);
-  return mdfied;
+
+  if (fromFile) {
+    return `${mdfied}
+<br>
+${fromFile}`;
+  } else {
+    return mdfied;
+  }
 };
 
 const getFilteredMessages = createSelector(
