@@ -7,6 +7,7 @@ import { emojify } from 'node-emoji';
 import { createSelector } from 'typeless';
 import { getGlobalSettingState } from '../globalSetting/interface';
 import { slackMessageToTweet, toSlackMessages } from '../slack/SlackQuery';
+import { basePath } from 'app/config';
 
 function getMditInstance() {
   const md =
@@ -95,7 +96,15 @@ export const fileToText = (fileMessageRow: Message) => {
   }
   return fileMessageRow.files
     .filter(({ filetype }) => imgFileRegexp.test(filetype))
-    .map(({ thumb_360 }) => `<img class="tweet-contents-image" src="${thumb_360}" />`)
+    .map(({ thumb_360, url_private }) => {
+      const u = new URL('/file', basePath);
+      u.searchParams.append('target_url', thumb_360);
+      return `
+      <a href="${url_private}" target="_blank" rel="noopener">
+        <img class="tweet-contents-image" src="${u}" />
+      </a>
+`;
+    })
     .join('<br>');
 };
 
@@ -161,17 +170,20 @@ export const textToHtml = (
   emojis: SlackState['emojis'],
 ) => {
   const fromFile = fileToText(message);
-  if (fromFile) {
-    return fromFile;
-  }
 
   const userReplacedMessage = toMention(message, memberMap);
-
   // fixme: image以外が死ぬ
   const imageAttachedText = textWithAttachmentToText(message, userReplacedMessage);
   const emojifiedText = textToEmojified(imageAttachedText, emojis);
   const mdfied = textToMd(emojifiedText);
-  return mdfied;
+
+  if (fromFile) {
+    return `${mdfied}
+<br>
+${fromFile}`;
+  } else {
+    return mdfied;
+  }
 };
 
 const getFilteredMessages = createSelector(
