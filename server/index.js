@@ -1,6 +1,7 @@
 const express = require('express');
 const createError = require('http-errors');
 const logger = require('morgan');
+const request = require('request')
 
 const middlewares = require('./src/middleware');
 const { serverBasePath, frontBasePath } = require('./src/config');
@@ -23,20 +24,6 @@ app.get('/debug', (req, res) => {
   res.status(200).end();
 });
 
-// todo: CSRF対策
-app.get('/connection', (req, res) => {
-  if (!(req.session && req.session.passport && req.session.passport.user)) {
-    return res.status(401).end();
-  }
-  const { userId, accessToken } = req.session.passport.user;
-
-  if (!(userId && accessToken)) {
-    return res.status(401).end();
-  }
-
-  return res.json({ userId, accessToken });
-});
-
 app.get('/auth/slack', passport.authorize('slack-identity'));
 
 app.get('/auth/slack/client', passport.authorize('slack-client'));
@@ -52,6 +39,43 @@ app.get(
   passport.authenticate('slack-client', { failureRedirect: `${frontBasePath}` }),
   (req, res) => res.redirect(frontBasePath),
 );
+
+// check authentication
+app.use((req, res, next) => {
+  if (!(req.session && req.session.passport && req.session.passport.user)) {
+    return res.status(401).end();
+  }
+  const { userId, accessToken } = getSessionProfileFromRequest(req)
+  if (!(userId && accessToken)) {
+    return res.status(401).end();
+  }
+  next();
+})
+
+app.get('/file', async (req, res) => {
+  const { accessToken } = getSessionProfileFromRequest(req)
+  const isValidTargetUrl = req.query.target_url.startsWith('https://files.slack.com')
+  if (isValidTargetUrl) {
+    request({
+      url: req.query.target_url,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      }
+    }).pipe(res)
+  } else {
+    res.status(400).end();
+  }
+})
+
+app.get('/connection', (req, res) => {
+  const { userId, accessToken } = getSessionProfileFromRequest(req)
+  return res.json({ userId, accessToken });
+});
+
+function getSessionProfileFromRequest(req) {
+  const { userId, accessToken } = req.session.passport.user;
+  return { userId, accessToken }
+}
 
 app.use((_, __, next) => next(createError(404)));
 app.use(function (err, req, res) {
