@@ -1,7 +1,14 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { IconAddReaction, IconSetting, IconThread, IconOpenSlack, IconArrow } from './Icons';
+import {
+  IconAddReaction,
+  IconSetting,
+  IconThread,
+  IconOpenSlack,
+  IconArrow,
+  IconCheck,
+} from './Icons';
 
 storiesOf('Icons', module).add('all', () => {
   return (
@@ -25,6 +32,10 @@ storiesOf('Icons', module).add('all', () => {
       <li>
         <IconArrow />
         <div>IconArrow</div>
+      </li>
+      <li>
+        <IconCheck />
+        <div>IconCheck</div>
       </li>
     </ul>
   );

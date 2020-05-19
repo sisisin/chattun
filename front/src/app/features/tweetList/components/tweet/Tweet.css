@@ -146,6 +146,7 @@
 
 .tweet-actions-list-openslack {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   justify-self: right;
@@ -170,7 +171,7 @@
 
 .tweet-actions-list-emojis-emoji {
   padding: 0 6px 2px;
-  margin-right: 8px;
+  margin: 0 8px 8px 0;
   border: 1px solid var(--border-sub);
   border-radius: 4px;
 

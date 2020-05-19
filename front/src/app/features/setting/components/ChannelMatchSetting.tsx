@@ -29,26 +29,31 @@ export const ChannelMatchSetting: React.FC = () => {
     >
       <div className="setting-group">
         <h3 className="setting-group-title">Channel Match</h3>
-        <div className="select-group">
-          <input className="button-primary" type="submit" value="設定"></input>
-        </div>
-        <div className="select-group">
+        <div className="setting-group-match">
           <input
             name="matchValue"
             defaultValue={channelMatch?.matchValue ?? ''}
             placeholder="例: times_"
             ref={register}
           ></input>
-        </div>
-        <div className="select-group">
-          <select name="matchMethod" ref={register} defaultValue={channelMatch?.matchMethod}>
-            {Object.values(matchOptions).map(({ text, value }) => (
-              <option key={value} value={value}>
-                {text}
-              </option>
-            ))}
-          </select>
-          <IconArrow className="select-group-chaticon" />
+          <div className="select-group">
+            <select
+              className="select-group-item"
+              name="matchMethod"
+              ref={register}
+              defaultValue={channelMatch?.matchMethod}
+            >
+              {Object.values(matchOptions).map(({ text, value }) => (
+                <option key={value} value={value}>
+                  {text}
+                </option>
+              ))}
+            </select>
+            <IconArrow className="select-group-chaticon" />
+          </div>
+          <button className="button-primary" type="submit">
+            設定する
+          </button>
         </div>
       </div>
     </form>

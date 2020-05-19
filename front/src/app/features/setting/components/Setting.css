@@ -1,5 +1,7 @@
 .setting {
+  display: grid;
   margin: 16px auto;
+  gap: 32px 0;
 }
 
 .setting-group {

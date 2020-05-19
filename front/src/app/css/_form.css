@@ -1,23 +1,11 @@
 select {
   padding: 8px;
+  cursor: pointer;
   background: var(--background-base);
   border: 1px solid var(--border-main);
   border-radius: 5px;
   outline-color: var(--border-main);
   appearance: none;
-}
-
-.select-group {
-  position: relative;
-  display: inline-block;
-}
-
-.select-group-chaticon {
-  position: absolute;
-  top: 18px;
-  right: 8px;
-  width: 12px;
-  transform: rotate(180deg);
 }
 
 input {
@@ -33,7 +21,84 @@ input {
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  select {
+    color: var(--text-revert);
+    background: var(--background-sub);
+  }
+
+  input {
+    color: var(--text-revert);
+    background: var(--background-sub);
+  }
+
+  ::placeholder {
+    color: var(--text-sub);
+  }
+}
+
+.select-group {
+  position: relative;
+  display: inline-block;
+}
+
+.select-group-item {
+  width: 100%;
+}
+
+.select-group-chaticon {
+  position: absolute;
+  top: 18px;
+  right: 8px;
+  width: 12px;
+  transform: rotate(180deg);
+}
+
 .button-primary {
   color: var(--text-revert);
   background-color: var(--button-primary);
+  border: none;
+  border-radius: 4px;
+}
+
+.setting-group-match {
+  display: grid;
+  grid-template-columns: 1fr minmax(auto, 120px) 88px;
+  gap: 0 8px;
+  max-width: 480px;
+}
+
+.select-group-label {
+  display: grid;
+  grid-template-rows: 24px;
+  grid-template-columns: 0 36px 1fr;
+  align-items: center;
+  cursor: pointer;
+}
+
+[type='checkbox'] {
+  appearance: none;
+  opacity: 0;
+}
+
+.checkbox-chaticon {
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  background: var(--background-base);
+  border: 1px solid var(--border-main);
+  border-radius: 4px;
+  stroke: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  .checkbox-chaticon {
+    width: 28px;
+    height: 28px;
+    background: var(--background-sub);
+  }
+}
+
+:checked + .checkbox-chaticon {
+  stroke: var(--text-revert);
 }
