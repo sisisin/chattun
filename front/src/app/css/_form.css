@@ -91,14 +91,18 @@ input {
   stroke: transparent;
 }
 
+:checked + .checkbox-chaticon {
+  stroke: var(--text-main);
+}
+
 @media (prefers-color-scheme: dark) {
   .checkbox-chaticon {
     width: 28px;
     height: 28px;
     background: var(--background-sub);
   }
-}
 
-:checked + .checkbox-chaticon {
-  stroke: var(--text-revert);
+  :checked + .checkbox-chaticon {
+    stroke: var(--text-revert);
+  }
 }
