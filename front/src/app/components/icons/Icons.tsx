@@ -91,3 +91,16 @@ export const IconArrow = ({ className: additional }: IconProps) => {
     </svg>
   );
 };
+
+export const IconCheck = ({ className: additional }: IconProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 96 68"
+      className={`chaticon ${additional}`}
+      width="48"
+    >
+      <polyline points="2 34 38 66 94 2" />
+    </svg>
+  );
+};

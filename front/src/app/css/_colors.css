@@ -1,8 +1,8 @@
 :root {
   --light-main: hsl(323, 51%, 72%);
   --light-main-alt: hsl(323, 51%, 62%);
-  --dark-main: hsl(323, 51%, 32%);
-  --dark-main-alt: hsl(323, 51%, 42%);
+  --dark-main: hsl(323, 51%, 52%);
+  --dark-main-alt: hsl(323, 51%, 72%);
   --light-sub: hsl(197, 100%, 45%);
   --dark-sub: hsl(197, 100%, 12%);
   --grayscale00: hsl(0, 0%, 0%);
@@ -34,6 +34,7 @@
   --background-base: var(--grayscale10);
   --background-sub: var(--grayscale09);
   --label-base: var(--light-sub);
+  --button-primary: var(--light-main);
   --icon: var(--grayscale01);
   --shadow-color-weakest: var(--alpha-black01);
   --shadow-color-weak: var(--alpha-black02);
@@ -41,7 +42,6 @@
   --shadow-color-strong: var(--alpha-black04);
   --shadow-color-strongest: var(--alpha-black05);
   --reacted: hsl(240, 84%, 63%);
-  --button-primary: var(--light-main);
 }
 
 /* Docker Image変えたらこちらに切り替え
@@ -84,6 +84,7 @@
     --background-base: var(--grayscale02);
     --background-sub: var(--grayscale04);
     --label-base: var(--dark-sub);
+    --button-primary: var(--dark-main);
     --icon: var(--grayscale07);
     --shadow-color-weakest: var(--alpha-black01);
     --shadow-color-weak: var(--alpha-black02);
