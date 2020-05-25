@@ -41,6 +41,7 @@
   max-width: 144px;
   height: 16px;
   margin: 6px 0;
+  overflow: hidden;
   font-size: var(--font-small-ex);
   font-weight: bold;
   line-height: 16px;
