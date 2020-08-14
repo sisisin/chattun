@@ -38,9 +38,9 @@ export const TweetItem = ({ message, parentRef }: Props) => {
         <img src={message.iconUrl} alt={message.displayName} />
       </AppLink>
 
-      <div className="tweet-displayname">
-        <span>{message.displayName}</span>
-        <span className="tweet-timestamp">{new Date(+ts * 1000).toLocaleString()}</span>
+      <div className="tweet-status">
+        <span className="tweet-displayname">{message.displayName}</span>
+        <span className="tweet-timestamp">{toDisplayTime(new Date(+ts * 1000))}</span>
         {message.edited ? <span className="tweet-edited-marker">(edited)</span> : null}
       </div>
       <div className="tweet-channelname">{message.channelName}</div>
@@ -89,7 +89,7 @@ export const TweetItem = ({ message, parentRef }: Props) => {
             to="/thread/:channelId/:ts"
             params={{
               channelId: message.channelId,
-              ts: message.threadTs || message.ts,
+              ts,
             }}
           >
             <span>
@@ -99,8 +99,10 @@ export const TweetItem = ({ message, parentRef }: Props) => {
           <DeepLinkingButton {...message.slackLink} />
         </div>
       </div>
-
-      <div className="tweet-ts">{message.ts}</div>
     </li>
   );
 };
+
+function toDisplayTime(date: Date): string {
+  return `${date.getHours()}:${date.getMinutes()}`;
+}
