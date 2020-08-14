@@ -33,7 +33,13 @@
   word-wrap: break-word;
 }
 
+.tweet-timestamp {
+  font-size: var(--font-small-ex);
+  color: var(--text-sub);
+}
+
 .tweet-edited-marker {
+  font-size: var(--font-small-ex);
   color: var(--text-sub);
 }
 
