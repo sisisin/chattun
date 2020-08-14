@@ -142,7 +142,7 @@
 .tweet-actions-list {
   display: grid;
   grid-template-rows: 28px;
-  grid-template-columns: auto auto 1fr;
+  grid-template-columns: auto auto auto auto 1fr;
 }
 
 .tweet-actions-list-openslack {
