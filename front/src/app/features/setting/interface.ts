@@ -1,4 +1,4 @@
-import { TimelineSettings } from 'app/types/TimelineSettings';
+import { GlobalSettings, TimelineSetting } from 'app/types/TimelineSettings';
 import { createModule } from 'typeless';
 import { SettingSymbol } from './symbol';
 
@@ -6,10 +6,13 @@ import { SettingSymbol } from './symbol';
 export const [handle, SettingActions, getSettingState] = createModule(SettingSymbol)
   .withActions({
     $mounted: null,
-    updateSetting: (diff: Partial<TimelineSettings>) => ({
+    updateSetting: (diff: Partial<GlobalSettings>) => ({
       payload: { diff },
     }),
-    updateSettingFulfilled: (newSetting: TimelineSettings) => ({
+    updateTimelineSetting: (index: number, diff: Partial<TimelineSetting>) => ({
+      payload: { index, diff },
+    }),
+    updateSettingFulfilled: (newSetting: GlobalSettings) => ({
       payload: { newSetting },
     }),
   })
@@ -17,5 +20,5 @@ export const [handle, SettingActions, getSettingState] = createModule(SettingSym
 
 // --- Types ---
 export interface SettingState {
-  form: TimelineSettings;
+  form: GlobalSettings;
 }

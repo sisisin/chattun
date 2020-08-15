@@ -1,11 +1,24 @@
-import { TimelineSettings } from 'app/types/TimelineSettings';
+import { GlobalSettings, GlobalSettingsLegacy } from 'app/types/TimelineSettings';
 
 class SettingRepository {
-  getSetting(): TimelineSettings | null {
+  getSetting(): GlobalSettings | null {
     const loaded = localStorage.getItem('setting');
-    return !loaded ? null : (JSON.parse(loaded) as TimelineSettings);
+    if (loaded == null) {
+      return null;
+    }
+    const settings = JSON.parse(loaded) as GlobalSettingsLegacy;
+    if (settings.timelines === undefined) {
+      const { channelMatch, keywordMatch } = settings;
+      settings.timelines = [
+        {
+          channelMatch,
+          keywordMatch,
+        },
+      ];
+    }
+    return (settings as unknown) as GlobalSettings;
   }
-  putSetting(setting: TimelineSettings) {
+  putSetting(setting: GlobalSettings) {
     localStorage.setItem('setting', JSON.stringify(setting));
   }
 }

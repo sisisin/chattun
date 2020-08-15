@@ -6,8 +6,7 @@ import { useSelector } from 'typeless';
 import { getTimelineMessages } from '../TimelineQuery';
 
 export const TimelineView = () => {
-  const messages = useSelector(getTimelineMessages);
-  const timelines = [messages, messages, messages, messages];
+  const timelines = useSelector(getTimelineMessages);
   const tlStyles = {
     gridTemplateRows: 'auto',
     gridTemplateColumns: '1fr '.repeat(timelines.length),
@@ -18,8 +17,8 @@ export const TimelineView = () => {
       <div className="timeline menu-parent">
         <Menu />
         <div className="tweet-list-container" style={tlStyles}>
-          {timelines.map(messages => (
-            <TweetListModule messages={messages} />
+          {timelines.map((messages, index) => (
+            <TweetListModule key={index} messages={messages} />
           ))}
         </div>
       </div>

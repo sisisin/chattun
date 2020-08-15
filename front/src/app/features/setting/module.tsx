@@ -19,15 +19,30 @@ handle
       GlobalSettingActions.updateGlobalSetting(newSetting),
       SettingActions.updateSettingFulfilled(newSetting),
     ];
+  })
+  .on(SettingActions.updateTimelineSetting, ({ index, diff }) => {
+    const { form } = getSettingState();
+    const newSetting = { ...form };
+    newSetting.timelines = [...newSetting.timelines];
+    newSetting.timelines[index] = { ...newSetting.timelines[index], ...diff };
+    settingRepository.putSetting(newSetting);
+    return [
+      GlobalSettingActions.updateGlobalSetting(newSetting),
+      SettingActions.updateSettingFulfilled(newSetting),
+    ];
   });
 
 // --- Reducer ---
 export const initialState: SettingState = {
   form: {
     deepLinking: 'viaBrowser',
-    channelMatch: undefined,
-    keywordMatch: undefined,
     markAsRead: false,
+    timelines: [
+      {
+        channelMatch: undefined,
+        keywordMatch: undefined,
+      },
+    ],
   },
 };
 

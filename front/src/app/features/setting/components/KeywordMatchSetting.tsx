@@ -11,16 +11,14 @@ const matchOptions: { [K in KeywordMatchMethod]: { text: string; value: K } } = 
 
 export const KeywordMatchSetting: React.FC = () => {
   const { register, handleSubmit } = useForm<KeywordMatch>();
-  const { updateSetting } = useActions(SettingActions);
-  const {
-    form: { keywordMatch },
-  } = useMappedState([getSettingState], s => s);
+  const { updateTimelineSetting } = useActions(SettingActions);
+  const { keywordMatch } = useMappedState([getSettingState], s => s.form.timelines[0]);
 
   return (
     <form
       onSubmit={React.useCallback(
         handleSubmit(data => {
-          updateSetting({ keywordMatch: data });
+          updateTimelineSetting(0, { keywordMatch: data });
         }),
         [],
       )}

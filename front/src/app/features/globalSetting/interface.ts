@@ -1,4 +1,4 @@
-import { TimelineSettings } from 'app/types/TimelineSettings';
+import { GlobalSettings } from 'app/types/TimelineSettings';
 import { createModule } from 'typeless';
 import { GlobalSettingSymbol } from './symbol';
 
@@ -8,11 +8,11 @@ export const [handle, GlobalSettingActions, getGlobalSettingState] = createModul
 )
   .withActions({
     $mounted: null,
-    updateGlobalSetting: (setting: TimelineSettings) => ({
+    updateGlobalSetting: (setting: GlobalSettings) => ({
       payload: { setting },
     }),
   })
   .withState<GlobalSettingState>();
 
 // --- Types ---
-export type GlobalSettingState = TimelineSettings;
+export type GlobalSettingState = GlobalSettings;
