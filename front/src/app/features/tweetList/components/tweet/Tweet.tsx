@@ -9,6 +9,7 @@ import { TweetActions } from '../../interface';
 import { DeepLinkingButton } from './deepLinkingButton/DeepLinkingButton';
 import { useSetIntersectionObserver } from './hooks';
 import { TweetTimestamp } from './TweetTimestamp';
+import { TweetEditedMarker } from './TweetEditedMarker';
 
 interface Props {
   message: Tweet;
@@ -42,7 +43,7 @@ export const TweetItem = ({ message, parentRef }: Props) => {
       <div className="tweet-status">
         <span className="tweet-displayname">{message.displayName}</span>
         <TweetTimestamp datetime={new Date(+ts * 1000)} />
-        {message.edited ? <span className="tweet-edited-marker">(edited)</span> : null}
+        <TweetEditedMarker edit={message.edited} />
       </div>
       <div className="tweet-channelname">{message.channelName}</div>
       <div className="tweet-contents" dangerouslySetInnerHTML={{ __html: message.text }} />
