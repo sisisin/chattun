@@ -13,5 +13,9 @@ export const TweetTimestamp = ({ datetime }: Props) => {
 };
 
 function toDisplayTime(datetime: Date): string {
-  return `${datetime.getHours()}:${datetime.getMinutes()}`;
+  return twoDigits(datetime.getHours()) + ':' + twoDigits(datetime.getMinutes());
+}
+
+function twoDigits(n: number): string {
+  return ('0' + n).slice(-2);
 }
