@@ -7,9 +7,10 @@ import { getTimelineMessages } from '../TimelineQuery';
 
 export const TimelineView = () => {
   const messages = useSelector(getTimelineMessages);
+  const timelines = [messages, messages, messages, messages];
   const tlStyles = {
     gridTemplateRows: 'auto',
-    gridTemplateColumns: '1fr 1fr',
+    gridTemplateColumns: '1fr '.repeat(timelines.length),
   };
   return (
     <>
@@ -17,10 +18,9 @@ export const TimelineView = () => {
       <div className="timeline menu-parent">
         <Menu />
         <div className="tweet-list-container" style={tlStyles}>
-          <TweetListModule messages={messages} />
-          <TweetListModule messages={messages} />
-          {/* <TweetListModule messages={messages} />
-          <TweetListModule messages={messages} /> */}
+          {timelines.map(messages => (
+            <TweetListModule messages={messages} />
+          ))}
         </div>
       </div>
     </>
