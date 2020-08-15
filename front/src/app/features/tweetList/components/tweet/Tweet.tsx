@@ -8,6 +8,8 @@ import { useActions } from 'typeless';
 import { TweetActions } from '../../interface';
 import { DeepLinkingButton } from './deepLinkingButton/DeepLinkingButton';
 import { useSetIntersectionObserver } from './hooks';
+import { TweetTimestamp } from './TweetTimestamp';
+import { TweetEditedMarker } from './TweetEditedMarker';
 
 interface Props {
   message: Tweet;
@@ -24,6 +26,7 @@ export const TweetItem = ({ message, parentRef }: Props) => {
   // 空文字なら Tweet 自体一切表示しない
   if (message.text === '') return null;
 
+  const ts = message.threadTs || message.ts;
   return (
     <li ref={tweetRef} className="tweet">
       <AppLink
@@ -31,15 +34,16 @@ export const TweetItem = ({ message, parentRef }: Props) => {
         to="/thread/:channelId/:ts"
         params={{
           channelId: message.channelId,
-          ts: message.threadTs || message.ts,
+          ts,
         }}
       >
         <img src={message.iconUrl} alt={message.displayName} />
       </AppLink>
 
-      <div className="tweet-displayname">
-        <span>{message.displayName}</span>
-        {message.edited ? <span className="tweet-edited-marker">(edited)</span> : null}
+      <div className="tweet-status">
+        <span className="tweet-displayname">{message.displayName}</span>
+        <TweetTimestamp datetime={new Date(+ts * 1000)} />
+        <TweetEditedMarker edit={message.edited} />
       </div>
       <div className="tweet-channelname">{message.channelName}</div>
       <div className="tweet-contents" dangerouslySetInnerHTML={{ __html: message.text }} />
@@ -87,7 +91,7 @@ export const TweetItem = ({ message, parentRef }: Props) => {
             to="/thread/:channelId/:ts"
             params={{
               channelId: message.channelId,
-              ts: message.threadTs || message.ts,
+              ts,
             }}
           >
             <span>
@@ -97,8 +101,6 @@ export const TweetItem = ({ message, parentRef }: Props) => {
           <DeepLinkingButton {...message.slackLink} />
         </div>
       </div>
-
-      <div className="tweet-ts">{message.ts}</div>
     </li>
   );
 };

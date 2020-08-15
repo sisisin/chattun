@@ -24,16 +24,27 @@
   }
 }
 
-.tweet-displayname {
+.tweet-status {
   min-height: 28px;
   max-height: 56px;
+  line-height: 28px;
+}
+
+.tweet-displayname {
   overflow: hidden;
   font-weight: bold;
-  line-height: 28px;
   word-wrap: break-word;
 }
 
+.tweet-timestamp {
+  margin-left: 8px;
+  font-size: var(--font-small-ex);
+  color: var(--text-sub);
+}
+
 .tweet-edited-marker {
+  margin-left: 8px;
+  font-size: var(--font-small-ex);
   color: var(--text-sub);
 }
 
@@ -58,10 +69,6 @@
     cursor: pointer;
     box-shadow: var(--shadow-weak);
   }
-}
-
-.tweet-ts {
-  display: none;
 }
 
 .tweet-contents {
