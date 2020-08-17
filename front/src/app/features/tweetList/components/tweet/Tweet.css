@@ -1,6 +1,6 @@
 .tweet {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   grid-template-columns: 48px 1fr 144px;
   grid-gap: 0 8px;
   padding: 8px;
@@ -149,7 +149,7 @@
 .tweet-actions-list {
   display: grid;
   grid-template-rows: 28px;
-  grid-template-columns: auto auto 1fr;
+  grid-template-columns: auto auto auto auto 1fr;
 }
 
 .tweet-actions-list-openslack {
