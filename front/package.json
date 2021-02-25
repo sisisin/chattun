@@ -69,6 +69,7 @@
   "devDependencies": {
     "@babel/core": "7.8.6",
     "@loadable/component": "5.12.0",
+    "@slack/web-api": "6.0.0",
     "@storybook/addon-actions": "5.3.14",
     "@storybook/addon-links": "5.3.14",
     "@storybook/addons": "5.3.14",

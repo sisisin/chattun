@@ -1,10 +1,12 @@
 import { SlackAPI } from 'app/types/slack/SlackAPI';
-import { auth, channels, conversations, emoji, reactions, users, team, rtm } from 'slack';
+import { WebClient } from '@slack/web-api';
+import { auth, conversations, emoji, reactions, users, team, rtm } from 'slack';
 import { EitherFactory } from '../EitherContainer';
 import { SlackEntity } from 'app/types/slack';
 import { getSessionState } from 'app/features/session/interface';
 
 class SlackClient {
+  client: WebClient | undefined;
   private getToken() {
     const { accessToken } = getSessionState();
     if (accessToken === undefined) {
@@ -102,7 +104,10 @@ class SlackClient {
     })) as Promise<SlackAPI.Conversations.Replies>;
   }
   mark(channel: string, ts: string) {
-    return channels.mark({ ...this.getToken(), channel, ts });
+    if (this.client === undefined) {
+      this.client = new WebClient(this.getToken().token);
+    }
+    return this.client.conversations.mark({ channel: channel, ts: ts });
   }
   teamInfo(): Promise<SlackAPI.Team.Info> {
     return team.info(this.getToken()) as Promise<SlackAPI.Team.Info>;
