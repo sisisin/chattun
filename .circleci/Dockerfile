@@ -1,4 +1,4 @@
-FROM node:10.14.0
+FROM node:14.16.0
 
 RUN apt update -y
 RUN apt install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
@@ -8,4 +8,4 @@ RUN apt install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups
   ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget apt-transport-https \
   fonts-ipafont-gothic fonts-ipafont-mincho
 
-RUN npm i -g yarn@1.21.1
+RUN npm i -g yarn@1.22.10
