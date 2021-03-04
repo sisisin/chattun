@@ -1,5 +1,5 @@
 import { SlackAPI } from 'app/types/slack/SlackAPI';
-import { auth, channels, conversations, emoji, reactions, users, team, rtm } from 'slack';
+import { auth, emoji, conversations, reactions, users, team, rtm } from 'slack';
 import { EitherFactory } from '../EitherContainer';
 import { SlackEntity } from 'app/types/slack';
 import { getSessionState } from 'app/features/session/interface';
@@ -102,7 +102,20 @@ class SlackClient {
     })) as Promise<SlackAPI.Conversations.Replies>;
   }
   mark(channel: string, ts: string) {
-    return channels.mark({ ...this.getToken(), channel, ts });
+    return fetch('https://slack.com/api/conversations.mark', {
+      mode: 'no-cors',
+      method: 'POST',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        token: this.getToken().token,
+        channel,
+        ts,
+      }),
+    }).then(res => res.json());
   }
   teamInfo(): Promise<SlackAPI.Team.Info> {
     return team.info(this.getToken()) as Promise<SlackAPI.Team.Info>;

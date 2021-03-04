@@ -24,7 +24,7 @@ module.exports = {
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
         path: '/',
-        sameSite: 'none'
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : false,
       },
     });
   },
@@ -70,7 +70,7 @@ module.exports = {
   },
   applyCors() {
     const matchHttp = /https?:\/\//;
-    const whitelist = [frontBasePath, frontBasePathSecondary].map(url => url.replace(matchHttp, ''));
+    const whitelist = [frontBasePath, frontBasePathSecondary].filter(Boolean).map((url) => url.replace(matchHttp, ''));
 
     return cors({
       credentials: true,
@@ -84,9 +84,8 @@ module.exports = {
         if (!matchHttp.test(origin)) {
           return cb(new Error('Not allowed scheme'));
         }
-        const hostOfOrigin = origin.replace(matchHttp, '')
-        const matchedDomain = whitelist
-          .find(allowedHost => hostOfOrigin.indexOf(allowedHost) > -1);
+        const hostOfOrigin = origin.replace(matchHttp, '');
+        const matchedDomain = whitelist.find((allowedHost) => hostOfOrigin.indexOf(allowedHost) > -1);
 
         if (matchedDomain === undefined) {
           cb(new Error('Not allowed origin'));
