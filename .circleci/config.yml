@@ -34,7 +34,7 @@ executors:
     working_directory: ~/repo
 
     docker:
-      - image: sisisin/chattun-ci:20191215-172624
+      - image: sisisin/chattun-ci:20210228-184237
 
 jobs:
   front-test:
