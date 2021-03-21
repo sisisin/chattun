@@ -1,10 +1,23 @@
 import { SlackAPI } from 'app/types/slack/SlackAPI';
+import { WebClient } from '@slack/web-api';
 import { auth, emoji, conversations, reactions, users, team, rtm } from 'slack';
 import { EitherFactory } from '../EitherContainer';
 import { SlackEntity } from 'app/types/slack';
 import { getSessionState } from 'app/features/session/interface';
 
 class SlackClient {
+  private _client: WebClient | undefined;
+
+  get client() {
+    if (this._client === undefined) {
+      this._client = new WebClient(this.getToken().token);
+
+      // note: https://github.com/slackapi/node-slack-sdk/issues/982#issuecomment-757877215
+      delete this._client['axios'].defaults.headers['User-Agent'];
+    }
+    return this._client;
+  }
+
   private getToken() {
     const { accessToken } = getSessionState();
     if (accessToken === undefined) {
@@ -102,20 +115,7 @@ class SlackClient {
     })) as Promise<SlackAPI.Conversations.Replies>;
   }
   mark(channel: string, ts: string) {
-    return fetch('https://slack.com/api/conversations.mark', {
-      mode: 'no-cors',
-      method: 'POST',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({
-        token: this.getToken().token,
-        channel,
-        ts,
-      }),
-    }).then(res => res.json());
+    return this.client.conversations.mark({ channel: channel, ts: ts });
   }
   teamInfo(): Promise<SlackAPI.Team.Info> {
     return team.info(this.getToken()) as Promise<SlackAPI.Team.Info>;
