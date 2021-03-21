@@ -6,7 +6,18 @@ import { SlackEntity } from 'app/types/slack';
 import { getSessionState } from 'app/features/session/interface';
 
 class SlackClient {
-  client: WebClient | undefined;
+  private _client: WebClient | undefined;
+
+  get client() {
+    if (this._client === undefined) {
+      this._client = new WebClient(this.getToken().token);
+
+      // note: https://github.com/slackapi/node-slack-sdk/issues/982#issuecomment-757877215
+      delete this._client['axios'].defaults.headers['User-Agent'];
+    }
+    return this._client;
+  }
+
   private getToken() {
     const { accessToken } = getSessionState();
     if (accessToken === undefined) {
@@ -104,9 +115,6 @@ class SlackClient {
     })) as Promise<SlackAPI.Conversations.Replies>;
   }
   mark(channel: string, ts: string) {
-    if (this.client === undefined) {
-      this.client = new WebClient(this.getToken().token);
-    }
     return this.client.conversations.mark({ channel: channel, ts: ts });
   }
   teamInfo(): Promise<SlackAPI.Team.Info> {
