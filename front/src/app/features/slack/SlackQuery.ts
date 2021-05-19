@@ -93,7 +93,7 @@ function getSlackLink(
     case 'directly':
       return {
         ...base,
-        link: `slack://channel?team=${msg.user_team || msg.team}&id=${channelId}&message=${ts}${
+        link: `slack://channel?team=${msg.team}&id=${channelId}&message=${ts}${
           msg.thread_ts ? `&thread_ts=${msg.thread_ts}` : ''
         }`,
       };
