@@ -8,6 +8,6 @@
     "yarn": "^1.22.5"
   },
   "scripts": {
-    "postinstall": "yarn install --cwd server"
+    "postinstall": "yarn install --cwd server && yarn install --cwd front && yarn build --cwd front"
   }
 }
