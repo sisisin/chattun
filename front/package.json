@@ -24,8 +24,7 @@
     "start-nm": "run-p start-js-nm watch-css",
     "start-js-nm": "GENERATE_SOURCEMAP=false react-scripts start",
     "build": "run-s build-css build-sw build-js",
-    "postbuild": "cp src/netlify.toml build/netlify.toml",
-    "build-js": "react-scripts build",
+    "build-js": "react-scripts build && mv build ../server/public",
     "build-sw": "tsc -p ./swSrc",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -129,5 +128,6 @@
   },
   "resolutions": {
     "@types/react": "16.9.23"
-  }
+  },
+  "proxy": "http://localhost:3100"
 }

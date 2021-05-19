@@ -1,28 +1,24 @@
 const express = require('express');
-const createError = require('http-errors');
 const logger = require('morgan');
-const request = require('request')
+const request = require('request');
+const path = require('path');
 
-const middlewares = require('./src/middleware');
+const middleware = require('./src/middleware');
 const { serverBasePath, frontBasePath } = require('./src/config');
 
 const app = express();
-app.use(middlewares.applyHelmet());
+app.use(middleware.applyHelmet());
 app.set('trust proxy', 1);
-app.use(middlewares.applySession());
+app.use(middleware.applySession());
 
-const passport = middlewares.createPassport();
+const passport = middleware.createPassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(logger('dev'));
 app.use(express.static('public'));
 
-app.use(middlewares.applyCors());
-
-app.get('/debug', (req, res) => {
-  res.status(200).end();
-});
+app.use(middleware.applyCors());
 
 app.get('/auth/slack', passport.authorize('slack-identity'));
 
@@ -40,44 +36,31 @@ app.get(
   (req, res) => res.redirect(frontBasePath),
 );
 
-// check authentication
-app.use((req, res, next) => {
-  if (!(req.session && req.session.passport && req.session.passport.user)) {
-    return res.status(401).end();
-  }
-  const { userId, accessToken } = getSessionProfileFromRequest(req)
-  if (!(userId && accessToken)) {
-    return res.status(401).end();
-  }
-  next();
-})
-
-app.get('/file', async (req, res) => {
-  const { accessToken } = getSessionProfileFromRequest(req)
-  const isValidTargetUrl = req.query.target_url.startsWith('https://files.slack.com')
+app.get('/file', checkAuthentication, (req, res) => {
+  const { accessToken } = getSessionProfileFromRequest(req);
+  const isValidTargetUrl = req.query.target_url.startsWith('https://files.slack.com');
   if (isValidTargetUrl) {
     request({
       url: req.query.target_url,
       headers: {
         Authorization: `Bearer ${accessToken}`,
-      }
-    }).pipe(res)
+      },
+    }).pipe(res);
   } else {
     res.status(400).end();
   }
-})
+});
 
-app.get('/connection', (req, res) => {
-  const { userId, accessToken } = getSessionProfileFromRequest(req)
+app.get('/connection', checkAuthentication, (req, res) => {
+  const { userId, accessToken } = getSessionProfileFromRequest(req);
   return res.json({ userId, accessToken });
 });
 
-function getSessionProfileFromRequest(req) {
-  const { userId, accessToken } = req.session.passport.user;
-  return { userId, accessToken }
-}
+// app.use((_, __, next) => next(createError(404)));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
-app.use((_, __, next) => next(createError(404)));
 app.use(function (err, req, res) {
   const error = req.app.get('env') === 'development' ? err : {};
 
@@ -88,3 +71,19 @@ app.use(function (err, req, res) {
 app.listen(process.env.PORT || 3100, () => {
   console.log(`server running at ${serverBasePath}`);
 });
+
+function getSessionProfileFromRequest(req) {
+  const { userId, accessToken } = req.session.passport.user;
+  return { userId, accessToken };
+}
+
+function checkAuthentication(req, res, next) {
+  if (!(req.session && req.session.passport && req.session.passport.user)) {
+    return res.status(401).end();
+  }
+  const { userId, accessToken } = getSessionProfileFromRequest(req);
+  if (!(userId && accessToken)) {
+    return res.status(401).end();
+  }
+  next();
+}

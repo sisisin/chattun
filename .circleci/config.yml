@@ -47,4 +47,4 @@ jobs:
       - run: git diff --exit-code # check yarn.lock diff
       - run: cd front && yarn build
       - run: cd front && yarn test-all
-      - run: cd front && yarn test-visual
+      # - run: cd front && yarn test-visual
