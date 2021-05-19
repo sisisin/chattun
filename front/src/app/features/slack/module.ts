@@ -4,6 +4,7 @@ import { SessionActions } from '../session/interface';
 import { TimelineActions } from '../timeline/interface';
 import { handle, SlackActions, SlackState } from './interface';
 import { connect } from 'app/services/rtm-socket';
+import { SlackEntity } from 'app/types/slack';
 
 // --- Epic ---
 export const epic = handle
@@ -75,7 +76,13 @@ export const reducer = handle
     state.emojis = emojis.emoji;
   })
   .on(SlackActions.fetchUsers, (state, { users }) => {
-    state.users = toObject(users.members);
+    const obj: Partial<Record<string, SlackEntity.Member>> = {};
+    users.members.forEach(v => {
+      const id = v.enterprise_user?.id ?? v.id;
+      obj[id] = v;
+    });
+
+    state.users = obj;
   })
   .on(SlackActions.fetchChannels, (state, { channels }) => {
     state.channels = toObject(channels.channels);

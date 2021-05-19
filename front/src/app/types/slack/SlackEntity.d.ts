@@ -51,6 +51,14 @@ export namespace SlackEntity {
       image_32: string;
       image_48: string;
     };
+    enterprise_user?: {
+      id: string;
+      enterprise_id: string;
+      enterprise_name: string;
+      is_admin: boolean;
+      is_owner: boolean;
+      teams: string[];
+    };
   }
 
   export namespace Message {
