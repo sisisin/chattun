@@ -1,10 +1,11 @@
 import { Observable, of } from 'rxjs';
 import { ajax, AjaxError } from 'rxjs/ajax';
 import { catchError, map } from 'rxjs/operators';
+import { basePath } from '../../config';
 import { EitherFactory } from '../EitherContainer';
 import { HttpErrorResponse, HttpResponse, HttpResponseEither, HttpStatus } from './entity';
 
-const api = '/';
+const api = basePath; // todo
 
 const headerBase = {
   'Content-Type': 'application/json',

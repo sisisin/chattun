@@ -24,7 +24,7 @@
     "start-nm": "run-p start-js-nm watch-css",
     "start-js-nm": "GENERATE_SOURCEMAP=false react-scripts start",
     "build": "run-s build-css build-sw build-js",
-    "build-js": "react-scripts build && mv build ../server/public",
+    "build-js": "react-scripts build && rm -rf ../server/public && mv build ../server/public",
     "build-sw": "tsc -p ./swSrc",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
