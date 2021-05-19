@@ -3,14 +3,12 @@ const RedisStore = require('connect-redis')(session);
 const redis = require('redis');
 const passport = require('passport');
 const SlackStrategy = require('passport-slack-oauth2').Strategy;
-const { CLIENT_ID, CLIENT_SECRET } = process.env;
 const helmet = require('helmet');
-const { serverBasePath, frontBasePathSecondary, frontBasePath, redisConfig } = require('./config');
+const { serverBaseUrl, redisConfig, slackAppConfig, isProduction } = require('./config');
 
 const redisClient = redis.createClient(redisConfig);
 
 const redisStore = new RedisStore({ client: redisClient, ttl: 86400 }); // 1day
-const cors = require('cors');
 module.exports = {
   redisStore,
   applySession() {
@@ -21,10 +19,10 @@ module.exports = {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: isProduction,
         httpOnly: true,
         path: '/',
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : false,
+        sameSite: isProduction ? 'none' : false,
       },
     });
   },
@@ -33,11 +31,10 @@ module.exports = {
     passport.use(
       new SlackStrategy(
         {
-          clientID: CLIENT_ID,
-          clientSecret: CLIENT_SECRET,
+          ...slackAppConfig,
           skipUserProfile: false,
           scope: ['identity.basic'],
-          callbackURL: `${serverBasePath}/auth/slack/callbackTmp`,
+          callbackURL: `${serverBaseUrl}/auth/slack/callbackTmp`,
           name: 'slack-identity',
         },
         (accessToken, refreshToken, profile, done) => {
@@ -48,11 +45,10 @@ module.exports = {
     passport.use(
       new SlackStrategy(
         {
-          clientID: CLIENT_ID,
-          clientSecret: CLIENT_SECRET,
+          ...slackAppConfig,
           skipUserProfile: false,
           scope: ['client'],
-          callbackURL: `${serverBasePath}/auth/slack/callback`,
+          callbackURL: `${serverBaseUrl}/auth/slack/callback`,
           name: 'slack-client',
         },
         (accessToken, refreshToken, profile, done) => {
@@ -67,33 +63,6 @@ module.exports = {
       done(null, user);
     });
     return passport;
-  },
-  applyCors() {
-    const matchHttp = /https?:\/\//;
-    const whitelist = [frontBasePath, frontBasePathSecondary].filter(Boolean).map((url) => url.replace(matchHttp, ''));
-
-    return cors({
-      credentials: true,
-      origin(origin, cb) {
-        // allow server to server req
-        if (origin === undefined) {
-          return cb(null, true);
-        }
-
-        // allow only http/https scheme
-        if (!matchHttp.test(origin)) {
-          return cb(new Error('Not allowed scheme'));
-        }
-        const hostOfOrigin = origin.replace(matchHttp, '');
-        const matchedDomain = whitelist.find((allowedHost) => hostOfOrigin.indexOf(allowedHost) > -1);
-
-        if (matchedDomain === undefined) {
-          cb(new Error('Not allowed origin'));
-        } else {
-          cb(null, true);
-        }
-      },
-    });
   },
   applyHelmet() {
     return helmet();

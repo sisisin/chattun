@@ -4,7 +4,7 @@ const request = require('request');
 const path = require('path');
 
 const middleware = require('./src/middleware');
-const { serverBasePath, frontBasePath } = require('./src/config');
+const { serverBaseUrl, frontBaseUrl } = require('./src/config');
 
 const app = express();
 app.use(middleware.applyHelmet());
@@ -18,22 +18,18 @@ app.use(passport.session());
 app.use(logger('dev'));
 app.use(express.static('public'));
 
-app.use(middleware.applyCors());
-
 app.get('/auth/slack', passport.authorize('slack-identity'));
 
 app.get('/auth/slack/client', passport.authorize('slack-client'));
 
 app.get(
   '/auth/slack/callbackTmp',
-  passport.authenticate('slack-identity', { failureRedirect: `${frontBasePath}` }),
-  (req, res) => res.redirect(`${serverBasePath}/auth/slack/client`),
+  passport.authenticate('slack-identity', { failureRedirect: frontBaseUrl }),
+  (req, res) => res.redirect(`${serverBaseUrl}/auth/slack/client`),
 );
 
-app.get(
-  '/auth/slack/callback',
-  passport.authenticate('slack-client', { failureRedirect: `${frontBasePath}` }),
-  (req, res) => res.redirect(frontBasePath),
+app.get('/auth/slack/callback', passport.authenticate('slack-client', { failureRedirect: frontBaseUrl }), (req, res) =>
+  res.redirect(frontBaseUrl),
 );
 
 app.get('/file', checkAuthentication, (req, res) => {
@@ -69,7 +65,7 @@ app.use(function (err, req, res) {
 });
 
 app.listen(process.env.PORT || 3100, () => {
-  console.log(`server running at ${serverBasePath}`);
+  console.log(`server running at ${serverBaseUrl}`);
 });
 
 function getSessionProfileFromRequest(req) {

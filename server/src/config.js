@@ -1,11 +1,18 @@
 // const isProduction = true;
 const isProduction = process.env.NODE_ENV === 'production';
 
-const serverBasePath = isProduction ? process.env.SERVER_BASE_URL : 'http://localhost:3100';
+const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:3100';
 
-const frontBasePath = process.env.FRONT_BASE_URL || 'http://localhost:3000';
-const frontBasePathSecondary = process.env.FRONT_BASE_URL_SECONDARY;
+/**
+ * 開発時はcreate-react-appを利用するので、front向けのURLを分ける必要がある
+ * デフォルトはcraの起動ポート3000を使うようにしておく
+ */
+const frontBaseUrl = isProduction ? serverBaseUrl : process.env.FRONT_BASE_URL_DEV || 'http://localhost:3000';
 
 const redisConfig = process.env.REDIS_URL;
 
-module.exports = { serverBasePath, frontBasePath, frontBasePathSecondary, redisConfig };
+const slackAppConfig = {
+  clientID: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
+};
+module.exports = { serverBaseUrl, frontBaseUrl, redisConfig, isProduction, slackAppConfig };
