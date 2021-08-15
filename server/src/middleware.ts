@@ -6,7 +6,7 @@ import helmet from 'helmet';
 const RedisStore = connectRedis(session);
 const redisStore = new RedisStore({ client: redis, ttl: 86400 });
 
-export const applySession = () => {
+export const makeSession = () => {
   return session({
     store: redisStore,
     name: 'connect.sid',

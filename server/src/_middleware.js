@@ -4,7 +4,7 @@ const redis = require('redis');
 const passport = require('passport');
 const SlackStrategy = require('passport-slack-oauth2').Strategy;
 const helmet = require('helmet');
-const { serverBaseUrl, redisConfig, slackAppConfig, isProduction } = require('./config');
+const { serverBaseUrl, redisConfig, slackAppConfig, isProduction } = require('./_config');
 
 const redisClient = redis.createClient(redisConfig);
 

@@ -1,8 +1,17 @@
 import React from 'react';
 import { basePathForAuth } from 'app/config';
+import { httpClient } from 'app/services/http/HttpClient';
 
 export const LoginView = () => {
   const authEndpoint = `${basePathForAuth}/auth/slack`;
+  React.useEffect(() => {
+    httpClient
+      .get('/foo')
+      .toPromise()
+      .then(res => {
+        console.log(res);
+      });
+  }, []);
   return (
     <div className="login">
       <div className="login-visual">

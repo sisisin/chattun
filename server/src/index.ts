@@ -1,72 +1,42 @@
-import { WebClient } from '@slack/web-api';
-import { redis } from './redis';
-import { logger } from './logger';
-import { InstallProvider } from '@slack/oauth';
-import express, { ErrorRequestHandler } from 'express';
-import { SocketModeClient } from '@slack/socket-mode';
+import express, { ErrorRequestHandler, RequestHandler } from 'express';
 import path from 'path';
 import * as middleware from './middleware';
+import http from 'http';
+import https from 'https';
+import fs from 'fs';
+import { installer, socketClient } from './slack';
+import { configureIO } from './io';
+import { useHttp, privateKeyPath, certPath, port } from './config';
+import request from 'request';
 
-const appToken = process.env.SLACK_APP_TOKEN!;
-const socketClient = new SocketModeClient({ appToken });
 const app = express();
-const installer = new InstallProvider({
-  clientId: process.env.CLIENT_ID!,
-  clientSecret: process.env.CLIENT_SECRET!,
-  stateSecret: 'my-state-secret',
 
-  installationStore: {
-    storeInstallation: async (installation) => {
-      if (installation.isEnterpriseInstall && installation.enterprise !== undefined) {
-        await redis.set(installation.enterprise.id, JSON.stringify(installation));
-        await redis.set(installation.user.id, JSON.stringify(installation));
-        return;
-      }
-      if (installation.team !== undefined) {
-        await redis.set(installation.team.id, JSON.stringify(installation));
-        await redis.set(installation.user.id, JSON.stringify(installation));
-        return;
-      }
-      throw new Error('Failed saving installation data to installationStore');
-    },
-    fetchInstallation: async (installQuery) => {
-      if (installQuery.isEnterpriseInstall && installQuery.enterpriseId !== undefined) {
-        const res = await redis.get(installQuery.enterpriseId);
-        // const res = await redis.get(installQuery.userId!);
-        return JSON.parse(res!);
-      }
-      if (installQuery.teamId !== undefined) {
-        const res = await redis.get(installQuery.teamId);
-        // const res = await redis.get(installQuery.userId!);
-        return JSON.parse(res!);
-      }
-      throw new Error('Failed fetching installation');
-    },
-    deleteInstallation: async (installQuery) => {
-      if (installQuery.isEnterpriseInstall && installQuery.enterpriseId !== undefined) {
-        await redis.del(installQuery.userId!);
-        return;
-      }
-      if (installQuery.teamId !== undefined) {
-        await redis.del(installQuery.userId!);
-        return;
-      }
-      throw new Error('Failed to delete installation');
-    },
-  },
-});
+const server = configureServer();
+function configureServer() {
+  if (useHttp) {
+    return http.createServer(app);
+  } else {
+    const key = fs.readFileSync(privateKeyPath, 'utf-8');
+    const cert = fs.readFileSync(certPath, 'utf-8');
+    return https.createServer({ key, cert }, app);
+  }
+}
+
+const sessionMiddleware = middleware.makeSession();
+
+configureIO(server, sessionMiddleware);
 
 app.use(middleware.applyHelmet());
 app.set('trust proxy', 1);
-app.use(middleware.applySession());
+app.use(sessionMiddleware);
 app.use(express.static('public'));
 
+// for debug
 app.get('/slack/install', async (req, res, next) => {
   try {
     const url = await installer.generateInstallUrl({
       scopes: [],
       userScopes: ['channels:read', 'channels:history', 'im:history'],
-      metadata: 'some_metadata',
     });
 
     res.send(
@@ -76,32 +46,77 @@ app.get('/slack/install', async (req, res, next) => {
     next(error);
   }
 });
-app.get('/slack/oauth_redirect', async (req, res, next) => {
+app.get('/auth/slack', async (req, res, next) => {
   try {
-    // todo: handle followings
-    // save installation to session,redirect to /login
-    await installer.handleCallback(req, res);
+    const url = await installer.generateInstallUrl({
+      scopes: [],
+      userScopes: [
+        'channels:history',
+        'channels:read',
+        'channels:write',
+        'users:read',
+        'emoji:read',
+        'team:read',
+        'reactions:read',
+        'reactions:write',
+        'files:read',
+      ],
+      // todo: url in prod
+      redirectUri: 'https://local.sisisin.house:3100/slack/oauth_redirect',
+    });
+    res.redirect(url);
   } catch (error) {
     next(error);
   }
 });
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+app.get('/slack/oauth_redirect', async (req, res, next) => {
+  try {
+    await installer.handleCallback(req, res, {
+      success: (installation, options, callbackReq, callbackRes) => {
+        if ((callbackReq as any).session) {
+          (callbackReq as any).session.slack = installation;
+        }
+        // todo: url in production
+        (callbackRes as any).redirect('https://local.sisisin.house:3000');
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
 });
-const webClient = new WebClient('', {
-  headers: { Authorization: `Bearer ${appToken}` },
+app.get('/foo', (req, res) => {
+  res.json({ bar: 'yeh' });
+});
+const checkAuthentication: RequestHandler = (req, res, next) => {
+  const slack = getSessionProfileFromRequest(req);
+
+  if (slack) {
+    next();
+  } else {
+    res.status(401).end();
+  }
+};
+
+app.get('/connection', checkAuthentication, (req, res) => {
+  const { accessToken, userId } = getSessionProfileFromRequest(req);
+
+  return res.json({ accessToken, userId });
+});
+app.get('/file', checkAuthentication, (req, res) => {
+  const { accessToken } = getSessionProfileFromRequest(req);
+  const isValidTargetUrl = (req.query as any).target_url.startsWith('https://files.slack.com');
+  if (isValidTargetUrl) {
+    request({
+      url: req.query.target_url as string,
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }).pipe(res);
+  } else {
+    res.status(400).end();
+  }
 });
 
-socketClient.on('message', async ({ ...args }) => {
-  // console.log(event);
-  const res = await webClient.apps.event.authorizations.list({
-    event_context: args.body.event_context,
-  });
-  logger.log('-----------------------------');
-  logger.log(args.body.event.subtype === undefined ? args.body.event.text : 'nothing');
-  logger.log(res.authorizations);
-  // logger.log(args);
-  logger.log(args.body.authorizations);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 const errorHandler: ErrorRequestHandler = (err, req, res) => {
@@ -112,8 +127,14 @@ const errorHandler: ErrorRequestHandler = (err, req, res) => {
 };
 app.use(errorHandler);
 
+function getSessionProfileFromRequest(req: any) {
+  const { token, id } = (req.session as any)?.slack?.user;
+
+  return { accessToken: token, userId: id };
+}
+
 async function main() {
-  app.listen(process.env.PORT || 3000, () => {
+  server.listen(port || 3100, () => {
     console.log(`server running`);
   });
 

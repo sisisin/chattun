@@ -4,7 +4,7 @@ const request = require('request');
 const path = require('path');
 
 const middleware = require('./src/middleware');
-const { serverBaseUrl, frontBaseUrl } = require('./src/config');
+const { serverBaseUrl, frontBaseUrl } = require('./src/_config');
 
 const app = express();
 app.use(middleware.applyHelmet());

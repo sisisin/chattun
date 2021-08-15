@@ -57,7 +57,7 @@ class SlackClient {
   listChannels(): Promise<SlackAPI.Conversations.List> {
     const baseParam = {
       ...this.getToken(),
-      types: 'public_channel,private_channel,im,mpim',
+      types: 'public_channel',
       exclude_archived: true,
       limit: 200,
     };
