@@ -4,6 +4,7 @@ import { SlackRTM } from 'app/types/slack';
 import { slackClient } from './http/SlackClient';
 
 import { io } from 'socket.io-client';
+import { basePath } from 'app/config';
 
 export async function connect1() {
   const res = await slackClient.startRtm();
@@ -15,10 +16,9 @@ export async function connect1() {
 }
 export async function connect() {
   // todo: prod url
-  const socket = io('https://local.sisisin.house:3100', { transports: ['websocket'] });
+  const socket = io(basePath, { transports: ['websocket'] });
 
   socket.on('message', ev => {
-    console.log(ev);
     appRegistry.dispatch(SlackActions.onRTMEmitted(ev));
   });
 }

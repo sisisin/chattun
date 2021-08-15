@@ -128,5 +128,6 @@
   "resolutions": {
     "@types/react": "16.9.23"
   },
+  "#proxy": "todo: customize proxy url(e.g. using ngrok)",
   "proxy": "https://local.sisisin.house:3100"
 }

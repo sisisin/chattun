@@ -6,7 +6,7 @@ import https from 'https';
 import fs from 'fs';
 import { installer, socketClient } from './slack';
 import { configureIO } from './io';
-import { useHttp, privateKeyPath, certPath, port } from './config';
+import { useHttp, privateKeyPath, certPath, port, frontBaseUrl, serverBaseUrl } from './config';
 import request from 'request';
 
 const app = express();
@@ -62,7 +62,7 @@ app.get('/auth/slack', async (req, res, next) => {
         'files:read',
       ],
       // todo: url in prod
-      redirectUri: 'https://local.sisisin.house:3100/slack/oauth_redirect',
+      redirectUri: `${serverBaseUrl}/slack/oauth_redirect`,
     });
     res.redirect(url);
   } catch (error) {
@@ -77,7 +77,7 @@ app.get('/slack/oauth_redirect', async (req, res, next) => {
           (callbackReq as any).session.slack = installation;
         }
         // todo: url in production
-        (callbackRes as any).redirect('https://local.sisisin.house:3000');
+        (callbackRes as any).redirect(frontBaseUrl);
       },
     });
   } catch (error) {
@@ -98,12 +98,12 @@ const checkAuthentication: RequestHandler = (req, res, next) => {
 };
 
 app.get('/connection', checkAuthentication, (req, res) => {
-  const { accessToken, userId } = getSessionProfileFromRequest(req);
+  const { accessToken, userId } = getSessionProfileFromRequest(req)!;
 
   return res.json({ accessToken, userId });
 });
 app.get('/file', checkAuthentication, (req, res) => {
-  const { accessToken } = getSessionProfileFromRequest(req);
+  const { accessToken } = getSessionProfileFromRequest(req)!;
   const isValidTargetUrl = (req.query as any).target_url.startsWith('https://files.slack.com');
   if (isValidTargetUrl) {
     request({
@@ -128,6 +128,10 @@ const errorHandler: ErrorRequestHandler = (err, req, res) => {
 app.use(errorHandler);
 
 function getSessionProfileFromRequest(req: any) {
+  if (!(req.session as any)?.slack?.user) {
+    return undefined;
+  }
+
   const { token, id } = (req.session as any)?.slack?.user;
 
   return { accessToken: token, userId: id };
