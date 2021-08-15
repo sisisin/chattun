@@ -22,4 +22,4 @@ export const makeSession = () => {
     },
   });
 };
-export const applyHelmet = () => helmet();
+export const applyHelmet = () => helmet({ contentSecurityPolicy: false });
