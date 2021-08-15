@@ -15,10 +15,12 @@
   },
   "dependencies": {
     "@slack/bolt": "3.5.0",
+    "@slack/oauth": "2.2.0",
+    "@slack/socket-mode": "1.1.0",
     "connect-redis": "4.0.4",
     "express": "4.17.1",
     "express-session": "1.17.0",
-    "helmet": "3.22.0",
+    "helmet": "4.6.0",
     "http-errors": "1.7.3",
     "ioredis": "4.27.7",
     "morgan": "1.10.0",
@@ -28,6 +30,8 @@
     "request": "2.88.2"
   },
   "devDependencies": {
+    "@types/connect-redis": "0.0.17",
+    "@types/express-session": "1.17.4",
     "@types/http-proxy": "1.17.7",
     "@types/ioredis": "4.26.7",
     "http-proxy": "1.18.1",

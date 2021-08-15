@@ -1,17 +1,20 @@
-import { App, SocketModeReceiver } from '@slack/bolt';
 import { WebClient } from '@slack/web-api';
 import { redis } from './redis';
 import { logger } from './logger';
+import { InstallProvider } from '@slack/oauth';
+import express, { ErrorRequestHandler } from 'express';
+import { SocketModeClient } from '@slack/socket-mode';
+import path from 'path';
+import * as middleware from './middleware';
 
 const appToken = process.env.SLACK_APP_TOKEN!;
-const socketModeReceiver = new SocketModeReceiver({
-  appToken,
-  clientId: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET,
+const socketClient = new SocketModeClient({ appToken });
+const app = express();
+const installer = new InstallProvider({
+  clientId: process.env.CLIENT_ID!,
+  clientSecret: process.env.CLIENT_SECRET!,
   stateSecret: 'my-state-secret',
-  // scopes: ['channels:read', 'channels:history', 'im:history'],
-  scopes: [],
-  installerOptions: { userScopes: ['channels:read', 'channels:history', 'im:history'] },
+
   installationStore: {
     storeInstallation: async (installation) => {
       if (installation.isEnterpriseInstall && installation.enterprise !== undefined) {
@@ -53,15 +56,44 @@ const socketModeReceiver = new SocketModeReceiver({
   },
 });
 
-const app = new App({
-  receiver: socketModeReceiver,
-  socketMode: true,
-  ignoreSelf: false,
+app.use(middleware.applyHelmet());
+app.set('trust proxy', 1);
+app.use(middleware.applySession());
+app.use(express.static('public'));
+
+app.get('/slack/install', async (req, res, next) => {
+  try {
+    const url = await installer.generateInstallUrl({
+      scopes: [],
+      userScopes: ['channels:read', 'channels:history', 'im:history'],
+      metadata: 'some_metadata',
+    });
+
+    res.send(
+      `<a href=${url}><img alt=""Add to Slack"" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>`,
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+app.get('/slack/oauth_redirect', async (req, res, next) => {
+  try {
+    // todo: handle followings
+    // save installation to session,redirect to /login
+    await installer.handleCallback(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 const webClient = new WebClient('', {
   headers: { Authorization: `Bearer ${appToken}` },
 });
-app.event('message', async ({ client, ...args }) => {
+
+socketClient.on('message', async ({ ...args }) => {
+  // console.log(event);
   const res = await webClient.apps.event.authorizations.list({
     event_context: args.body.event_context,
   });
@@ -72,7 +104,19 @@ app.event('message', async ({ client, ...args }) => {
   logger.log(args.body.authorizations);
 });
 
-(async () => {
-  await app.start();
-  logger.log('⚡️ Bolt app started');
-})();
+const errorHandler: ErrorRequestHandler = (err, req, res) => {
+  const error = req.app.get('env') === 'development' ? err : {};
+
+  res.status(err?.status || 500);
+  res.json({ message: err.message, ...error });
+};
+app.use(errorHandler);
+
+async function main() {
+  app.listen(process.env.PORT || 3000, () => {
+    console.log(`server running`);
+  });
+
+  await socketClient.start();
+}
+main().catch((err) => console.error(err));
