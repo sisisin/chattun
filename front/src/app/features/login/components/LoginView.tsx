@@ -1,8 +1,8 @@
 import React from 'react';
-import { basePathForAuth } from 'app/config';
+import { basePath } from 'app/config';
 
 export const LoginView = () => {
-  const authEndpoint = `${basePathForAuth}/auth/slack`;
+  const authEndpoint = `${basePath}/api/auth/slack`;
   return (
     <div className="login">
       <div className="login-visual">

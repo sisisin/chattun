@@ -97,11 +97,11 @@ export const fileToText = (fileMessageRow: Message) => {
   return fileMessageRow.files
     .filter(({ filetype }) => imgFileRegexp.test(filetype))
     .map(({ thumb_360, url_private }) => {
-      const u = new URL('/file', basePath);
-      u.searchParams.append('target_url', thumb_360);
+      const u = new URLSearchParams();
+      u.append('target_url', thumb_360);
       return `
       <a href="${url_private}" target="_blank" rel="noopener">
-        <img class="tweet-contents-image" src="${u}" />
+        <img class="tweet-contents-image" src="${basePath}/api/file?${u}" />
       </a>
 `;
     })

@@ -96,6 +96,7 @@
     "eslint-config-prettier": "6.10.0",
     "eslint-plugin-jest": "23.8.1",
     "eslint-plugin-prettier": "3.1.2",
+    "http-proxy-middleware": "2.0.1",
     "husky": "4.2.3",
     "lint-staged": "10.0.8",
     "markdown-it": "10.0.0",
@@ -127,7 +128,5 @@
   },
   "resolutions": {
     "@types/react": "16.9.23"
-  },
-  "#proxy": "todo: customize proxy url(e.g. using ngrok)",
-  "proxy": "https://local.sisisin.house:3100"
+  }
 }

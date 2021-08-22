@@ -5,7 +5,7 @@ import { basePath } from '../../config';
 import { EitherFactory } from '../EitherContainer';
 import { HttpErrorResponse, HttpResponse, HttpResponseEither, HttpStatus } from './entity';
 
-const api = ''; // todo
+const api = `${basePath}/api`;
 
 const headerBase = {
   'Content-Type': 'application/json',

@@ -14,12 +14,13 @@ export const makeSession = () => {
     resave: false,
     saveUninitialized: false,
     cookie: {
-      // todo: for localhost
       secure: true,
       httpOnly: true,
       path: '/',
-      sameSite: 'none',
+      sameSite: 'strict',
     },
   });
 };
-export const applyHelmet = () => helmet({ contentSecurityPolicy: false });
+
+// todo: ちゃんとする
+export const makeHelmet = () => helmet({ contentSecurityPolicy: false });
