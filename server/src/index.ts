@@ -6,6 +6,7 @@ import { installer, socketClient } from './slack';
 import { configureIO } from './io';
 import { port, serverBaseUrl } from './config';
 import request from 'request';
+import logger from 'morgan';
 
 const app = express();
 
@@ -15,6 +16,7 @@ const sessionMiddleware = middleware.makeSession();
 
 configureIO(server, sessionMiddleware);
 
+app.use(logger('dev'));
 app.use(middleware.makeHelmet());
 app.set('trust proxy', 1);
 app.use(sessionMiddleware);
