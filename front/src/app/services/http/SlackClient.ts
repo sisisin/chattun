@@ -78,6 +78,7 @@ class SlackClient {
             channels: concatinatedChannels.map(c => ({
               id: c.id,
               is_im: c.is_im,
+              is_member: (c as any).is_member,
               name: (c as any).name,
               user: (c as any).user,
             })),

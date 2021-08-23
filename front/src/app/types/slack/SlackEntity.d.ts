@@ -38,6 +38,7 @@ export namespace SlackEntity {
     export interface Channel {
       id: string;
       is_im: false;
+      is_member: boolean;
       name: string;
     }
   }

@@ -211,10 +211,7 @@ function filterMessages(
   { channels, messagesByChannel }: Pick<SlackState, 'channels' | 'messagesByChannel'>,
   channelMatch: ChannelMatch | undefined,
 ) {
-  if (channelMatch === undefined || channelMatch.matchValue === '') {
-    return toSlackMessages(messagesByChannel, 'desc');
-  }
-  const { matchValue, matchMethod } = channelMatch;
+  const match = getChannelNameMatcher();
 
   const t = Object.values(channels as Record<string, SlackEntity.Conversation>)
     .filter(c => {
@@ -222,18 +219,11 @@ function filterMessages(
       if (c.is_im) {
         return false;
       }
-
-      const channelName = c.name;
-      switch (matchMethod) {
-        case 'contain':
-          return channelName.indexOf(matchValue) > -1;
-        case 'startsWith':
-          return channelName.startsWith(matchValue);
-        case 'endsWith':
-          return channelName.endsWith(matchValue);
-        default:
-          return assertNever(matchMethod);
+      if (c.is_member === false) {
+        return false;
       }
+
+      return match(c.name);
     })
     .map(c => c.id);
 
@@ -242,4 +232,24 @@ function filterMessages(
   return toSlackMessages(messagesByChannel, 'desc').filter(m =>
     targetChannels.has(m.channel ?? ''),
   );
+
+  function getChannelNameMatcher() {
+    if (channelMatch === undefined || channelMatch.matchValue === '') {
+      return (channelName: string) => true;
+    } else {
+      const { matchMethod, matchValue } = channelMatch;
+      return (channelName: string) => {
+        switch (matchMethod) {
+          case 'contain':
+            return channelName.indexOf(matchValue) > -1;
+          case 'startsWith':
+            return channelName.startsWith(matchValue);
+          case 'endsWith':
+            return channelName.endsWith(matchValue);
+          default:
+            return assertNever(matchMethod);
+        }
+      };
+    }
+  }
 }
