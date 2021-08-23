@@ -5,6 +5,11 @@
 
 ## 開発環境
 
+### Slack App の設定
+
+`本番環境設定` の項目を参照のこと
+本番と同じアプリを使いまわしても特に不都合はない
+
 ### 必須の環境変数設定
 
 - SLACK_APP_TOKEN: `本番環境設定` の `サーバー側` を参照のこと
@@ -66,13 +71,22 @@ $ ./build_image
 
 ## Slack App 設定
 
-- tbd
+- SlackApp を作成する
+- `Slack App` > `Basic Information` 内の `App Level Token` を設定する。 `authorizations:read` , `connections:write` の権限が必要。token は後ほど環境変数として設定するので控えておく
+- `Event Subscriptions`
+  - > `Enable Events` を ON にする
+  - `Subscribe to events on behalf of users` で以下の項目を追加する
+    - `message.channels` , `reaction:added` , `reaction:removed`
+- `Socket Mode` > `Enable Socket Mode` を ON にする
+- `OAuth & Permissions` > `Redirect URLs` にサーバーの URL を以下のように設定する
+  - `https://[サーバーのドメイン]/api/slack/oauth_redirect`
+- 最後に Slack App のワークスペースへのインストールを実施
 
 ## 環境変数設定
 
 ### サーバー側
 
-- SLACK_APP_TOKEN: `Slack App` > `Basic Information` 内の App Level Token を設定する。`authorizations:read` , `connections:write` の権限が必要
+- SLACK_APP_TOKEN: 前項で控えた `App Level Token` を設定する
 - CLIENT_ID: `Slack App` > `App Credentials` 内の Client ID
 - CLIENT_SECRET: 同 Client Secret
 - SERVER_BASE_URL: サーバーの URL。OAuth フローでのリダイレクト先設定などに利用
