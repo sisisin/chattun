@@ -5,7 +5,7 @@
     "module": "esnext",
     "jsx": "preserve",
     "esModuleInterop": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",

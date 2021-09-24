@@ -57,7 +57,7 @@ class SlackClient {
   listChannels(): Promise<SlackAPI.Conversations.List> {
     const baseParam = {
       ...this.getToken(),
-      types: 'public_channel,private_channel,im,mpim',
+      types: 'public_channel',
       exclude_archived: true,
       limit: 200,
     };
@@ -78,6 +78,7 @@ class SlackClient {
             channels: concatinatedChannels.map(c => ({
               id: c.id,
               is_im: c.is_im,
+              is_member: (c as any).is_member,
               name: (c as any).name,
               user: (c as any).user,
             })),
