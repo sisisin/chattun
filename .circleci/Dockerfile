@@ -1,4 +1,4 @@
-FROM node:14.16.0
+FROM node:14.18.2
 
 RUN apt update -y
 RUN apt install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
