@@ -10,9 +10,8 @@ handle.epic().on(GlobalSettingActions.$mounted, () => {
 // --- Reducer ---
 export const initialState: GlobalSettingState = {
   deepLinking: 'viaBrowser',
-  channelMatch: undefined,
-  keywordMatch: undefined,
   markAsRead: false,
+  timelines: [{}],
 };
 
 export const reducer = handle

@@ -14,9 +14,16 @@ export type KeywordMatch = {
   matchMethod: KeywordMatchMethod;
   matchValue: string;
 };
-export type TimelineSettings = {
+export type TimelineSetting = {
+  channelMatch?: ChannelMatch;
+  keywordMatch?: KeywordMatch;
+};
+export type GlobalSettings = {
   deepLinking: DeepLinking;
-  channelMatch: ChannelMatch | undefined;
-  keywordMatch: KeywordMatch | undefined;
   markAsRead: boolean;
+  timelines: TimelineSetting[]; // non empty required
+};
+export type GlobalSettingsLegacy = Partial<GlobalSettings> & {
+  channelMatch?: ChannelMatch;
+  keywordMatch?: KeywordMatch;
 };

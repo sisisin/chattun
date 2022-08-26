@@ -1,5 +1,8 @@
 .tweetlist {
+  min-width: 300px;
   padding: 0;
+  overflow-x: scroll;
+  overflow-y: scroll;
   list-style: none;
 }
 

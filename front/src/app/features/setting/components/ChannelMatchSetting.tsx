@@ -13,16 +13,14 @@ const matchOptions: { [K in MatchMethod]: { text: string; value: K } } = {
 
 export const ChannelMatchSetting: React.FC = () => {
   const { register, handleSubmit } = useForm<ChannelMatch>();
-  const { updateSetting } = useActions(SettingActions);
-  const {
-    form: { channelMatch },
-  } = useMappedState([getSettingState], s => s);
+  const { updateTimelineSetting } = useActions(SettingActions);
+  const { channelMatch } = useMappedState([getSettingState], s => s.form.timelines[0]);
 
   return (
     <form
       onSubmit={React.useCallback(
         handleSubmit(data => {
-          updateSetting({ channelMatch: data });
+          updateTimelineSetting(0, { channelMatch: data });
         }),
         [],
       )}

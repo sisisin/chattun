@@ -186,24 +186,30 @@ ${fromFile}`;
   }
 };
 
-const getFilteredMessages = createSelector(
-  [getSlackState, slack => slack.channels],
-  [getSlackState, slack => slack.messagesByChannel],
-  [getGlobalSettingState, ({ channelMatch }) => channelMatch],
-  (channels, messagesByChannel, channelMatch) =>
-    filterMessages({ channels, messagesByChannel }, channelMatch),
-);
 export const getTimelineMessages = createSelector(
-  getFilteredMessages,
+  [getSlackState, slack => slack.messagesByChannel],
   [getSlackState, slack => slack.channels],
   [getSlackState, slack => slack.users],
   [getSlackState, slack => slack.emojis],
   [getSlackState, slack => slack.profile],
   [getGlobalSettingState, s => s.deepLinking],
-  (filtered, channels, users, emojis, profile, deepLinking) => {
-    return filtered.map(msg =>
-      slackMessageToTweet(msg, { channels, emojis, users, profile }, deepLinking),
-    );
+  [getGlobalSettingState, ({ timelines }) => timelines],
+  (messagesByChannel, channels, users, emojis, profile, deepLinking, timelineSettings) => {
+    return timelineSettings.map(tl => {
+      const filtered = filterMessages({ channels, messagesByChannel }, tl.channelMatch);
+      return filtered
+        .map(msg => slackMessageToTweet(msg, { channels, emojis, users, profile }, deepLinking))
+        .filter(m => {
+          if (tl.keywordMatch?.matchMethod === 'notContain' && tl.keywordMatch?.matchValue !== '') {
+            return (
+              !m.displayName.includes(tl.keywordMatch?.matchValue) &&
+              !m.fullName.includes(tl.keywordMatch?.matchValue) &&
+              !m.text.includes(tl.keywordMatch?.matchValue)
+            );
+          }
+          return true;
+        });
+    });
   },
 );
 
