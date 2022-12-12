@@ -15,7 +15,7 @@
     "@slack/oauth": "2.2.0",
     "@slack/socket-mode": "1.1.0",
     "connect-redis": "4.0.4",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "express-session": "1.17.0",
     "helmet": "4.6.0",
     "ioredis": "4.27.7",
