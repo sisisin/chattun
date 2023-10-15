@@ -12,6 +12,7 @@ if (!MOUNT_NODE) {
 }
 
 const render = () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const App = require('./app/App').App;
   ReactDOM.unmountComponentAtNode(MOUNT_NODE);
   ReactDOM.render(

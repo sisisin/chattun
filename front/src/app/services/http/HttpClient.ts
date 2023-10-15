@@ -31,7 +31,7 @@ export class HttpClient {
 
   post<Error, Body>(
     path: string,
-    body: Record<string, {}> = {},
+    body: Record<string, any> = {},
   ): Observable<HttpResponseEither<Error, Body>> {
     return ajax({
       method: 'POST',
@@ -48,10 +48,10 @@ export class HttpClient {
       catchError(e => this.errorHandler(e)),
     );
   }
-  delete(path: string): Observable<HttpResponseEither<{}, {}>> {
+  delete(path: string): Observable<HttpResponseEither<unknown, unknown>> {
     return ajax.delete(`${api}${path}`, { ...headerBase }).pipe(
       map(res => {
-        return EitherFactory.createRight(new HttpResponse<{}>(res.status as HttpStatus, {}));
+        return EitherFactory.createRight(new HttpResponse(res.status as HttpStatus, {}));
       }),
       catchError(e => this.errorHandler(e)),
     );

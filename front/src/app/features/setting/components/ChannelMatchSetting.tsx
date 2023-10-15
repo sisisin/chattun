@@ -21,10 +21,11 @@ export const ChannelMatchSetting: React.FC = () => {
   return (
     <form
       onSubmit={React.useCallback(
-        handleSubmit(data => {
-          updateSetting({ channelMatch: data });
-        }),
-        [],
+        e =>
+          handleSubmit(data => {
+            updateSetting({ channelMatch: data });
+          })(e),
+        [handleSubmit, updateSetting],
       )}
     >
       <div className="setting-group">

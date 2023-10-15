@@ -48,11 +48,12 @@ type Paths = {
   [K in keyof RD]: { path: ToUnion<RD[K]['path']> };
 };
 type Params = {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   [K in keyof RD]: RD[K] extends { params: infer V } ? { params: ToStringObject<ToUnion<V>> } : {};
 };
 type QueryParams = {
   [K in keyof RD]: RD[K] extends { queryParams: infer W }
-    ? { queryParams?: Partial<ToStringObject<ToUnion<W>>> }
+    ? { queryParams?: Partial<ToStringObject<ToUnion<W>>> } // eslint-disable-next-line @typescript-eslint/ban-types
     : {};
 };
 

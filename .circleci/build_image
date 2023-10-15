@@ -9,6 +9,6 @@ TIMESTAMP=$(TZ=JST-9 date "+%Y%m%d-%H%M%S")
 echo $TIMESTAMP
 IMAGE_ID=sisisin/chattun-ci:$TIMESTAMP
 echo $IMAGE_ID
-docker build -t $IMAGE_ID .
+docker build --platform linux/amd64 -t $IMAGE_ID .
 docker login
 docker push $IMAGE_ID

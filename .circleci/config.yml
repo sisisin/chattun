@@ -34,7 +34,7 @@ executors:
     working_directory: ~/repo
 
     docker:
-      - image: sisisin/chattun-ci:20210228-184237
+      - image: sisisin/chattun-ci:20231016-002158
 
 jobs:
   front-test:
@@ -44,7 +44,7 @@ jobs:
       - checkout
       - chattun/install_and_caching:
           target: front
-      - run: git diff --exit-code # check yarn.lock diff
       - run: cd front && yarn build
       - run: cd front && yarn test-all
+      - run: git diff --exit-code # check yarn.lock diff
       # - run: cd front && yarn test-visual

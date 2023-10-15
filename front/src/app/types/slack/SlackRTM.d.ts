@@ -1,6 +1,7 @@
 import { SlackEntity } from './SlackEntity';
 
 export namespace SlackRTM {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type Event = Channels | Reaction | Message;
 
   type Channels = Channels.Mark;
