@@ -11,7 +11,7 @@ export const epic = handle
     }
 
     const result = await httpClient
-      .get<{}, { userId: string; accessToken: string }>('/connection')
+      .get<unknown, { userId: string; accessToken: string }>('/connection')
       .toPromise();
     if (result.left != null) {
       // サーバーの実装的に401以外は異常系
