@@ -29,7 +29,6 @@ export namespace SlackEntity {
 
   export type Conversation = Conversation.IM | Conversation.Channel;
   export namespace Conversation {
-    // eslint-disable-next-line @typescript-eslint/interface-name-prefix
     export interface IM {
       id: string;
       is_im: true;

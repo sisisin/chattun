@@ -28,6 +28,7 @@ export namespace SlackAPI {
   }
   export namespace Emoji {
     type SlackEmoji = Record<string, string>;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface List extends Response {
       emoji: SlackEmoji;
     }

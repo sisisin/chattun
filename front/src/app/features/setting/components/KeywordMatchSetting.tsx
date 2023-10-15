@@ -19,10 +19,11 @@ export const KeywordMatchSetting: React.FC = () => {
   return (
     <form
       onSubmit={React.useCallback(
-        handleSubmit(data => {
-          updateSetting({ keywordMatch: data });
-        }),
-        [],
+        e =>
+          handleSubmit(data => {
+            updateSetting({ keywordMatch: data });
+          })(e),
+        [handleSubmit, updateSetting],
       )}
     >
       <div className="setting-group">
