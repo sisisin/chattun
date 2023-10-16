@@ -1,3 +1,15 @@
+.vscode
+.nvmrc
+*.md
+chattun.code-workspace
+.eslintignore
+.gitignore
+
 front/.blueprints
 front/.storybook
-front/.vscode
+front/.env.development
+front/.stylelintignore
+front/lint-staged.config.js
+front/plopfile.js
+front/regconfig.json
+front/story2sketch.config.js
