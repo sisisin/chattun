@@ -2,15 +2,26 @@ import express, { ErrorRequestHandler, RequestHandler } from 'express';
 import path from 'path';
 import * as middleware from './middleware';
 import http from 'http';
+import https from 'https';
 import { installer, socketClient } from './slack';
 import { configureIO } from './io';
 import { port, serverBaseUrl } from './config';
 import request from 'request';
 import logger from 'morgan';
+import fs from 'node:fs';
 
 const app = express();
-
-const server = http.createServer(app);
+console.log(process.env.SERVER_HTTPS, process.env.SSL_KEY_FILE, process.env.SSL_CERT_FILE);
+const server =
+  process.env.SERVER_HTTPS === 'true'
+    ? https.createServer(
+        {
+          key: fs.readFileSync(process.env.SSL_KEY_FILE!),
+          cert: fs.readFileSync(process.env.SSL_CRT_FILE!),
+        },
+        app,
+      )
+    : http.createServer(app);
 
 const sessionMiddleware = middleware.makeSession();
 
@@ -123,5 +134,14 @@ async function main() {
   });
 
   await socketClient.start();
+
+  const shutdown = async () => {
+    await socketClient.removeAllListeners().disconnect();
+    await new Promise((done) => server.close(done));
+
+    console.log('server closed');
+  };
+  process.on('SIGTERM', shutdown);
+  process.on('SIGINT', shutdown);
 }
 main().catch((err) => console.error(err));
