@@ -19,9 +19,8 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
       const matched = res.authorizations?.some(
         (auth) => auth.user_id === (socket.request as any).session.slack.user.id,
       );
-      logger.log('start matching');
+      logger.log('event matched:', matched);
       if (matched) {
-        logger.log('app emitted');
         socket.emit('message', evt.event);
       }
     };
