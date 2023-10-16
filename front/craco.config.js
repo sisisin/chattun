@@ -4,9 +4,7 @@ module.exports = {
   webpack: {
     plugins: {
       add: [
-        new webpack.ProvidePlugin({
-          process: 'process/browser',
-        }),
+        new webpack.ProvidePlugin({ process: 'process/browser', Buffer: ['buffer', 'Buffer'] }),
       ],
     },
     configure: {
