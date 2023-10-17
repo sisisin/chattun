@@ -10,7 +10,7 @@ export const MarkAsReadSetting: React.FC = () => {
   } = useMappedState([getSettingState], s => s);
   return (
     <div className="setting-group">
-      <h3 className="setting-group-title">Mark as Read (Experimental)</h3>
+      <h3 className="setting-group-title">Mark as Read</h3>
       <div className="select-group">
         <label htmlFor="asread" className="select-group-label">
           <input
