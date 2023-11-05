@@ -5,6 +5,7 @@ metadata:
     run.googleapis.com/ingress: all
     run.googleapis.com/ingress-status: all
     run.googleapis.com/operation-id: 1163fe4b-9ebb-405c-8fe1-80d33ced25b7
+    run.googleapis.com/launch-stage: BETA
   labels:
     cloud.googleapis.com/location: us-central1
   name: chattun-server
@@ -16,6 +17,9 @@ spec:
         autoscaling.knative.dev/maxScale: '3'
         run.googleapis.com/client-name: cloud-console
         run.googleapis.com/startup-cpu-boost: 'true'
+        run.googleapis.com/network-interfaces: '[{"network":"default","subnetwork":"default"}]'
+        run.googleapis.com/vpc-access-egress: private-ranges-only
+ 
       labels:
         run.googleapis.com/startupProbeType: Default
     spec:
@@ -29,10 +33,7 @@ spec:
         - name: SERVER_BASE_URL
           value: https://chattun-server-abfreslzha-uc.a.run.app
         - name: REDIS_URL
-          valueFrom:
-            secretKeyRef:
-              key: '1'
-              name: redis-url
+          value: 'redis://10.250.199.35:6379'
         - name: SLACK_APP_TOKEN
           valueFrom:
             secretKeyRef:
