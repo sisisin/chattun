@@ -12,13 +12,8 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
     const listener = async (evt: any) => {
       evt.ack();
 
-      const res = await webClient.apps.event.authorizations.list({
-        event_context: evt.body.event_context,
-      });
-
-      const matched = res.authorizations?.some(
-        (auth) => auth.user_id === (socket.request as any).session.slack.user.id,
-      );
+      const authorizations: { user_id: string }[] = evt.body.authorizations;
+      const matched = authorizations?.some((auth) => auth.user_id === (socket.request as any).session.slack.user.id);
       logger.log('event matched:', matched);
       if (matched) {
         socket.emit('message', evt.event);
