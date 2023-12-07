@@ -3,7 +3,7 @@
 set -ef -o pipefail
 
 readonly work_dir=$(cd "$(dirname "$0")" && pwd)
-cd $work_dir
+cd $work_dir/..
 
 TIMESTAMP=$(TZ=JST-9 date "+%Y%m%d-%H%M%S")
 echo $TIMESTAMP

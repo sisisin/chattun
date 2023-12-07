@@ -4,7 +4,7 @@ import { redis } from './redis';
 import helmet from 'helmet';
 
 const RedisStore = connectRedis(session);
-const redisStore = new RedisStore({ client: redis, ttl: 86400 });
+const redisStore = new RedisStore({ client: redis, ttl: 60 * 60 * 24 * 5 });
 
 export const makeSession = () => {
   return session({
