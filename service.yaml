@@ -25,7 +25,7 @@ spec:
     spec:
       containerConcurrency: 80
       containers:
-      - image: sisisin/chattun-server:20231205-141836
+      - image: sisisin/chattun-server:20231207-145425
         ports:
         - containerPort: 8080
           name: http1
@@ -34,6 +34,8 @@ spec:
           value: https://chattun-server-abfreslzha-uc.a.run.app
         - name: REDIS_URL
           value: 'redis://10.250.199.35:6379'
+        - name: ENABLE_EVENT_LOG
+          value: 'false'
         - name: SLACK_APP_TOKEN
           valueFrom:
             secretKeyRef:

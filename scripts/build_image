@@ -12,3 +12,6 @@ echo $IMAGE_ID
 docker build --platform linux/amd64 -t $IMAGE_ID .
 docker login
 docker push $IMAGE_ID
+
+echo "Done."
+echo $IMAGE_ID

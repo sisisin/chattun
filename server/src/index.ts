@@ -9,9 +9,10 @@ import { port, serverBaseUrl } from './config';
 import request from 'request';
 import logger from 'morgan';
 import fs from 'node:fs';
+import { getSessionProfileFromRequest } from './utils';
 
 const app = express();
-console.log(process.env.SERVER_HTTPS, process.env.SSL_KEY_FILE, process.env.SSL_CERT_FILE);
+console.log(process.env.SERVER_HTTPS, process.env.SSL_KEY_FILE, process.env.SSL_CRT_FILE);
 const server =
   process.env.SERVER_HTTPS === 'true'
     ? https.createServer(
@@ -114,16 +115,6 @@ const errorHandler: ErrorRequestHandler = (err, req, res) => {
   res.json({ message: err.message, ...error });
 };
 app.use(errorHandler);
-
-function getSessionProfileFromRequest(req: any) {
-  if (!(req.session as any)?.slack?.user) {
-    return undefined;
-  }
-
-  const { token, id } = (req.session as any)?.slack?.user;
-
-  return { accessToken: token, userId: id };
-}
 
 async function main() {
   server.listen(port || 3100, () => {
