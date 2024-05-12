@@ -13,3 +13,4 @@ front/lint-staged.config.js
 front/plopfile.js
 front/regconfig.json
 front/story2sketch.config.js
+front/.env.local

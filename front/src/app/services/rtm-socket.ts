@@ -6,7 +6,12 @@ import { basePath } from 'app/config';
 export async function connect() {
   const socket = io(basePath, { transports: ['websocket'] });
 
+  socket.on('pong', () => {
+    console.log('received pong');
+  });
   socket.on('message', ev => {
     appRegistry.dispatch(SlackActions.onRTMEmitted(ev));
   });
+
+  socket.send('ping');
 }

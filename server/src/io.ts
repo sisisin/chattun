@@ -1,11 +1,12 @@
-import { Server, Socket } from 'socket.io';
+import { Server } from 'socket.io';
 import type * as http from 'http';
-import { webClient, slackEmitter } from './slack';
+import { webClient, socketClient } from './slack';
 import { logger } from './logger';
 import { getSessionProfileFromRequest } from './utils';
 
 const logTarget = new Set([
   'U05V1TFDXAM', // @simenyan
+  'U011CM1HRHV', // @simenyan
 ]);
 
 export const configureIO = (server: http.Server, middleware: (...args: any[]) => void) => {
@@ -14,44 +15,86 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
     middleware(socket.request as any, {} as any, next as any);
   });
   io.on('connection', (socket) => {
-    const listener = async (evt: any) => {
-      evt.ack();
+    const sessionProfile = getSessionProfileFromRequest(socket.request);
+    if (!sessionProfile) {
+      logger.warn('sessionProfile not found');
+      return;
+    }
+    socket.data.sessionProfile = sessionProfile;
+  });
 
-      const sessionProfile = getSessionProfileFromRequest(socket.request);
-      if (!sessionProfile) {
-        logger.logJ('sessionProfile not found', {});
-        return;
-      }
+  socketClient.on('message', handlerError(handleSlackEvent));
+  socketClient.on('reaction_added', handlerError(handleSlackEvent));
+  socketClient.on('reaction_removed', handlerError(handleSlackEvent));
 
-      const authorizations: { user_id: string }[] = evt.body.authorizations;
+  async function handleSlackEvent(evt: any) {
+    {
+      const before = new Date();
+      await evt.ack();
+      const after = new Date();
+      const ts = new Date(Number(evt.event.event_ts) * 1000);
 
-      let matched = authorizations?.some((auth) => auth.user_id === sessionProfile.userId);
-      if (matched) {
-        socket.emit('message', evt.event);
-      } else {
-        const res = await webClient.apps.event.authorizations.list({
-          event_context: evt.body.event_context,
-        });
+      logger.info('acknowledged', {
+        before: before.getTime(),
+        after: after.getTime(),
+        event_ts_raw: evt.event.event_ts,
+        event_ts: ts.getTime(),
+        ['after - ts']: after.getTime() - ts.getTime(),
+        ['before -ts']: before.getTime() - ts.getTime(),
+      });
+    }
+    const sockets = await io.local.fetchSockets();
+    if (sockets.length === 0) {
+      return;
+    }
 
-        matched = res.authorizations?.some((auth) => auth.user_id === sessionProfile.userId) ?? false;
-        if (matched) {
-          socket.emit('message', evt.event);
+    const authorizationsSet = await listAllAuthorizations(evt.body.event_context).then(
+      (a) => new Set(a.map((auth) => auth.user_id)),
+    );
+    const targets = sockets.filter((socket) => authorizationsSet.has(socket.data.sessionProfile.userId));
+
+    targets.forEach((socket) => {
+      socket.emit('message', evt.event);
+    });
+    logger.info(`event broadcasted type: ${evt.event.type}`, {
+      eventType: evt.event.type,
+      subType: evt.event.subtype ?? null,
+      targets: targets.map((t) => t.data.sessionProfile.userId),
+      authorizations: Array.from(authorizationsSet),
+    });
+
+    {
+      if (process.env.ENABLE_EVENT_LOG === 'true') {
+        const s: any = targets.find((t) => logTarget.has(t.data.sessionProfile.userId));
+        if (s) {
+          logger.info('event received', evt);
         }
       }
-
-      logger.logJ('event matched', { matched, userId: sessionProfile.userId });
-      if (process.env.ENABLE_EVENT_LOG === 'true' && logTarget.has(sessionProfile.userId)) {
-        logger.logJ('on event', {
-          eventType: evt.event.type,
-          subType: evt.event.subtype ?? null,
-          userId: sessionProfile.userId,
-        });
-      }
-    };
-
-    slackEmitter.on('message', listener);
-    socket.on('disconnect', () => {
-      slackEmitter.removeListener('message', listener);
-    });
-  });
+    }
+  }
 };
+import type { AppsEventAuthorizationsListResponse } from '@slack/web-api';
+async function listAllAuthorizations(eventContext: string) {
+  const authorizations: AppsEventAuthorizationsListResponse['authorizations'] = [];
+  let cursor;
+
+  do {
+    const res: AppsEventAuthorizationsListResponse = await webClient.apps.event.authorizations.list({
+      cursor,
+      event_context: eventContext,
+    });
+
+    authorizations.push(...(res.authorizations ?? []));
+    cursor = res.response_metadata?.next_cursor;
+  } while (cursor);
+
+  return authorizations;
+}
+
+function handlerError<T extends any[]>(cb: (...args: T) => Promise<void>) {
+  return (...args: T) => {
+    cb(...args).catch((err) => {
+      logger.error('error on slack message handler', { error: err });
+    });
+  };
+}

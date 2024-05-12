@@ -1,6 +1,5 @@
 import { redis } from './redis';
 import { InstallProvider } from '@slack/oauth';
-import { EventEmitter } from 'events';
 import { SocketModeClient } from '@slack/socket-mode';
 import { WebClient } from '@slack/web-api';
 import { slackClientId, slackClientSecret, slackAppToken } from './config';
@@ -56,13 +55,3 @@ export const webClient = new WebClient('', {
 });
 
 export const socketClient = new SocketModeClient({ appToken: slackAppToken, autoReconnectEnabled: true });
-export const slackEmitter = new EventEmitter();
-socketClient.on('message', (args) => {
-  slackEmitter.emit('message', args);
-});
-socketClient.on('reaction_added', (args) => {
-  slackEmitter.emit('message', args);
-});
-socketClient.on('reaction_removed', (args) => {
-  slackEmitter.emit('message', args);
-});
