@@ -73,6 +73,7 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
       subType: evt.event.subtype ?? null,
       targets: targets.map((t) => t.data.sessionProfile.userId),
       authorizations: Array.from(authorizationsSet),
+      // ref. https://github.com/slackapi/node-slack-sdk/blob/aea11d0031c639cc3528312f6a04b6fc2cb87fb9/packages/socket-mode/src/SocketModeClient.ts#L333
       retry_num: evt.retry_num ?? null,
       retry_reason: evt.retry_reason ?? null,
       accepts_response_payload: evt.accepts_response_payload ?? null,
