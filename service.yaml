@@ -25,7 +25,7 @@ spec:
     spec:
       containerConcurrency: 80
       containers:
-      - image: sisisin/chattun-server:20231207-145425
+      - image: sisisin/chattun-server:20240512-225446
         ports:
         - containerPort: 8080
           name: http1
@@ -54,7 +54,7 @@ spec:
         resources:
           limits:
             cpu: 1000m
-            memory: 256Mi
+            memory: 512Mi
         startupProbe:
           failureThreshold: 1
           periodSeconds: 240

@@ -1,3 +1,5 @@
+import type { AppsEventAuthorizationsListResponse } from '@slack/web-api';
+import { createIOAdapter } from './redis';
 import { Server } from 'socket.io';
 import type * as http from 'http';
 import { webClient, socketClient } from './slack';
@@ -10,7 +12,9 @@ const logTarget = new Set([
 ]);
 
 export const configureIO = (server: http.Server, middleware: (...args: any[]) => void) => {
-  const io = new Server(server);
+  const io = new Server(server, {
+    adapter: createIOAdapter(),
+  });
   io.use((socket, next) => {
     middleware(socket.request as any, {} as any, next as any);
   });
@@ -21,6 +25,11 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
       return;
     }
     socket.data.sessionProfile = sessionProfile;
+    logger.info(`user connected userId: ${sessionProfile.userId}`, { userId: sessionProfile.userId });
+
+    socket.on('disconnect', (reason) => {
+      logger.info(`user disconnected userId: ${sessionProfile.userId}`, { userId: sessionProfile.userId, reason });
+    });
   });
 
   socketClient.on('message', handlerError(handleSlackEvent));
@@ -34,7 +43,7 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
       const after = new Date();
       const ts = new Date(Number(evt.event.event_ts) * 1000);
 
-      logger.info('acknowledged', {
+      logger.info(`acknowledged ${after.getTime() - ts.getTime()} ms`, {
         before: before.getTime(),
         after: after.getTime(),
         event_ts_raw: evt.event.event_ts,
@@ -43,7 +52,7 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
         ['before -ts']: before.getTime() - ts.getTime(),
       });
     }
-    const sockets = await io.local.fetchSockets();
+    const sockets = await io.fetchSockets();
     if (sockets.length === 0) {
       return;
     }
@@ -56,11 +65,17 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
     targets.forEach((socket) => {
       socket.emit('message', evt.event);
     });
-    logger.info(`event broadcasted type: ${evt.event.type}`, {
+    logger.info(`event published. type: ${evt.event.type}`, {
+      channel: evt.event.channel,
+      ts: evt.event.ts,
+      event_ts: evt.event.event_ts,
       eventType: evt.event.type,
       subType: evt.event.subtype ?? null,
       targets: targets.map((t) => t.data.sessionProfile.userId),
       authorizations: Array.from(authorizationsSet),
+      retry_num: evt.retry_num ?? null,
+      retry_reason: evt.retry_reason ?? null,
+      accepts_response_payload: evt.accepts_response_payload ?? null,
     });
 
     {
@@ -73,7 +88,6 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
     }
   }
 };
-import type { AppsEventAuthorizationsListResponse } from '@slack/web-api';
 async function listAllAuthorizations(eventContext: string) {
   const authorizations: AppsEventAuthorizationsListResponse['authorizations'] = [];
   let cursor;

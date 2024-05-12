@@ -71,7 +71,7 @@ export const getMessageProfile = (map: SlackState['users'], msg: Message) => {
     }
   }
   return {
-    displayName: member.name,
+    displayName: member.profile.display_name || member.name,
     fullName: member.real_name,
     iconUrl: member.profile.image_48,
   };

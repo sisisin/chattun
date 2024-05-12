@@ -47,6 +47,7 @@ export namespace SlackEntity {
     name: string;
     real_name: string;
     profile: {
+      display_name: string;
       image_24: string;
       image_32: string;
       image_48: string;
