@@ -126,11 +126,12 @@ async function main() {
 
     logger.info(`server running on ${addrString}`);
   });
-
-  await socketClient.start();
+  // NOTE: socket client のstartはserver起動時にはやらず、socket.ioのclientが1人でも現れたら行うようにする
 
   const shutdown = (event: string) => async () => {
-    await socketClient.removeAllListeners().disconnect();
+    if (socketClient.connected) {
+      await socketClient.removeAllListeners().disconnect();
+    }
     await new Promise((done) => server.close(done));
 
     console.log(`server closed by ${event} signal`);
