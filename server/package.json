@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "engines": {
-    "node": "^18.18.1",
+    "node": "^22.11.0",
     "yarn": "^1.22.5"
   },
   "scripts": {
@@ -14,7 +14,7 @@
   "dependencies": {
     "@google-cloud/logging-winston": "6.0.0",
     "@slack/oauth": "2.2.0",
-    "@slack/socket-mode": "1.1.0",
+    "@slack/socket-mode": "1",
     "@socket.io/redis-adapter": "8.3.0",
     "connect-redis": "4.0.4",
     "express": "4.17.1",

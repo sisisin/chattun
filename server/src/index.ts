@@ -129,12 +129,10 @@ async function main() {
   // NOTE: socket client のstartはserver起動時にはやらず、socket.ioのclientが1人でも現れたら行うようにする
 
   const shutdown = (event: string) => async () => {
-    if (socketClient.connected) {
-      await socketClient.removeAllListeners().disconnect();
-    }
+    await socketClient.disconnect();
     await new Promise((done) => server.close(done));
 
-    console.log(`server closed by ${event} signal`);
+    logger.info(`server closed by ${event} signal`);
   };
   process.on('SIGTERM', shutdown('SIGTERM'));
   process.on('SIGINT', shutdown('SIGINT'));
