@@ -17,13 +17,13 @@ export function initializeLogger() {
     }
 
     case 'local': {
-      transports.push(new winston.transports.Console());
+      transports.push(new winston.transports.Console({ level: 'info' }));
       break;
     }
     default:
   }
 
-  logger = winston.createLogger({ level: 'info', transports });
+  logger = winston.createLogger({ levels: winston.config.syslog.levels, transports, level: 'info' });
   logger.info('log format is set', { logFormat });
 }
 import express from 'express';
