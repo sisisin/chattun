@@ -25,7 +25,7 @@ spec:
     spec:
       containerConcurrency: 80
       containers:
-      - image: sisisin/chattun-server:20240516-185003
+      - image: sisisin/chattun-server:20250427-182826
         ports:
         - containerPort: 8080
           name: http1
@@ -39,17 +39,17 @@ spec:
         - name: SLACK_APP_TOKEN
           valueFrom:
             secretKeyRef:
-              key: '1'
+              key: '2'
               name: slack-app-token
         - name: CLIENT_ID
           valueFrom:
             secretKeyRef:
-              key: '1'
+              key: '2'
               name: slack-client-id
         - name: CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              key: '1'
+              key: '2'
               name: slack-client-secret
         resources:
           limits:
