@@ -23,7 +23,7 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
     middleware(socket.request as any, {} as any, next as any);
   });
   io.on('connection', (socket) => {
-    (socketClient.websocket?.isActive?.()
+    (socketClient.connected
       ? Promise.resolve()
       : socketClient.start().then(
           () => {
@@ -67,15 +67,15 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
 
       return;
     }
+    const before = new Date();
+    await evt.ack();
+    const after = new Date();
+
     const ts = new Date(Number(evt.event.ts) * 1000);
     const logSuffix = formatEventSuffix(evt, ts);
     const logObject = toLogObject(evt);
 
     {
-      const before = new Date();
-      await evt.ack();
-      const after = new Date();
-
       logger.info(`acknowledged ${after.getTime() - ts.getTime()} ms. ${logSuffix}`, {
         time: {
           before: before.getTime(),
@@ -90,7 +90,7 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
     }
     const sockets = await io.fetchSockets();
     if (sockets.length === 0) {
-      logger.info(`no connected user. type ${logSuffix}`, toLogObject(evt));
+      logger.info(`no connected user. type ${logSuffix}`, logObject);
       return;
     }
 
@@ -106,7 +106,7 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
       targets: targets.map((t) => t.data.sessionProfile.userId),
       authorizations: Array.from(authorizationsSet),
 
-      ...toLogObject(evt),
+      ...logObject,
     });
 
     {
@@ -121,7 +121,9 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
 };
 
 function formatEventSuffix(evt: any, ts: Date) {
-  return `channel: ${evt.event.channel}, ts: ${ts.toISOString()}, type: ${evt.event.type}`;
+  return `channel: ${evt.event.channel}, ts: ${Number.isNaN(ts.getTime()) ? 'invalid' : ts.toISOString()}, type: ${
+    evt.event.type
+  }`;
 }
 function toLogObject(evt: any) {
   return {

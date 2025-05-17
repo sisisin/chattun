@@ -25,7 +25,7 @@ spec:
     spec:
       containerConcurrency: 80
       containers:
-      - image: sisisin/chattun-server:20250427-182826
+      - image: sisisin/chattun-server:20250509-082835
         ports:
         - containerPort: 8080
           name: http1
