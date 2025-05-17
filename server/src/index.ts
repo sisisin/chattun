@@ -16,16 +16,20 @@ initializeLogger();
 async function main() {
   const app = express();
 
-  const server =
-    process.env.SERVER_HTTPS === 'true'
-      ? https.createServer(
-          {
-            key: fs.readFileSync(process.env.SSL_KEY_FILE!),
-            cert: fs.readFileSync(process.env.SSL_CRT_FILE!),
-          },
-          app,
-        )
-      : http.createServer(app);
+  const server = (() => {
+    if (process.env.SERVER_HTTPS === 'true') {
+      const tmpDir = path.resolve(__dirname, '../../tmp');
+      return https.createServer(
+        {
+          key: fs.readFileSync(path.join(tmpDir, 'privkey.pem')),
+          cert: fs.readFileSync(path.join(tmpDir, 'cert.pem')),
+        },
+        app,
+      );
+    } else {
+      return http.createServer(app);
+    }
+  })();
 
   const sessionMiddleware = middleware.makeSession();
 

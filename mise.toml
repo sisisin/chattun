@@ -1,3 +1,15 @@
 [tools]
 node = "22"
 yarn = "1"
+
+[hooks]
+enter = [
+  "gcloud config configurations activate sime-sdx",
+  "[[ ! -f .env.local ]] && touch .env.local",
+]
+
+[env]
+_.file=".env.local"
+
+[settings]
+experimental = true

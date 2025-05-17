@@ -1,3 +1,6 @@
 .envrc
 .idea
 slack-app.json
+
+tmp
+.env.local
