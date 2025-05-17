@@ -54,4 +54,6 @@ export const webClient = new WebClient('', {
   headers: { Authorization: `Bearer ${slackAppToken}` },
 });
 
-export const socketClient = new SocketModeClient({ appToken: slackAppToken, autoReconnectEnabled: true });
+export const socketClient = new SocketModeClient({
+  appToken: slackAppToken,
+});

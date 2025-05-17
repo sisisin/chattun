@@ -11,7 +11,7 @@ const logTarget = new Set([
   'U011CM1HRHV', // @simenyan
 ]);
 
-export const configureIO = (server: http.Server, middleware: (...args: any[]) => void) => {
+export const configureIO = (server: http.Server, middleware: (...args: any[]) => void): Server => {
   socketClient.on('message', handlerError(handleSlackEvent));
   socketClient.on('reaction_added', handlerError(handleSlackEvent));
   socketClient.on('reaction_removed', handlerError(handleSlackEvent));
@@ -19,6 +19,7 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
   const io = new Server(server, {
     adapter: createIOAdapter(),
   });
+
   io.use((socket, next) => {
     middleware(socket.request as any, {} as any, next as any);
   });
@@ -55,6 +56,8 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
       });
     });
   });
+
+  return io;
 
   async function handleSlackEvent(evt: any) {
     if (evt.event == null) {

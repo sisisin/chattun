@@ -5,11 +5,15 @@ yarn = "1"
 [hooks]
 enter = [
   "gcloud config configurations activate sime-sdx",
-  "[[ ! -f .env.local ]] && touch .env.local",
+  "[[ -f .env.local ]] && exit 0 || touch .env.local",
+  "[[ -n $GOOGLE_APPLICATION_CREDENTIALS ]] && exit 0 || echo 'GOOGLE_APPLICATION_CREDENTIALSを設定してください' && exit 1",
 ]
 
-[env]
+[[env]]
 _.file=".env.local"
+
+[[env]]
+LOCAL_DOMAIN="local.sisisin.house"
 
 [settings]
 experimental = true

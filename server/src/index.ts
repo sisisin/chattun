@@ -33,7 +33,7 @@ async function main() {
 
   const sessionMiddleware = middleware.makeSession();
 
-  configureIO(server, sessionMiddleware);
+  const io = configureIO(server, sessionMiddleware);
 
   await configureLoggingMiddleware(app);
   app.use(middleware.makeHelmet());
@@ -133,10 +133,18 @@ async function main() {
   // NOTE: socket client のstartはserver起動時にはやらず、socket.ioのclientが1人でも現れたら行うようにする
 
   const shutdown = (event: string) => async () => {
-    await socketClient.disconnect();
-    await new Promise((done) => server.close(done));
-
-    logger.info(`server closed by ${event} signal`);
+    logger.info(`Received ${event} signal, shutting down...`);
+    try {
+      await socketClient.disconnect();
+      io.close();
+      await new Promise((done) => server.close(done));
+      logger.info(`server closed by ${event} signal`);
+      // なんかしらんけど死なないので
+      process.exit(0);
+    } catch (err) {
+      logger.error(`Error during shutdown: ${err}`);
+      process.exit(1);
+    }
   };
   process.on('SIGTERM', shutdown('SIGTERM'));
   process.on('SIGINT', shutdown('SIGINT'));

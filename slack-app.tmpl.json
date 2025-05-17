@@ -1,9 +1,9 @@
 {
   "display_information": {
-    "name": "chattun-app"
+    "name": "__PLACEHOLDER_APP_NAME__"
   },
   "oauth_config": {
-    "redirect_urls": ["__PLACEHOLDER_REDIRECT_URL__"],
+    "redirect_urls": [__PLACEHOLDER_REDIRECT_URLS__],
     "scopes": {
       "user": ["channels:history", "im:history", "reactions:read"]
     }
