@@ -95,7 +95,7 @@ async function handleSlackEvent(io: socketIO.Server, evt: any) {
   await evt.ack();
   const after = new Date();
 
-  const ts = new Date(Number(evt.event.ts) * 1000);
+  const ts = new Date(Number(evt.event.ts ?? evt.event.event_ts) * 1000);
   const logSuffix = formatEventSuffix(evt, ts);
   logger.withContext(toLogObject(evt), async () => {
     {
@@ -133,7 +133,7 @@ async function handleSlackEvent(io: socketIO.Server, evt: any) {
       if (process.env.ENABLE_EVENT_LOG === 'true') {
         const s: any = targets.find((t) => logTarget.has(t.data.sessionProfile.userId));
         if (s) {
-          logger.info('event received', evt);
+          logger.info('event received', { event: evt });
         }
       }
     }
