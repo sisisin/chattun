@@ -3,7 +3,7 @@ import path from 'path';
 import * as middleware from './middleware';
 import http from 'http';
 import https from 'https';
-import { installer, socketClient } from './slack';
+import { configureSocketClient, installer, socketClient } from './slack';
 import { configureIO } from './io';
 import { port, serverBaseUrl } from './config';
 import request from 'request';
@@ -33,6 +33,7 @@ async function main() {
   const sessionMiddleware = middleware.makeSession();
 
   const io = configureIO(server, sessionMiddleware);
+  configureSocketClient(io);
 
   app.use(loggingMiddleware);
   app.use(middleware.makeHelmet());
