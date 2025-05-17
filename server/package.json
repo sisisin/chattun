@@ -12,7 +12,6 @@
     "dev": "nodemon ./src/index.ts"
   },
   "dependencies": {
-    "@google-cloud/logging-winston": "6.0.0",
     "@slack/oauth": "2.2.0",
     "@slack/socket-mode": "2.0.4",
     "@socket.io/redis-adapter": "8.3.0",
@@ -21,17 +20,14 @@
     "express-session": "1.17.0",
     "helmet": "4.6.0",
     "ioredis": "4.27.7",
-    "morgan": "1.10.0",
     "request": "2.88.2",
     "socket.io": "4.7.5",
-    "ts-node": "10.2.0",
-    "winston": "3.13.0"
+    "ts-node": "10.2.0"
   },
   "devDependencies": {
     "@types/connect-redis": "0.0.17",
     "@types/express-session": "1.17.4",
     "@types/ioredis": "4.26.7",
-    "@types/morgan": "1.9.3",
     "@types/request": "2.48.7",
     "nodemon": "2.0.12",
     "typescript": "5.8.3"
