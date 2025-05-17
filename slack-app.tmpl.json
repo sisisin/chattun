@@ -1,0 +1,22 @@
+{
+  "display_information": {
+    "name": "chattun-app"
+  },
+  "oauth_config": {
+    "redirect_urls": ["__PLACEHOLDER_REDIRECT_URL__"],
+    "scopes": {
+      "user": ["channels:history", "im:history", "reactions:read"]
+    }
+  },
+  "settings": {
+    "event_subscriptions": {
+      "user_events": ["message.channels", "reaction_added", "reaction_removed"]
+    },
+    "interactivity": {
+      "is_enabled": true
+    },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": true,
+    "token_rotation_enabled": false
+  }
+}
