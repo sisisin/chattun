@@ -12,19 +12,19 @@ const logTarget = new Set([
 ]);
 
 export const configureIO = (server: http.Server, middleware: (...args: any[]) => void): Server => {
-  socketClient.on('message', handlerError(handleSlackEvent));
-  socketClient.on('reaction_added', handlerError(handleSlackEvent));
-  socketClient.on('reaction_removed', handlerError(handleSlackEvent));
-
   const io = new Server(server, {
     adapter: createIOAdapter(),
   });
+
+  socketClient.on('message', handlerError(handleSlackEvent));
+  socketClient.on('reaction_added', handlerError(handleSlackEvent));
+  socketClient.on('reaction_removed', handlerError(handleSlackEvent));
 
   io.use((socket, next) => {
     middleware(socket.request as any, {} as any, next as any);
   });
   io.on('connection', (socket) => {
-    (socketClient.connected
+    (socketClient.websocket?.isActive() ?? false
       ? Promise.resolve()
       : socketClient.start().then(
           () => {
@@ -61,11 +61,11 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
 
   async function handleSlackEvent(evt: any) {
     if (evt.event == null) {
-      console.log(evt);
+      logger.warn('event is null');
 
       if (evt instanceof Buffer) {
-        logger.warning('buffer');
-        console.log(evt.toString());
+        logger.warn('buffer');
+        logger.warn(evt.toString());
       }
 
       return;
