@@ -9,8 +9,9 @@ import { port, serverBaseUrl } from './config';
 import request from 'request';
 import fs from 'node:fs';
 import { getSessionProfileFromRequest } from './utils';
-import { ErrorWithLogContext, logger } from './logging/logger';
-import { loggingMiddleware } from './logging/middleware';
+import { logger, initializeLogger, configureLoggingMiddleware } from './logger';
+
+initializeLogger();
 
 async function main() {
   const app = express();
@@ -34,21 +35,11 @@ async function main() {
 
   const io = configureIO(server, sessionMiddleware);
 
-  app.use(loggingMiddleware);
+  await configureLoggingMiddleware(app);
   app.use(middleware.makeHelmet());
   app.set('trust proxy', 1);
   app.use(sessionMiddleware);
   app.use(express.static('public'));
-
-  app.get('/api/foo', (req, res) => {
-    logger.info('debug log', { v: req.header('X-Cloud-Trace-Context') });
-    logger.info('debug log', { v: req.header('x-cloud-trace-context') });
-    res.json({ bar: 'yeh' });
-  });
-  app.get('/api/err', (req, res) => {
-    logger.info('debug log');
-    throw new Error('test error');
-  });
 
   app.get('/api/auth/slack', async (req, res, next) => {
     try {
@@ -87,6 +78,10 @@ async function main() {
       next(error);
     }
   });
+  app.get('/api/foo', (req, res) => {
+    logger.info('debug log');
+    res.json({ bar: 'yeh' });
+  });
   const checkAuthentication: RequestHandler = (req, res, next) => {
     const slack = getSessionProfileFromRequest(req);
 
@@ -121,20 +116,10 @@ async function main() {
     res.sendFile(path.join(__dirname, '../public/index.html'));
   });
 
-  const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
-    if (err instanceof Error) {
-      if (err instanceof ErrorWithLogContext) {
-        const [context, cause] = err.unwrapAndGetContext();
-        logger.errore(`Error processing request: ${cause}`, cause, context);
-      } else {
-        logger.errore(`Error processing request: ${err.message}`, err);
-      }
-    } else {
-      logger.errore(`Error processing request: ${err}`, err);
-    }
+  const errorHandler: ErrorRequestHandler = (err, req, res) => {
+    const error = req.app.get('env') === 'development' ? err : {};
 
     res.status(err?.status || 500);
-    const error = req.app.get('env') === 'development' ? err : {};
     res.json({ message: err.message, ...error });
   };
   app.use(errorHandler);
