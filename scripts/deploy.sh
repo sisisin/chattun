@@ -7,7 +7,7 @@ set -o nounset
 script_dir=$(cd "$(dirname "$0")" && pwd)
 readonly script_dir
 
-tag=$(date "+%Y%m%d-%H%M%S")
+tag=""
 for i in "$@"; do
   case "$i" in
   --tag=*)
@@ -25,7 +25,11 @@ for i in "$@"; do
   esac
 done
 
+if [ -z "$tag" ]; then
+  echo "Error: --tag is required" >&2
+  exit 1
+fi
+
 source "$script_dir/_lib.sh"
 
-"$script_dir/build_image.sh" --tag="$tag"
-"$script_dir/deploy.sh" --tag="$tag"
+deploy "$tag"
