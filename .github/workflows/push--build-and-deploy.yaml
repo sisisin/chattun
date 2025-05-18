@@ -30,7 +30,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: ./.github/actions/setup-gcloud
 
-      - name: get tf version
+      - name: Get terraform version
         id: terraform-version
         run: |
           version=$(cat mise.toml | grep -E '^terraform' | cut -d '=' -f 2 | tr -d '[:space:]' | tr -d '"')

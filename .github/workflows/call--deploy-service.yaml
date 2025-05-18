@@ -60,6 +60,20 @@ jobs:
       - name: Set up Cloud SDK
         uses: ./.github/actions/setup-gcloud
 
+      - name: Get terraform version
+        id: terraform-version
+        run: |
+          version=$(cat mise.toml | grep -E '^terraform' | cut -d '=' -f 2 | tr -d '[:space:]' | tr -d '"')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+        with:
+          terraform_version: ${{ steps.terraform-version.outputs.version }}
+
+      - run: terraform init
+        working-directory: ./terraform
+
       - name: Deploy service
         id: deploy
         env:
