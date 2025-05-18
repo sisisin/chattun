@@ -6,7 +6,7 @@ if (!discordWebhookUrl) {
 module.exports = async ({ github, context }) => {
   const { owner, repo } = context.repo;
 
-  const { data: jobsData } = await github.actions.listJobsForWorkflowRun({
+  const { data: jobsData } = await github.rest.actions.listJobsForWorkflowRun({
     owner: owner,
     repo: repo,
     run_id: context.workflow_run.id,
