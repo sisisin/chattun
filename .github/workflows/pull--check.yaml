@@ -1,0 +1,38 @@
+name: Pull Request Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  frontend-check:
+    name: Frontend Build & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./front
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Get node version
+        id: node-version
+        run: |
+          version=$(cat mise.toml | grep -E '^node' | cut -d '=' -f 2 | tr -d '[:space:]' | tr -d '"')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22.11.0'
+          cache: 'yarn'
+          cache-dependency-path: 'front/yarn.lock'
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn test-all
