@@ -1,0 +1,22 @@
+name: "Setup Google Cloud SDK"
+description: "Set up Google Cloud SDK environment"
+
+runs:
+  using: "composite"
+  steps:
+    # ref. https://github.com/google-github-actions/setup-gcloud/issues/701#issuecomment-2750080839
+    - name: gcloud latest hash
+      id: gcloud_latest_hash
+      shell: bash
+      run: |
+        HASH=$(curl https://raw.githubusercontent.com/google-github-actions/setup-cloud-sdk/main/data/versions.json | md5sum)
+        echo "hash=$HASH" >> "$GITHUB_OUTPUT"
+
+    - name: gcloud caching
+      uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+      with:
+        path: ${{ runner.tool_cache }}/gcloud
+        key: ${{ runner.os }}-gcloud-latest-${{ steps.gcloud_latest_hash.outputs.hash }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@77e7a554d41e2ee56fc945c52dfd3f33d12def9a # v2.1.4

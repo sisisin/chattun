@@ -16,3 +16,9 @@ output "chattun_server_name" {
 output "registry_name" {
   value = google_artifact_registry_repository.chattun_app.name
 }
+output "workload_identity_provider" {
+  value = google_iam_workload_identity_pool_provider.chattun_provider.name
+}
+output "deployer_service_account" {
+  value = google_service_account.run_deployer.email
+}

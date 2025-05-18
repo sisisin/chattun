@@ -1,0 +1,49 @@
+# NOTE: この名前はrun--notify-deploy-completed.yamlで利用しているので変更には注意
+name: Build and deploy to Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      short_sha: ${{ steps.build.outputs.short_sha }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@ba79af03959ebeac9769e648f473a284504d9193 # v2.1.10
+        with:
+          workload_identity_provider: projects/563309107870/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: run-deployer@kwdp-elt.iam.gserviceaccount.com
+
+      - name: Set up Cloud SDK
+        uses: ./.github/actions/setup-gcloud
+
+      - name: Build service
+        id: build
+        run: |
+          short_sha=$(git rev-parse --short HEAD)
+          ./scripts/build_image.sh --tag="${short_sha}"
+          echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    # NOTE: この名前は通知処理（deploy-notify-deploy-completed.ts）で利用しているので変更には注意
+    name: Deploy to Cloud Run
+    needs:
+      - build
+    uses: ./.github/workflows/call--deploy-service.yaml
+    permissions:
+      contents: read
+      id-token: write
+    secrets: inherit
+    with:
+      revision: ${{ needs.build.outputs.short_sha }}

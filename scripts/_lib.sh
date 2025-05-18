@@ -23,6 +23,9 @@ function build_image() {
 
   echo "Building image..."
   docker build --platform linux/amd64 -t "$image_name" -f "$repo_root/Dockerfile" "$repo_root"
+  gcloud auth configure-docker "${region}-docker.pkg.dev" --quiet
+  docker push "$image_name"
+
   echo "Image built: $image_name"
 }
 
@@ -33,9 +36,6 @@ function deploy() {
   image_name=$(echo_image_name "$tag")
 
   echo "Deploying image..."
-
-  gcloud auth configure-docker "${region}-docker.pkg.dev" --quiet
-  docker push "$image_name"
 
   gcloud run deploy "$chattun_service_name" \
     --project "$project_id" \

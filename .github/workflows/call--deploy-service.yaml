@@ -1,0 +1,68 @@
+name: Deploy to Cloud Run
+
+on:
+  workflow_call:
+    inputs:
+      revision:
+        description: 'deploy対象のリビジョン。基本的にはgit shaを想定しているが、ブランチ名を選ぶことも可能'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      revision:
+        description: 'deploy対象のリビジョン。基本的にはgit shaを想定しているが、ブランチ名を選ぶことも可能'
+        required: true
+        type: string
+
+jobs:
+  get-sha:
+    name: Get SHA for Deploy
+    runs-on: ubuntu-latest
+    outputs:
+      short_sha: ${{ steps.get-sha.outputs.short_sha }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.inputs.revision }}
+
+      - name: Get short SHA for deploy
+        id: get-sha
+        # NOTE: build-service.shのタグの命名規則に依存している
+        run: |
+          short_sha=$(git rev-parse --short HEAD)
+          echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs:
+      - get-sha
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    environment:
+      name: 'chattun-gcp'
+    concurrency:
+      group: call-deploy
+      cancel-in-progress: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@ba79af03959ebeac9769e648f473a284504d9193 # v2.1.10
+        with:
+          # ↓で設定する値を確認
+          # terraform output [workload_identity_provider,deployer_service_account]
+          workload_identity_provider: projects/31671566034/locations/global/workloadIdentityPools/chattun-deployment/providers/chattun-deployment-gh
+          service_account: run-deployer-chattun@knowledgework-simenyan-sandbox.iam.gserviceaccount.com
+
+      - name: Set up Cloud SDK
+        uses: ./.github/actions/setup-gcloud
+
+      - name: Deploy service
+        id: deploy
+        env:
+          SHORT_SHA: ${{ needs.get-sha.outputs.short_sha }}
+        run: |
+          ./scripts/deploy.sh --tag="${SHORT_SHA}"
