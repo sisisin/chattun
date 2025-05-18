@@ -1,6 +1,7 @@
 [tools]
 node = "22"
 yarn = "1"
+terraform = "1.11.4"
 
 [hooks]
 enter = [
