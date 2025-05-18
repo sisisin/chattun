@@ -22,6 +22,7 @@ jobs:
 
       - name: Get node version
         id: node-version
+        working-directory: ./
         run: |
           version=$(cat mise.toml | grep -E '^node' | cut -d '=' -f 2 | tr -d '[:space:]' | tr -d '"')
           echo "version=$version" >> "$GITHUB_OUTPUT"
