@@ -101,12 +101,6 @@ resource "google_secret_manager_secret_iam_member" "chattun_server" {
   member    = "serviceAccount:${google_service_account.chattun_server.email}"
 }
 
-resource "google_project_iam_member" "chattun_server_log_creator" {
-  project = var.project_id
-  role    = "roles/logging.logWriter"
-  member  = "serviceAccount:${google_service_account.chattun_server.email}"
-}
-
 resource "google_cloud_run_v2_service_iam_member" "chattun_deploy_permission" {
   project  = var.project_id
   location = var.region
