@@ -1,5 +1,5 @@
 [tools]
-node = "22"
+node = "22.11.0"
 yarn = "1"
 terraform = "1.11.4"
 
