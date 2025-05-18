@@ -1,7 +1,7 @@
 resource "google_cloud_run_v2_service" "chattun_server" {
   name                = "chattun-server"
-  project             = local.project_id
-  location            = local.region
+  project             = var.project_id
+  location            = var.region
   deletion_protection = false
 
   template {
@@ -67,8 +67,8 @@ resource "google_cloud_run_v2_service" "chattun_server" {
 }
 
 resource "google_cloud_run_v2_service_iam_binding" "chattun_server_public_access" {
-  location = local.region
-  project  = local.project_id
+  location = var.region
+  project  = var.project_id
   name     = google_cloud_run_v2_service.chattun_server.name
   role     = "roles/run.invoker"
   members  = ["allUsers"]
@@ -85,7 +85,7 @@ locals {
 resource "google_secret_manager_secret" "chattun_server" {
   for_each = local.secret_ids
 
-  project   = local.project_id
+  project   = var.project_id
   secret_id = each.value
   replication {
     auto {}
@@ -95,21 +95,21 @@ resource "google_secret_manager_secret" "chattun_server" {
 resource "google_secret_manager_secret_iam_member" "chattun_server" {
   for_each = local.secret_ids
 
-  project   = local.project_id
+  project   = var.project_id
   secret_id = google_secret_manager_secret.chattun_server[each.key].id
   role      = "roles/secretmanager.secretAccessor"
   member    = "serviceAccount:${google_service_account.chattun_server.email}"
 }
 
 resource "google_project_iam_member" "chattun_server_log_creator" {
-  project = local.project_id
+  project = var.project_id
   role    = "roles/logging.logWriter"
   member  = "serviceAccount:${google_service_account.chattun_server.email}"
 }
 
 resource "google_cloud_run_v2_service_iam_member" "chattun_deploy_permission" {
-  project  = local.project_id
-  location = local.region
+  project  = var.project_id
+  location = var.region
   name     = "chattun-server"
   role     = "roles/run.developer"
   member   = "serviceAccount:${google_service_account.run_deployer.email}"

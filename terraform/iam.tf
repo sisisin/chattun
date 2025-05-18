@@ -1,6 +1,6 @@
 
 resource "google_service_account" "chattun_server" {
-  project      = local.project_id
+  project      = var.project_id
   account_id   = "chattun-server"
   display_name = "Service Account for Chattun Server"
 }
@@ -8,7 +8,7 @@ resource "google_service_account" "chattun_server" {
 resource "google_service_account" "run_deployer" {
   account_id   = "run-deployer-chattun"
   display_name = "Chattun Cloud Run Deployer Service Account"
-  project      = local.project_id
+  project      = var.project_id
   description  = "Service account for deploying chattun to Cloud Run from GitHub Actions"
 }
 

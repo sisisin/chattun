@@ -1,12 +1,12 @@
 resource "google_iam_workload_identity_pool" "chattun_pool" {
-  project                   = local.project_id
+  project                   = var.project_id
   workload_identity_pool_id = "chattun-deployment"
   display_name              = "Chattun deployment pool"
   description               = "Identity pool for Chattun GitHub Actions deployment"
 }
 
 resource "google_iam_workload_identity_pool_provider" "chattun_provider" {
-  project                            = local.project_id
+  project                            = var.project_id
   workload_identity_pool_id          = google_iam_workload_identity_pool.chattun_pool.workload_identity_pool_id
   workload_identity_pool_provider_id = "chattun-deployment-gh"
   display_name                       = "Chattun deployment gh"

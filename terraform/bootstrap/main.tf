@@ -10,13 +10,13 @@ terraform {
 locals {
   project_id  = "knowledgework-simenyan-sandbox"
   region      = "asia-northeast1"
-  bucket_name = "${local.project_id}-chattun-tfstate"
+  bucket_name = "${var.project_id}-chattun-tfstate"
 }
 
 resource "google_storage_bucket" "terraform_state" {
   name     = local.bucket_name
-  location = local.region
-  project  = local.project_id
+  location = var.region
+  project  = var.project_id
 
   versioning {
     enabled = true

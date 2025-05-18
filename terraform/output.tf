@@ -2,10 +2,10 @@ output "chattun_server_url" {
   value = google_cloud_run_v2_service.chattun_server.uri
 }
 output "region" {
-  value = local.region
+  value = var.region
 }
 output "project_id" {
-  value = local.project_id
+  value = var.project_id
 }
 output "chattun_server_service_account" {
   value = google_service_account.chattun_server.email

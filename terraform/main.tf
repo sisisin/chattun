@@ -1,8 +1,3 @@
-locals {
-  project_id = "knowledgework-simenyan-sandbox"
-  region     = "asia-northeast1"
-}
-
 # Terraformの設定
 terraform {
   backend "gcs" {
@@ -19,6 +14,6 @@ terraform {
 }
 
 provider "google" {
-  project = local.project_id
-  region  = local.region
+  project = var.project_id
+  region  = var.region
 }
