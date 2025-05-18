@@ -12,13 +12,20 @@ resource "google_iam_workload_identity_pool_provider" "chattun_provider" {
   display_name                       = "Chattun deployment gh"
 
   attribute_mapping = {
-    "google.subject"       = "assertion.sub"
-    "attribute.repository" = "assertion.repository"
-    "attribute.actor"      = "assertion.actor"
-    "attribute.aud"        = "assertion.aud"
+    "google.subject"             = "assertion.sub"
+    "attribute.repository"       = "assertion.repository"
+    "attribute.actor"            = "assertion.actor"
+    "attribute.aud"              = "assertion.aud"
+    "attribute.job_workflow_ref" = "assertion.job_workflow_ref"
   }
 
-  attribute_condition = "attribute.repository == 'sisisin/chattun'"
+  # NOTE: https://medium.com/@bbeesley/notes-on-workload-identity-federation-from-github-actions-to-google-cloud-platform-7a818da2c33e
+  attribute_condition = <<-EOF
+    attribute.repository == 'sisisin/chattun' && (
+      attribute.job_workflow_ref.startsWith('sisisin/chattun/.github/workflows/call--deploy-service.yaml') ||
+      attribute.job_workflow_ref.startsWith('sisisin/chattun/.github/workflows/push--build-and-deploy.yaml')
+    )
+EOF
 
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
