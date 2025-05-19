@@ -39,7 +39,15 @@ async function main() {
   app.use(middleware.makeHelmet());
   app.set('trust proxy', 1);
   app.use(sessionMiddleware);
-  app.use(express.static('public'));
+  app.use(
+    express.static(path.join(__dirname, '../public'), {
+      setHeaders: (res, path) => {
+        if (path.endsWith('.css')) {
+          res.setHeader('Content-Type', 'text/css');
+        }
+      },
+    }),
+  );
 
   app.get('/api/foo', (req, res) => {
     logger.info('debug log', { v: req.header('X-Cloud-Trace-Context') });
