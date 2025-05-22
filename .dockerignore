@@ -7,10 +7,20 @@ chattun.code-workspace
 
 front/.blueprints
 front/.storybook
-front/.env.development
 front/.stylelintignore
 front/lint-staged.config.js
 front/plopfile.js
 front/regconfig.json
 front/story2sketch.config.js
-front/.env.local
+
+node_modules
+
+.env.development
+.env.local
+.env.test
+.env.production
+.env
+.envrc
+.envrc.local
+slack-app.json
+slack-app.tmpl.json

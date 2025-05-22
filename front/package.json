@@ -24,7 +24,7 @@
     "start-js": "craco start",
     "start-nm": "run-p start-js-nm watch-css",
     "start-js-nm": "GENERATE_SOURCEMAP=false craco start",
-    "build": "run-p build-css build-sw build-js",
+    "build": "run-p build-css build-sw && run-s build-js",
     "move-assets": "rm -rf ../server/public && mkdir -p ../server && mv build ../server/public",
     "build-js": "craco build",
     "build-sw": "tsc -p ./swSrc",
