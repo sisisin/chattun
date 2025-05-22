@@ -1,6 +1,8 @@
+import * as socketIO from 'socket.io';
+import { logger, slackLogger } from './logging/logger';
 import { redis } from './redis';
 import { InstallProvider } from '@slack/oauth';
-import { SocketModeClient } from '@slack/socket-mode';
+import { SocketModeClient, LogLevel } from '@slack/socket-mode';
 import { AppsEventAuthorizationsListResponse, WebClient } from '@slack/web-api';
 import { slackClientId, slackClientSecret, slackAppToken } from './config';
 
@@ -56,10 +58,9 @@ export const webClient = new WebClient('', {
 
 export const socketClient = new SocketModeClient({
   appToken: slackAppToken,
+  logger: slackLogger,
 });
 
-import * as socketIO from 'socket.io';
-import { logger } from './logging/logger';
 const logTarget = new Set([
   'U05V1TFDXAM', // @simenyan
   'U011CM1HRHV', // @simenyan

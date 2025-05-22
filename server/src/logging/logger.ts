@@ -1,6 +1,7 @@
 import type express from 'express';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { extractTrace } from './trace';
+import { LogLevel } from '@slack/oauth';
 
 const severities = ['DEFAULT', 'DEBUG', 'INFO', 'WARNING', 'WARN', 'ERROR', 'EMERGENCY'] as const;
 type Severity = (typeof severities)[number];
@@ -15,7 +16,7 @@ const SEVERITY_SCORE: Record<Severity, number> = {
   EMERGENCY: 800,
 };
 
-const LOGLEVEL = (() => {
+let LOGLEVEL = (() => {
   const fromEnv = process.env.LOGLEVEL;
   if (fromEnv === undefined) {
     return 'INFO';
@@ -91,6 +92,53 @@ export const logger = {
   withRequestContext: <T>(req: express.Request, fn: () => T): T => {
     const context = extractLogDataFromRequest(req);
     return loggingContext.run(context, fn);
+  },
+};
+
+export const slackLogger = {
+  debug(...msgs: unknown[]) {
+    logger.info(`slack log - ${msgs[0] as string}`, { msgs });
+  },
+  info(...msgs: unknown[]) {
+    logger.info(`slack log - ${msgs[0] as string}`, { msgs });
+  },
+  warn(...msgs: unknown[]) {
+    logger.warn(`slack log - ${msgs[0] as string}`, { msgs });
+  },
+  error(...msgs: unknown[]) {
+    logger.error(`slack log - ${msgs[0] as string}`, { msgs });
+  },
+  getLevel() {
+    switch (LOGLEVEL) {
+      case 'DEBUG':
+        return LogLevel.DEBUG;
+      case 'INFO':
+        return LogLevel.INFO;
+      case 'WARNING':
+      case 'WARN':
+        return LogLevel.WARN;
+      case 'ERROR':
+        return LogLevel.ERROR;
+      default:
+        return LogLevel.INFO;
+    }
+  },
+  setLevel(level: LogLevel) {
+    switch (level) {
+      case LogLevel.DEBUG:
+        LOGLEVEL = 'DEBUG';
+      case LogLevel.INFO:
+        LOGLEVEL = 'INFO';
+      case LogLevel.WARN:
+        LOGLEVEL = 'WARNING';
+      case LogLevel.ERROR:
+        LOGLEVEL = 'ERROR';
+      default:
+        LOGLEVEL = 'INFO';
+    }
+  },
+  setName(name: string) {
+    // noop
   },
 };
 

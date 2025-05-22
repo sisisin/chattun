@@ -22,4 +22,4 @@ COPY ./server ./
 COPY --from=builder /app/server/public ./public
 
 EXPOSE 3100
-CMD ["yarn", "start"]
+CMD ["ts-node", "-T", "./src/index.ts"]

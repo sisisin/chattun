@@ -160,10 +160,11 @@ async function main() {
     logger.info(`Received ${event} signal, shutting down...`);
     try {
       await socketClient.disconnect();
+      socketClient.removeAllListeners();
+
       io.close();
       await new Promise((done) => server.close(done));
       logger.info(`server closed by ${event} signal`);
-      // なんかしらんけど死なないので
       process.exit(0);
     } catch (err) {
       logger.error(`Error during shutdown: ${err}`);
