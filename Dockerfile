@@ -22,4 +22,4 @@ COPY ./server ./
 COPY --from=builder /app/server/public ./public
 
 EXPOSE 3100
-CMD ["ts-node", "-T", "./src/index.ts"]
+CMD ["./node_modules/.bin/ts-node", "-T", "./src/index.ts"]
