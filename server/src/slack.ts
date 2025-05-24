@@ -1,10 +1,10 @@
-import * as socketIO from 'socket.io';
-import { logger, slackLogger } from './logging/logger';
-import { redis } from './redis';
 import { InstallProvider } from '@slack/oauth';
-import { SocketModeClient, LogLevel } from '@slack/socket-mode';
+import { SocketModeClient } from '@slack/socket-mode';
 import { AppsEventAuthorizationsListResponse, WebClient } from '@slack/web-api';
-import { slackClientId, slackClientSecret, slackAppToken } from './config';
+import * as socketIO from 'socket.io';
+import { slackAppToken, slackClientId, slackClientSecret } from './config';
+import { logger } from './logging/logger';
+import { redis } from './redis';
 
 export const installer = new InstallProvider({
   clientId: slackClientId,
@@ -58,7 +58,7 @@ export const webClient = new WebClient('', {
 
 export const socketClient = new SocketModeClient({
   appToken: slackAppToken,
-  logger: slackLogger,
+  // logger: slackLogger,
 });
 
 const logTarget = new Set([
@@ -113,7 +113,7 @@ async function handleSlackEvent(io: socketIO.Server, evt: any) {
     }
     const sockets = await io.fetchSockets();
     if (sockets.length === 0) {
-      logger.info(`no connected user. type ${logSuffix}`);
+      logger.debug(`no connected user. type ${logSuffix}`);
       return;
     }
 
@@ -125,7 +125,7 @@ async function handleSlackEvent(io: socketIO.Server, evt: any) {
     targets.forEach((socket) => {
       socket.emit('message', evt.event);
     });
-    logger.info(`event published to ${targets.length} users. ${logSuffix}`, {
+    logger.debug(`event published to ${targets.length} users. ${logSuffix}`, {
       targets: targets.map((t) => t.data.sessionProfile.userId),
       authorizations: Array.from(authorizationsSet),
     });

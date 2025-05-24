@@ -64,6 +64,9 @@ export class ErrorWithLogContext extends Error {
 
 const loggingContext = new AsyncLocalStorage<Record<string, unknown>>();
 export const logger = {
+  debug: (message: string, data: Record<string, unknown> = {}): void => {
+    log('DEBUG', message, data);
+  },
   info: (message: string, data: Record<string, unknown> = {}): void => {
     log('INFO', message, data);
   },

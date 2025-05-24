@@ -14,14 +14,6 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
   });
   io.on('connection', (socket) => {
     (async () => {
-      const isActive = socketClient.websocket?.isActive() ?? false;
-      if (!isActive) {
-        // 一旦握りつぶしちゃう。ログ出しておくので、後で必要になったら対処する
-        await socketClient.start().catch((err) => {
-          logger.error('socketClient connection failed', { error: err });
-        });
-        logger.info('socketClient connected');
-      }
       const sessionProfile = getSessionProfileFromRequest(socket.request);
       if (!sessionProfile) {
         logger.warn('sessionProfile not found');
@@ -33,12 +25,6 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
 
         socket.on('disconnect', async (reason) => {
           logger.info(`user disconnected userId: ${sessionProfile.userId}`, { reason });
-          const sockets = await io.local.fetchSockets();
-
-          if (sockets.length === 0) {
-            logger.info('disconnect last user. So, disconnect socketClient');
-            await socketClient.disconnect();
-          }
         });
       });
     })();

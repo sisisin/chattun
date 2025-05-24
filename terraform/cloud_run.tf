@@ -3,18 +3,19 @@ resource "google_cloud_run_v2_service" "chattun_server" {
   project             = var.project_id
   location            = var.region
   deletion_protection = false
-
   template {
+    scaling {
+      min_instance_count = 1
+      max_instance_count = 10
+    }
     vpc_access {
       network_interfaces {
         network    = "default"
         subnetwork = "default"
       }
     }
-    containers {
-      # NOTE: deploy時に埋める
+    containers { # NOTE: deploy時に埋める
       image = "sisisin/chattun-server:20250509-082835"
-
       env {
         name = "SERVER_BASE_URL"
         # NOTE: 初回deployではservice作成後に直す必要がある

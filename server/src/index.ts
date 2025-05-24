@@ -154,7 +154,7 @@ async function main() {
 
     logger.info(`server running on ${addrString}`);
   });
-  // NOTE: socket client のstartはserver起動時にはやらず、socket.ioのclientが1人でも現れたら行うようにする
+  socketClient.start();
 
   const shutdown = (event: string) => async () => {
     logger.info(`Received ${event} signal, shutting down...`);
