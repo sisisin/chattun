@@ -100,7 +100,7 @@ async function handleSlackEvent(io: socketIO.Server, evt: any) {
   const logSuffix = formatEventSuffix(evt, ts);
   logger.withContext(toLogObject(evt), async () => {
     {
-      logger.info(`acknowledged ${after.getTime() - ts.getTime()} ms. ${logSuffix}`, {
+      logger.debug(`acknowledged ${after.getTime() - ts.getTime()} ms. ${logSuffix}`, {
         time: {
           before: before.getTime(),
           after: after.getTime(),
