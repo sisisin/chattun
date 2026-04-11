@@ -11,12 +11,6 @@
     "react": "16.13.0",
     "react-dom": "16.13.0",
     "react-scripts": "5.0.1",
-    "stylelint": "13.2.0",
-    "stylelint-color-format": "1.0.0",
-    "stylelint-config-prettier": "8.0.1",
-    "stylelint-config-recess-order": "2.0.3",
-    "stylelint-order": "4.0.0",
-    "stylelint-prettier": "1.1.2",
     "tslib": "2.6.2"
   },
   "scripts": {
@@ -33,8 +27,6 @@
     "_lint": "eslint --ext js,jsx,ts,tsx .",
     "lint": "yarn _lint",
     "lint-fix": "yarn _lint --fix",
-    "stylelint": "stylelint \"./src/app/css/**/*.css\" ",
-    "stylelint-fix": "stylelint \"./src/app/css/**/*.css\" --fix",
     "test-all": "yarn format-check && yarn test",
     "_prettier": "prettier \"src/**/*.{json,css,scss}\"",
     "format": "yarn lint-fix && yarn _prettier --write",
@@ -49,12 +41,6 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "lint-staged": {
-    "*.css": [
-      "yarn stylelint-fix",
-      "git add"
-    ]
   },
   "browserslist": [
     ">0.2%",
