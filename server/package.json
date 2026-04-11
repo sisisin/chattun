@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
-    "dev": "nodemon ./src/index.ts"
+    "dev": "nodemon ./src/index.ts",
+    "dev:mock": "ts-node -T ./mock-server/index.ts"
   },
   "dependencies": {
     "@slack/oauth": "2.2.0",

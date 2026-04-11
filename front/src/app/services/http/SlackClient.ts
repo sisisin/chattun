@@ -1,11 +1,25 @@
 import { SlackAPI } from 'app/types/slack/SlackAPI';
 import { WebClient } from '@slack/web-api';
 import { auth, emoji, conversations, reactions, users, team, rtm } from 'slack';
-import { EitherFactory } from '../EitherContainer';
+import { EitherFactory, EitherContainer } from '../EitherContainer';
 import { SlackEntity } from 'app/types/slack';
 import { getSessionState } from 'app/features/session/interface';
+import { MockSlackClient } from './MockSlackClient';
 
-class SlackClient {
+export interface ISlackClient {
+  authTest(): Promise<EitherContainer<any, any>>;
+  listEmojis(): Promise<SlackAPI.Emoji.List>;
+  listUsers(): Promise<SlackAPI.Users.List>;
+  listChannels(): Promise<SlackAPI.Conversations.List>;
+  teamInfo(): Promise<SlackAPI.Team.Info>;
+  addReaction(channelId: string, ts: string, reaction: string): Promise<SlackAPI.Response>;
+  removeReaction(channelId: string, ts: string, reaction: string): Promise<SlackAPI.Response>;
+  repliesConversations(channel: string, ts: string): Promise<SlackAPI.Conversations.Replies>;
+  mark(channel: string, ts: string): Promise<any>;
+  startRtm(): Promise<SlackAPI.RTM.Start>;
+}
+
+class SlackClient implements ISlackClient {
   private _client: WebClient | undefined;
 
   get client() {
@@ -126,4 +140,5 @@ class SlackClient {
   }
 }
 
-export const slackClient = new SlackClient();
+export const slackClient: ISlackClient =
+  process.env.REACT_APP_MOCK_MODE === 'true' ? new MockSlackClient() : new SlackClient();
