@@ -11,3 +11,10 @@
 - Task: 未認証ソケットのdisconnect時にクライアントへ適切に通知し、再接続ループを防止する
   - サーバー側: socket.disconnect(true)でクライアントに"io server disconnect"を送信（自動再接続されない）
   - クライアント側: disconnectイベントのreasonで判定し、セッション切れをalertで通知→/loginへリダイレクト
+
+- Task: 別サーバーとしてモックサーバーを実装して、slack appをセットアップしなくてもFEが動くようにし、メッセージの見た目を確認できるようにする
+  - 本番コードには手を入れず、`server/mock-server/` に独立したExpress+Socket.IOサーバーを作成
+  - モックサーバーは認証不要で /api/connection にモックレスポンスを返し、Socket.IO で無条件接続を受け付け
+  - モック用イベント発行httpエンドポイント（raw + プリセット）を実装
+  - FE側は REACT_APP_MOCK_MODE 環境変数で MockSlackClient に切り替え、/api/mock/bootstrap からモックデータ取得
+  - モック用アセット配信は express.static で実装
