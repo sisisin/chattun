@@ -11,12 +11,10 @@
     "emoji-mart": "2.11.2",
     "react": "16.13.0",
     "react-dom": "16.13.0",
-    "react-scripts": "5.0.1",
     "tslib": "2.6.2"
   },
   "scripts": {
     "start": "vp run --parallel start-js watch-css watch-sw",
-    "start-nm": "vp run --parallel start-js-nm watch-css",
     "prepare": "vp config"
   },
   "browserslist": [
@@ -26,8 +24,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@babel/core": "7.23.2",
-    "@craco/craco": "7.1.0",
     "@loadable/component": "5.12.0",
     "@types/emoji-mart": "2.11.3",
     "@types/loadable__component": "5.10.0",
@@ -39,12 +35,10 @@
     "@types/react-outside-click-handler": "1.3.0",
     "@types/react-router": "5.1.4",
     "@types/react-router-dom": "5.1.3",
-    "@types/webpack-env": "1.18.8",
     "autoprefixer": "9.7.4",
-    "babel-loader": "8.0.6",
     "buffer": "6.0.3",
     "cssnano": "4.1.10",
-    "http-proxy-middleware": "2.0.1",
+    "jsdom": "29.0.2",
     "markdown-it": "10.0.0",
     "node-emoji": "1.10.0",
     "plop": "2.5.4",

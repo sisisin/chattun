@@ -11,7 +11,7 @@ import { basePath } from 'app/config';
 
 function getMditInstance() {
   const md =
-    process.env.NODE_ENV === 'test'
+    import.meta.env.MODE === 'test'
       ? (MI as any).default({ html: true, breaks: true })
       : (MI as any)({
           html: true,

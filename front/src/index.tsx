@@ -11,8 +11,8 @@ if (!MOUNT_NODE) {
   throw new Error('<div id="root" /> not found');
 }
 
-const render = () => {
-  const App = require('./app/App').App;
+const render = async () => {
+  const { App } = await import('./app/App');
   ReactDOM.unmountComponentAtNode(MOUNT_NODE);
   ReactDOM.render(
     <Hmr>
@@ -24,8 +24,8 @@ const render = () => {
   );
 };
 
-if (module.hot) {
-  module.hot.accept('./app/App', () => {
+if (import.meta.hot) {
+  import.meta.hot.accept('./app/App', () => {
     startHmr();
     render();
   });

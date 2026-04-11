@@ -82,4 +82,4 @@ class SlackClient implements ISlackClient {
 }
 
 export const slackClient: ISlackClient =
-  process.env.REACT_APP_MOCK_MODE === 'true' ? new MockSlackClient() : new SlackClient();
+  import.meta.env.VITE_MOCK_MODE === 'true' ? new MockSlackClient() : new SlackClient();

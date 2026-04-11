@@ -1,2 +1,2 @@
 // note: prodで不要かも
-export const basePath = process.env.REACT_APP_BASE_URL ?? '';
+export const basePath = import.meta.env.VITE_BASE_URL ?? '';

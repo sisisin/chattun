@@ -10,6 +10,19 @@ export default defineConfig({
       app: path.resolve(import.meta.dirname, 'src/app'),
     },
   },
+  define: {
+    'process.env': '{}',
+  },
+  server: {
+    port: 3000,
+    proxy: {
+      '/api': { target: 'http://localhost:3100', changeOrigin: true },
+      '/socket.io': { target: 'http://localhost:3100', ws: true, changeOrigin: true },
+    },
+  },
+  build: {
+    outDir: 'build',
+  },
   test: {
     exclude: [...configDefaults.exclude, '.blueprints/**'],
     environment: 'jsdom',
@@ -18,11 +31,7 @@ export default defineConfig({
   run: {
     tasks: {
       'start-js': {
-        command: 'craco start',
-        cache: false,
-      },
-      'start-js-nm': {
-        command: 'GENERATE_SOURCEMAP=false craco start',
+        command: 'vp dev',
         cache: false,
       },
       'watch-css': {
@@ -40,7 +49,7 @@ export default defineConfig({
         command: 'tsc -p ./swSrc',
       },
       'build-js': {
-        command: 'craco build',
+        command: 'vp build',
         dependsOn: ['build-css', 'build-sw'],
       },
       'move-assets': {
