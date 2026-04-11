@@ -1,0 +1,14 @@
+{
+  "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1"
+  },
+  "permissions": {
+    "allow": [],
+    "deny": ["NotebookEdit", "NotebookRead"],
+    "defaultMode": "acceptEdits"
+  },
+  "hooks": {},
+  "sandbox": {
+    "enabled": false
+  }
+}

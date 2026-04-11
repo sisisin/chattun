@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Mac用
+# sandbox-exec で claude コマンドを安全に実行するラッパースクリプト
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+repo_root="$(git rev-parse --show-toplevel)"
+readonly repo_root
+
+parent_dir="$(dirname "$repo_root")"
+readonly parent_dir
+
+sandbox-exec -f "$repo_root/tools/agents/sandbox.sb" -D TARGET_DIR="$repo_root" -D HOME_DIR="$HOME" -D PARENT_DIR="$parent_dir" claude "$@"  --dangerously-skip-permissions

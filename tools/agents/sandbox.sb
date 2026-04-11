@@ -1,0 +1,54 @@
+(version 1)
+
+;; 参考: https://zenn.dev/todesking/articles/claude-code-with-sandbox-exec
+;; ↓で権限のデバッグが出来ます
+;; sudo log stream --predicate 'sender == "Sandbox"' | grep deny
+;; sandbox-exec -f "./tools/agents/sandbox.sb" -D TARGET_DIR="$(pwd)" -D HOME_DIR="$HOME" -D PARENT_DIR="$(dirname $(pwd))" [debug command]
+
+(debug deny)
+
+(allow default)
+
+(allow file-read*
+    ;; sandbox profiles documentation
+    (subpath "/System/Library/Sandbox/Profiles")
+    (subpath "/usr/share/sandbox")
+)
+
+;; sandbox-execの入れ子実行を許可
+(allow system-privilege)
+
+(deny file-write*)
+(allow file-write*
+    ;; (param "NAME") には、起動時に -D NAME=VALUE として渡した値が反映される
+
+    ;; プロジェクトディレクトリを TARGET_DIR として指定する
+    (subpath (param "TARGET_DIR"))
+
+    ;; プロジェクトディレクトリ以外に書き込みを許可する場所
+    ;; Claude Code関係
+    (regex (string-append "^" (regex-quote (param "HOME_DIR")) #"/.claude*"))
+    ;; セッション情報をKeychain経由で記録するらしい
+    (subpath (string-append (param "HOME_DIR") "/Library/Keychains"))
+
+    ;; 一時ファイル関連
+    (subpath "/tmp")
+    (subpath "/var/folders")
+    (subpath "/private/tmp")
+    (subpath "/private/var/folders")
+    (subpath (string-append (param "HOME_DIR") "/.cache"))
+    (subpath (string-append (param "HOME_DIR") "/Library/Caches"))
+
+    ;; その他のツール関連
+    (subpath (string-append (param "HOME_DIR") "/.local/share/mise")) ;; mise
+    (subpath (string-append (param "HOME_DIR") "/.npm")) ;; npm
+    (subpath (string-append (param "HOME_DIR") "/.local/share/aquaproj-aqua")) ;; aqua
+
+    ;; STDOUTとか
+    (literal "/dev/stdout")
+    (literal "/dev/stderr")
+    (literal "/dev/null")
+    (literal "/dev/dtracehelper")
+    (regex #"^/dev/tty*")
+    (literal "/dev/ptmx")
+)

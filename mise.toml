@@ -3,17 +3,9 @@ node = "22.11.0"
 yarn = "1"
 terraform = "1.11.4"
 
-[hooks]
-enter = [
-  "gcloud config configurations activate sime-sdx",
-  "[[ -f .env.local ]] && exit 0 || touch .env.local",
-  "[[ -n $GOOGLE_APPLICATION_CREDENTIALS ]] && exit 0 || echo 'GOOGLE_APPLICATION_CREDENTIALSを設定してください' && exit 1",
-]
-
 [[env]]
 _.file=".env.local"
-
-[[env]]
+_.path = ["{{config_root}}/tools/bin"]
 LOCAL_DOMAIN="local.sisisin.house"
 
 [settings]
