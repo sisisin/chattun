@@ -39,6 +39,7 @@ export default defineConfig({
       'typescript/explicit-function-return-type': 'off',
 
       // --- @typescript-eslint/no-namespace: error (allowDefinitionFiles) ---
+      // oxlintはデフォルトで.d.tsファイルを許可する。元のeslint設定のallowDefinitionFiles相当。
       'typescript/no-namespace': 'error',
     },
   },
