@@ -1,4 +1,4 @@
-FROM node:22.11.0 AS builder
+FROM node:22.18.0 AS builder
 
 WORKDIR /app/front
 
@@ -9,7 +9,7 @@ RUN yarn install --frozen-lockfile && \
 COPY ./front .
 RUN yarn build && yarn move-assets
 
-FROM node:22.11.0-alpine AS runner
+FROM node:22.18.0-alpine AS runner
 
 WORKDIR /app/server
 ENV NODE_ENV=production
