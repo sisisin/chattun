@@ -1,6 +1,36 @@
 import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
+  run: {
+    tasks: {
+      'start-js': {
+        command: 'craco start',
+        cache: false,
+      },
+      'start-js-nm': {
+        command: 'GENERATE_SOURCEMAP=false craco start',
+        cache: false,
+      },
+      'watch-css': {
+        command: 'postcss src/app/css/main.css -o public/index.css -w',
+        cache: false,
+      },
+      'watch-sw': {
+        command: 'tsc -p ./swSrc -w',
+        cache: false,
+      },
+      'build-css': {
+        command: 'postcss src/app/css/main.css -o public/index.css',
+      },
+      'build-sw': {
+        command: 'tsc -p ./swSrc',
+      },
+      'build-js': {
+        command: 'craco build',
+        dependsOn: ['build-css', 'build-sw'],
+      },
+    },
+  },
   fmt: {
     printWidth: 100,
     tabWidth: 2,
