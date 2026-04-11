@@ -105,3 +105,11 @@
   - module.hot→import.meta.hot、setupProxy.js→vite.config.tsのserver.proxy
   - vite.config.tsにserver.https設定を追加（.env.localからSSL_CRT_FILE/SSL_KEY_FILE読み取り）
   - README.md、CLAUDE.md、CI workflow、Dockerfileを更新
+
+- Task: GitHub ActionsのCI/デプロイ状況を確認し、失敗があれば修正する + frontのみyarnからpnpmへ移行
+  - vp configがpackageManager: "yarn@4.13.0"を書き込み、corepackがyarn 4を期待してCI/Dockerビルドが失敗
+  - frontのパッケージマネージャをyarn 1.xからpnpmに移行することで根本解決
+  - pnpm import でyarn.lockからpnpm-lock.yamlを生成、resolutions→pnpm.overridesに変更
+  - CI: corepack enable pnpm + actions/setup-nodeのpnpmキャッシュ設定
+  - Dockerfile: corepack enable pnpm + pnpm install --frozen-lockfile --ignore-scripts
+  - CLAUDE.md, README.md, mock-dev SKILL.md のyarn→pnpm更新
