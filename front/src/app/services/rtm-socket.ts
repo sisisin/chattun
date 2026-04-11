@@ -13,10 +13,11 @@ export async function connect() {
   socket.on('message', ev => {
     appRegistry.dispatch(SlackActions.onRTMEmitted(ev));
   });
-  socket.on('auth_error', () => {
-    socket.disconnect();
-    alert('セッションの有効期限が切れました。再度ログインしてください。');
-    appHistory.push('/login');
+  socket.on('disconnect', reason => {
+    if (reason === 'io server disconnect') {
+      alert('セッションの有効期限が切れました。再度ログインしてください。');
+      appHistory.push('/login');
+    }
   });
 
   socket.send('ping');

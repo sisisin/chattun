@@ -16,8 +16,7 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
     const sessionProfile = getSessionProfileFromRequest(socket.request);
     if (!sessionProfile) {
       logger.warn('sessionProfile not found');
-      socket.emit('auth_error', { reason: 'session_expired' });
-      socket.disconnect();
+      socket.disconnect(true);
       return;
     }
     socket.data.sessionProfile = sessionProfile;
