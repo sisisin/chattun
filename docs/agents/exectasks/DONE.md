@@ -21,3 +21,9 @@
 
 - Task: モックサーバーを利用した開発手順を/skill-dev を利用してclaude skillとして定義する
   - `.claude/skills/mock-dev/SKILL.md` を作成。start/preset/event/listの各サブコマンドに対応
+
+- Task: Storybookを消す
+  - @storybook/* パッケージ、storycap, story2sketch, reg-suit関連パッケージを削除
+  - .storybook/ ディレクトリ、storiesファイル、utility/storybook/ ヘルパー、regconfig.json を削除
+  - CSS内の.storybook-iconsクラス、ソース内のStorybook TODOコメント、eslintrcのstories override設定を削除
+  - yarn.lock を更新
