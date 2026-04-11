@@ -68,3 +68,8 @@
 - Task: hooks.tsのuseEffect依存配列を元の[]に戻し、exhaustive-deps suppressを復元する
   - マウント時に1回だけObserverを登録する意図で空配列が正しい設計判断
   - useRefパターンへの不要な変更を元に戻した
+
+- Task: prettierを消し、vite+のformatterに変更する
+  - prettierパッケージを削除、vite.config.tsにfmt設定を追加（printWidth:100, singleQuote, trailingComma等）
+  - format/format-checkスクリプトをvp fmt/vp lintベースに変更
+  - oxfmtで全ファイルをフォーマット適用、CLAUDE.mdのコマンド説明も更新

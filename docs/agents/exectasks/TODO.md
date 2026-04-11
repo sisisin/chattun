@@ -50,7 +50,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: prettierを消し、vite+のformatterに変更する
 - Task: 開発用コマンドをvite+タスクに定義して、そちらを利用する形にする。npm-run-allは多分vite+があれば十分なので消す
 - Task: テストをvite+に変更する
 - Task: create-react-appをvite+へ移行する。画面が正常に表示できることを確認する
