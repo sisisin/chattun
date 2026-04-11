@@ -50,10 +50,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: slackをサーバーをプロキシとして叩くようにして、slack clientの依存を消す
-  - ビルド関連にslackをフロントで使うために入れた設定がある（os-browserifyが恐らくそう。他にもあるかも）ので、これの削除も漏れなく行う
-  - これによりデプロイ失敗（@slack/web-apiのNode.jsコアモジュールpolyfillエラー）も解消される: https://github.com/sisisin/chattun/actions/runs/24284188806/job/70910701165
-  - Taskが大きすぎて対応しきれない場合は、作業を分解してそれぞれTaskとして追加すること
 - Task: oxlint移行時にsuppressしたlint ignoreを解消する
   - exhaustive-deps suppress: hooks.ts（依存配列の修正）
   - no-restricted-imports suppress: App.test.tsx（DefaultTypelessProvider→TypelessContext移行）

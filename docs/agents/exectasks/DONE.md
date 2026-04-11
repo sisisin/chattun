@@ -49,3 +49,10 @@
   - eslint関連パッケージ(eslint-config-prettier, eslint-plugin-jest, eslint-plugin-prettier)・設定ファイル(.eslintrc.js, .eslintignore)を削除
   - craco.config.jsでCRA内蔵eslintを無効化、eslint-disableコメントをoxlint対応に置換
   - Node.jsを22.18.0に更新、lint結果は0 warnings 0 errors
+
+- Task: slackをサーバーをプロキシとして叩くようにして、slack clientの依存を消す
+  - サーバー側にSlack APIプロキシエンドポイント9個を追加（emoji.list, users.list, conversations.list, team.info, reactions.add/remove, conversations.replies/mark, auth.test）
+  - フロントのSlackClient.tsをfetch()ベースのプロキシ呼び出しに書き換え
+  - @slack/web-api, slack, os-browserify, path-browserifyをフロントから削除、craco.config.jsのpolyfill設定も整理
+  - accessTokenのフロント返却を廃止、express.json()をグローバル配置、startRtmデッドコード削除
+  - babel-runtime, @types/webpack-envをyarn hoisting変更対応として明示追加
