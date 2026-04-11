@@ -18,3 +18,6 @@
   - モック用イベント発行httpエンドポイント（raw + プリセット）を実装
   - FE側は REACT_APP_MOCK_MODE 環境変数で MockSlackClient に切り替え、/api/mock/bootstrap からモックデータ取得
   - モック用アセット配信は express.static で実装
+
+- Task: モックサーバーを利用した開発手順を/skill-dev を利用してclaude skillとして定義する
+  - `.claude/skills/mock-dev/SKILL.md` を作成。start/preset/event/listの各サブコマンドに対応

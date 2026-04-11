@@ -50,7 +50,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: モックサーバーを利用した開発手順を/skill-dev を利用してclaude skillとして定義する
 - Task: Storybookを消す
 - Task: stylelintを消す
 - Task: lint-stagedを消す
@@ -60,6 +59,8 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: create-react-appをvite+へ移行する。画面が正常に表示できることを確認する
   - create-react-app関連の依存はちゃんと消すこと
   - Taskが大きすぎて対応しきれない場合は、作業を分解してそれぞれTaskとして追加すること
+- Task: typescriptを最新にする
+- frontのみyarnからpnpmへ移行
 - Task: 他にfrontでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
 
 # Backlog
