@@ -27,7 +27,8 @@
     "format": "vp fmt --write && vp lint --fix",
     "format-check": "vp fmt --check && vp lint",
     "g": "yarn plop feature",
-    "gm": "yarn plop module"
+    "gm": "yarn plop module",
+    "prepare": "vp config"
   },
   "browserslist": [
     ">0.2%",
