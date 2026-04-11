@@ -51,6 +51,10 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
+- Task: vpにlint-staged的な機能があるか調査し、あればそれを利用、なければlefthookを導入してcommit hookでvp checkを実施する
+- Task: npm scriptsを空にして全てvp taskrunner機能に寄せる
+  - vp run --parallel相当をconfigで表現できるか調査し、可能ならconfig定義に移行
+  - configで表現できないものだけnpm scriptsに残す
 - Task: create-react-appをvite+へ移行する。画面が正常に表示できることを確認する
   - create-react-app関連の依存はちゃんと消すこと
   - Taskが大きすぎて対応しきれない場合は、作業を分解してそれぞれTaskとして追加すること
@@ -60,10 +64,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: frontの暗黙的な推移的依存を整理する
   - babel-runtime: emoji-mart 2.11.2が実質依存しているがpackage.jsonに宣言していない。emoji-martのアップデートで解消できるか検討し、可能ならアップデート、不可なら明示的依存として残す理由をコメントする
   - @types/webpack-env: react-scriptsの推移的依存だがhoistingで消えうる。CRA→vite+移行時に不要になるため、移行完了後に削除する
-- Task: vpにlint-staged的な機能があるか調査し、あればそれを利用、なければlefthookを導入してcommit hookでvp checkを実施する
-- Task: npm scriptsを空にして全てvp taskrunner機能に寄せる
-  - vp run --parallel相当をconfigで表現できるか調査し、可能ならconfig定義に移行
-  - configで表現できないものだけnpm scriptsに残す
 - Task: 他にfrontでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
 
 # Backlog

@@ -57,6 +57,9 @@ export default defineConfig({
     sortPackageJson: false,
     ignorePatterns: ['build/', 'node_modules/', 'public/sw.js', '.blueprints/'],
   },
+  staged: {
+    '*': 'vp check --fix',
+  },
   lint: {
     ignorePatterns: ['build/', 'node_modules/', 'public/sw.js', '.blueprints/'],
     plugins: ['react', 'typescript'],
