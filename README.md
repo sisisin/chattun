@@ -46,9 +46,9 @@ Viteのdev serverでHTTPSを有効にするだけの方法
   - サーバー
     - SERVER_BASE_URL: `[署名されたURL]:3000` を設定
   - フロント（front/.env.local に設定）
-    - VITE_DEV_HOST: 署名したドメイン
-    - VITE_DEV_SSL_CERT: /etc/letsencrypt/live/[domain]/fullchain.pem など
-    - VITE_DEV_SSL_KEY: /etc/letsencrypt/live/[domain]/privkey.pem など
+    - HOST: 署名したドメイン
+    - SSL_CRT_FILE: /etc/letsencrypt/live/[domain]/fullchain.pem など
+    - SSL_KEY_FILE: /etc/letsencrypt/live/[domain]/privkey.pem など
 
 ### 開発用コマンド
 
