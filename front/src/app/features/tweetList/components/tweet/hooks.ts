@@ -31,6 +31,5 @@ export function useSetIntersectionObserver(
       return;
     }
 
-    // oxlint-disable-next-line react/exhaustive-deps -- TODO: 依存配列を修正する
-  }, []);
+  }, [tweetRef, rootRef, tweetIntersected, message]);
 }

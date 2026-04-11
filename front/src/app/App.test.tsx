@@ -1,15 +1,15 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
-// oxlint-disable-next-line no-restricted-imports -- TODO: TypelessContextに移行する
-import { DefaultTypelessProvider } from 'typeless';
+import { TypelessContext } from 'typeless';
+import { appRegistry } from 'app/services/AppRegistry';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
-    <DefaultTypelessProvider>
+    <TypelessContext.Provider value={{ registry: appRegistry }}>
       <App />
-    </DefaultTypelessProvider>,
+    </TypelessContext.Provider>,
     div,
   );
   ReactDOM.unmountComponentAtNode(div);
