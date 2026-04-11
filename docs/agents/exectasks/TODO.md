@@ -51,7 +51,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: vpにlint-staged的な機能があるか調査し、あればそれを利用、なければlefthookを導入してcommit hookでvp checkを実施する
 - Task: npm scriptsを空にして全てvp taskrunner機能に寄せる
   - vp run --parallel相当をconfigで表現できるか調査し、可能ならconfig定義に移行
   - configで表現できないものだけnpm scriptsに残す

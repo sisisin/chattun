@@ -87,3 +87,8 @@
   - テストランナーをcraco test (Jest)からvp test run (Vitest)に移行
   - vite.config.tsにtest設定(jsdom, globals, configDefaults.exclude)、oxc jsx classic、resolve.aliasを追加
   - @types/jestを削除、package.jsonのtestスクリプトを更新、CLAUDE.md更新
+
+- Task: vpにlint-staged的な機能があるか調査し、commit hookを設定する
+  - vp staged（lint-staged相当）とvp config（husky相当）を利用
+  - vite.config.tsにstaged設定（vp check --fix）を追加
+  - pre-commitフックでvp stagedを実行、prepareスクリプトでvp configを自動実行
