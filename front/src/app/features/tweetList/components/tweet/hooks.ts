@@ -9,6 +9,11 @@ export function useSetIntersectionObserver(
   rootRef: React.RefObject<HTMLUListElement>,
 ) {
   const { tweetIntersected } = useActions(TweetActions);
+  const tweetIntersectedRef = React.useRef(tweetIntersected);
+  tweetIntersectedRef.current = tweetIntersected;
+  const messageRef = React.useRef(message);
+  messageRef.current = message;
+
   React.useEffect(() => {
     const target = tweetRef.current;
     const root = rootRef.current;
@@ -20,7 +25,7 @@ export function useSetIntersectionObserver(
       };
       const observer = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting) {
-          tweetIntersected(message);
+          tweetIntersectedRef.current(messageRef.current);
           observer.unobserve(target);
         }
       }, option);
@@ -31,5 +36,5 @@ export function useSetIntersectionObserver(
       return;
     }
 
-  }, [tweetRef, rootRef, tweetIntersected, message]);
+  }, [tweetRef, rootRef]);
 }
