@@ -56,3 +56,7 @@
   - @slack/web-api, slack, os-browserify, path-browserifyをフロントから削除、craco.config.jsのpolyfill設定も整理
   - accessTokenのフロント返却を廃止、express.json()をグローバル配置、startRtmデッドコード削除
   - babel-runtime, @types/webpack-envをyarn hoisting変更対応として明示追加
+
+- Task: oxlint移行時にsuppressしたlint ignoreを解消する
+  - hooks.ts: useEffectの依存配列を修正、useActionsの不安定参照をuseRefパターンで安定化しexhaustive-deps suppressを削除
+  - App.test.tsx: DefaultTypelessProviderをTypelessContext.Providerに移行しno-restricted-imports suppressを削除
