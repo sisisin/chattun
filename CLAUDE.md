@@ -56,7 +56,7 @@ curl -X POST http://localhost:3100/api/mock/event/raw -H 'Content-Type: applicat
 # フロント
 cd front
 yarn build          # 本番ビルド (CSS + SW + JS)
-yarn test           # Jest (craco test)
+yarn test           # Vitest (vp test run)
 yarn lint           # Oxlint (vp lint)
 yarn lint-fix       # Oxlint autofix (vp lint --fix)
 yarn format         # Oxfmt + Oxlint 一括修正 (vp fmt + vp lint --fix)

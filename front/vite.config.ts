@@ -1,6 +1,20 @@
 import { defineConfig } from 'vite-plus';
+import path from 'path';
 
 export default defineConfig({
+  oxc: {
+    jsx: { runtime: 'classic' },
+  },
+  resolve: {
+    alias: {
+      app: path.resolve(import.meta.dirname, 'src/app'),
+    },
+  },
+  test: {
+    exclude: ['.blueprints/**', 'node_modules/**'],
+    environment: 'jsdom',
+    globals: true,
+  },
   run: {
     tasks: {
       'start-js': {
