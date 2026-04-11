@@ -3,7 +3,7 @@ import { SocketModeClient } from '@slack/socket-mode';
 import { AppsEventAuthorizationsListResponse, WebClient } from '@slack/web-api';
 import * as socketIO from 'socket.io';
 import { slackAppToken, slackClientId, slackClientSecret } from './config';
-import { logger } from './logging/logger';
+import { ErrorWithLogContext, logger } from './logging/logger';
 import { redis } from './redis';
 
 export const installer = new InstallProvider({
@@ -98,7 +98,7 @@ async function handleSlackEvent(io: socketIO.Server, evt: any) {
 
   const ts = new Date(Number(evt.event.ts ?? evt.event.event_ts) * 1000);
   const logSuffix = formatEventSuffix(evt, ts);
-  logger.withContext(toLogObject(evt), async () => {
+  await logger.withContext(toLogObject(evt), async () => {
     {
       logger.debug(`acknowledged ${after.getTime() - ts.getTime()} ms. ${logSuffix}`, {
         time: {
@@ -120,7 +120,7 @@ async function handleSlackEvent(io: socketIO.Server, evt: any) {
     const authorizationsSet = await listAllAuthorizations(evt.body.event_context).then(
       (a) => new Set(a.map((auth) => auth.user_id)),
     );
-    const targets = sockets.filter((socket) => authorizationsSet.has(socket.data.sessionProfile.userId));
+    const targets = sockets.filter((socket) => socket.data.sessionProfile && authorizationsSet.has(socket.data.sessionProfile.userId));
 
     targets.forEach((socket) => {
       socket.emit('message', evt.event);
@@ -181,7 +181,12 @@ async function listAllAuthorizations(eventContext: string) {
 function handlerError<T extends any[]>(cb: (...args: T) => Promise<void>) {
   return (...args: T) => {
     cb(...args).catch((err) => {
-      logger.errore('error on slack message handler', err);
+      if (err instanceof ErrorWithLogContext) {
+        const [context, cause] = err.unwrapAndGetContext();
+        logger.errore('error on slack message handler', cause, context);
+      } else {
+        logger.errore('error on slack message handler', err);
+      }
     });
   };
 }

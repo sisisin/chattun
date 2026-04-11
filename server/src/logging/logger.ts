@@ -130,12 +130,16 @@ export const slackLogger = {
     switch (level) {
       case LogLevel.DEBUG:
         LOGLEVEL = 'DEBUG';
+        break;
       case LogLevel.INFO:
         LOGLEVEL = 'INFO';
+        break;
       case LogLevel.WARN:
         LOGLEVEL = 'WARNING';
+        break;
       case LogLevel.ERROR:
         LOGLEVEL = 'ERROR';
+        break;
       default:
         LOGLEVEL = 'INFO';
     }
