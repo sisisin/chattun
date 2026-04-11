@@ -50,15 +50,15 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: デプロイの失敗を修正する（https://github.com/sisisin/chattun/actions/runs/24284188806/job/70910701165）
-  - yarn buildで@slack/web-apiがquerystringモジュールを要求しwebpackのpolyfillエラーが発生
+- Task: slackをサーバーをプロキシとして叩くようにして、slack clientの依存を消す
+  - ビルド関連にslackをフロントで使うために入れた設定がある（os-browserifyが恐らくそう。他にもあるかも）ので、これの削除も漏れなく行う
+  - これによりデプロイ失敗（@slack/web-apiのNode.jsコアモジュールpolyfillエラー）も解消される: https://github.com/sisisin/chattun/actions/runs/24284188806/job/70910701165
+  - Taskが大きすぎて対応しきれない場合は、作業を分解してそれぞれTaskとして追加すること
 - Task: oxlint移行時にsuppressしたlint ignoreを解消する
   - exhaustive-deps suppress: hooks.ts（依存配列の修正）
   - no-restricted-imports suppress: App.test.tsx（DefaultTypelessProvider→TypelessContext移行）
 - Task: prettierを消し、vite+のformatterに変更する
 - Task: 開発用コマンドをvite+タスクに定義して、そちらを利用する形にする。npm-run-allは多分vite+があれば十分なので消す
-- Task: slackをサーバーをプロキシとして叩くようにして、slack clientの依存を消す
-  - ビルド関連にslackをフロントで使うために入れた設定がある（os-browserifyが恐らくそう。他にもあるかも）ので、これの削除も漏れなく行う
 - Task: テストをvite+に変更する
 - Task: create-react-appをvite+へ移行する。画面が正常に表示できることを確認する
   - create-react-app関連の依存はちゃんと消すこと
