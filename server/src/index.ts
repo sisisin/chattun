@@ -174,19 +174,23 @@ async function main() {
   process.on('SIGTERM', shutdown('SIGTERM'));
   process.on('SIGINT', shutdown('SIGINT'));
 
-  process.on('unhandledRejection', (reason) => {
-    if (reason instanceof ErrorWithLogContext) {
-      const [context, cause] = reason.unwrapAndGetContext();
-      logger.errore('Unhandled rejection', cause, context);
-    } else {
-      logger.errore('Unhandled rejection', reason);
-    }
-  });
-  process.on('uncaughtException', (err) => {
-    logger.errore('Uncaught exception', err);
-    process.exit(1);
-  });
 }
+
+// プロセスをクラッシュさせずに構造化ログへ記録する。
+// Cloud Run上でunhandled rejectionによるexit(1)→インスタンス再起動の連鎖を防止する意図的な設計。
+process.on('unhandledRejection', (reason) => {
+  if (reason instanceof ErrorWithLogContext) {
+    const [context, cause] = reason.unwrapAndGetContext();
+    logger.errore('Unhandled rejection', cause, context);
+  } else {
+    logger.errore('Unhandled rejection', reason);
+  }
+});
+process.on('uncaughtException', (err) => {
+  logger.errore('Uncaught exception', err);
+  process.exit(1);
+});
+
 main().catch((err) => {
   logger.errore('Failed to start server', err);
   process.exit(1);
