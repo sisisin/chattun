@@ -29,6 +29,27 @@ cd server && yarn dev
 cd front && yarn install && yarn start
 ```
 
+### モックモード起動 (Slack不要)
+
+Slack App のセットアップなしでFEの見た目を確認できるモード。
+
+```sh
+# モックサーバー (port 3100)
+cd server && yarn dev:mock
+
+# フロントエンド (別ターミナル、REACT_APP_MOCK_MODE で MockSlackClient に切り替え)
+cd front && BROWSER=none REACT_APP_MOCK_MODE=true yarn start
+```
+
+モックイベント送信:
+```sh
+# プリセットイベント (simple-message, message-with-image, reaction-added 等)
+curl -X POST http://localhost:3100/api/mock/event/preset/simple-message
+
+# 任意の Slack イベント JSON を送信
+curl -X POST http://localhost:3100/api/mock/event/raw -H 'Content-Type: application/json' -d '{"type":"message","text":"hello","channel":"CMOCKCH001","user":"UMOCKUSER","ts":"'$(date +%s)'.000000"}'
+```
+
 ### ビルド・リント・テスト
 
 ```sh

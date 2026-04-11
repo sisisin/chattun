@@ -2,13 +2,23 @@ import { SlackAPI } from 'app/types/slack/SlackAPI';
 import { EitherFactory } from '../EitherContainer';
 import { ISlackClient } from './SlackClient';
 
-let bootstrapCache: any = null;
+interface BootstrapData {
+  emojis: SlackAPI.Emoji.List;
+  users: SlackAPI.Users.List;
+  channels: SlackAPI.Conversations.List;
+  teamInfo: SlackAPI.Team.Info;
+}
 
-async function fetchBootstrap() {
+let bootstrapCache: BootstrapData | null = null;
+
+async function fetchBootstrap(): Promise<BootstrapData> {
   if (bootstrapCache) return bootstrapCache;
   const res = await fetch('/api/mock/bootstrap');
+  if (!res.ok) {
+    throw new Error(`[mock] /api/mock/bootstrap の取得に失敗しました: ${res.status}`);
+  }
   bootstrapCache = await res.json();
-  return bootstrapCache;
+  return bootstrapCache!;
 }
 
 export class MockSlackClient implements ISlackClient {

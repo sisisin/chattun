@@ -111,14 +111,15 @@ const presetFactories: Record<string, () => object> = {
   },
 
   'message-deleted': () => {
+    const deletedTs = nowTs();
     const ts = nowTs();
     return {
       type: 'message',
       subtype: 'message_deleted',
       channel: MOCK_CHANNEL,
-      deleted_ts: ts,
-      ts: nowTs(),
-      event_ts: ts,
+      deleted_ts: deletedTs,
+      ts,
+      event_ts: deletedTs,
     };
   },
 

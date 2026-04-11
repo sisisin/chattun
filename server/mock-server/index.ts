@@ -114,7 +114,7 @@ app.get('/api/mock/presets', (_req, res) => {
 });
 
 // その他の /api/* は 404
-app.get('/api/*', (_req, res) => {
+app.all('/api/*', (_req, res) => {
   res.status(404).end();
 });
 
