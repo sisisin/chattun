@@ -46,8 +46,8 @@ cra が提供してくれるやつをそのまま使うだけの方法
     - SERVER_BASE_URL: `[署名されたURL]:3000` を設定
   - フロント
     - HOST: 署名したドメイン
-    - SSL_CRT_FILE: cert ファイル
-    - SSL_KEY_FILE: key ファイル
+    - SSL_CRT_FILE: /etc/letsencrypt/live/[domain]/fullchain.pem など
+    - SSL_KEY_FILE: /etc/letsencrypt/live/[domain]/privkey.pem など
 
 ### 開発用コマンド
 
