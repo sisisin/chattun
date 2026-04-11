@@ -173,5 +173,21 @@ async function main() {
   };
   process.on('SIGTERM', shutdown('SIGTERM'));
   process.on('SIGINT', shutdown('SIGINT'));
+
+  process.on('unhandledRejection', (reason) => {
+    if (reason instanceof ErrorWithLogContext) {
+      const [context, cause] = reason.unwrapAndGetContext();
+      logger.errore('Unhandled rejection', cause, context);
+    } else {
+      logger.errore('Unhandled rejection', reason);
+    }
+  });
+  process.on('uncaughtException', (err) => {
+    logger.errore('Uncaught exception', err);
+    process.exit(1);
+  });
 }
-main().catch((err) => console.error(err));
+main().catch((err) => {
+  logger.errore('Failed to start server', err);
+  process.exit(1);
+});
