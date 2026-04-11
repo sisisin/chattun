@@ -27,3 +27,9 @@
   - .storybook/ ディレクトリ、storiesファイル、utility/storybook/ ヘルパー、regconfig.json を削除
   - CSS内の.storybook-iconsクラス、ソース内のStorybook TODOコメント、eslintrcのstories override設定を削除
   - yarn.lock を更新
+
+- Task: stylelintを消す
+  - stylelint関連パッケージ6個を削除、スクリプト(stylelint, stylelint-fix)を削除
+  - .stylelintrc.json, .stylelintignoreを削除
+  - postcss.config.jsからstylelintプラグイン参照を削除、lint-staged.config.jsからstylelint参照を削除
+  - yarn.lock を更新

@@ -50,10 +50,10 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: stylelintを消す
 - Task: lint-stagedを消す
 - Task: eslintを消し、vite+のlintに変更する
 - Task: prettierを消し、vite+のformatterに変更する
+- Task: 開発用コマンドをvite+タスクに定義して、そちらを利用する形にする。npm-run-allは多分vite+があれば十分なので消す
 - Task: slackをサーバーをプロキシとして叩くようにして、slack clientの依存を消す
   - ビルド関連にslackをフロントで使うために入れた設定がある（os-browserifyが恐らくそう。他にもあるかも）ので、これの削除も漏れなく行う
 - Task: テストをvite+に変更する
