@@ -67,5 +67,4 @@ export class MockSlackClient implements ISlackClient {
     console.log('[mock] mark (no-op)');
     return Promise.resolve({ ok: true });
   }
-
 }

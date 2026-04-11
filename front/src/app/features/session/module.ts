@@ -10,9 +10,7 @@ export const epic = handle
       return null;
     }
 
-    const result = await httpClient
-      .get<unknown, { userId: string }>('/connection')
-      .toPromise();
+    const result = await httpClient.get<unknown, { userId: string }>('/connection').toPromise();
     if (result.left != null) {
       // サーバーの実装的に401以外は異常系
       const msg =
@@ -33,7 +31,7 @@ const initialState: SessionState = {
 
 export const reducer = handle
   .reducer(initialState)
-  .on(SessionActions.connectionInitialized, (state) => {
+  .on(SessionActions.connectionInitialized, state => {
     state.isConnected = true;
   });
 

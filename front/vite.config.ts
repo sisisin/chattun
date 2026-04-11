@@ -1,6 +1,18 @@
 import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
+  fmt: {
+    printWidth: 100,
+    tabWidth: 2,
+    useTabs: false,
+    semi: true,
+    singleQuote: true,
+    trailingComma: 'all',
+    bracketSpacing: true,
+    arrowParens: 'avoid',
+    sortPackageJson: false,
+    ignorePatterns: ['build/', 'node_modules/', 'public/sw.js', '.blueprints/'],
+  },
   lint: {
     ignorePatterns: ['build/', 'node_modules/', 'public/sw.js', '.blueprints/'],
     plugins: ['react', 'typescript'],

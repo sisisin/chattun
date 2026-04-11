@@ -67,7 +67,9 @@ class SlackClient implements ISlackClient {
   }
 
   repliesConversations(channel: string, ts: string): Promise<SlackAPI.Conversations.Replies> {
-    return fetchJson(`/api/slack/conversations.replies?channel=${encodeURIComponent(channel)}&ts=${encodeURIComponent(ts)}`);
+    return fetchJson(
+      `/api/slack/conversations.replies?channel=${encodeURIComponent(channel)}&ts=${encodeURIComponent(ts)}`,
+    );
   }
 
   mark(channel: string, ts: string): Promise<any> {
