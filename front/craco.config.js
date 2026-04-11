@@ -13,8 +13,7 @@ module.exports = {
     configure: {
       resolve: {
         fallback: {
-          path: require.resolve('path-browserify'),
-          os: require.resolve('os-browserify/browser'),
+          buffer: require.resolve('buffer/'),
         },
       },
     },

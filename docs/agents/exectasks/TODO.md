@@ -66,6 +66,9 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: typescriptを最新にする
 - Task: frontのみyarnからpnpmへ移行
 - Task: CSSをvite+で利用できる技術に移行し、postcssを消す
+- Task: frontの暗黙的な推移的依存を整理する
+  - babel-runtime: emoji-mart 2.11.2が実質依存しているがpackage.jsonに宣言していない。emoji-martのアップデートで解消できるか検討し、可能ならアップデート、不可なら明示的依存として残す理由をコメントする
+  - @types/webpack-env: react-scriptsの推移的依存だがhoistingで消えうる。CRA→vite+移行時に不要になるため、移行完了後に削除する
 - Task: 他にfrontでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
 
 # Backlog

@@ -11,6 +11,7 @@ import fs from 'node:fs';
 import { getSessionProfileFromRequest } from './utils';
 import { ErrorWithLogContext, logger } from './logging/logger';
 import { loggingMiddleware } from './logging/middleware';
+import { WebClient } from '@slack/web-api';
 
 async function main() {
   const app = express();
@@ -123,6 +124,119 @@ async function main() {
       res.status(400).end();
     }
   });
+  // Slack API proxy endpoints
+  app.use(express.json());
+
+  const getSlackClient = (req: express.Request) => {
+    const { accessToken } = getSessionProfileFromRequest(req)!;
+    return new WebClient(accessToken);
+  };
+
+  app.get('/api/slack/emoji.list', checkAuthentication, async (req, res, next) => {
+    try {
+      const client = getSlackClient(req);
+      const result = await client.emoji.list();
+      res.json(result);
+    } catch (error) { next(error); }
+  });
+
+  app.get('/api/slack/users.list', checkAuthentication, async (req, res, next) => {
+    try {
+      const client = getSlackClient(req);
+      const members: any[] = [];
+      let cursor: string | undefined;
+      do {
+        const result: any = await client.users.list({ limit: 200, cursor });
+        members.push(...result.members);
+        cursor = result.response_metadata?.next_cursor || undefined;
+      } while (cursor);
+      res.json({ ok: true, members });
+    } catch (error) { next(error); }
+  });
+
+  app.get('/api/slack/conversations.list', checkAuthentication, async (req, res, next) => {
+    try {
+      const client = getSlackClient(req);
+      const channels: any[] = [];
+      let cursor: string | undefined;
+      do {
+        const result: any = await client.conversations.list({
+          types: 'public_channel',
+          exclude_archived: true,
+          limit: 200,
+          cursor,
+        });
+        channels.push(
+          ...result.channels.map((c: any) => ({
+            id: c.id,
+            is_im: c.is_im,
+            is_member: c.is_member,
+            name: c.name,
+            user: c.user,
+          })),
+        );
+        cursor = result.response_metadata?.next_cursor || undefined;
+      } while (cursor);
+      res.json({ ok: true, channels });
+    } catch (error) { next(error); }
+  });
+
+  app.get('/api/slack/team.info', checkAuthentication, async (req, res, next) => {
+    try {
+      const client = getSlackClient(req);
+      const result = await client.team.info();
+      res.json(result);
+    } catch (error) { next(error); }
+  });
+
+  app.post('/api/slack/reactions.add', checkAuthentication, async (req, res, next) => {
+    try {
+      const client = getSlackClient(req);
+      const { channel, timestamp, name } = req.body;
+      const result = await client.reactions.add({ channel, timestamp, name });
+      res.json(result);
+    } catch (error) { next(error); }
+  });
+
+  app.post('/api/slack/reactions.remove', checkAuthentication, async (req, res, next) => {
+    try {
+      const client = getSlackClient(req);
+      const { channel, timestamp, name } = req.body;
+      const result = await client.reactions.remove({ channel, timestamp, name });
+      res.json(result);
+    } catch (error) { next(error); }
+  });
+
+  app.get('/api/slack/conversations.replies', checkAuthentication, async (req, res, next) => {
+    try {
+      const client = getSlackClient(req);
+      const channel = req.query.channel as string;
+      const ts = req.query.ts as string;
+      const result: any = await client.conversations.replies({ channel, ts });
+      res.json({
+        ...result,
+        messages: result.messages.map((m: any) => ({ ...m, channel })),
+      });
+    } catch (error) { next(error); }
+  });
+
+  app.post('/api/slack/conversations.mark', checkAuthentication, async (req, res, next) => {
+    try {
+      const client = getSlackClient(req);
+      const { channel, ts } = req.body;
+      const result = await client.conversations.mark({ channel, ts });
+      res.json(result);
+    } catch (error) { next(error); }
+  });
+
+  app.get('/api/slack/auth.test', checkAuthentication, async (req, res, next) => {
+    try {
+      const client = getSlackClient(req);
+      const result = await client.auth.test();
+      res.json(result);
+    } catch (error) { next(error); }
+  });
+
   app.get('/api/*', (req, res) => {
     res.status(404).end();
   });
