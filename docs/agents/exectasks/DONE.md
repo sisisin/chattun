@@ -64,3 +64,7 @@
 - Task: DockerfileのNodeバージョンを22.18.0に更新してデプロイ失敗を修正する
   - Dockerfile builder/runnerのベースイメージをnode:22.11.0→22.18.0に更新
   - server/package.jsonのengines.nodeも^22.18.0に揃えた
+
+- Task: hooks.tsのuseEffect依存配列を元の[]に戻し、exhaustive-deps suppressを復元する
+  - マウント時に1回だけObserverを登録する意図で空配列が正しい設計判断
+  - useRefパターンへの不要な変更を元に戻した
