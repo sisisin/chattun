@@ -13,21 +13,22 @@ export const configureIO = (server: http.Server, middleware: (...args: any[]) =>
     middleware(socket.request as any, {} as any, next as any);
   });
   io.on('connection', (socket) => {
-    (async () => {
-      const sessionProfile = getSessionProfileFromRequest(socket.request);
-      if (!sessionProfile) {
-        logger.warn('sessionProfile not found');
-        return;
-      }
-      socket.data.sessionProfile = sessionProfile;
-      logger.withContext({ userId: sessionProfile.userId }, async () => {
-        logger.info(`user connected userId: ${sessionProfile.userId}`);
+    const sessionProfile = getSessionProfileFromRequest(socket.request);
+    if (!sessionProfile) {
+      logger.warn('sessionProfile not found');
+      socket.disconnect();
+      return;
+    }
+    socket.data.sessionProfile = sessionProfile;
+    logger.withContext({ userId: sessionProfile.userId }, async () => {
+      logger.info(`user connected userId: ${sessionProfile.userId}`);
 
-        socket.on('disconnect', async (reason) => {
-          logger.info(`user disconnected userId: ${sessionProfile.userId}`, { reason });
-        });
+      socket.on('disconnect', async (reason) => {
+        logger.info(`user disconnected userId: ${sessionProfile.userId}`, { reason });
       });
-    })();
+    }).catch((err) => {
+      logger.errore('error on socket connection handler', err);
+    });
   });
 
   return io;

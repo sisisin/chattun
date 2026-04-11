@@ -50,6 +50,16 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
+- Task: Socket.IO WebSocket接続で500/503エラーが発生する原因を調査し、原因不明の場合はアプリケーションが問題なく動作するよう修正する
+  - 2026-04-09 07:03〜07:05 UTC頃に複数の500/503エラーが発生（revision: chattun-server-00036-4cc）
+  - 503エラーは「HTTP response was malformed or connection to the instance had an error」
+  - 原因を特定できた場合は根本修正を行い、特定できない場合はエラー発生時もアプリケーションが正常動作を継続できるような修正案を検討・実装する
+
+- Task: 未認証ソケットのdisconnect時にクライアントへ適切に通知し、再接続ループを防止する
+  - サーバー側でsessionProfileがないソケットをdisconnectするようになったが、クライアント側にdisconnectハンドラがなく再接続ループが発生する
+  - サーバー側: disconnect前にエラー理由（セッション切れ等）をクライアントに送信する
+  - クライアント側: disconnectまたはエラーイベントを受けてユーザーにセッション切れを通知し、ログインページへ誘導する
+
 # Backlog
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。
