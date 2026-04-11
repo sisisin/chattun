@@ -19,6 +19,7 @@ ExecTasks の実行を指示されたら、auto memory に実行中の ExecTasks
 
 <steps>
 <step>作業ディレクトリを `docs/agents/work/{yyyymmdd-hhmm}-{branch-name}/` の形式で作成する（branch-name のスラッシュはハイフンに置換）</step>
+<step>作業ディレクトリに `task.md` を作成し、遂行するTaskの内容（達成条件、背景、スコープ）を記述する。ローカルレビュワーがこのファイルを参照してレビューする</step>
 <step>Taskを満たすよう修正を入れる</step>
 <step>`/start-local-review` を実行し、レビューをうけ、レビューループが完了するまで修正する</step>
 <step>Approveされたら、Task遂行上の障害になったことや学びを作業ディレクトリの `learnings.md` に記載し、その中で仕組として実装して解決出来そうなことは新たなTaskとして追記する</step>

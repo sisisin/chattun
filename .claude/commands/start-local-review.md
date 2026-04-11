@@ -34,6 +34,8 @@ Use the **Agent tool** with `subagent_type: "local-reviewer"` to spawn the revie
 >
 > Append the review result as `## Round N` to: {review output file path}
 >
+> Task definition: {作業ディレクトリ内の task.md のパス（存在する場合）。レビューはこのTaskが達成されているかの観点で行うこと}
+>
 > Task context: {$1 の内容}
 >
 > Review history: {Round 2+ の場合、レビューファイルパスを記載。Round 1 なら「なし」}
