@@ -12,4 +12,5 @@ fi
 mkdir -p "$script_dir/../tmp"
 
 sudo cp "$CERT_DIR/privkey.pem" "$script_dir/../tmp/privkey.pem"
-sudo cp "$CERT_DIR/cert.pem" "$script_dir/../tmp/cert.pem"
+sudo cp "$CERT_DIR/fullchain.pem" "$script_dir/../tmp/fullchain.pem"
+sudo chown "$USER" "$script_dir/../tmp/privkey.pem" "$script_dir/../tmp/fullchain.pem"

@@ -21,7 +21,7 @@ async function main() {
       return https.createServer(
         {
           key: fs.readFileSync(path.join(tmpDir, 'privkey.pem')),
-          cert: fs.readFileSync(path.join(tmpDir, 'cert.pem')),
+          cert: fs.readFileSync(path.join(tmpDir, 'fullchain.pem')),
         },
         app,
       );

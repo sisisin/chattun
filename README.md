@@ -38,6 +38,7 @@ cra が提供してくれるやつをそのまま使うだけの方法
 
 - 証明書を用意して cert,key ファイルを用意する
   - 有効な証明書を用意したい場合にのみ必要
+  - `CERT_DIR=/etc/letsencrypt/live/[domain] scripts/copy_pem.sh` で `tmp/` にコピーできる
 - Slack App 設定
   - SSL 証明書を発行した URL を元に Redirect URLs に値を追加
   - `[署名されたURL]/api/slack/oauth_redirect`
