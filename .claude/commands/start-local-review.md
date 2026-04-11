@@ -34,7 +34,7 @@ Use the **Agent tool** with `subagent_type: "local-reviewer"` to spawn the revie
 >
 > Append the review result as `## Round N` to: {review output file path}
 >
-> Task definition: {作業ディレクトリ内の task.md のパス（存在する場合）。レビューはこのTaskが達成されているかの観点で行うこと}
+> Task definition: docs/agents/work/{timestamp}-{branch-name}/task.md（存在する場合。レビューはこのTaskが達成されているかの観点で行うこと）
 >
 > Task context: {$1 の内容}
 >
