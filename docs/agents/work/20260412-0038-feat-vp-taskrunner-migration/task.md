@@ -18,3 +18,11 @@
 - front/package.json のscripts
 - front/vite.config.ts のrun.tasks
 - CLAUDE.md の開発コマンド説明
+
+## 調査結果: vp run --parallel のconfig表現
+
+vp run のtask定義は `command`, `dependsOn`, `cache`, `env`, `input`, `cwd` のみをサポート。
+`parallel`, `concurrent` 等のオプションは存在せず、`dependsOn`も単純な`string[]`で逐次実行のみ。
+複数タスクの並列実行は `vp run --parallel task1 task2 task3` のCLIフラグでのみ可能。
+
+結論: start, start-nm（並列でwatch系プロセスを起動）はnpm scriptsに残す必要がある。

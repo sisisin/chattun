@@ -54,13 +54,17 @@ curl -X POST http://localhost:3100/api/mock/event/raw -H 'Content-Type: applicat
 
 ```sh
 # フロント (cd front で実行)
-yarn vp run build-js      # 本番ビルド (CSS + SW + JS)
+# vpビルトインコマンド
 yarn vp test run           # Vitest
 yarn vp lint               # Oxlint
 yarn vp lint --fix         # Oxlint autofix
+yarn vp check              # fmt + lint + type-check 一括実行
+
+# vp run タスク (vite.config.ts で定義)
+yarn vp run build-js       # 本番ビルド (CSS + SW + JS)
 yarn vp run format         # Oxfmt + Oxlint 一括修正
 yarn vp run format-check   # CI用チェック
-yarn vp check              # fmt + lint + type-check 一括実行
+yarn vp run test-all       # format-check + test 一括実行
 
 # サーバー (テストスクリプトなし、TypeScript型チェックのみ)
 cd server
