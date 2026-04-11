@@ -1,5 +1,21 @@
 import { configDefaults, defineConfig } from 'vite-plus';
+import fs from 'fs';
 import path from 'path';
+
+const envLocal = fs.existsSync('.env.local')
+  ? Object.fromEntries(
+      fs
+        .readFileSync('.env.local', 'utf-8')
+        .split('\n')
+        .filter(line => line && !line.startsWith('#'))
+        .map(line => line.split('=').map(s => s.trim())),
+    )
+  : {};
+
+const https =
+  envLocal.SSL_CRT_FILE && envLocal.SSL_KEY_FILE
+    ? { cert: fs.readFileSync(envLocal.SSL_CRT_FILE), key: fs.readFileSync(envLocal.SSL_KEY_FILE) }
+    : undefined;
 
 export default defineConfig({
   oxc: {
@@ -15,6 +31,8 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    host: envLocal.HOST || undefined,
+    https,
     proxy: {
       '/api': { target: 'http://localhost:3100', changeOrigin: true },
       '/socket.io': { target: 'http://localhost:3100', ws: true, changeOrigin: true },
@@ -32,15 +50,12 @@ export default defineConfig({
     tasks: {
       'start-js': {
         command: 'vp dev',
-        cache: false,
       },
       'watch-css': {
         command: 'postcss src/app/css/main.css -o public/index.css -w',
-        cache: false,
       },
       'watch-sw': {
         command: 'tsc -p ./swSrc -w',
-        cache: false,
       },
       'build-css': {
         command: 'postcss src/app/css/main.css -o public/index.css',

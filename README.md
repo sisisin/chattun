@@ -19,13 +19,13 @@
 ### OAuth フローを動かせるようにする設定
 
 Slack App の Redirect URL が https しか受け付けないためにローカルマシン上で https のリクエストを受けられるようにする必要がある  
-そのため、[create-react-app の HTTPS 利用の機能](https://create-react-app.dev/docs/using-https-in-development/)を使う
+そのため、Vite の HTTPS 設定を使う
 
 これによって、前段に https のプロキシサーバーを立て、フロントエンドとサーバーへのリクエストを全てプロキシで受けて処理するような形にする
 
 #### 自己署名証明書を使う方法
 
-cra が提供してくれるやつをそのまま使うだけの方法
+Viteのdev serverでHTTPSを有効にするだけの方法
 
 - Slack App 設定
   - `OAuth & Permissions` > `Redirect URLs` に以下の値を追加
@@ -45,10 +45,10 @@ cra が提供してくれるやつをそのまま使うだけの方法
 - 環境変数設定
   - サーバー
     - SERVER_BASE_URL: `[署名されたURL]:3000` を設定
-  - フロント
-    - HOST: 署名したドメイン
-    - SSL_CRT_FILE: /etc/letsencrypt/live/[domain]/fullchain.pem など
-    - SSL_KEY_FILE: /etc/letsencrypt/live/[domain]/privkey.pem など
+  - フロント（front/.env.local に設定）
+    - VITE_DEV_HOST: 署名したドメイン
+    - VITE_DEV_SSL_CERT: /etc/letsencrypt/live/[domain]/fullchain.pem など
+    - VITE_DEV_SSL_KEY: /etc/letsencrypt/live/[domain]/privkey.pem など
 
 ### 開発用コマンド
 
@@ -93,7 +93,7 @@ $ ./build_image
 
 ### フロント側
 
-- REACT_APP_BASE_URL: ホストされる URL。heroku を利用する場合、ビルドも heroku で行うため heroku 上でサーバーの環境変数として設定してやる必要があるので注意
+- VITE_BASE_URL: ホストされる URL。heroku を利用する場合、ビルドも heroku で行うため heroku 上でサーバーの環境変数として設定してやる必要があるので注意
 
 ## デプロイ設定
 
