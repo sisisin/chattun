@@ -50,7 +50,8 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: eslintを消し、vite+のlintに変更する
+- Task: デプロイの失敗を修正する（https://github.com/sisisin/chattun/actions/runs/24284188806/job/70910701165）
+  - yarn buildで@slack/web-apiがquerystringモジュールを要求しwebpackのpolyfillエラーが発生
 - Task: oxlint移行時にsuppressしたlint ignoreを解消する
   - exhaustive-deps suppress: hooks.ts（依存配列の修正）
   - no-restricted-imports suppress: App.test.tsx（DefaultTypelessProvider→TypelessContext移行）

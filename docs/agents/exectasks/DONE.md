@@ -43,3 +43,9 @@
   - .claude/skills/vite-plus/SKILL.md を作成（user-invocable: false、背景知識として自動参照）
   - CLIコマンド、vite.config.ts設定例、マイグレーション手順、パフォーマンス比較、ESLint/Prettier/Jest移行メモを記載
   - vite+公式からskillを得る方法（npx skills add）も確認したが、Claude Code標準のプラグイン仕組みとは異なるためプロジェクト内に直接作成
+
+- Task: eslintを消し、vite+のlintに変更する
+  - vite-plusを導入し、vite.config.tsにlint設定を集約（no-restricted-imports, react-hooks, typescript関連ルール）
+  - eslint関連パッケージ(eslint-config-prettier, eslint-plugin-jest, eslint-plugin-prettier)・設定ファイル(.eslintrc.js, .eslintignore)を削除
+  - craco.config.jsでCRA内蔵eslintを無効化、eslint-disableコメントをoxlint対応に置換
+  - Node.jsを22.18.0に更新、lint結果は0 warnings 0 errors
