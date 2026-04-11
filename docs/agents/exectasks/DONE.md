@@ -82,3 +82,8 @@
 - Task: ExecTasksのワークフローを改善する — task.md作成とレビュー観点の構造化
   - exectasks-guideにtask.md作成ステップを追加
   - start-local-reviewスキルのレビュワープロンプトにtask.mdパスを渡す形に更新
+
+- Task: テストをvite+に変更する
+  - テストランナーをcraco test (Jest)からvp test run (Vitest)に移行
+  - vite.config.tsにtest設定(jsdom, globals, configDefaults.exclude)、oxc jsx classic、resolve.aliasを追加
+  - @types/jestを削除、package.jsonのtestスクリプトを更新、CLAUDE.md更新
