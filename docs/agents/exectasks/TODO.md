@@ -53,9 +53,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: hooks.tsのuseEffect依存配列を元の[]に戻し、exhaustive-deps suppressを復元する
   - マウント時に1回だけIntersectionObserverを登録する意図であり、空配列が正しい
   - useRefパターンへの変更は不要だったので元に戻す
-- Task: DockerfileのNodeバージョンを22.18.0に更新してデプロイ失敗を修正する
-  - package.jsonのengines.nodeが^22.18.0に変更されたが、Dockerfileはnode:22.11.0のまま
-  - https://github.com/sisisin/chattun/actions/runs/24284859037/job/70912452823
 - Task: prettierを消し、vite+のformatterに変更する
 - Task: 開発用コマンドをvite+タスクに定義して、そちらを利用する形にする。npm-run-allは多分vite+があれば十分なので消す
 - Task: テストをvite+に変更する

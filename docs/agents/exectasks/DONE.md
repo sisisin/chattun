@@ -60,3 +60,7 @@
 - Task: oxlint移行時にsuppressしたlint ignoreを解消する
   - hooks.ts: useEffectの依存配列を修正、useActionsの不安定参照をuseRefパターンで安定化しexhaustive-deps suppressを削除
   - App.test.tsx: DefaultTypelessProviderをTypelessContext.Providerに移行しno-restricted-imports suppressを削除
+
+- Task: DockerfileのNodeバージョンを22.18.0に更新してデプロイ失敗を修正する
+  - Dockerfile builder/runnerのベースイメージをnode:22.11.0→22.18.0に更新
+  - server/package.jsonのengines.nodeも^22.18.0に揃えた
