@@ -55,8 +55,8 @@ Viteのdev serverでHTTPSを有効にするだけの方法
 - `docker/` で `docker-compose up`
 - `server/` で `yarn dev`
 - `front/` で
-  - `yarn install`
-  - `yarn start`
+  - `pnpm install`
+  - `pnpm start`
 
 # How to build Docker image
 

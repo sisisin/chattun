@@ -1,13 +1,13 @@
 FROM node:22.18.0 AS builder
 
+RUN corepack enable pnpm
 WORKDIR /app/front
 
-COPY ./front/package.json ./front/yarn.lock ./
-RUN yarn install --frozen-lockfile && \
-  rm -rf $(yarn cache dir)
+COPY ./front/package.json ./front/pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 COPY ./front .
-RUN yarn vp run build-js && yarn vp run move-assets
+RUN pnpm vp run build-js && pnpm vp run move-assets
 
 FROM node:22.18.0-alpine AS runner
 

@@ -17,7 +17,7 @@ argument-hint: '[preset-name or "start" or "event <json>"]'
 
 ```
 cd server && yarn dev:mock    # ターミナル1
-cd front && VITE_MOCK_MODE=true yarn start  # ターミナル2
+cd front && VITE_MOCK_MODE=true pnpm start  # ターミナル2
 ```
 
 起動後、`https://local.sisisin.house:3000/` でアクセス可能。
@@ -44,7 +44,7 @@ Slack イベント JSON をそのまま送信する。
 - `$ARGUMENTS` が `start` の場合:
   1. port 3100 と 3000 が使用中でないか確認し、使用中なら既存プロセスを報告
   2. モックサーバーをバックグラウンドで起動 (`cd server && yarn dev:mock`)
-  3. FEをバックグラウンドで起動 (`cd front && VITE_MOCK_MODE=true yarn start`)
+  3. FEをバックグラウンドで起動 (`cd front && VITE_MOCK_MODE=true pnpm start`)
   4. 両方のコンパイル完了を確認
   5. 起動完了したら `https://local.sisisin.house:3000/` のURLをユーザーに案内する
 

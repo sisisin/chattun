@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "^22.18.0",
-    "yarn": "^1.22.5"
+    "node": "^22.18.0"
   },
   "dependencies": {
     "babel-runtime": "6.26.0",
@@ -58,7 +57,9 @@
     "typescript": "3.8.3",
     "vite-plus": "0.1.16"
   },
-  "resolutions": {
-    "@types/react": "16.9.23"
+  "pnpm": {
+    "overrides": {
+      "@types/react": "16.9.23"
+    }
   }
 }
