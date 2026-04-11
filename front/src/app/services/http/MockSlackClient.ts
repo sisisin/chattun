@@ -68,7 +68,4 @@ export class MockSlackClient implements ISlackClient {
     return Promise.resolve({ ok: true });
   }
 
-  startRtm(): Promise<SlackAPI.RTM.Start> {
-    return Promise.resolve({ ok: true, url: '' });
-  }
 }

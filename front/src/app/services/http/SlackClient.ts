@@ -12,7 +12,6 @@ export interface ISlackClient {
   removeReaction(channelId: string, ts: string, reaction: string): Promise<SlackAPI.Response>;
   repliesConversations(channel: string, ts: string): Promise<SlackAPI.Conversations.Replies>;
   mark(channel: string, ts: string): Promise<any>;
-  startRtm(): Promise<SlackAPI.RTM.Start>;
 }
 
 async function fetchJson(url: string, init?: RequestInit) {
@@ -77,11 +76,6 @@ class SlackClient implements ISlackClient {
 
   teamInfo(): Promise<SlackAPI.Team.Info> {
     return fetchJson('/api/slack/team.info');
-  }
-
-  startRtm(): Promise<SlackAPI.RTM.Start> {
-    // RTM is no longer needed - the server handles real-time events via Socket Mode
-    return Promise.resolve({ ok: true } as any);
   }
 }
 

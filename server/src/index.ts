@@ -39,6 +39,7 @@ async function main() {
   app.use(loggingMiddleware);
   app.use(middleware.makeHelmet());
   app.set('trust proxy', 1);
+  app.use(express.json());
   app.use(sessionMiddleware);
   app.use(
     express.static(path.join(__dirname, '../public'), {
@@ -108,9 +109,9 @@ async function main() {
   };
 
   app.get('/api/connection', checkAuthentication, (req, res) => {
-    const { accessToken, userId } = getSessionProfileFromRequest(req)!;
+    const { userId } = getSessionProfileFromRequest(req)!;
 
-    return res.json({ accessToken, userId });
+    return res.json({ userId });
   });
   app.get('/api/file', checkAuthentication, (req, res) => {
     const { accessToken } = getSessionProfileFromRequest(req)!;
@@ -125,8 +126,6 @@ async function main() {
     }
   });
   // Slack API proxy endpoints
-  app.use(express.json());
-
   const getSlackClient = (req: express.Request) => {
     const { accessToken } = getSessionProfileFromRequest(req)!;
     return new WebClient(accessToken);

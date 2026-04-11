@@ -11,7 +11,7 @@ export const epic = handle
     }
 
     const result = await httpClient
-      .get<unknown, { userId: string; accessToken: string }>('/connection')
+      .get<unknown, { userId: string }>('/connection')
       .toPromise();
     if (result.left != null) {
       // サーバーの実装的に401以外は異常系
@@ -29,14 +29,12 @@ export const epic = handle
 // --- Reducer ---
 const initialState: SessionState = {
   isConnected: false,
-  accessToken: undefined,
 };
 
 export const reducer = handle
   .reducer(initialState)
-  .on(SessionActions.connectionInitialized, (state, { accessToken }) => {
+  .on(SessionActions.connectionInitialized, (state) => {
     state.isConnected = true;
-    state.accessToken = accessToken;
   });
 
 // --- Module ---

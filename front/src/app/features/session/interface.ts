@@ -5,7 +5,7 @@ import { SessionSymbol } from './symbol';
 export const [handle, SessionActions, getSessionState] = createModule(SessionSymbol)
   .withActions({
     authRequiredRoutesTransitionStarted: null,
-    connectionInitialized: (payload: { userId: string; accessToken: string }) => ({
+    connectionInitialized: (payload: { userId: string }) => ({
       payload,
     }),
   })
@@ -14,5 +14,4 @@ export const [handle, SessionActions, getSessionState] = createModule(SessionSym
 // --- Types ---
 export interface SessionState {
   isConnected: boolean;
-  accessToken: string | undefined;
 }
