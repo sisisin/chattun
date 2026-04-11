@@ -18,7 +18,7 @@ export const TweetListView = ({ messages }: { messages: Tweet[] }) => {
       ) : (
         <ul className="tweetlist" ref={ulistRef}>
           {messages
-            .filter((message, i) => {
+            .filter((message, _i) => {
               if (keywordMatch?.matchMethod === 'notContain' && keywordMatch?.matchValue !== '') {
                 return (
                   !message.displayName.includes(keywordMatch?.matchValue) &&
@@ -28,7 +28,7 @@ export const TweetListView = ({ messages }: { messages: Tweet[] }) => {
               }
               return true;
             })
-            .map((message, i) => {
+            .map((message, _i) => {
               return (
                 <TweetItem
                   key={`${message.channelId}_${message.ts}`}

@@ -27,7 +27,7 @@ class AppHistory {
   }
 
   get location() {
-    const { state, search, ...rest } = this.history.location;
+    const { state: _state, search, ...rest } = this.history.location;
     const searchParams = new URLSearchParams(search);
     const pathAfter = `${rest.pathname}${search}${rest.hash}`;
     return { ...rest, searchParams, pathAfter };

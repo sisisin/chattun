@@ -51,6 +51,9 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 # Tasks
 
 - Task: eslintを消し、vite+のlintに変更する
+- Task: oxlint移行時にsuppressしたlint ignoreを解消する
+  - exhaustive-deps suppress: hooks.ts（依存配列の修正）
+  - no-restricted-imports suppress: App.test.tsx（DefaultTypelessProvider→TypelessContext移行）
 - Task: prettierを消し、vite+のformatterに変更する
 - Task: 開発用コマンドをvite+タスクに定義して、そちらを利用する形にする。npm-run-allは多分vite+があれば十分なので消す
 - Task: slackをサーバーをプロキシとして叩くようにして、slack clientの依存を消す

@@ -47,5 +47,4 @@ export interface Tweet {
   updatedAt: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TimelineState {}

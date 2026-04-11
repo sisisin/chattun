@@ -27,7 +27,7 @@ export const Routes: React.FC = () => {
 
           if (requiresAuth) {
             return (
-              <Route {...base}>
+              <Route key={key} {...base}>
                 <WithAuth>
                   <Component></Component>
                 </WithAuth>
@@ -35,7 +35,7 @@ export const Routes: React.FC = () => {
             );
           } else {
             return (
-              <Route {...base}>
+              <Route key={key} {...base}>
                 <Component></Component>
               </Route>
             );

@@ -235,7 +235,7 @@ function filterMessages(
 
   function getChannelNameMatcher() {
     if (channelMatch === undefined || channelMatch.matchValue === '') {
-      return (channelName: string) => true;
+      return (_channelName: string) => true;
     } else {
       const { matchMethod, matchValue } = channelMatch;
       return (channelName: string) => {

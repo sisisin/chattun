@@ -31,6 +31,6 @@ export function useSetIntersectionObserver(
       return;
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // oxlint-disable-next-line react/exhaustive-deps -- TODO: 依存配列を修正する
   }, []);
 }

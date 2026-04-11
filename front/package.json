@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "^22.11.0",
+    "node": "^22.12.0",
     "yarn": "^1.22.5"
   },
   "dependencies": {
@@ -24,9 +24,8 @@
     "build-sw": "tsc -p ./swSrc",
     "test": "craco test",
     "eject": "craco eject",
-    "_lint": "eslint --ext js,jsx,ts,tsx .",
-    "lint": "yarn _lint",
-    "lint-fix": "yarn _lint --fix",
+    "lint": "vp lint",
+    "lint-fix": "vp lint --fix",
     "test-all": "yarn format-check && yarn test",
     "_prettier": "prettier \"src/**/*.{json,css,scss}\"",
     "format": "yarn lint-fix && yarn _prettier --write",
@@ -62,9 +61,6 @@
     "autoprefixer": "9.7.4",
     "babel-loader": "8.0.6",
     "cssnano": "4.1.10",
-    "eslint-config-prettier": "6.10.0",
-    "eslint-plugin-jest": "23.8.1",
-    "eslint-plugin-prettier": "3.1.2",
     "http-proxy-middleware": "2.0.1",
     "markdown-it": "10.0.0",
     "node-emoji": "1.10.0",
@@ -87,7 +83,8 @@
     "slack": "11.0.2",
     "socket.io-client": "4.7.5",
     "typeless": "1.5.0",
-    "typescript": "3.8.3"
+    "typescript": "3.8.3",
+    "vite-plus": "0.1.16"
   },
   "resolutions": {
     "@types/react": "16.9.23"
