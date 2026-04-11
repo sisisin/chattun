@@ -73,3 +73,8 @@
   - prettierパッケージを削除、vite.config.tsにfmt設定を追加（printWidth:100, singleQuote, trailingComma等）
   - format/format-checkスクリプトをvp fmt/vp lintベースに変更
   - oxfmtで全ファイルをフォーマット適用、CLAUDE.mdのコマンド説明も更新
+
+- Task: 開発用コマンドをvite+タスクに定義して、npm-run-allを消す
+  - vite.config.tsのrun.tasksにビルド・開発タスクを定義（dependsOnで依存関係表現）
+  - package.jsonのスクリプトをvp runベースに変更
+  - npm-run-allパッケージを削除

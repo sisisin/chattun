@@ -50,7 +50,10 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 開発用コマンドをvite+タスクに定義して、そちらを利用する形にする。npm-run-allは多分vite+があれば十分なので消す
+- Task: ExecTasksのワークフローを改善する — 作業ディレクトリにtask.mdを作成し、ローカルレビュワーはTaskが達成されているかの観点でレビューする構造にする
+  - 作業ディレクトリ作成時に、遂行するTaskの内容を記述したtask.mdを作成する
+  - ローカルレビュワーエージェントのプロンプトにtask.mdのパスを渡し、「このTaskが達成されているか？」という観点でレビューさせる
+  - TODO.md内のexectasks-guideおよびstart-local-review skillを更新する
 - Task: テストをvite+に変更する
 - Task: create-react-appをvite+へ移行する。画面が正常に表示できることを確認する
   - create-react-app関連の依存はちゃんと消すこと
