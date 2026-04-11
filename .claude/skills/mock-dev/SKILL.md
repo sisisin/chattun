@@ -33,17 +33,9 @@ cd front && BROWSER=none REACT_APP_MOCK_MODE=true yarn start  # ターミナル2
 - `message-deleted` — メッセージ削除
 - `threaded-reply` — スレッド返信
 
-```sh
-curl -X POST http://localhost:3100/api/mock/event/preset/$ARGUMENTS
-```
-
 ### `/mock-dev event <json>` — 任意イベント送信
 
-Slack イベント JSON をそのまま送信:
-
-```sh
-curl -X POST http://localhost:3100/api/mock/event/raw -H 'Content-Type: application/json' -d '$ARGUMENTS'
-```
+Slack イベント JSON をそのまま送信する。
 
 ## 手順
 
@@ -54,15 +46,25 @@ curl -X POST http://localhost:3100/api/mock/event/raw -H 'Content-Type: applicat
   2. モックサーバーをバックグラウンドで起動 (`cd server && yarn dev:mock`)
   3. FEをバックグラウンドで起動 (`cd front && BROWSER=none REACT_APP_MOCK_MODE=true yarn start`)
   4. 両方のコンパイル完了を確認
-  5. ブラウザで `https://local.sisisin.house:3000/` を開いて表示確認
+  5. 起動完了したら `https://local.sisisin.house:3000/` のURLをユーザーに案内する
 
 - `$ARGUMENTS` がプリセット名の場合:
-  1. `curl -X POST http://localhost:3100/api/mock/event/preset/{プリセット名}` を実行
-  2. ブラウザでメッセージが表示されたか確認
+  1. 以下のコマンドを実行してイベントを送信:
+     ```sh
+     curl -X POST "http://localhost:3100/api/mock/event/preset/$ARGUMENTS"
+     ```
+  2. 送信結果をユーザーに報告する
 
 - `$ARGUMENTS` が `event` で始まる場合:
-  1. `event` 以降の文字列をJSONボディとして raw エンドポイントに送信
-  2. ブラウザでイベントが反映されたか確認
+  1. `$ARGUMENTS` から先頭の `event ` プレフィックスを除去してJSONボディを取得
+  2. 以下の要領で raw エンドポイントに送信:
+     ```sh
+     JSON_BODY="${ARGUMENTS#event }"
+     curl -X POST http://localhost:3100/api/mock/event/raw \
+       -H 'Content-Type: application/json' \
+       -d "$JSON_BODY"
+     ```
+  3. 送信結果をユーザーに報告する
 
 - `$ARGUMENTS` が空または `list` の場合:
   1. `curl http://localhost:3100/api/mock/presets` でプリセット一覧を表示
