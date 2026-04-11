@@ -51,9 +51,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: npm scriptsを空にして全てvp taskrunner機能に寄せる
-  - vp run --parallel相当をconfigで表現できるか調査し、可能ならconfig定義に移行
-  - configで表現できないものだけnpm scriptsに残す
 - Task: create-react-appをvite+へ移行する。画面が正常に表示できることを確認する
   - create-react-app関連の依存はちゃんと消すこと
   - Taskが大きすぎて対応しきれない場合は、作業を分解してそれぞれTaskとして追加すること

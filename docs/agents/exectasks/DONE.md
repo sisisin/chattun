@@ -92,3 +92,8 @@
   - vp staged（lint-staged相当）とvp config（husky相当）を利用
   - vite.config.tsにstaged設定（vp check --fix）を追加
   - pre-commitフックでvp stagedを実行、prepareスクリプトでvp configを自動実行
+
+- Task: npm scriptsを空にして全てvp taskrunner機能に寄せる
+  - format, format-check, test-all, move-assets, g, gmをvite.config.tsのrun.tasksに移行
+  - vp run --parallelはconfig定義不可（CLIフラグのみ）→ start, start-nmはnpm scriptsに残留
+  - Dockerfile, CI workflow, CLAUDE.mdをyarn vp run形式に更新
