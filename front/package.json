@@ -19,7 +19,7 @@
     "start-js": "craco start",
     "start-nm": "yarn start-js-nm & yarn watch-css & wait",
     "start-js-nm": "GENERATE_SOURCEMAP=false craco start",
-    "build": "yarn build-css & yarn build-sw & wait && yarn build-js",
+    "build": "yarn build-css & P1=$!; yarn build-sw & P2=$!; wait $P1 && wait $P2 && yarn build-js",
     "move-assets": "rm -rf ../server/public && mkdir -p ../server && mv build ../server/public",
     "build-js": "craco build",
     "build-sw": "tsc -p ./swSrc",
