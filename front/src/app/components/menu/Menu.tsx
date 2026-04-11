@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 export const Menu: React.FC = () => {
   const { location } = useRouter();
-  // todo: storybook上でも正しく動くようにしたい
   const isTimeline = location.pathname === '/';
 
   return (
@@ -21,7 +20,6 @@ export const Menu: React.FC = () => {
         </Link>
       </li>
       <li className="menu-timeline">
-        {/* todo: storybookで見えなくなってる & そもそもこのリンクいる？ */}
         <Link to="/" className="menu-timeline-link">
           すべての投稿
         </Link>

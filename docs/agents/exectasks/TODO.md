@@ -60,7 +60,8 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
   - create-react-app関連の依存はちゃんと消すこと
   - Taskが大きすぎて対応しきれない場合は、作業を分解してそれぞれTaskとして追加すること
 - Task: typescriptを最新にする
-- frontのみyarnからpnpmへ移行
+- Task: frontのみyarnからpnpmへ移行
+- Task: CSSをvite+で利用できる技術に移行し、postcssを消す
 - Task: 他にfrontでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
 
 # Backlog

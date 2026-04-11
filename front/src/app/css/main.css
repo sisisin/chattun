@@ -14,22 +14,3 @@
 @import '../features/tweetList/components/TweetList.css';
 @import '../features/tweetList/components/tweet/Tweet.css';
 @import '../features/tweetList/components/tweet/emoji-custom.css';
-
-.storybook-icons {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 24px;
-  padding: 0;
-  margin: 32px 8px;
-  text-align: center;
-  list-style: none;
-
-  & li {
-    display: grid;
-    align-content: space-between;
-
-    & svg {
-      margin: 0 auto;
-    }
-  }
-}
