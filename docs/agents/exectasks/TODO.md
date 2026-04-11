@@ -50,10 +50,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 未認証ソケットのdisconnect時にクライアントへ適切に通知し、再接続ループを防止する
-  - サーバー側でsessionProfileがないソケットをdisconnectするようになったが、クライアント側にdisconnectハンドラがなく再接続ループが発生する
-  - サーバー側: disconnect前にエラー理由（セッション切れ等）をクライアントに送信する
-  - クライアント側: disconnectまたはエラーイベントを受けてユーザーにセッション切れを通知し、ログインページへ誘導する
 
 # Backlog
 
