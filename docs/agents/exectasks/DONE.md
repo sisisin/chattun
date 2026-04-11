@@ -38,3 +38,8 @@
   - lint-staged.config.jsを削除、package.jsonからhusky設定・lint-staged/huskyパッケージを削除
   - huskyはlint-staged専用のpre-commitフックのみだったため一緒に削除
   - yarn.lock を更新
+
+- Task: vite+を調べて、最低限の概要と出来ることを /skill-dev を利用してskillとしてまとめる
+  - .claude/skills/vite-plus/SKILL.md を作成（user-invocable: false、背景知識として自動参照）
+  - CLIコマンド、vite.config.ts設定例、マイグレーション手順、パフォーマンス比較、ESLint/Prettier/Jest移行メモを記載
+  - vite+公式からskillを得る方法（npx skills add）も確認したが、Claude Code標準のプラグイン仕組みとは異なるためプロジェクト内に直接作成

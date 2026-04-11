@@ -50,7 +50,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: vite+を調べて、最低限の概要と出来ることを /skill-dev を利用してskillとしてまとめる。もしvite+公式からskillを得る方法があるならそれを参照する
 - Task: eslintを消し、vite+のlintに変更する
 - Task: prettierを消し、vite+のformatterに変更する
 - Task: 開発用コマンドをvite+タスクに定義して、そちらを利用する形にする。npm-run-allは多分vite+があれば十分なので消す
