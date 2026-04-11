@@ -97,3 +97,11 @@
   - format, format-check, test-all, move-assets, g, gmをvite.config.tsのrun.tasksに移行
   - vp run --parallelはconfig定義不可（CLIフラグのみ）→ start, start-nmはnpm scriptsに残留
   - Dockerfile, CI workflow, CLAUDE.mdをyarn vp run形式に更新
+
+- Task: create-react-appをvite+へ移行する。画面が正常に表示できることを確認する
+  - CRA関連依存（react-scripts, @craco/craco, @babel/core, babel-loader, http-proxy-middleware, @types/webpack-env）を削除
+  - index.htmlをpublic/からfront/ルートへ移動、%PUBLIC_URL%→/、script type="module"追加
+  - 環境変数をREACT_APP_*→VITE_*、process.env→import.meta.envに移行
+  - module.hot→import.meta.hot、setupProxy.js→vite.config.tsのserver.proxy
+  - vite.config.tsにserver.https設定を追加（.env.localからSSL_CRT_FILE/SSL_KEY_FILE読み取り）
+  - README.md、CLAUDE.md、CI workflow、Dockerfileを更新

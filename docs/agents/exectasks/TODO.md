@@ -11,7 +11,8 @@ ExecTasks の実行を指示されたら、auto memory に実行中の ExecTasks
 2. ブランチカット
 3. Task の完了条件を満たすまで実装を行う
 4. 完了条件を満たせたら main ブランチへマージし、pushする
-5. 1 へ戻る
+5. GitHub Actions のデプロイ/CIが成功しているか `gh run list` 等で確認する。失敗していたら修正Taskを追加し、先に遂行する
+6. 1 へ戻る
 
 </guidance>
 <task-execution>
@@ -51,9 +52,9 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: create-react-appをvite+へ移行する。画面が正常に表示できることを確認する
-  - create-react-app関連の依存はちゃんと消すこと
-  - Taskが大きすぎて対応しきれない場合は、作業を分解してそれぞれTaskとして追加すること
+- Task: GitHub ActionsのCI/デプロイ状況を確認し、失敗があれば修正する
+  - これまでのタスク（テストvite+移行、commit hook導入、npm scripts移行、CRA移行）のpush後のCI結果を一括確認
+  - 失敗しているworkflowがあれば原因を特定し修正する
 - Task: typescriptを最新にする
 - Task: frontのみyarnからpnpmへ移行
 - Task: CSSをvite+で利用できる技術に移行し、postcssを消す
