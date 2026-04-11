@@ -33,3 +33,8 @@
   - .stylelintrc.json, .stylelintignoreを削除
   - postcss.config.jsからstylelintプラグイン参照を削除、lint-staged.config.jsからstylelint参照を削除
   - yarn.lock を更新
+
+- Task: lint-stagedを消す
+  - lint-staged.config.jsを削除、package.jsonからhusky設定・lint-staged/huskyパッケージを削除
+  - huskyはlint-staged専用のpre-commitフックのみだったため一緒に削除
+  - yarn.lock を更新
