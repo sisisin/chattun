@@ -43,6 +43,24 @@ export default defineConfig({
         command: 'craco build',
         dependsOn: ['build-css', 'build-sw'],
       },
+      'move-assets': {
+        command: 'rm -rf ../server/public && mkdir -p ../server && mv build ../server/public',
+      },
+      format: {
+        command: 'vp fmt --write && vp lint --fix',
+      },
+      'format-check': {
+        command: 'vp fmt --check && vp lint',
+      },
+      'test-all': {
+        command: 'vp fmt --check && vp lint && vp test run',
+      },
+      g: {
+        command: 'plop feature',
+      },
+      gm: {
+        command: 'plop module',
+      },
     },
   },
   fmt: {

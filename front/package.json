@@ -17,17 +17,6 @@
   "scripts": {
     "start": "vp run --parallel start-js watch-css watch-sw",
     "start-nm": "vp run --parallel start-js-nm watch-css",
-    "build": "vp run build-js",
-    "move-assets": "rm -rf ../server/public && mkdir -p ../server && mv build ../server/public",
-    "test": "vp test run",
-    "eject": "craco eject",
-    "lint": "vp lint",
-    "lint-fix": "vp lint --fix",
-    "test-all": "yarn format-check && yarn test",
-    "format": "vp fmt --write && vp lint --fix",
-    "format-check": "vp fmt --check && vp lint",
-    "g": "yarn plop feature",
-    "gm": "yarn plop module",
     "prepare": "vp config"
   },
   "browserslist": [

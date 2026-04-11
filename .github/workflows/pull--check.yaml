@@ -35,5 +35,5 @@ jobs:
           cache-dependency-path: 'front/yarn.lock'
 
       - run: yarn install --frozen-lockfile
-      - run: yarn build
-      - run: yarn test-all
+      - run: yarn vp run build-js
+      - run: yarn vp run test-all

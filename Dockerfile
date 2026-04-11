@@ -7,7 +7,7 @@ RUN yarn install --frozen-lockfile && \
   rm -rf $(yarn cache dir)
 
 COPY ./front .
-RUN yarn build && yarn move-assets
+RUN yarn vp run build-js && yarn vp run move-assets
 
 FROM node:22.18.0-alpine AS runner
 

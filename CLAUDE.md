@@ -53,14 +53,14 @@ curl -X POST http://localhost:3100/api/mock/event/raw -H 'Content-Type: applicat
 ### ビルド・リント・テスト
 
 ```sh
-# フロント
-cd front
-yarn build          # 本番ビルド (CSS + SW + JS)
-yarn test           # Vitest (vp test run)
-yarn lint           # Oxlint (vp lint)
-yarn lint-fix       # Oxlint autofix (vp lint --fix)
-yarn format         # Oxfmt + Oxlint 一括修正 (vp fmt + vp lint --fix)
-yarn format-check   # CI用チェック (vp fmt --check + vp lint)
+# フロント (cd front で実行)
+yarn vp run build-js      # 本番ビルド (CSS + SW + JS)
+yarn vp test run           # Vitest
+yarn vp lint               # Oxlint
+yarn vp lint --fix         # Oxlint autofix
+yarn vp run format         # Oxfmt + Oxlint 一括修正
+yarn vp run format-check   # CI用チェック
+yarn vp check              # fmt + lint + type-check 一括実行
 
 # サーバー (テストスクリプトなし、TypeScript型チェックのみ)
 cd server
