@@ -2,6 +2,7 @@ import { SlackActions } from 'app/features/slack/interface';
 import { appRegistry } from 'app/services/AppRegistry';
 import { io } from 'socket.io-client';
 import { basePath } from 'app/config';
+import { appHistory } from 'app/services/appHistory';
 
 export async function connect() {
   const socket = io(basePath, { transports: ['websocket'] });
@@ -11,6 +12,11 @@ export async function connect() {
   });
   socket.on('message', ev => {
     appRegistry.dispatch(SlackActions.onRTMEmitted(ev));
+  });
+  socket.on('auth_error', () => {
+    socket.disconnect();
+    alert('セッションの有効期限が切れました。再度ログインしてください。');
+    appHistory.push('/login');
   });
 
   socket.send('ping');
