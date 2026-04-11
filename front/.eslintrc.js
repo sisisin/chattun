@@ -71,7 +71,7 @@ module.exports = {
     },
     {
       ...tsBaseConfig,
-      files: ['**/*.test.ts', '**/*.test.tsx', '**/stories.tsx'],
+      files: ['**/*.test.ts', '**/*.test.tsx'],
       rules: {
         ...tsBaseConfig.rules,
         '@typescript-eslint/no-empty-function': 0,
