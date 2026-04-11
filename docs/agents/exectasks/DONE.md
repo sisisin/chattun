@@ -78,3 +78,7 @@
   - vite.config.tsのrun.tasksにビルド・開発タスクを定義（dependsOnで依存関係表現）
   - package.jsonのスクリプトをvp runベースに変更
   - npm-run-allパッケージを削除
+
+- Task: ExecTasksのワークフローを改善する — task.md作成とレビュー観点の構造化
+  - exectasks-guideにtask.md作成ステップを追加
+  - start-local-reviewスキルのレビュワープロンプトにtask.mdパスを渡す形に更新
