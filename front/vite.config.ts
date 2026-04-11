@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite-plus';
+import { configDefaults, defineConfig } from 'vite-plus';
 import path from 'path';
 
 export default defineConfig({
@@ -11,7 +11,7 @@ export default defineConfig({
     },
   },
   test: {
-    exclude: ['.blueprints/**', 'node_modules/**'],
+    exclude: [...configDefaults.exclude, '.blueprints/**'],
     environment: 'jsdom',
     globals: true,
   },
