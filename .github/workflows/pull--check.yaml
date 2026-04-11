@@ -27,12 +27,14 @@ jobs:
           version=$(cat mise.toml | grep -E '^node' | cut -d '=' -f 2 | tr -d '[:space:]' | tr -d '"')
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
+      - run: corepack enable pnpm
+
       - name: Setup Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: ${{ steps.node-version.outputs.version }}
-
-      - run: corepack enable pnpm
+          cache: 'pnpm'
+          cache-dependency-path: 'front/pnpm-lock.yaml'
       - run: pnpm install --frozen-lockfile
       - run: pnpm vp run build-js
       - run: pnpm vp run test-all
