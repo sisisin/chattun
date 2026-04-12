@@ -1,7 +1,28 @@
 import { configDefaults, defineConfig } from 'vite-plus';
+import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import autoprefixer from 'autoprefixer';
+import type { Plugin } from 'vite';
+
+function swPlugin(): Plugin {
+  const compile = () => execSync('tsc -p ./swSrc', { stdio: 'inherit' });
+  return {
+    name: 'sw-compile',
+    buildStart() {
+      compile();
+    },
+    configureServer(server) {
+      compile();
+      server.watcher.add(path.resolve(import.meta.dirname, 'swSrc'));
+      server.watcher.on('change', file => {
+        if (file.includes('swSrc')) {
+          compile();
+        }
+      });
+    },
+  };
+}
 
 const envLocal = fs.existsSync('.env.local')
   ? Object.fromEntries(
@@ -19,6 +40,7 @@ const https =
     : undefined;
 
 export default defineConfig({
+  plugins: [swPlugin()],
   css: {
     postcss: {
       plugins: [autoprefixer()],
@@ -55,18 +77,8 @@ export default defineConfig({
   },
   run: {
     tasks: {
-      'start-js': {
-        command: 'vp dev',
-      },
-      'watch-sw': {
-        command: 'tsc -p ./swSrc -w',
-      },
-      'build-sw': {
-        command: 'tsc -p ./swSrc',
-      },
       'build-js': {
         command: 'vp build',
-        dependsOn: ['build-sw'],
       },
       'move-assets': {
         command: 'rm -rf ../server/public && mkdir -p ../server && mv build ../server/public',
