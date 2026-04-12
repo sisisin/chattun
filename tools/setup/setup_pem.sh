@@ -3,11 +3,11 @@
 set -eu -o pipefail
 script_dir=$(cd "$(dirname "$0")" && pwd)
 readonly script_dir
-readonly out_dir="$script_dir/../tmp"
+readonly out_dir="$script_dir/../../tmp"
 
 # .env.local から CERT_DIR を読み込む（環境変数で未設定の場合）
-if [ -z "${CERT_DIR:-}" ] && [ -f "$script_dir/../.env.local" ]; then
-  CERT_DIR=$(grep '^CERT_DIR=' "$script_dir/../.env.local" | cut -d= -f2- | xargs) || true
+if [ -z "${CERT_DIR:-}" ] && [ -f "$script_dir/../../.env.local" ]; then
+  CERT_DIR=$(grep '^CERT_DIR=' "$script_dir/../../.env.local" | cut -d= -f2- | xargs) || true
 fi
 
 mkdir -p "$out_dir"

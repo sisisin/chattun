@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-readonly repo_root="$script_dir/.."
+readonly repo_root="$script_dir/../.."
 
 output=$(terraform -chdir=${script_dir}/../terraform output -json)
 region=$(echo "$output" | jq -r '.region.value')

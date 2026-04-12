@@ -24,7 +24,7 @@ chattun は Slack のタイムラインビューアーWebアプリ。Slack Socke
 pnpm install
 
 # Redis
-cd docker && docker-compose up
+cd tools/docker && docker-compose up
 
 # サーバー (port 3100, node --watch でホットリロード)
 cd server && pnpm dev
@@ -79,7 +79,7 @@ pnpm run ci                # vp check と同じ（CI用エイリアス）
 ### デプロイ
 
 main push で GitHub Actions が Cloud Run へ自動デプロイ (`push--build-and-deploy.yaml`)。
-手動: `scripts/build_image.sh --tag=<tag>` → `scripts/deploy.sh`
+手動: `tools/deploy/build_image.sh --tag=<tag>` → `tools/deploy/deploy.sh`
 
 ## アーキテクチャ
 

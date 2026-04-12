@@ -47,7 +47,7 @@ jobs:
         id: build
         run: |
           short_sha=$(git rev-parse --short HEAD)
-          ./scripts/build_image.sh --tag="${short_sha}"
+          ./tools/deploy/build_image.sh --tag="${short_sha}"
           echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
 
   deploy:

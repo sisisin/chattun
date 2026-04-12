@@ -79,4 +79,4 @@ jobs:
         env:
           SHORT_SHA: ${{ needs.get-sha.outputs.short_sha }}
         run: |
-          ./scripts/deploy.sh --tag="${SHORT_SHA}"
+          ./tools/deploy/deploy.sh --tag="${SHORT_SHA}"
