@@ -52,9 +52,8 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: emoji-mart 2→5にアップグレードする
-  - v5はフルリライト（Web Components化）でAPI非互換。Picker/Emoji/CustomEmojiの全面書き換えが必要
-  - babel-runtime依存を解消できる
+- Task: local-reviewのプロセス内にフロントの動作確認エージェントを含める。
+  - フロントエンドの動作に関わるdiffが含まれていた場合に、ブラウザを利用する動作検証サブエージェントを使って確認し、その結果をレビューログに記載する、という動きをする。ファイルの競合はちょっとだけ気をつけて
 - Task: rxjs 6→7にアップグレードする
 - Task: react-hook-form を別のformライブラリを検討して移行する
   - tanstackがいいかも

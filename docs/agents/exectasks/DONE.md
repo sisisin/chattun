@@ -167,6 +167,14 @@
 - Task: tsconfig.jsonのstrictFunctionTypesをtrueにする
   - strictFunctionTypesをfalse→trueに変更
   - reduce()の型引数にSlackEntity.Message.Reaction[]を明示して型エラーを解消
+
+- Task: emoji-mart 2→5にアップグレードする
+  - emoji-mart 2.11.2→5.6.0、@emoji-mart/data、@emoji-mart/reactを追加
+  - Pickerをv5 React版に移行（data prop、onEmojiSelect、custom categories形式）
+  - Emojiコンポーネントをem-emoji Web Component＋カスタム絵文字はimg表示に移行
+  - CustomEmoji型をローカル定義（v5形式: id, name, keywords, skins）に変更
+  - babel-runtime、@types/emoji-martを削除、旧emoji-mart.css削除
+  - alias絵文字のリアクション表示バグも修正
   - TypeScript 3.8.3→6.0.2にアップグレード
   - tsconfig.json: target es2020, module preserve, moduleResolution bundler、baseUrl→paths移行、suppressImplicitAnyIndexErrors削除
   - swSrc/tsconfig.json: ignoreDeprecations "6.0"追加（outFile非推奨対応）
