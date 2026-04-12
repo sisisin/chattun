@@ -95,16 +95,6 @@ input {
   border-radius: var(--border-radius-sm);
 }
 
-@media (prefers-color-scheme: dark) {
-  .button-remove {
-    color: var(--text-sub);
-  }
-
-  .button-add {
-    color: var(--text-revert);
-  }
-}
-
 .select-group-label {
   display: grid;
   grid-template-rows: 24px;
