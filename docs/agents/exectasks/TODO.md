@@ -52,10 +52,7 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: serverのnpm scriptsをvp task化
-  - githookなど、front/特化になっていたところも、Workspace前提で統合して扱えるようにする
-  - あわせてvp taskをrepo rootで扱う、Workspace運用に変更する
-  - 作業中ブランチ: `feat/server-vp-tasks`（stash あり）
+- Task: serverでvp checkを利用する
 - Task: serverでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
 - Task: scripts/,docker/をtools/へ統合する。スクリプトの置き方は役割に沿った構成になるように調節
 - Task: .vscodeをルートに統合・chattun.code-workspaceを消す

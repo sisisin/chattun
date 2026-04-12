@@ -1,5 +1,10 @@
 # Done
 
+- Task: serverのnpm scriptsをvp task化 + repo root運用
+  - 各パッケージにci script追加（front: vp run test-all, server: tsc --noEmit）
+  - git hooksをfront/.vite-hooks/からルート.vite-hooks/に移動（pre-commit: vp staged, pre-push: vp run -r ci）
+  - ルートにvite.config.ts（staged設定のみ）追加、ルートpackage.jsonにprepare: "vp config"
+  - Dockerfile両ステージに--ignore-scripts追加、CI統一
 - Task: typescriptなどの共通の依存をrootに移動
   - typescript(6.0.2), @types/node(22.19.17), vite(8.0.8), vite-plus(0.1.16)をルートに集約
   - server の TypeScript を 5.8.3 → 6.0.2 に統一
