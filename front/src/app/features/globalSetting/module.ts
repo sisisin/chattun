@@ -56,11 +56,11 @@ handle
     if (savedSetting) {
       settingRepository.putSetting(setting);
     }
-    setupThemeListener(setting.theme);
     return GlobalSettingActions.updateGlobalSetting(setting);
   })
   .on(GlobalSettingActions.updateGlobalSetting, ({ setting }) => {
     setupThemeListener(setting.theme);
+    return null;
   });
 
 // --- Reducer ---
