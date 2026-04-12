@@ -7,7 +7,7 @@ COPY ./front/package.json ./front/pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 COPY ./front .
-RUN pnpm vp run build-js && pnpm vp run move-assets
+RUN pnpm vp run build && pnpm vp run move-assets
 
 FROM node:22.18.0-alpine AS runner
 

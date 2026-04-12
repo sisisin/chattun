@@ -1,2 +1,2 @@
 root="$(git rev-parse --show-toplevel)"
-cd "$root/front" && vp run build-js && vp run test-all
+cd "$root/front" && vp run build && vp run test-all

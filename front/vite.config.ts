@@ -77,17 +77,11 @@ export default defineConfig({
   },
   run: {
     tasks: {
-      'build-js': {
+      build: {
         command: 'vp build',
       },
       'move-assets': {
         command: 'rm -rf ../server/public && mkdir -p ../server && mv build ../server/public',
-      },
-      format: {
-        command: 'vp fmt --write && vp lint --fix',
-      },
-      'format-check': {
-        command: 'vp fmt --check && vp lint',
       },
       'test-all': {
         command: 'vp check && vp test run',

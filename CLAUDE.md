@@ -62,10 +62,8 @@ pnpm vp lint --fix         # Oxlint autofix
 pnpm vp check              # fmt + lint + type-check 一括実行
 
 # vp run タスク (vite.config.ts で定義)
-pnpm vp run build-js       # 本番ビルド (CSS + SW + JS)
-pnpm vp run format         # Oxfmt + Oxlint 一括修正
-pnpm vp run format-check   # CI用チェック
-pnpm vp run test-all       # format-check + test 一括実行
+pnpm vp run build          # 本番ビルド
+pnpm vp run test-all       # check + test 一括実行
 
 # サーバー (テストスクリプトなし、TypeScript型チェックのみ)
 cd server
