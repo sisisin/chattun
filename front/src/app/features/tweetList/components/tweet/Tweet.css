@@ -60,6 +60,11 @@
   text-align: center;
   background: var(--label-base);
   border-radius: var(--border-radius-sm);
+
+  & a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 .tweet-icon-link {
