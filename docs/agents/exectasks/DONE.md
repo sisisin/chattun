@@ -1,5 +1,10 @@
 # Done
 
+- Task: expressをhonoに移行する
+  - express → hono + @hono/node-server、express-session + connect-redis → 独自session middleware (ioredis + hono/cookie)
+  - helmet → hono/secure-headers、express.static → @hono/node-server/serve-static
+  - Socket.IO統合をcreateAdaptorServerベースに変更、logging/traceからexpress型依存を除去
+  - mock-serverも併せてhono化、middleware.ts削除
 - Task: ioredisを5.xにアップデートする
   - ioredis 4.27.7→5.10.1にアップグレード、@types/ioredisを削除（v5で型同梱）
   - new Redis()コンストラクタ引数をオブジェクト形式に変更（v5のBreaking Change）

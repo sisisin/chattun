@@ -52,10 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: expressをhonoに移行する
-  - express, express-session, connect-redis, helmet, @types/express, @types/express-session, @types/connect-redisを置き換え
-  - hono標準のミドルウェアでセッション・セキュリティヘッダーを実現
-  - mock-serverも併せて移行
 - Task: @slack/oauthを3.xにアップデートする
 - Task: socket.io, @slack/socket-modeのマイナー/パッチアップデート
 - Task: scripts/,docker/をtools/へ統合する。スクリプトの置き方は役割に沿った構成になるように調節
