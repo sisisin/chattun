@@ -1,5 +1,7 @@
 # Done
 
+- Task: unhandledRejectionでプロセス終了するように直す
+  - ログ出力後にprocess.exit(1)を追加、握りつぶしを解消
 - Task: InstallProviderのstateSecretを環境変数から読み込むようにする
   - config.tsにSLACK_STATE_SECRET追加、フォールバック値あり
 - Task: emoji-martのアセット最適化

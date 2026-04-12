@@ -52,8 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: unhandledRejectionでプロセス終了するように直す
-  - 握りつぶすのは悪
 
 # Backlog
 
