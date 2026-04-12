@@ -97,8 +97,8 @@ jobs:
             const hasFailed = '${{ needs.build.result }}' !== 'success' || '${{ needs.deploy.result }}' !== 'success';
             const status = hasFailed ? 'failure' : 'success';
             const emoji = hasFailed ? '❌' : '✅';
-            const revision = '${{ needs.build.outputs.short_sha }}';
-            const commitMessage = context.payload.head_commit?.message?.split('\n')[0] ?? '';
+            const revision = '${{ needs.build.outputs.short_sha }}' || 'unknown';
+            const commitMessage = context.payload.head_commit?.message?.split('\n')[0] || '(manual dispatch)';
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const lines = [
               `${emoji} chattun deploy ${status}`,
