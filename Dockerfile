@@ -1,6 +1,11 @@
-FROM node:22.18.0 AS builder
+FROM node:22.18.0-slim AS base
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable pnpm
+
+FROM base AS builder
+
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml vp-shared.ts ./
@@ -8,14 +13,14 @@ COPY .npmrc* ./
 COPY front/package.json ./front/
 COPY front/patches ./front/patches
 COPY server/package.json ./server/
-RUN pnpm install --frozen-lockfile --ignore-scripts
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --frozen-lockfile --ignore-scripts
 
 COPY ./front ./front
 RUN pnpm --filter chattun-front exec vp run build
 
-FROM node:22.18.0-alpine AS runner
+FROM base AS runner
 
-RUN corepack enable pnpm
 WORKDIR /app
 
 ENV NODE_ENV=production
@@ -25,7 +30,8 @@ COPY .npmrc* ./
 COPY front/package.json ./front/
 COPY front/patches ./front/patches
 COPY server/package.json ./server/
-RUN pnpm install --frozen-lockfile --filter chattun-server --prod --ignore-scripts
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --frozen-lockfile --filter chattun-server --prod --ignore-scripts
 
 WORKDIR /app/server
 COPY ./server ./
