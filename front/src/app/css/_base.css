@@ -23,37 +23,3 @@ html {
 html {
   font-size: 16px;
 }
-
-.App {
-  text-align: center;
-
-  &-logo {
-    height: 80px;
-    animation: App-logo-spin infinite 20s linear;
-  }
-
-  &-header {
-    height: 150px;
-    padding: 20px;
-    color: white;
-    background-color: hsl(0, 0%, 13%);
-  }
-
-  &-title {
-    font-size: 1.5em;
-  }
-
-  &-intro {
-    font-size: large;
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
