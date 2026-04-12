@@ -54,6 +54,7 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 - Task: slack flavored markdownを適切に扱うためにはどんな選択肢があるかを調査し、その結果を作業ディレクトリにresearch.mdに書く
   - Design Decisionのために利用するので、検討に使えるような情報を書くように
+- Task: timelineでスレッド投稿の右下にスレッドページへのリンクを表示させる
 - Task: PWAのアプリとしてインストールされてなかったときにユーザーにインストールを促すようにしたい
   - 邪魔にならないように入れたい
 - Task: serverのindex.tsがゴチャ付いてるので整理したい。少なくとも`/api/*` は分けたい
