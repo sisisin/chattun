@@ -28,10 +28,8 @@ export const PwaInstallBanner = () => {
 
   const handleInstall = async () => {
     if (!deferredPrompt) return;
-    const result = await deferredPrompt.prompt();
-    if (result.outcome === 'accepted') {
-      setDeferredPrompt(null);
-    }
+    await deferredPrompt.prompt();
+    setDeferredPrompt(null);
   };
 
   const handleDismiss = () => {
