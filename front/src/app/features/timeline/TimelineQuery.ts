@@ -2,41 +2,9 @@ import { getSlackState, SlackState, Message } from 'app/features/slack/interface
 import { SlackEntity } from 'app/types/slack';
 import { ChannelMatch } from 'app/types/TimelineSettings';
 import { assertNever } from 'app/types/typeAssertions';
-import MI from 'markdown-it';
-import { emojify } from 'node-emoji';
 import { createSelector } from 'typeless';
 import { getGlobalSettingState } from '../globalSetting/interface';
 import { slackMessageToTweet, toSlackMessages } from '../slack/SlackQuery';
-import { basePath } from 'app/config';
-
-function getMditInstance() {
-  const md = MI({ html: true, breaks: true });
-
-  // add _blank attribute to anchor tag
-  // ref. https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
-  const defaultRender =
-    md.renderer.rules.link_open ||
-    ((tokens: any, idx: any, options: any, env: any, self: any) => {
-      return self.renderToken(tokens, idx, options);
-    });
-
-  md.renderer.rules.link_open = (tokens: any, idx: any, options: any, env: any, self: any) => {
-    // If you are sure other plugins can't add `target` - drop check below
-    const aIndex = tokens[idx].attrIndex('target');
-
-    if (aIndex < 0) {
-      tokens[idx].attrPush(['target', '_blank']); // add new attribute
-    } else {
-      tokens[idx].attrs[aIndex][1] = '_blank'; // replace value of existing attr
-    }
-
-    // pass token to default renderer.
-    return defaultRender(tokens, idx, options, env, self);
-  };
-  return md;
-}
-
-const mdit = getMditInstance();
 
 export function getChannelName(
   channelMap: SlackState['channels'],
@@ -82,128 +50,6 @@ export const getProfile = (map: SlackState['users'], userId: string) => {
     iconUrl: member.profile.image_48,
   };
 };
-
-const imgFileRegexp = /(png|jpg|jpeg|gif)/;
-export const fileToText = (fileMessageRow: Message) => {
-  if (!fileMessageRow.files) {
-    return undefined;
-  }
-  return fileMessageRow.files
-    .filter(({ filetype }) => imgFileRegexp.test(filetype))
-    .map(({ thumb_360, url_private }) => {
-      const u = new URLSearchParams();
-      u.append('target_url', thumb_360);
-      return `
-      <a href="${url_private}" target="_blank" rel="noopener">
-        <img class="tweet-contents-image" src="${basePath}/api/file?${u}" />
-      </a>
-`;
-    })
-    .join('<br>');
-};
-
-const userMention = /<@(.*?)>/g;
-const groupMention = /<!(channel|here)>/g;
-const userGroupMention = /<!subteam\^\w+\|@(\w+?)>/g;
-const channelName = /<#\w+\|(\w+)>/g;
-export const toMention = (message: Message, membersMap: SlackState['users'], myUserId?: string) => {
-  const rowText = message.text ? message.text : '';
-  return rowText
-    .replace(userMention, (_match, $1: string) => {
-      const name = `@${getProfile(membersMap, $1).displayName}`;
-      return $1 === myUserId ? `<span class="mention-self">${name}</span>` : name;
-    })
-    .replace(groupMention, (_match, $1: string) => `<span class="mention-self">@${$1}</span>`)
-    .replace(userGroupMention, (_match, $1: string) => `@${$1}`)
-    .replace(channelName, (_match, $1: string) => `#${$1}`);
-};
-
-const imageAttachmentToText = (attachment: SlackEntity.Attachment) => {
-  return `<img alt="${attachment.fallback}" src="${attachment.image_url}" />`;
-};
-
-export const textWithAttachmentToText = (msg: Message, userReplacedMessage: string) => {
-  if (msg.subtype === 'message_changed' && msg.message && Array.isArray(msg.message.attachments)) {
-    return msg.message.attachments
-      .map(a => {
-        if (a.image_url) {
-          return imageAttachmentToText(a);
-        } else {
-          // todo
-          return userReplacedMessage;
-        }
-      })
-      .join('<br>');
-  } else {
-    return userReplacedMessage;
-  }
-};
-
-const emojiRegex = /:(.+?):/g;
-export const textToEmojified = (text: string, emojis: SlackState['emojis']): string => {
-  const basicEmojified = emojify(text);
-  return basicEmojified.replace(emojiRegex, (match, $1: string) => {
-    const imageUrl = emojis[$1];
-    if (imageUrl) {
-      if (imageUrl.startsWith('alias:')) {
-        const res = textToEmojified(`:${imageUrl.slice(6)}:`, emojis);
-        return res.startsWith(':') ? match : res;
-      } else {
-        return `<img class="tweet-contents-slack-emoji" src="${imageUrl}" alt="${$1}">`;
-      }
-    } else {
-      return match;
-    }
-  });
-};
-
-export const textToMd = (text: string) => {
-  return mdit.render(text);
-};
-
-export const textToHtml = (
-  message: Message,
-  memberMap: SlackState['users'],
-  emojis: SlackState['emojis'],
-  myUserId?: string,
-) => {
-  const fromFile = fileToText(message);
-
-  const userReplacedMessage = toMention(message, memberMap, myUserId);
-  // fixme: image以外が死ぬ
-  const imageAttachedText = textWithAttachmentToText(message, userReplacedMessage);
-  const emojifiedText = textToEmojified(imageAttachedText, emojis);
-  const mdfied = textToMd(emojifiedText);
-
-  if (fromFile) {
-    return `${mdfied}
-<br>
-${fromFile}`;
-  } else {
-    return mdfied;
-  }
-};
-
-const getFilteredMessages = createSelector(
-  [getSlackState, slack => slack.channels],
-  [getSlackState, slack => slack.messagesByChannel],
-  [getGlobalSettingState, ({ channelMatches }) => channelMatches],
-  (channels, messagesByChannel, channelMatches) =>
-    filterMessages({ channels, messagesByChannel }, channelMatches),
-);
-export const getTimelineMessages = createSelector(
-  getFilteredMessages,
-  [getSlackState, slack => slack.channels],
-  [getSlackState, slack => slack.users],
-  [getSlackState, slack => slack.emojis],
-  [getSlackState, slack => slack.profile],
-  [getGlobalSettingState, s => s.deepLinking],
-  (filtered, channels, users, emojis, profile, deepLinking) => {
-    return filtered.map(msg =>
-      slackMessageToTweet(msg, { channels, emojis, users, profile }, deepLinking),
-    );
-  },
-);
 
 function filterMessages(
   { channels, messagesByChannel }: Pick<SlackState, 'channels' | 'messagesByChannel'>,
@@ -252,3 +98,25 @@ function filterMessages(
     return (channelName: string) => activeMatches.some(m => matchSingle(channelName, m));
   }
 }
+
+const getFilteredMessages = createSelector(
+  [getSlackState, slack => slack.channels],
+  [getSlackState, slack => slack.messagesByChannel],
+  [getGlobalSettingState, ({ channelMatches }) => channelMatches],
+  (channels, messagesByChannel, channelMatches) =>
+    filterMessages({ channels, messagesByChannel }, channelMatches),
+);
+
+export const getTimelineMessages = createSelector(
+  getFilteredMessages,
+  [getSlackState, slack => slack.channels],
+  [getSlackState, slack => slack.users],
+  [getSlackState, slack => slack.emojis],
+  [getSlackState, slack => slack.profile],
+  [getGlobalSettingState, s => s.deepLinking],
+  (filtered, channels, users, emojis, profile, deepLinking) => {
+    return filtered.map(msg =>
+      slackMessageToTweet(msg, { channels, emojis, users, profile }, deepLinking),
+    );
+  },
+);

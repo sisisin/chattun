@@ -3,8 +3,14 @@ import { SlackEntity } from 'app/types/slack';
 import { assertNever } from 'app/types/typeAssertions';
 import { createSelector } from 'typeless';
 import { GlobalSettingState } from '../globalSetting/interface';
-import { type CustomEmojiInfo, Reaction, Tweet } from '../timeline/interface';
-import { getChannelName, getMessageProfile, textToHtml } from '../timeline/TimelineQuery';
+import {
+  type CustomEmojiInfo,
+  type FileAttachment,
+  type ImageAttachment,
+  Reaction,
+  Tweet,
+} from '../timeline/interface';
+import { getChannelName, getMessageProfile } from '../timeline/TimelineQuery';
 
 function getReactions(
   reactions: SlackEntity.Message.Reaction[] | undefined,
@@ -53,8 +59,9 @@ export function slackMessageToTweet(
 
   const { displayName, fullName, iconUrl } = getMessageProfile(users, msg);
 
-  // todo: botなどのattachmentが全然対応できてない
-  const text = textToHtml(msg, users, emojis, profile.userId);
+  const text = getMessageText(msg);
+  const files = getFileAttachments(msg);
+  const imageAttachments = getImageAttachments(msg);
 
   return {
     threadTs: msg.thread_ts,
@@ -67,6 +74,8 @@ export function slackMessageToTweet(
     iconUrl,
     reactions,
     text,
+    files,
+    imageAttachments,
     slackLink: getSlackLink(profile, msg, deepLinking),
     edited: msg.edited,
     updatedAt: msg.updatedAt,
@@ -132,6 +141,38 @@ function getChannelLink(
     default:
       assertNever(deepLinking);
   }
+}
+
+const imgFileRegexp = /(png|jpg|jpeg|gif)/;
+function getMessageText(msg: Message): string {
+  // For message_changed with image attachments, use fallback text
+  if (msg.subtype === 'message_changed' && msg.message && Array.isArray(msg.message.attachments)) {
+    const hasImage = msg.message.attachments.some(a => a.image_url);
+    if (hasImage) {
+      return msg.text ?? '';
+    }
+  }
+  return msg.text ?? '';
+}
+
+function getFileAttachments(msg: Message): FileAttachment[] {
+  if (!msg.files) return [];
+  return msg.files
+    .filter(({ filetype }) => imgFileRegexp.test(filetype))
+    .map(({ thumb_360, url_private }) => ({
+      thumb360: thumb_360,
+      urlPrivate: url_private,
+    }));
+}
+
+function getImageAttachments(msg: Message): ImageAttachment[] {
+  if (msg.subtype !== 'message_changed' || !msg.message?.attachments) return [];
+  return msg.message.attachments
+    .filter(a => a.image_url)
+    .map(a => ({
+      fallback: a.fallback ?? '',
+      imageUrl: a.image_url!,
+    }));
 }
 
 export function convertEmoji(name: string, imageUrl: string): CustomEmojiInfo {

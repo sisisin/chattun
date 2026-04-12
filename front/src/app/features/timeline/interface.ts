@@ -33,6 +33,16 @@ export interface Reaction {
   reacted: boolean;
 }
 
+export interface FileAttachment {
+  thumb360: string;
+  urlPrivate: string;
+}
+
+export interface ImageAttachment {
+  fallback: string;
+  imageUrl: string;
+}
+
 export interface Tweet {
   threadTs?: string;
   ts: string;
@@ -46,6 +56,8 @@ export interface Tweet {
   };
   iconUrl: string;
   text: string;
+  files: FileAttachment[];
+  imageAttachments: ImageAttachment[];
   reactions: Reaction[];
   slackLink: {
     type: DeepLinking;

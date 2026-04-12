@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import { type MrkdwnNode, parseMrkdwn } from './parser';
 
+export interface MrkdwnContext {
+  resolveUser?: (userId: string) => { displayName: string } | undefined;
+  resolveEmoji?: (name: string) => string | undefined;
+  myUserId?: string;
+}
+
+const MrkdwnCtx = createContext<MrkdwnContext>({});
+
 function RenderNode({ node }: { node: MrkdwnNode }) {
+  const ctx = useContext(MrkdwnCtx);
+
   switch (node.type) {
     case 'text':
       return <>{node.text}</>;
@@ -33,16 +43,25 @@ function RenderNode({ node }: { node: MrkdwnNode }) {
       );
     case 'linebreak':
       return <br />;
-    case 'user_mention':
-      return <span className="mention">@{node.userId}</span>;
+    case 'user_mention': {
+      const user = ctx.resolveUser?.(node.userId);
+      const displayName = user ? `@${user.displayName}` : `@${node.userId}`;
+      const isSelf = ctx.myUserId === node.userId;
+      return <span className={isSelf ? 'mention-self' : 'mention'}>{displayName}</span>;
+    }
     case 'channel_ref':
       return <span className="channel-ref">#{node.name}</span>;
     case 'group_mention':
       return <span className="mention">{node.name}</span>;
     case 'special_mention':
-      return <span className="mention">@{node.keyword}</span>;
-    case 'emoji':
-      return <span className="emoji">:{node.name}:</span>;
+      return <span className="mention-self">@{node.keyword}</span>;
+    case 'emoji': {
+      const emojiUrl = ctx.resolveEmoji?.(node.name);
+      if (emojiUrl) {
+        return <img className="tweet-contents-slack-emoji" src={emojiUrl} alt={node.name} />;
+      }
+      return <>:{node.name}:</>;
+    }
     case 'link':
       return (
         <a href={node.url} target="_blank" rel="noopener noreferrer">
@@ -62,7 +81,14 @@ function RenderNodes({ nodes }: { nodes: MrkdwnNode[] }) {
   );
 }
 
-export const MrkdwnContent = ({ text }: { text: string }) => {
+export const MrkdwnContent = ({ text, context }: { text: string; context?: MrkdwnContext }) => {
   const nodes = parseMrkdwn(text);
+  if (context) {
+    return (
+      <MrkdwnCtx.Provider value={context}>
+        <RenderNodes nodes={nodes} />
+      </MrkdwnCtx.Provider>
+    );
+  }
   return <RenderNodes nodes={nodes} />;
 };
