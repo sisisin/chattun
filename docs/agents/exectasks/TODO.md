@@ -52,8 +52,7 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: channels listやらをサーバー側でキャッシュ
-  - 毎回fetchしてるの無駄
+- Task: https://github.com/sisisin/chattun/issues/32
 - Task: 画像付き投稿のdeep linkが動かないので修正する
   - 問題が検討がつかない場合はユーザーに相談する必要があるため、一旦Backlogへ退避させてこのTaskをスキップする
 - Task: slack flavored markdownを適切に扱えるようにする
