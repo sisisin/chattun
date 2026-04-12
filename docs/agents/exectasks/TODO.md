@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 「スレッドを表示」が各種アクションボタンより下に配置されていて、ボタンの下側の余白が広すぎる。同じ高さにあるのが良いでしょう
 - Task: 画像付き投稿のdeep linkが動かないので修正する
   - tmp/examples/message-with-image.json にdeeplinkに失敗するmessageのjsonを置いたので参考にすること
 - Task: front/src/app/components/Routes.tsx で一段コンポーネント挟む理由ないのでなくして
