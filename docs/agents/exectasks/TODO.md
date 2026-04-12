@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: typescriptなどの共通の依存をrootに移動し、個別のWorkspaceパッケージは自分の必要な分だけ持つようにする
 - Task: serverのnpm scriptsをvp task化
   - githookなど、front/特化になっていたところも、Workspace前提で統合して扱えるようにする
   - あわせてvp taskをrepo rootで扱う、Workspace運用に変更する

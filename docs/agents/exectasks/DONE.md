@@ -1,5 +1,9 @@
 # Done
 
+- Task: typescriptなどの共通の依存をrootに移動
+  - typescript(6.0.2), @types/node(22.19.17), vite(8.0.8), vite-plus(0.1.16)をルートに集約
+  - server の TypeScript を 5.8.3 → 6.0.2 に統一
+  - front から @types/node を削除（src では Node.js API 未使用）
 - Task: pnpm workspaceのlockfileをrootに統合する
   - shared-workspace-lockfile=false を廃止、ルート単一lockfileに移行
   - pnpm overrides/patchedDependencies をルート package.json に移動
