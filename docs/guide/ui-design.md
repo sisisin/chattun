@@ -125,6 +125,34 @@ CSSでは `_border-radius.css` に定義されたトークンを使うこと。
 | `--border-radius-md` | 5px | フォーム入力（input, select） |
 | `--border-radius-lg` | 8px | コードブロック（pre）、画像 |
 
+## コンポーネントサイズ
+
+インタラクティブ要素はタッチターゲットとして十分なサイズを確保すること。
+
+### 最小サイズ
+
+| 要素 | 最小サイズ | 備考 |
+|---|---|---|
+| タッチターゲット全般 | 36px × 36px | ボタン・アイコンなどクリック/タップ可能な要素 |
+| テキスト入力 (input, select) | 高さ 36px 程度 | padding: 8px + font-size: 1rem で自然に確保される |
+
+### ボタンバリエーション
+
+| クラス | サイズ | padding | font-size | 用途 |
+|---|---|---|---|---|
+| `.button-primary` | 自動（padding 依存） | `--spacing-sm` `--spacing-md` (8px 16px) | 継承（1rem） | 保存・送信などの主要アクション |
+| `.button-remove` | 36px × 36px 固定 | 0 | `--font-normal` (1rem) | 行削除（✕ボタン） |
+| `.button-add` | 自動（padding 依存） | `--spacing-sm` `--spacing-md` (8px 16px) | `--font-small` (0.8rem) | 条件追加（+ ボタン） |
+
+### フォーム行の高さ揃え
+
+設定画面など、input / select / button が横並びになるフォーム行では:
+
+- `align-items: center` でグリッド行内を中央揃えする
+- input と select は同じ padding (`--spacing-sm`: 8px) を使い、高さを自然に揃える
+- 隣接ボタン（remove 等）は input/select と同程度の高さ（36px）に合わせる
+- アクションボタン群は `display: flex; gap: --spacing-xs; align-items: center` でまとめる
+
 ## コンポーネント
 
 ### ヘッダー（Menu）
@@ -146,7 +174,9 @@ CSSでは `_border-radius.css` に定義されたトークンを使うこと。
 
 ### ボタン
 
-- `.button-primary`: `--button-primary` 背景、`--text-revert` テキスト、角丸4px
+- `.button-primary`: `--button-primary` 背景、`--text-revert` テキスト、角丸4px、padding 8px 16px
+- `.button-remove`: 36px角、`--border-main` ボーダー、`--text-sub` テキスト（✕）、font-size 1rem
+- `.button-add`: 破線ボーダー（`--border-main`）、`--text-base` テキスト、font-size 0.8rem、padding 8px 16px
 - アクションボタン（リアクション等）: 34px角、`--border-sub` ボーダー、hover で `--border-base`
 
 ### フォーム
