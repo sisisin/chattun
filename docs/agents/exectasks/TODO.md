@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: docs/agents/work/20260412-0954-feat-css-migration これどうなってるのか調べて、不要ならアーカイブ・作業途中なら完遂させる
 - Task: mrkdwn（slackの記法）をパースしてコンポーネントに落とすレイヤーを実装する
   -
 - Task: serverのindex.tsがゴチャ付いてるので整理したい。少なくとも`/api/*` は分けたい

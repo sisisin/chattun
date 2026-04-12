@@ -375,3 +375,4 @@
 - Task: slack flavored markdownを適切に扱うためにはどんな選択肢があるかを調査し、その結果を作業ディレクトリにresearch.mdに書く
 - Task: timelineでスレッド投稿の右下にスレッドページへのリンクを表示させる
 - Task: PWAのアプリとしてインストールされてなかったときにユーザーにインストールを促すようにしたい
+- Task: docs/agents/work/20260412-0954-feat-css-migration の整理（既にマージ済み、作業ディレクトリをアーカイブ）
