@@ -3,7 +3,7 @@ import React from 'react';
 
 import { DeepLinkSetting } from './DeepLinkSetting';
 import { ChannelMatchSetting } from './ChannelMatchSetting';
-import { KeywordMatchSetting } from './KeywordMatchSetting';
+import { MuteUsersSetting } from './MuteUsersSetting';
 import { MarkAsReadSetting } from './MarkAsReadSetting';
 import { DeveloperModeSetting } from './DeveloperModeSetting';
 
@@ -14,7 +14,7 @@ export const SettingView = () => {
       <div className="setting">
         <DeepLinkSetting></DeepLinkSetting>
         <ChannelMatchSetting></ChannelMatchSetting>
-        <KeywordMatchSetting></KeywordMatchSetting>
+        <MuteUsersSetting></MuteUsersSetting>
         <MarkAsReadSetting></MarkAsReadSetting>
         <DeveloperModeSetting></DeveloperModeSetting>
       </div>

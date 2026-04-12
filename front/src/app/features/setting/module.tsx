@@ -28,7 +28,7 @@ export const initialState: SettingState = {
   form: {
     deepLinking: 'viaBrowser',
     channelMatches: [],
-    keywordMatch: undefined,
+    mutedUsers: [],
     markAsRead: false,
     developerMode: false,
   },

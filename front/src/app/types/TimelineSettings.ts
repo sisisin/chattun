@@ -8,16 +8,10 @@ export type ChannelMatch = {
   matchValue: string;
 };
 
-const keywordMatchMethods = ['notContain'] as const;
-export type KeywordMatchMethod = (typeof keywordMatchMethods)[number];
-export type KeywordMatch = {
-  matchMethod: KeywordMatchMethod;
-  matchValue: string;
-};
 export type TimelineSettings = {
   deepLinking: DeepLinking;
   channelMatches: ChannelMatch[];
-  keywordMatch: KeywordMatch | undefined;
+  mutedUsers: string[];
   markAsRead: boolean;
   developerMode: boolean;
 };

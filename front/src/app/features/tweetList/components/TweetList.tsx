@@ -6,7 +6,7 @@ import { getGlobalSettingState } from 'app/features/globalSetting/interface';
 
 export const TweetListView = ({ messages }: { messages: Tweet[] }) => {
   const ulistRef = React.useRef<HTMLUListElement>(null);
-  const { keywordMatch } = useMappedState([getGlobalSettingState], s => s);
+  const { mutedUsers } = useMappedState([getGlobalSettingState], s => s);
 
   return (
     <>
@@ -18,15 +18,11 @@ export const TweetListView = ({ messages }: { messages: Tweet[] }) => {
       ) : (
         <ul className="tweetlist" ref={ulistRef}>
           {messages
-            .filter((message, _i) => {
-              if (keywordMatch?.matchMethod === 'notContain' && keywordMatch?.matchValue !== '') {
-                return (
-                  !message.displayName.includes(keywordMatch?.matchValue) &&
-                  !message.fullName.includes(keywordMatch?.matchValue) &&
-                  !message.text.includes(keywordMatch?.matchValue)
-                );
-              }
-              return true;
+            .filter(message => {
+              if (mutedUsers.length === 0) return true;
+              return !mutedUsers.some(
+                muted => message.displayName.includes(muted) || message.fullName.includes(muted),
+              );
             })
             .map((message, _i) => {
               return (

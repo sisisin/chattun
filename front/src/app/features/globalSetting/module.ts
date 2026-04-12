@@ -10,6 +10,12 @@ function migrateSetting(saved: Record<string, unknown>): TimelineSettings {
     migrated.channelMatches = legacy ? [legacy as TimelineSettings['channelMatches'][number]] : [];
     delete (migrated as Record<string, unknown>).channelMatch;
   }
+  // Migrate legacy keywordMatch to mutedUsers array
+  if ('keywordMatch' in saved && !('mutedUsers' in saved)) {
+    const legacy = saved.keywordMatch as { matchValue: string } | undefined;
+    migrated.mutedUsers = legacy?.matchValue ? [legacy.matchValue] : [];
+    delete (migrated as Record<string, unknown>).keywordMatch;
+  }
   return migrated as TimelineSettings;
 }
 
@@ -29,7 +35,7 @@ handle.epic().on(GlobalSettingActions.$mounted, () => {
 export const initialState: GlobalSettingState = {
   deepLinking: 'directly',
   channelMatches: [],
-  keywordMatch: undefined,
+  mutedUsers: [],
   markAsRead: true,
   developerMode: false,
 };
