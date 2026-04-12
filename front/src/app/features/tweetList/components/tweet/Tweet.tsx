@@ -48,7 +48,20 @@ export const TweetItem = ({ message, parentRef }: Props) => {
         <TweetTimestamp datetime={new Date(+message.ts * 1000)} />
         <TweetEditedMarker edit={message.edited} />
       </div>
-      <div className="tweet-channelname">{message.channelName}</div>
+      <div className="tweet-channelname">
+        {message.channelLink.link ? (
+          <a
+            href={message.channelLink.link}
+            {...(message.channelLink.type === 'viaBrowser'
+              ? { target: '_blank', rel: 'noopener noreferrer' }
+              : {})}
+          >
+            {message.channelName}
+          </a>
+        ) : (
+          message.channelName
+        )}
+      </div>
       <div className="tweet-contents" dangerouslySetInnerHTML={{ __html: message.text }} />
       <div className="tweet-actions">
         <div className="tweet-actions-list-emojis">

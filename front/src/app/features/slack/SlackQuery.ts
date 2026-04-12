@@ -61,6 +61,7 @@ export function slackMessageToTweet(
     channelId: msg.channel,
     ts: msg.ts,
     channelName,
+    channelLink: getChannelLink(profile, msg, deepLinking),
     displayName,
     fullName,
     iconUrl,
@@ -99,6 +100,33 @@ function getSlackLink(
         link: `slack://channel?team=${msg.team}&id=${channelId}&message=${ts}${
           msg.thread_ts ? `&thread_ts=${msg.thread_ts}` : ''
         }`,
+      };
+    default:
+      assertNever(deepLinking);
+  }
+}
+
+function getChannelLink(
+  profile: SlackState['profile'],
+  msg: Message,
+  deepLinking: GlobalSettingState['deepLinking'],
+): Tweet['channelLink'] {
+  const base = { type: deepLinking };
+  const channelId = msg.channel!;
+
+  switch (deepLinking) {
+    case 'viaBrowser':
+      return {
+        ...base,
+        link:
+          profile.domain === undefined
+            ? undefined
+            : `https://${profile.domain}.slack.com/archives/${channelId}`,
+      };
+    case 'directly':
+      return {
+        ...base,
+        link: `slack://channel?team=${msg.team}&id=${channelId}`,
       };
     default:
       assertNever(deepLinking);
