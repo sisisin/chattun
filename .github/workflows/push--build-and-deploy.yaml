@@ -80,7 +80,7 @@ jobs:
             if (!discordWebhookUrl) {
               throw new Error('DISCORD_WEBHOOK_URL is not set');
             }
-            const hasFailed = '${{ needs.build.result }}' === 'failure' || '${{ needs.deploy.result }}' === 'failure';
+            const hasFailed = '${{ needs.build.result }}' !== 'success' || '${{ needs.deploy.result }}' !== 'success';
             const response = await fetch(discordWebhookUrl, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
