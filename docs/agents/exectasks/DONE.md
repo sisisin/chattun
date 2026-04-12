@@ -10,6 +10,8 @@
   - toMentionにmyUserId引数追加、自分宛<@USERID>を`<span class="mention-self">`でハイライト
   - @channel/@hereは常にハイライト、CSSはcolor-mixで半透明背景
   - テスト4件追加（自分メンション、他人メンション、@channel、@here）
+- Task: pre-commitのpinact実行をvite.config.tsのstaged設定に移し、mise x不要にする
+  - vite.config.tsのstagedに`.github/**`: `pinact run`を追加、.vite-hooks/pre-commitからシェルスクリプト削除
 - Task: pnpm installとかpnpm runをドキュメントからなくし、vp installのようにvpを利用することを前提に修正する
   - mise.tomlの_.pathにnode_modules/.binを追加、vpコマンドが直接使えるように
   - CLAUDE.md, README.md, mock-dev skill, verify commandのpnpm vp→vp置換

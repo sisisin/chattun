@@ -52,9 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: pre-commitのpinact実行をvite.config.tsのstaged設定に移し、mise x不要にする
-  - .vite-hooks/pre-commitではなくvite.config.tsのstaged設定でpinact runを実行する
-  - mise xでラップする必要はない
 - Task: Dockerfileのリファクタリング
   - 近年はホストマシンのコードを持ってくるのにcopyを使わずキャッシュ付きmountとかを利用するらしい
   - 他にもあれば
