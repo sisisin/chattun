@@ -40,6 +40,34 @@ Use the **Agent tool** with `subagent_type: "local-reviewer"` to spawn the revie
 >
 > Review history: {Round 2+ の場合、レビューファイルパスを記載。Round 1 なら「なし」}
 
+#### Browser Verification Phase
+
+After the code review, check if the diff includes frontend-related files (`front/src/**/*.{ts,tsx,css}`).
+
+If frontend files are changed:
+
+1. Ensure the dev server is running (`cd front && pnpm start` — if already running, skip)
+2. Use the **Agent tool** with `subagent_type: "general-purpose"` to spawn a browser verification subagent with the following prompt:
+
+> フロントエンドの動作検証を行ってください。
+>
+> ## 対象
+> ブランチの変更にフロントエンドの差分が含まれています。
+>
+> Task context: {$1 の内容}
+>
+> ## 手順
+> 1. chrome browser tools (mcp__claude-in-chrome__*) を使ってブラウザで http://localhost:3000 にアクセスする
+> 2. 変更内容に関連するページ・機能を操作して、表示崩れやコンソールエラーがないか確認する
+> 3. 確認結果を以下のファイルに `## Browser Verification (Round N)` セクションとして追記する: {review output file path}
+>
+> ## 注意
+> - レビューファイルへの書き込みのみ行う。ソースコードは変更しない
+> - コンソールエラーの有無、表示崩れ、基本操作の動作を確認する
+> - モックモードで起動している場合は http://localhost:3000 にモックデータが表示される前提で確認する
+
+If no frontend files are changed, skip this phase.
+
 #### Fix Phase (if NEEDS_FIX)
 
 For each finding, either fix or dismiss with reason:
