@@ -10,6 +10,10 @@
   - toMentionにmyUserId引数追加、自分宛<@USERID>を`<span class="mention-self">`でハイライト
   - @channel/@hereは常にハイライト、CSSはcolor-mixで半透明背景
   - テスト4件追加（自分メンション、他人メンション、@channel、@here）
+- Task: pnpm installとかpnpm runをドキュメントからなくし、vp installのようにvpを利用することを前提に修正する
+  - mise.tomlの_.pathにnode_modules/.binを追加、vpコマンドが直接使えるように
+  - CLAUDE.md, README.md, mock-dev skill, verify commandのpnpm vp→vp置換
+  - pnpm install→vp install、pnpm start(front)→vp devに置換
 - Task: ciでvite-plusの公式アクションを利用するように修正する
   - pull--check.yamlのactions/setup-node + corepack enable pnpmをvoidzero-dev/setup-vp@v1に置換
   - vp install --frozen-lockfile、vp check等vpコマンドに統一
