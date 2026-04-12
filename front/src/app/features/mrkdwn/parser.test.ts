@@ -61,6 +61,13 @@ describe('parseMrkdwn', () => {
         { type: 'codeblock', text: '*bold* _italic_' },
       ]);
     });
+
+    it('treats unclosed code block as plain text', () => {
+      expect(parseMrkdwn('```unclosed code')).toEqual([
+        { type: 'text', text: '```' },
+        { type: 'text', text: 'unclosed code' },
+      ]);
+    });
   });
 
   describe('linebreak', () => {

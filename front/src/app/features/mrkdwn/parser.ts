@@ -17,11 +17,14 @@ export function parseMrkdwn(input: string): MrkdwnNode[] {
     if (input.startsWith('```', pos)) {
       const endIndex = input.indexOf('```', pos + 3);
       if (endIndex !== -1) {
-        flushText(nodes, input, pos, pos);
         nodes.push({ type: 'codeblock', text: input.slice(pos + 3, endIndex) });
         pos = endIndex + 3;
         continue;
       }
+      // Unclosed code block: treat ``` as plain text and continue
+      nodes.push({ type: 'text', text: '```' });
+      pos += 3;
+      continue;
     }
 
     // Inline code: ` ... ` (no newlines inside)
@@ -93,13 +96,10 @@ function isAtCloseBoundary(input: string, pos: number): boolean {
 function findClosing(input: string, marker: string, start: number, noNewlines: boolean): number {
   for (let i = start; i < input.length; i++) {
     if (noNewlines && input[i] === '\n') return -1;
+    // i > start: require at least one character of content (reject empty formatting like **)
     if (input[i] === marker && i > start) return i;
   }
   return -1;
-}
-
-function flushText(_nodes: MrkdwnNode[], _input: string, _start: number, _end: number): void {
-  // No-op: text accumulation is handled in the main loop
 }
 
 function makeFormattingNode(marker: string, children: MrkdwnNode[]): MrkdwnNode {
