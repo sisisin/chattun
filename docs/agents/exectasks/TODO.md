@@ -52,8 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: InstallProviderのstateSecretを環境変数から読み込むようにする
-  - handleInstallPath切り替えでstate CSRF検証が有効になったため、ハードコード値からの脱却が必要
 - Task: unhandledRejectionでプロセス終了するように直す
   - 握りつぶすのは悪
 

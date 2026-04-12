@@ -1,5 +1,7 @@
 # Done
 
+- Task: InstallProviderのstateSecretを環境変数から読み込むようにする
+  - config.tsにSLACK_STATE_SECRET追加、フォールバック値あり
 - Task: emoji-martのアセット最適化
   - React.lazy + dynamic importでemoji-martデータ(429KB)を遅延ロード化、500KB超え警告解消
 - Task: server/.env.localが適切に評価されるようにする
