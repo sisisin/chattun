@@ -1,5 +1,6 @@
 # Done
 
+- Task: スレッドかどうかを視覚的にわかりやすくする
 - Task: https://github.com/sisisin/chattun/issues/32 (tone違い絵文字の表示対応)
 - Task: channels listやらをサーバー側でキャッシュ
 - Task: alertなどのブロッキングする機能の利用をやめたい。そのためのアラート用コンポーネントを用意して載せ替える
