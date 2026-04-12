@@ -6,14 +6,14 @@ import type { AppsEventAuthorizationsListResponse } from '@slack/web-api';
 import slackWebApi from '@slack/web-api';
 const { WebClient } = slackWebApi;
 import type * as socketIO from 'socket.io';
-import { slackAppToken, slackClientId, slackClientSecret } from './config.ts';
+import { slackAppToken, slackClientId, slackClientSecret, slackStateSecret } from './config.ts';
 import { ErrorWithLogContext, logger } from './logging/logger.ts';
 import { redis } from './redis.ts';
 
 export const installer = new InstallProvider({
   clientId: slackClientId,
   clientSecret: slackClientSecret,
-  stateSecret: 'my-state-secret',
+  stateSecret: slackStateSecret,
   directInstall: true,
 
   installationStore: {
