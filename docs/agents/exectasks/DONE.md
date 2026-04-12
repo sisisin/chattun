@@ -1,5 +1,8 @@
 # Done
 
+- Task: UIデザインの設計を明文化する
+  - docs/guide/ui-design.mdにカラーパレット・セマンティックトークン・タイポグラフィ・スペーシング・コンポーネントパターン等を文書化
+  - CSSソースから設計意図を分析し、ダークモード実装の現状も明記
 - Task: unhandledRejectionでプロセス終了するように直す
   - ログ出力後にprocess.exit(1)を追加、握りつぶしを解消
 - Task: InstallProviderのstateSecretを環境変数から読み込むようにする
