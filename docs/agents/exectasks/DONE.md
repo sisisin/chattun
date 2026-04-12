@@ -1,5 +1,7 @@
 # Done
 
+- Task: ブラウザ動作確認エージェントを独立定義し、local-reviewのBrowser Verification Phaseを置き換える
+  - .claude/agents/browser-verifier.md として独立エージェント化、start-local-review.md からはエージェント参照に置き換え
 - Task: httpsが自己署名証明書使ってるのをやめる
   - setup_pem.sh: CERT_DIRあればコピー、なければ自己署名証明書を自動生成。vite.config.tsでtmp/を自動検出
 - Task: dynamic importによるchunkを適切に行えるように実装を調整
