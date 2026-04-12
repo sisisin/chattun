@@ -52,10 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: スペーシング・ボーダーラジウスのCSSトークンを追加し、ハードコード値を置き換える
-  - \_spacing.css: --spacing-xs(4px)〜--spacing-3xl(64px)を定義
-  - \_border-radius.css: --border-radius-sm(4px), --border-radius-lg(8px)を定義
-  - 既存のハードコード値（特にTweet.css, Login.css, \_form.css）をトークンに置き換え
 - Task: 設定画面で変更をsubmitしたときにフィードバックが欲しい。検討して追加して
   - トースト・ローディングアニメーションなど、実現方法はお任せする
 - Task: 設定画面にdeveloper modeのチェックを入れて。trueの場合、localStorageでデバッグ用のコピーボタン出してるやつが出てくる、といったデバッグ用の動作が有効化されるようにしたい。設定は一番下へ。
@@ -73,9 +69,10 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: channels listやらをサーバー側でキャッシュ
   - 毎回fetchしてるの無駄
 - Task: 画像付き投稿のdeep linkが動かないので修正する
-  - 問題が検討がつかない場合はユーザーに相談して再現手順や投稿のjsonをもらって調査すること
+  - 問題が検討がつかない場合はユーザーに相談する必要があるため、一旦Backlogへ退避させてこのTaskをスキップする
 - Task: slack flavored markdownを適切に扱えるようにする
   - 文法が違うので、結構レンダリングが壊れているのを是正する。しかしロバストな実現方法は検討の余地があるので設計を十分に検討すること
+  - 設計判断に困った場合はユーザーに相談する必要があるため、一旦Backlogへ退避させてこのTaskをスキップする
 - Task: スレッドかどうかを視覚的にわかりやすくする
   - 今はタイムライン画面で平たく表示されていて区別がつかないため、分かりにくい。スレッドであることが分かりやすくしたい
 - Task: 設定項目を日本語にする
@@ -84,6 +81,8 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: pinactをmiseで入れて、pre commitで実行されるようにする
 - Task: ciでvite-plusの公式アクションを利用するように修正する
   - https://viteplus.dev/guide/ci
+- Task: pnpm installとかpnpm runをドキュメントからなくし、vp installのようにvpを利用することを前提に修正する
+  - pnpm vpってやるのダルいんだけど、パスを通すいい方法ないんすかね
 
 # Backlog
 
