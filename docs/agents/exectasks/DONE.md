@@ -282,6 +282,11 @@
   - Browser Verification Phaseを追加: front/src配下のdiffがある場合にブラウザ検証サブエージェントを起動
   - 逐次実行でファイル競合を防止、lsofでdevサーバー起動確認、ラウンド番号の明示的伝達
 
+- Task: 設定画面にdeveloper modeのチェックを追加
+  - TimelineSettingsにdeveloperMode: boolean追加、設定画面の一番下にチェックボックス配置
+  - Tweet.tsxのlocalStorage.getItem('EC')をglobalSetting経由のdeveloperModeに置き換え
+  - globalSettingのinitialStateマージでlocalStorageの古いデータにも対応
+
 - Task: レビュー＆動作確認スキルを整備する
   - /start-local-review を /verify にリネーム（レビュー＋動作確認をカバーする名前）
   - プロンプトを `<step>` XML構造でリファクタ
