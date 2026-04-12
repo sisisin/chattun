@@ -176,6 +176,7 @@ async function main() {
     return c.json(data);
   });
 
+  // is_memberがユーザー固有のためユーザーID単位でキャッシュ（getSlackClientではなく直接profileを取得）
   app.get('/api/slack/conversations.list', async c => {
     const profile = getAuthProfile(c);
     if (!profile) return c.body(null, 401);
