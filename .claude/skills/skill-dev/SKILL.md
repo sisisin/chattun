@@ -1,8 +1,8 @@
 ---
 name: skill-dev
-description: 'Use when creating or editing Claude Code skills.'
+description: 'Claude Code のスキルを作成・編集する際に使用する。'
 ---
 
-# Skill Development
+# スキル開発
 
-Before implementing or modifying a skill, use the `claude-code-guide` agent (subagent_type: "claude-code-guide") to look up the current SKILL.md schema, frontmatter fields, and best practices. Then proceed with implementation based on the verified specification.
+スキルの実装・変更を行う前に、`claude-code-guide` エージェント（subagent_type: "claude-code-guide"）を使って現在の SKILL.md スキーマ、frontmatter フィールド、ベストプラクティスを確認する。その後、確認した仕様に基づいて実装を進める。

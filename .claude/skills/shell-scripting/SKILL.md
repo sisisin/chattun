@@ -1,24 +1,24 @@
 ---
 name: shell-scripting
-description: Shell script development standards and best practices - script headers, error handling, option parsing, and common patterns. Use when planning or implementing shell scripts.
+description: シェルスクリプト開発の標準とベストプラクティス。ヘッダー、エラー処理、オプション解析、共通パターン。シェルスクリプトの計画・実装時に使用。
 ---
 
-# Shell Script Development Guide
+# シェルスクリプト開発ガイド
 
-Shell script development practices and standards used in the KWDP project.
+このプロジェクトで使用するシェルスクリプトの開発標準とベストプラクティス。
 
-## Overview
+## 概要
 
-Shell scripts are used for:
+シェルスクリプトの用途:
 
-- Local development automation
-- CI/CD workflows
-- Environment setup and configuration
-- Git workflow automation
+- ローカル開発の自動化
+- CI/CD ワークフロー
+- 環境セットアップ・設定
+- Git ワークフロー自動化
 
-## Development Standards
+## 開発標準
 
-### Function Structure
+### 基本構造
 
 ```bash
 #!/usr/bin/env bash
@@ -30,64 +30,61 @@ function usage() {
     cat <<EOF
 Usage: $0 [OPTIONS] <arguments>
 
-Description of what the script does.
+スクリプトの説明。
 
 Arguments:
-  arg1    Description of argument 1
+  arg1    引数1の説明
 
 Options:
-  -h, --help       Show this help message
-  -d, --dry-run    Show what would be done without executing
+  -h, --help       ヘルプを表示
+  -d, --dry-run    実行せずに内容を表示
 EOF
 }
 
 function main() {
-    # Implementation here
+    # 実装
 }
 
-# Call main function with all arguments
 main "$@"
 ```
 
-### Error Handling
+### エラー処理
 
 ```bash
-# Check prerequisites
+# 前提条件の確認
 if ! command -v required_command &> /dev/null; then
     echo "Error: required_command is not installed" >&2
     exit 1
 fi
 
-# Validate arguments
+# 引数の検証
 if [[ -z "${1:-}" ]]; then
     echo "Error: Argument required" >&2
     usage
     exit 1
 fi
 
-# Handle errors gracefully
+# エラーのハンドリング
 if ! some_command; then
     echo "Error: Failed to execute some_command" >&2
     exit 1
 fi
 ```
 
-### Option Parsing
+### オプション解析
 
-**Argument Format Standards:**
+**引数フォーマット標準:**
 
-- Use `--flag='value'` format for all arguments
-- Avoid positional arguments when possible
-- For multiple values, use comma-separated format (e.g., `--env='dev,stg'`)
+- `--flag='value'` 形式を使用する
+- 位置引数はなるべく避ける
+- 複数の値はカンマ区切り（例: `--env='dev,stg'`）
 
 ```bash
-# Default values
 DRY_RUN=false
 VERBOSE=false
 TARGET=""
 ENVIRONMENTS=""
 
-# Parse options
 while [[ $# -gt 0 ]]; do
     case $1 in
         -h|--help)
@@ -115,15 +112,15 @@ while [[ $# -gt 0 ]]; do
 done
 ```
 
-## Best Practices
+## ベストプラクティス
 
-1. **Quote Variables**: Always quote to prevent word splitting
+1. **変数はクォートする**: ワード分割を防ぐため必ずクォート
 
    ```bash
    echo "Processing file: $filename"
    ```
 
-2. **Use Arrays for Lists**:
+2. **リストには配列を使用**:
 
    ```bash
    ENVIRONMENTS=("dev" "stg" "prd")
@@ -132,7 +129,7 @@ done
    done
    ```
 
-3. **Provide Dry-Run Mode**:
+3. **dry-run モードを提供**:
 
    ```bash
    if [[ "$DRY_RUN" == "true" ]]; then
@@ -142,15 +139,15 @@ done
    fi
    ```
 
-4. **Use Descriptive Variable Names**:
+4. **わかりやすい変数名を使う**:
    ```bash
    WORKFLOW_TYPE="daily"
    TERRAFORM_OUTPUT_DIR="/path/to/terraform"
    ```
 
-## Common Patterns
+## 共通パターン
 
-### Confirmation Prompts
+### 確認プロンプト
 
 ```bash
 if [[ "$NO_CONFIRM" == "false" ]]; then
@@ -163,7 +160,7 @@ if [[ "$NO_CONFIRM" == "false" ]]; then
 fi
 ```
 
-### Progress Indication
+### 進捗表示
 
 ```bash
 echo "Starting process..."
@@ -178,25 +175,25 @@ done
 echo "Done."
 ```
 
-## Testing Scripts
+## テスト
 
-### Manual Testing
+### 手動テスト
 
-1. Test with dry-run first
-2. Test error cases
-3. Test in clean environment
+1. まず dry-run でテスト
+2. エラーケースをテスト
+3. クリーンな環境でテスト
 
-### Automated Testing
+### 自動テスト
 
-For complex scripts:
+複雑なスクリプトの場合:
 
-- Create test fixtures
-- Use bash testing frameworks (bats)
-- Add CI tests for critical scripts
+- テストフィクスチャを作成
+- bash テストフレームワーク（bats）を使用
+- 重要なスクリプトに CI テストを追加
 
-## Security Considerations
+## セキュリティ考慮事項
 
-1. Never hardcode secrets - use environment variables or secret management
-2. Validate input - always validate user input and file paths
-3. Use absolute paths - avoid path traversal vulnerabilities
-4. Set appropriate permissions - use `chmod 755` for executable scripts
+1. シークレットをハードコードしない — 環境変数またはシークレット管理を使用
+2. 入力を検証する — ユーザー入力やファイルパスを必ず検証
+3. 絶対パスを使用する — パストラバーサル脆弱性を回避
+4. 適切な権限を設定する — 実行可能スクリプトには `chmod 755`

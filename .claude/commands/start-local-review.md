@@ -1,46 +1,46 @@
 ---
-description: Local review-fix loop until approved (max 5 rounds)
-argument-hint: '[original task context / execplan step details]'
+description: ローカルレビュー・修正ループ（最大5ラウンド、承認まで繰り返し）
+argument-hint: '[タスクの内容 / execplan のステップ詳細]'
 ---
 
-# Local Review Loop
+# ローカルレビューループ
 
-Run an iterative review-fix loop on the current branch's changes. Repeat until approved or 5 rounds reached.
+現在のブランチの変更に対してレビュー・修正ループを実行する。承認または5ラウンド到達まで繰り返す。
 
-## Setup
+## セットアップ
 
-Determine the review output file path:
+レビュー出力ファイルのパスを決定する:
 
 ```
 docs/agents/work/{timestamp}-{branch-name}/review-{timestamp}.md
 ```
 
-- `{branch-name}`: current branch name (slashes replaced with `-`, e.g. `feat/foo` → `feat-foo`)
-- `{timestamp}`: current time formatted as `YYYYMMDD-HHmm`
+- `{branch-name}`: 現在のブランチ名（スラッシュは `-` に置換、例: `feat/foo` → `feat-foo`）
+- `{timestamp}`: 現在時刻を `YYYYMMDD-HHmm` 形式でフォーマット
 
-Determine these values once at setup. Use the same file path throughout all rounds (do not recalculate, to keep all rounds in a single file).
+これらの値はセットアップ時に一度だけ決定する。全ラウンドを通じて同じファイルパスを使う（再計算しない）。
 
-## Task
+## タスク
 
-Execute the following loop. **You (main agent) must NOT read the diff or changed files yourself.** Only the reviewer subagent reads the code.
+以下のループを実行する。**主エージェントは diff や変更ファイルを自分では読まない。** コードを読むのはレビューサブエージェントだけ。
 
-### Loop (max 5 rounds)
+### ループ（最大5ラウンド）
 
-#### Review Phase
+#### レビューフェーズ
 
-Use the **Agent tool** with `subagent_type: "local-reviewer"` to spawn the reviewer subagent with the following prompt:
+**Agent ツール**（`subagent_type: "local-reviewer"`）でレビューサブエージェントを起動する:
 
 > Review the current branch's changes.
 >
-> Append the review result as `## Round N` to: {review output file path}
+> Append the review result as `## Round N` to: {レビュー出力ファイルパス}
 >
 > Task definition: docs/agents/work/{timestamp}-{branch-name}/task.md（存在する場合。レビューはこのTaskが達成されているかの観点で行うこと）
 >
 > Task context: {$1 の内容}
 >
-> Review history: {Round 2+ の場合、レビューファイルパスを記載。Round 1 なら「なし」}
+> Review history: {Round 2以降ならレビューファイルパスを記載。Round 1 なら「なし」}
 
-#### Browser Verification (optional)
+#### ブラウザ動作確認（任意）
 
 **実行条件**: `git diff main...HEAD --name-only` に `front/src/` 配下のファイル（`.ts`, `.tsx`, `.css`）が含まれる場合のみ。
 
@@ -56,28 +56,28 @@ Use the **Agent tool** with `subagent_type: "local-reviewer"` to spawn the revie
 >
 > Task context: {タスクの内容}
 >
-> Output file: {review output file path}
+> Output file: {レビュー出力ファイルパス}
 > Section heading: `## Browser Verification`
 
-#### Fix Phase (if NEEDS_FIX)
+#### 修正フェーズ（NEEDS_FIX の場合）
 
-For each finding, either fix or dismiss with reason:
+各指摘について、修正するか dismiss するか判断する:
 
-- **Fix**: Apply the fix and commit with message: `fix: address local review round N findings`
-- **Dismiss**: Append a `### Dismissed` section to the review file with the finding number and justification
+- **修正**: 修正を適用し、コミットメッセージ: `fix: address local review round N findings`
+- **Dismiss**: レビューファイルに `### Dismissed` セクションを追記し、指摘番号と理由を記載
 
-The reviewer will evaluate dismissed findings in the next round and accept valid justifications.
+レビューアーは次のラウンドで dismiss された指摘を評価し、理由が妥当であれば受け入れる。
 
-#### Completion
+#### 完了
 
-When the reviewer outputs `STATUS: APPROVED` or 5 rounds are reached:
+レビューアーが `STATUS: APPROVED` を出力するか、5ラウンドに到達した場合:
 
-1. Archive and commit the review result:
-   - Move the work directory to `docs/agents/work/_archived/`: `mv docs/agents/work/{timestamp}-{branch-name} docs/agents/work/_archived/`
+1. レビュー結果をアーカイブしてコミット:
+   - 作業ディレクトリを `docs/agents/work/_archived/` へ移動: `mv docs/agents/work/{timestamp}-{branch-name} docs/agents/work/_archived/`
    - `git add docs/agents/work/`
-   - Commit with message: `docs: add local review result for {branch-name}`
-   - Push with `./tools/git/git-push.sh`
-2. Report summary:
+   - コミットメッセージ: `docs: add local review result for {branch-name}`
+   - `git push` でプッシュ
+2. サマリーを報告:
 
    ```
    ---
