@@ -1,10 +1,9 @@
 import { getSlackState, Message, SlackState } from 'app/features/slack/interface';
 import { SlackEntity } from 'app/types/slack';
 import { assertNever } from 'app/types/typeAssertions';
-import { CustomEmoji } from 'emoji-mart';
 import { createSelector } from 'typeless';
 import { GlobalSettingState } from '../globalSetting/interface';
-import { Reaction, Tweet } from '../timeline/interface';
+import { type CustomEmojiInfo, Reaction, Tweet } from '../timeline/interface';
 import { getChannelName, getMessageProfile, textToHtml } from '../timeline/TimelineQuery';
 
 function getReactions(
@@ -102,13 +101,12 @@ function getSlackLink(
   }
 }
 
-export function convertEmoji(name: string, imageUrl: string): CustomEmoji {
+export function convertEmoji(name: string, imageUrl: string): CustomEmojiInfo {
   return {
+    id: name,
     name,
-    short_names: [name],
-    emoticons: [],
     keywords: [name],
-    imageUrl,
+    skins: [{ src: imageUrl }],
   };
 }
 
@@ -146,7 +144,8 @@ export const isAfterMarked = (
 };
 
 export const getMartEmojis = createSelector([getSlackState, s => s.emojis], emojis => {
-  return Object.entries(emojis as Record<string, string>)
-    .map(([key, value]) => convertEmoji(key, value))
-    .filter(elem => !elem.imageUrl.startsWith('alias:'));
+  const customEmojis = Object.entries(emojis as Record<string, string>)
+    .filter(([, value]) => !value.startsWith('alias:'))
+    .map(([key, value]) => convertEmoji(key, value));
+  return [{ id: 'custom', name: 'Custom', emojis: customEmojis }];
 });

@@ -2,7 +2,6 @@ import { AppLink } from 'app/components/AppLink';
 import { IconAddReaction, IconThread } from 'app/components/icons/Icons';
 import { EmojiMenuActions } from 'app/features/emojiMenu/interface';
 import { Tweet } from 'app/features/timeline/interface';
-import { Emoji, EmojiData } from 'emoji-mart';
 import * as React from 'react';
 import { useActions } from 'typeless';
 import { TweetActions } from '../../interface';
@@ -54,17 +53,25 @@ export const TweetItem = ({ message, parentRef }: Props) => {
             if (elem.reacted) {
               classNames.push('tweet-actions-reacted');
             }
+            const emojiId = elem.emoji?.id ?? elem.name;
             return (
-              <span className={classNames.join(' ')} key={i} title={elem.reactors.join(', ')}>
-                <Emoji
-                  emoji={elem.emoji || elem.name}
-                  size={20}
-                  onClick={(emoji: EmojiData) =>
-                    elem.reacted
-                      ? removeReaction(message, emoji.id!)
-                      : addReaction(message, emoji.id!)
-                  }
-                />
+              <span
+                className={classNames.join(' ')}
+                key={i}
+                title={elem.reactors.join(', ')}
+                onClick={() =>
+                  elem.reacted ? removeReaction(message, emojiId) : addReaction(message, emojiId)
+                }
+              >
+                {elem.emoji ? (
+                  <img
+                    src={elem.emoji.skins[0].src}
+                    alt={elem.name}
+                    style={{ width: 20, height: 20 }}
+                  />
+                ) : (
+                  <em-emoji id={elem.name} size="20px" />
+                )}
 
                 <span className="tweet-actions-list-emojis-count">{elem.count}</span>
               </span>

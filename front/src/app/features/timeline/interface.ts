@@ -1,4 +1,3 @@
-import { CustomEmoji } from 'emoji-mart';
 import { createModule } from 'typeless';
 import { TimelineSymbol } from './symbol';
 import { DeepLinking } from 'app/types/TimelineSettings';
@@ -19,9 +18,16 @@ export interface AddReactionArgument {
   reaction: string;
 }
 
+export interface CustomEmojiInfo {
+  id: string;
+  name: string;
+  keywords: string[];
+  skins: { src: string }[];
+}
+
 export interface Reaction {
   name: string;
-  emoji: CustomEmoji | undefined;
+  emoji: CustomEmojiInfo | undefined;
   count: number;
   reactors: string[];
   reacted: boolean;

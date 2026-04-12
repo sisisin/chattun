@@ -1,5 +1,6 @@
 import { getMartEmojis } from 'app/features/slack/SlackQuery';
-import { EmojiData, Picker } from 'emoji-mart';
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 import React from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useActions, useMappedState, useSelector } from 'typeless';
@@ -16,16 +17,16 @@ export const EmojiMenuView = () => {
   const { addReaction, closeEmojiMenu } = useActions(EmojiMenuActions);
   const picker = React.useMemo(
     () => (
-      <Picker
-        custom={martEmojis}
-        onSelect={(emoji: EmojiData) => {
-          addReaction(targetMessage, emoji.id!);
-        }}
-        autoFocus
-        style={{
-          top: `${clientY + 15}px`,
-        }}
-      />
+      <div style={{ position: 'absolute', zIndex: 1, top: `${clientY + 15}px` }}>
+        <Picker
+          data={data}
+          custom={martEmojis}
+          onEmojiSelect={(emoji: { id: string }) => {
+            addReaction(targetMessage, emoji.id);
+          }}
+          autoFocus
+        />
+      </div>
     ),
     [addReaction, clientY, martEmojis, targetMessage],
   );

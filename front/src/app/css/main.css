@@ -5,7 +5,6 @@
 @import '_icon.css';
 @import '_shadow.css';
 @import '_form.css';
-@import 'libs/emoji-mart.css';
 @import '../features/login/components/Login.css';
 @import '../features/timeline/components/Timeline.css';
 @import '../features/setting/components/Setting.css';
