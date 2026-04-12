@@ -13,7 +13,10 @@ const envLocal = fs.existsSync('.env.local')
   : {};
 
 const https =
-  envLocal.SSL_CRT_FILE && envLocal.SSL_KEY_FILE
+  envLocal.SSL_CRT_FILE &&
+  envLocal.SSL_KEY_FILE &&
+  fs.existsSync(envLocal.SSL_CRT_FILE) &&
+  fs.existsSync(envLocal.SSL_KEY_FILE)
     ? { cert: fs.readFileSync(envLocal.SSL_CRT_FILE), key: fs.readFileSync(envLocal.SSL_KEY_FILE) }
     : undefined;
 
