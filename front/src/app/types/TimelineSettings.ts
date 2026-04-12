@@ -16,7 +16,7 @@ export type KeywordMatch = {
 };
 export type TimelineSettings = {
   deepLinking: DeepLinking;
-  channelMatch: ChannelMatch | undefined;
+  channelMatches: ChannelMatch[];
   keywordMatch: KeywordMatch | undefined;
   markAsRead: boolean;
   developerMode: boolean;

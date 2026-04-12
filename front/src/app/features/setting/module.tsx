@@ -27,7 +27,7 @@ handle
 export const initialState: SettingState = {
   form: {
     deepLinking: 'viaBrowser',
-    channelMatch: undefined,
+    channelMatches: [],
     keywordMatch: undefined,
     markAsRead: false,
     developerMode: false,

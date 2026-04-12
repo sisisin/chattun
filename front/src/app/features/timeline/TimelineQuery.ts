@@ -183,9 +183,9 @@ ${fromFile}`;
 const getFilteredMessages = createSelector(
   [getSlackState, slack => slack.channels],
   [getSlackState, slack => slack.messagesByChannel],
-  [getGlobalSettingState, ({ channelMatch }) => channelMatch],
-  (channels, messagesByChannel, channelMatch) =>
-    filterMessages({ channels, messagesByChannel }, channelMatch),
+  [getGlobalSettingState, ({ channelMatches }) => channelMatches],
+  (channels, messagesByChannel, channelMatches) =>
+    filterMessages({ channels, messagesByChannel }, channelMatches),
 );
 export const getTimelineMessages = createSelector(
   getFilteredMessages,
@@ -203,7 +203,7 @@ export const getTimelineMessages = createSelector(
 
 function filterMessages(
   { channels, messagesByChannel }: Pick<SlackState, 'channels' | 'messagesByChannel'>,
-  channelMatch: ChannelMatch | undefined,
+  channelMatches: ChannelMatch[],
 ) {
   const match = getChannelNameMatcher();
 
@@ -227,23 +227,24 @@ function filterMessages(
     targetChannels.has(m.channel ?? ''),
   );
 
-  function getChannelNameMatcher() {
-    if (channelMatch === undefined || channelMatch.matchValue === '') {
-      return (_channelName: string) => true;
-    } else {
-      const { matchMethod, matchValue } = channelMatch;
-      return (channelName: string) => {
-        switch (matchMethod) {
-          case 'contain':
-            return channelName.indexOf(matchValue) > -1;
-          case 'startsWith':
-            return channelName.startsWith(matchValue);
-          case 'endsWith':
-            return channelName.endsWith(matchValue);
-          default:
-            return assertNever(matchMethod);
-        }
-      };
+  function matchSingle(channelName: string, { matchMethod, matchValue }: ChannelMatch): boolean {
+    switch (matchMethod) {
+      case 'contain':
+        return channelName.indexOf(matchValue) > -1;
+      case 'startsWith':
+        return channelName.startsWith(matchValue);
+      case 'endsWith':
+        return channelName.endsWith(matchValue);
+      default:
+        return assertNever(matchMethod);
     }
+  }
+
+  function getChannelNameMatcher() {
+    const activeMatches = channelMatches.filter(m => m.matchValue !== '');
+    if (activeMatches.length === 0) {
+      return (_channelName: string) => true;
+    }
+    return (channelName: string) => activeMatches.some(m => matchSingle(channelName, m));
   }
 }

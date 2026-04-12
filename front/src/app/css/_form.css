@@ -65,9 +65,44 @@ input {
 
 .setting-group-match {
   display: grid;
-  grid-template-columns: 1fr minmax(auto, 120px) 88px;
-  gap: 0 var(--spacing-sm);
-  max-width: 480px;
+  grid-template-columns: 1fr minmax(auto, 120px) auto;
+  gap: var(--spacing-xs) var(--spacing-sm);
+  align-items: center;
+  max-width: 520px;
+  margin-bottom: var(--spacing-xs);
+}
+
+.setting-group-match-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.button-remove {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  color: var(--text-sub);
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--border-main);
+  border-radius: var(--border-radius-sm);
+}
+
+.button-add {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  color: var(--text-main);
+  cursor: pointer;
+  background: none;
+  border: 1px dashed var(--border-main);
+  border-radius: var(--border-radius-sm);
+}
+
+@media (prefers-color-scheme: dark) {
+  .button-remove {
+    color: var(--text-sub);
+  }
+
+  .button-add {
+    color: var(--text-revert);
+  }
 }
 
 .select-group-label {
