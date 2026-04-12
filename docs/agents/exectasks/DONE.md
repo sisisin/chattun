@@ -1,5 +1,6 @@
 # Done
 
+- Task: move-assetsタスク削除、Dockerfileでbuild出力を直接COPY
 - Task: pnpm workspace化
   - shared-workspace-lockfile=falseで各パッケージの既存lockfileを維持しつつworkspace化
   - server: @types/express追加（pnpm strict resolution対応）

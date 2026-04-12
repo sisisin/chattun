@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: move-assetsいらなそう。docker build直せば良さげ
 - Task: serverのnpm scriptsをvp task化
   - githookなど、front/特化になっていたところも、Workspace前提で統合して扱えるようにする
   - あわせてvp taskをrepo rootで扱う、Workspace運用に変更する
