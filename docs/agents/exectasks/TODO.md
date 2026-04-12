@@ -52,8 +52,7 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: pnpm workspace化
-  - docker build時にFEのアセットビルドやserver初期化で全installが実行されないように注意
+- Task: move-assetsいらなそう。docker build直せば良さげ
 - Task: serverのnpm scriptsをvp task化
   - githookなど、front/特化になっていたところも、Workspace前提で統合して扱えるようにする
   - あわせてvp taskをrepo rootで扱う、Workspace運用に変更する

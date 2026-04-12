@@ -1,5 +1,8 @@
 # Done
 
+- Task: pnpm workspace化
+  - shared-workspace-lockfile=falseで各パッケージの既存lockfileを維持しつつworkspace化
+  - server: @types/express追加（pnpm strict resolution対応）
 - Task: serverのpnpm化
   - pnpm importでyarn.lockからpnpm-lock.yaml生成、Dockerfile・CI・ドキュメント更新
   - Dockerfileのfront/patchesコピー漏れも修正（既存バグ）
