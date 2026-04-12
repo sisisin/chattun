@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: @slack/oauthを3.xにアップデートする
 - Task: socket.io, @slack/socket-modeのマイナー/パッチアップデート
 - Task: scripts/,docker/をtools/へ統合する。スクリプトの置き方は役割に沿った構成になるように調節
 - Task: .vscodeをルートに統合・chattun.code-workspaceを消す

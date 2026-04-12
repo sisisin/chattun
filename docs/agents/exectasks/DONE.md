@@ -1,5 +1,7 @@
 # Done
 
+- Task: @slack/oauthを3.xにアップデートする
+  - @slack/oauth 2.2.0→3.0.5。API互換のためコード変更なし
 - Task: expressをhonoに移行する
   - express → hono + @hono/node-server、express-session + connect-redis → 独自session middleware (ioredis + hono/cookie)
   - helmet → hono/secure-headers、express.static → @hono/node-server/serve-static
