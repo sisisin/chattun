@@ -1,5 +1,7 @@
 # Done
 
+- Task: server/.env.localが適切に評価されるようにする
+  - Node.js 22の--env-file-if-existsをdev/dev:mockスクリプトに追加、CLAUDE.md更新
 - Task: なんか古いやつが地味に残ってるのを消す
   - READMEから.circleci/heroku関連の古い記述を除去、デプロイ情報をGitHub Actions + Cloud Runに更新
 - Task: .vscodeをルートに統合・chattun.code-workspaceを消す
