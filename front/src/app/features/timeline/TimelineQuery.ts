@@ -106,13 +106,16 @@ const userMention = /<@(.*?)>/g;
 const groupMention = /<!(channel|here)>/g;
 const userGroupMention = /<!subteam\^\w+\|@(\w+?)>/g;
 const channelName = /<#\w+\|(\w+)>/g;
-export const toMention = (message: Message, membersMap: SlackState['users']) => {
+export const toMention = (message: Message, membersMap: SlackState['users'], myUserId?: string) => {
   const rowText = message.text ? message.text : '';
   return rowText
-    .replace(userMention, (match, $1: string) => `@${getProfile(membersMap, $1).displayName}`)
-    .replace(groupMention, (match, $1: string) => `@${$1}`)
-    .replace(userGroupMention, (match, $1: string) => `@${$1}`)
-    .replace(channelName, (match, $1: string) => `#${$1}`);
+    .replace(userMention, (_match, $1: string) => {
+      const name = `@${getProfile(membersMap, $1).displayName}`;
+      return $1 === myUserId ? `<span class="mention-self">${name}</span>` : name;
+    })
+    .replace(groupMention, (_match, $1: string) => `<span class="mention-self">@${$1}</span>`)
+    .replace(userGroupMention, (_match, $1: string) => `@${$1}`)
+    .replace(channelName, (_match, $1: string) => `#${$1}`);
 };
 
 const imageAttachmentToText = (attachment: SlackEntity.Attachment) => {
@@ -162,10 +165,11 @@ export const textToHtml = (
   message: Message,
   memberMap: SlackState['users'],
   emojis: SlackState['emojis'],
+  myUserId?: string,
 ) => {
   const fromFile = fileToText(message);
 
-  const userReplacedMessage = toMention(message, memberMap);
+  const userReplacedMessage = toMention(message, memberMap, myUserId);
   // fixme: image以外が死ぬ
   const imageAttachedText = textWithAttachmentToText(message, userReplacedMessage);
   const emojifiedText = textToEmojified(imageAttachedText, emojis);

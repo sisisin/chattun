@@ -54,7 +54,7 @@ export function slackMessageToTweet(
   const { displayName, fullName, iconUrl } = getMessageProfile(users, msg);
 
   // todo: botなどのattachmentが全然対応できてない
-  const text = textToHtml(msg, users, emojis);
+  const text = textToHtml(msg, users, emojis, profile.userId);
 
   return {
     threadTs: msg.thread_ts,

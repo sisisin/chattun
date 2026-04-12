@@ -219,3 +219,11 @@
   border-left: 3px solid var(--border-main);
   background: var(--background-sub);
 }
+
+.mention-self {
+  padding: 1px 4px;
+  font-weight: bold;
+  color: var(--button-primary);
+  background: color-mix(in srgb, var(--button-primary) 15%, transparent);
+  border-radius: var(--border-radius-sm);
+}
