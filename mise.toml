@@ -1,5 +1,6 @@
 [tools]
 node = "22.18.0"
+pinact = "3.9.0"
 terraform = "1.11.4"
 
 [[env]]
