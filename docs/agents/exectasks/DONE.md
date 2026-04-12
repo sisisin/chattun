@@ -1,5 +1,6 @@
 # Done
 
+- Task: Tweetのチャンネル名表示をslackへのdeep linkとして、クリックしたら開けるようにする
 - Task: 追加ボタンと保存ボタンの大きさが揃ってないのを直す
 - Task: CSSの不要ファイル・レガシーコードを削除する
   - 空CSS（Timeline.css, Thread.css, EmojiMenu.css）削除、_base.cssのCRA .Appスタイル削除、emoji-custom.cssをTweet.cssにインライン化
