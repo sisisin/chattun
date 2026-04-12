@@ -52,9 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: httpsが自己署名証明書使ってるのをやめる
-  - copy_pem.shで持ってきた証明書を利用して、ブラウザで開いたときに警告が出ないようにする
-  - 補足: ../myinfraにlet's encryptで発行したローカル用ドメインの証明書に関するセットアップが書かれてるので必要であれば参照して
 - Task: serverのpnpm化
 - Task: pnpm workspace化
   - docker build時にFEのアセットビルドやserver初期化で全installが実行されないように注意

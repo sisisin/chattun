@@ -1,5 +1,7 @@
 # Done
 
+- Task: httpsが自己署名証明書使ってるのをやめる
+  - setup_pem.sh: CERT_DIRあればコピー、なければ自己署名証明書を自動生成。vite.config.tsでtmp/を自動検出
 - Task: dynamic importによるchunkを適切に行えるように実装を調整
   - @loadable/component は TanStack Router 移行タスクで削除済み。lazyRouteComponent で code splitting が適切に動作
 - Task: react-router-dom v5 を TanStack Router に移行
