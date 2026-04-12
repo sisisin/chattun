@@ -59,11 +59,10 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
   - utils.ts: unsafe optional chainingの修正
 - Task: ioredisを5.xにアップデートする
   - @types/ioredisを削除（v5で型同梱）
-- Task: connect-redisを最新にアップデートする
-  - v7+でAPIが変わっている（new RedisStore直接パターンに移行）
-  - @types/connect-redisも不要になる
-- Task: helmetを最新にアップデートする
-- Task: express-sessionを最新にアップデートする
+- Task: expressをhonoに移行する
+  - express, express-session, connect-redis, helmet, @types/express, @types/express-session, @types/connect-redisを置き換え
+  - hono標準のミドルウェアでセッション・セキュリティヘッダーを実現
+  - mock-serverも併せて移行
 - Task: @slack/oauthを3.xにアップデートする
 - Task: socket.io, @slack/socket-modeのマイナー/パッチアップデート
 - Task: scripts/,docker/をtools/へ統合する。スクリプトの置き方は役割に沿った構成になるように調節
@@ -79,5 +78,3 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。
 
-- Task: express 4→5にアップデートする
-  - Breaking Changeが多い（req.query、エラーハンドリング、ルーティング等）。他の依存アップデートが落ち着いてから着手
