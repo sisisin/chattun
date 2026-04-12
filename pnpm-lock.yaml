@@ -147,7 +147,7 @@ importers:
         specifier: 4.26.7
         version: 4.26.7
       '@types/node':
-        specifier: ^22.19.17
+        specifier: 22.19.17
         version: 22.19.17
       '@types/request':
         specifier: 2.48.7
@@ -4298,7 +4298,7 @@ snapshots:
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 6.0.0
-      '@types/node': 13.7.7
+      '@types/node': 22.19.17
 
   '@types/globby@9.1.0':
     dependencies:
@@ -4398,7 +4398,7 @@ snapshots:
 
   '@types/through@0.0.33':
     dependencies:
-      '@types/node': 13.7.7
+      '@types/node': 22.19.17
 
   '@types/tough-cookie@4.0.5': {}
 
