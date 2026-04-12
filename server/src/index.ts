@@ -19,6 +19,7 @@ import {
   type SessionData,
 } from './session.ts';
 import { getSessionProfile } from './utils.ts';
+import { getOrFetch } from './cache.ts';
 import slackWebApi from '@slack/web-api';
 const { WebClient } = slackWebApi;
 
@@ -155,53 +156,60 @@ async function main() {
   app.get('/api/slack/emoji.list', async c => {
     const client = getSlackClient(c);
     if (!client) return c.body(null, 401);
-    const result = await client.emoji.list();
+    const result = await getOrFetch('emoji:list', () => client.emoji.list());
     return c.json(result);
   });
 
   app.get('/api/slack/users.list', async c => {
     const client = getSlackClient(c);
     if (!client) return c.body(null, 401);
-    const members: any[] = [];
-    let cursor: string | undefined;
-    do {
-      const result: any = await client.users.list({ limit: 200, cursor });
-      members.push(...result.members);
-      cursor = result.response_metadata?.next_cursor || undefined;
-    } while (cursor);
-    return c.json({ ok: true, members });
+    const data = await getOrFetch('users:list', async () => {
+      const members: any[] = [];
+      let cursor: string | undefined;
+      do {
+        const result: any = await client.users.list({ limit: 200, cursor });
+        members.push(...result.members);
+        cursor = result.response_metadata?.next_cursor || undefined;
+      } while (cursor);
+      return { ok: true, members };
+    });
+    return c.json(data);
   });
 
   app.get('/api/slack/conversations.list', async c => {
-    const client = getSlackClient(c);
-    if (!client) return c.body(null, 401);
-    const channels: any[] = [];
-    let cursor: string | undefined;
-    do {
-      const result: any = await client.conversations.list({
-        types: 'public_channel',
-        exclude_archived: true,
-        limit: 200,
-        cursor,
-      });
-      channels.push(
-        ...result.channels.map((ch: any) => ({
-          id: ch.id,
-          is_im: ch.is_im,
-          is_member: ch.is_member,
-          name: ch.name,
-          user: ch.user,
-        })),
-      );
-      cursor = result.response_metadata?.next_cursor || undefined;
-    } while (cursor);
-    return c.json({ ok: true, channels });
+    const profile = getAuthProfile(c);
+    if (!profile) return c.body(null, 401);
+    const client = new WebClient(profile.accessToken);
+    const data = await getOrFetch(`conversations:list:${profile.userId}`, async () => {
+      const channels: any[] = [];
+      let cursor: string | undefined;
+      do {
+        const result: any = await client.conversations.list({
+          types: 'public_channel',
+          exclude_archived: true,
+          limit: 200,
+          cursor,
+        });
+        channels.push(
+          ...result.channels.map((ch: any) => ({
+            id: ch.id,
+            is_im: ch.is_im,
+            is_member: ch.is_member,
+            name: ch.name,
+            user: ch.user,
+          })),
+        );
+        cursor = result.response_metadata?.next_cursor || undefined;
+      } while (cursor);
+      return { ok: true, channels };
+    });
+    return c.json(data);
   });
 
   app.get('/api/slack/team.info', async c => {
     const client = getSlackClient(c);
     if (!client) return c.body(null, 401);
-    const result = await client.team.info();
+    const result = await getOrFetch('team:info', () => client.team.info());
     return c.json(result);
   });
 
