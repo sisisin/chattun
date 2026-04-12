@@ -6,7 +6,13 @@ export type MrkdwnNode =
   | { type: 'strike'; children: MrkdwnNode[] }
   | { type: 'code'; text: string }
   | { type: 'codeblock'; text: string }
-  | { type: 'linebreak' };
+  | { type: 'linebreak' }
+  | { type: 'user_mention'; userId: string }
+  | { type: 'channel_ref'; channelId: string; name: string }
+  | { type: 'group_mention'; name: string }
+  | { type: 'special_mention'; keyword: string }
+  | { type: 'emoji'; name: string }
+  | { type: 'link'; url: string; text: string | undefined };
 
 export function parseMrkdwn(input: string): MrkdwnNode[] {
   const nodes: MrkdwnNode[] = [];
@@ -27,12 +33,36 @@ export function parseMrkdwn(input: string): MrkdwnNode[] {
       continue;
     }
 
+    // Angle bracket constructs: mentions, channel refs, links
+    if (input[pos] === '<') {
+      const endIndex = input.indexOf('>', pos + 1);
+      if (endIndex !== -1) {
+        const inner = input.slice(pos + 1, endIndex);
+        const node = parseAngleBracket(inner);
+        if (node) {
+          nodes.push(node);
+          pos = endIndex + 1;
+          continue;
+        }
+      }
+    }
+
     // Inline code: ` ... ` (no newlines inside)
     if (input[pos] === '`') {
       const endIndex = findClosing(input, '`', pos + 1, true);
       if (endIndex !== -1) {
         nodes.push({ type: 'code', text: input.slice(pos + 1, endIndex) });
         pos = endIndex + 1;
+        continue;
+      }
+    }
+
+    // Emoji: :name: (alphanumeric, hyphens, underscores only)
+    if (input[pos] === ':') {
+      const emojiNode = tryParseEmoji(input, pos);
+      if (emojiNode) {
+        nodes.push(emojiNode.node);
+        pos = emojiNode.end;
         continue;
       }
     }
@@ -71,8 +101,64 @@ export function parseMrkdwn(input: string): MrkdwnNode[] {
 }
 
 function parseInline(input: string): MrkdwnNode[] {
-  // Re-use the top-level parser for inline content (no code blocks expected inside formatting)
   return parseMrkdwn(input);
+}
+
+function parseAngleBracket(inner: string): MrkdwnNode | null {
+  // User mention: @UID
+  if (inner.startsWith('@')) {
+    return { type: 'user_mention', userId: inner.slice(1) };
+  }
+
+  // Channel reference: #CID|name
+  if (inner.startsWith('#')) {
+    const pipeIndex = inner.indexOf('|');
+    if (pipeIndex !== -1) {
+      return {
+        type: 'channel_ref',
+        channelId: inner.slice(1, pipeIndex),
+        name: inner.slice(pipeIndex + 1),
+      };
+    }
+  }
+
+  // Special mention: !here, !channel
+  // Group mention: !subteam^GROUPID|@name
+  if (inner.startsWith('!')) {
+    const content = inner.slice(1);
+    if (content.startsWith('subteam^')) {
+      const pipeIndex = content.indexOf('|');
+      if (pipeIndex !== -1) {
+        return { type: 'group_mention', name: content.slice(pipeIndex + 1) };
+      }
+    }
+    return { type: 'special_mention', keyword: content };
+  }
+
+  // Link: url or url|text
+  if (inner.includes('://')) {
+    const pipeIndex = inner.indexOf('|');
+    if (pipeIndex !== -1) {
+      return { type: 'link', url: inner.slice(0, pipeIndex), text: inner.slice(pipeIndex + 1) };
+    }
+    return { type: 'link', url: inner, text: undefined };
+  }
+
+  return null;
+}
+
+function tryParseEmoji(input: string, pos: number): { node: MrkdwnNode; end: number } | null {
+  // Emoji names: alphanumeric, hyphens, underscores, plus signs
+  // Minimum 1 char, e.g. :+1:
+  const emojiRegex = /^:([a-zA-Z0-9_+-]+):/;
+  const match = emojiRegex.exec(input.slice(pos));
+  if (match) {
+    return {
+      node: { type: 'emoji', name: match[1] },
+      end: pos + match[0].length,
+    };
+  }
+  return null;
 }
 
 function isFormattingChar(ch: string): boolean {
@@ -117,7 +203,8 @@ function makeFormattingNode(marker: string, children: MrkdwnNode[]): MrkdwnNode 
 
 function isSpecialAt(input: string, pos: number): boolean {
   const ch = input[pos];
-  if (ch === '\n' || ch === '`') return true;
+  if (ch === '\n' || ch === '`' || ch === '<') return true;
+  if (ch === ':' && tryParseEmoji(input, pos) !== null) return true;
   if (isFormattingChar(ch) && isAtOpenBoundary(input, pos)) return true;
   if (input.startsWith('```', pos)) return true;
   return false;

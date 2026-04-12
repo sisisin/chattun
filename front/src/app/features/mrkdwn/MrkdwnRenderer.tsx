@@ -33,6 +33,22 @@ function RenderNode({ node }: { node: MrkdwnNode }) {
       );
     case 'linebreak':
       return <br />;
+    case 'user_mention':
+      return <span className="mention">@{node.userId}</span>;
+    case 'channel_ref':
+      return <span className="channel-ref">#{node.name}</span>;
+    case 'group_mention':
+      return <span className="mention">{node.name}</span>;
+    case 'special_mention':
+      return <span className="mention">@{node.keyword}</span>;
+    case 'emoji':
+      return <span className="emoji">:{node.name}:</span>;
+    case 'link':
+      return (
+        <a href={node.url} target="_blank" rel="noopener noreferrer">
+          {node.text ?? node.url}
+        </a>
+      );
   }
 }
 
