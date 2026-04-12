@@ -151,12 +151,24 @@ describe('parseMrkdwn', () => {
         { type: 'channel_ref', channelId: 'C123ABC', name: 'general' },
       ]);
     });
+
+    it('treats <#CID> without pipe as plain text angle bracket', () => {
+      // Slack always sends channel refs with pipe, so pipe-less is not a valid channel ref
+      expect(parseMrkdwn('<#C123ABC>')).toEqual([{ type: 'text', text: '<#C123ABC>' }]);
+    });
   });
 
   describe('group mention', () => {
     it('parses <!subteam^GROUPID|@name>', () => {
       expect(parseMrkdwn('<!subteam^S123|@team-name>')).toEqual([
         { type: 'group_mention', name: '@team-name' },
+      ]);
+    });
+
+    it('treats <!subteam^ID> without pipe as special mention fallback', () => {
+      // Slack always includes pipe in subteam mentions, pipe-less falls through to special_mention
+      expect(parseMrkdwn('<!subteam^S123>')).toEqual([
+        { type: 'special_mention', keyword: 'subteam^S123' },
       ]);
     });
   });
@@ -203,6 +215,18 @@ describe('parseMrkdwn', () => {
     it('parses <url> without text', () => {
       expect(parseMrkdwn('<https://example.com>')).toEqual([
         { type: 'link', url: 'https://example.com', text: undefined },
+      ]);
+    });
+
+    it('parses mailto link', () => {
+      expect(parseMrkdwn('<mailto:user@example.com|user@example.com>')).toEqual([
+        { type: 'link', url: 'mailto:user@example.com', text: 'user@example.com' },
+      ]);
+    });
+
+    it('parses mailto link without text', () => {
+      expect(parseMrkdwn('<mailto:user@example.com>')).toEqual([
+        { type: 'link', url: 'mailto:user@example.com', text: undefined },
       ]);
     });
   });

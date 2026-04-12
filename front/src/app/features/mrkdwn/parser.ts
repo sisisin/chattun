@@ -136,7 +136,7 @@ function parseAngleBracket(inner: string): MrkdwnNode | null {
   }
 
   // Link: url or url|text
-  if (inner.includes('://')) {
+  if (inner.includes('://') || inner.startsWith('mailto:')) {
     const pipeIndex = inner.indexOf('|');
     if (pipeIndex !== -1) {
       return { type: 'link', url: inner.slice(0, pipeIndex), text: inner.slice(pipeIndex + 1) };
