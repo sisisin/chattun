@@ -12,7 +12,7 @@ export const installer = new InstallProvider({
   stateSecret: 'my-state-secret',
 
   installationStore: {
-    storeInstallation: async (installation) => {
+    storeInstallation: async installation => {
       if (installation.isEnterpriseInstall && installation.enterprise !== undefined) {
         await redis.set(installation.enterprise.id, JSON.stringify(installation));
         await redis.set(installation.user.id, JSON.stringify(installation));
@@ -25,7 +25,7 @@ export const installer = new InstallProvider({
       }
       throw new Error('Failed saving installation data to installationStore');
     },
-    fetchInstallation: async (installQuery) => {
+    fetchInstallation: async installQuery => {
       if (installQuery.isEnterpriseInstall && installQuery.enterpriseId !== undefined) {
         const res = await redis.get(installQuery.enterpriseId);
         // const res = await redis.get(installQuery.userId!);
@@ -38,7 +38,7 @@ export const installer = new InstallProvider({
       }
       throw new Error('Failed fetching installation');
     },
-    deleteInstallation: async (installQuery) => {
+    deleteInstallation: async installQuery => {
       if (installQuery.isEnterpriseInstall && installQuery.enterpriseId !== undefined) {
         await redis.del(installQuery.userId!);
         return;
@@ -69,15 +69,15 @@ const logTarget = new Set([
 export const configureSocketClient = (io: socketIO.Server) => {
   socketClient.on(
     'message',
-    handlerError((evt) => handleSlackEvent(io, evt)),
+    handlerError(evt => handleSlackEvent(io, evt)),
   );
   socketClient.on(
     'reaction_added',
-    handlerError((evt) => handleSlackEvent(io, evt)),
+    handlerError(evt => handleSlackEvent(io, evt)),
   );
   socketClient.on(
     'reaction_removed',
-    handlerError((evt) => handleSlackEvent(io, evt)),
+    handlerError(evt => handleSlackEvent(io, evt)),
   );
 };
 
@@ -118,21 +118,24 @@ async function handleSlackEvent(io: socketIO.Server, evt: any) {
     }
 
     const authorizationsSet = await listAllAuthorizations(evt.body.event_context).then(
-      (a) => new Set(a.map((auth) => auth.user_id)),
+      a => new Set(a.map(auth => auth.user_id)),
     );
-    const targets = sockets.filter((socket) => socket.data.sessionProfile && authorizationsSet.has(socket.data.sessionProfile.userId));
+    const targets = sockets.filter(
+      socket =>
+        socket.data.sessionProfile && authorizationsSet.has(socket.data.sessionProfile.userId),
+    );
 
-    targets.forEach((socket) => {
+    targets.forEach(socket => {
       socket.emit('message', evt.event);
     });
     logger.debug(`event published to ${targets.length} users. ${logSuffix}`, {
-      targets: targets.map((t) => t.data.sessionProfile.userId),
+      targets: targets.map(t => t.data.sessionProfile.userId),
       authorizations: Array.from(authorizationsSet),
     });
 
     {
       if (process.env.ENABLE_EVENT_LOG === 'true') {
-        const s: any = targets.find((t) => logTarget.has(t.data.sessionProfile.userId));
+        const s: any = targets.find(t => logTarget.has(t.data.sessionProfile.userId));
         if (s) {
           logger.info('event received', { event: evt });
         }
@@ -166,10 +169,12 @@ async function listAllAuthorizations(eventContext: string) {
   let cursor;
 
   do {
-    const res: AppsEventAuthorizationsListResponse = await webClient.apps.event.authorizations.list({
-      cursor,
-      event_context: eventContext,
-    });
+    const res: AppsEventAuthorizationsListResponse = await webClient.apps.event.authorizations.list(
+      {
+        cursor,
+        event_context: eventContext,
+      },
+    );
 
     authorizations.push(...(res.authorizations ?? []));
     cursor = res.response_metadata?.next_cursor;
@@ -180,7 +185,7 @@ async function listAllAuthorizations(eventContext: string) {
 
 function handlerError<T extends any[]>(cb: (...args: T) => Promise<void>) {
   return (...args: T) => {
-    cb(...args).catch((err) => {
+    cb(...args).catch(err => {
       if (err instanceof ErrorWithLogContext) {
         const [context, cause] = err.unwrapAndGetContext();
         logger.errore('error on slack message handler', cause, context);

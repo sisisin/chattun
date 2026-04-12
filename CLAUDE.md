@@ -58,7 +58,7 @@ curl -X POST http://localhost:3100/api/mock/event/raw -H 'Content-Type: applicat
 
 ```sh
 # ルートから一括実行
-pnpm vp run -r ci          # front check+test + server 型チェック
+pnpm vp run -r ci          # front check+test + server check
 
 # フロント (cd front で実行)
 # vpビルトインコマンド
@@ -72,7 +72,8 @@ pnpm vp run build          # 本番ビルド
 pnpm vp run test-all       # check + test 一括実行
 
 # サーバー (cd server で実行)
-pnpm run ci                # TypeScript型チェック (tsc --noEmit)
+pnpm vp check              # fmt + lint + type-check 一括実行
+pnpm run ci                # vp check と同じ（CI用エイリアス）
 ```
 
 ### デプロイ

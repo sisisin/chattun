@@ -20,7 +20,12 @@ const presetFactories: Record<string, () => object> = {
         {
           type: 'rich_text',
           block_id: `mock-block-${Date.now()}`,
-          elements: [{ type: 'rich_text_section', elements: [{ type: 'text', text: 'これはモックメッセージです' }] }],
+          elements: [
+            {
+              type: 'rich_text_section',
+              elements: [{ type: 'text', text: 'これはモックメッセージです' }],
+            },
+          ],
         },
       ],
       channel: MOCK_CHANNEL,
@@ -42,7 +47,9 @@ const presetFactories: Record<string, () => object> = {
         {
           type: 'rich_text',
           block_id: `mock-block-${Date.now()}`,
-          elements: [{ type: 'rich_text_section', elements: [{ type: 'text', text: '画像付きメッセージ' }] }],
+          elements: [
+            { type: 'rich_text_section', elements: [{ type: 'text', text: '画像付きメッセージ' }] },
+          ],
         },
       ],
       files: [
@@ -138,7 +145,12 @@ const presetFactories: Record<string, () => object> = {
         {
           type: 'rich_text',
           block_id: `mock-block-${Date.now()}`,
-          elements: [{ type: 'rich_text_section', elements: [{ type: 'text', text: 'スレッドへの返信です' }] }],
+          elements: [
+            {
+              type: 'rich_text_section',
+              elements: [{ type: 'text', text: 'スレッドへの返信です' }],
+            },
+          ],
         },
       ],
       channel: MOCK_CHANNEL,

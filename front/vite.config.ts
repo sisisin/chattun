@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import autoprefixer from 'autoprefixer';
 import type { Plugin } from 'vite';
+import { sharedFmt, sharedLintRules } from '../vp-shared.ts';
 
 function swPlugin(): Plugin {
   const compile = () => execSync('tsc -p ./swSrc', { stdio: 'inherit' });
@@ -104,15 +105,7 @@ export default defineConfig({
     },
   },
   fmt: {
-    printWidth: 100,
-    tabWidth: 2,
-    useTabs: false,
-    semi: true,
-    singleQuote: true,
-    trailingComma: 'all',
-    bracketSpacing: true,
-    arrowParens: 'avoid',
-    sortPackageJson: false,
+    ...sharedFmt,
     ignorePatterns: ['build/', 'node_modules/', 'public/sw.js', '.blueprints/'],
   },
   lint: {
@@ -147,14 +140,8 @@ export default defineConfig({
         },
       ],
 
-      // --- @typescript-eslint 相当: eslintrc.js で OFF にしていたルール ---
-      'typescript/no-explicit-any': 'off',
-      'typescript/no-non-null-assertion': 'off',
-      'typescript/explicit-function-return-type': 'off',
-
-      // --- @typescript-eslint/no-namespace: error (allowDefinitionFiles) ---
-      // oxlintはデフォルトで.d.tsファイルを許可する。元のeslint設定のallowDefinitionFiles相当。
-      'typescript/no-namespace': 'error',
+      // --- 共通 typescript ルール ---
+      ...sharedLintRules,
     },
   },
 });

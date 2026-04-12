@@ -3,7 +3,7 @@ FROM node:22.18.0 AS builder
 RUN corepack enable pnpm
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml vp-shared.ts ./
 COPY .npmrc* ./
 COPY front/package.json ./front/
 COPY front/patches ./front/patches

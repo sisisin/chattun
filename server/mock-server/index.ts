@@ -11,9 +11,9 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 // Socket.IO: 認証なしで全接続を受け付ける
-io.on('connection', (socket) => {
+io.on('connection', socket => {
   console.log(`[mock] client connected: ${socket.id}`);
-  socket.on('disconnect', (reason) => {
+  socket.on('disconnect', reason => {
     console.log(`[mock] client disconnected: ${socket.id} (${reason})`);
   });
 });
@@ -122,7 +122,7 @@ app.all('/api/*', (_req, res) => {
 const publicDir = path.join(__dirname, '../public');
 app.use(express.static(publicDir));
 app.get('*', (_req, res) => {
-  res.sendFile(path.join(publicDir, 'index.html'), (err) => {
+  res.sendFile(path.join(publicDir, 'index.html'), err => {
     if (err) {
       res.status(404).send('Not found (run front build or use front dev server with proxy)');
     }

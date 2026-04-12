@@ -136,7 +136,9 @@ async function main() {
       const client = getSlackClient(req);
       const result = await client.emoji.list();
       res.json(result);
-    } catch (error) { next(error); }
+    } catch (error) {
+      next(error);
+    }
   });
 
   app.get('/api/slack/users.list', checkAuthentication, async (req, res, next) => {
@@ -150,7 +152,9 @@ async function main() {
         cursor = result.response_metadata?.next_cursor || undefined;
       } while (cursor);
       res.json({ ok: true, members });
-    } catch (error) { next(error); }
+    } catch (error) {
+      next(error);
+    }
   });
 
   app.get('/api/slack/conversations.list', checkAuthentication, async (req, res, next) => {
@@ -177,7 +181,9 @@ async function main() {
         cursor = result.response_metadata?.next_cursor || undefined;
       } while (cursor);
       res.json({ ok: true, channels });
-    } catch (error) { next(error); }
+    } catch (error) {
+      next(error);
+    }
   });
 
   app.get('/api/slack/team.info', checkAuthentication, async (req, res, next) => {
@@ -185,7 +191,9 @@ async function main() {
       const client = getSlackClient(req);
       const result = await client.team.info();
       res.json(result);
-    } catch (error) { next(error); }
+    } catch (error) {
+      next(error);
+    }
   });
 
   app.post('/api/slack/reactions.add', checkAuthentication, async (req, res, next) => {
@@ -194,7 +202,9 @@ async function main() {
       const { channel, timestamp, name } = req.body;
       const result = await client.reactions.add({ channel, timestamp, name });
       res.json(result);
-    } catch (error) { next(error); }
+    } catch (error) {
+      next(error);
+    }
   });
 
   app.post('/api/slack/reactions.remove', checkAuthentication, async (req, res, next) => {
@@ -203,7 +213,9 @@ async function main() {
       const { channel, timestamp, name } = req.body;
       const result = await client.reactions.remove({ channel, timestamp, name });
       res.json(result);
-    } catch (error) { next(error); }
+    } catch (error) {
+      next(error);
+    }
   });
 
   app.get('/api/slack/conversations.replies', checkAuthentication, async (req, res, next) => {
@@ -216,7 +228,9 @@ async function main() {
         ...result,
         messages: result.messages.map((m: any) => ({ ...m, channel })),
       });
-    } catch (error) { next(error); }
+    } catch (error) {
+      next(error);
+    }
   });
 
   app.post('/api/slack/conversations.mark', checkAuthentication, async (req, res, next) => {
@@ -225,7 +239,9 @@ async function main() {
       const { channel, ts } = req.body;
       const result = await client.conversations.mark({ channel, ts });
       res.json(result);
-    } catch (error) { next(error); }
+    } catch (error) {
+      next(error);
+    }
   });
 
   app.get('/api/slack/auth.test', checkAuthentication, async (req, res, next) => {
@@ -233,7 +249,9 @@ async function main() {
       const client = getSlackClient(req);
       const result = await client.auth.test();
       res.json(result);
-    } catch (error) { next(error); }
+    } catch (error) {
+      next(error);
+    }
   });
 
   app.get('/api/*', (req, res) => {
@@ -276,7 +294,7 @@ async function main() {
       socketClient.removeAllListeners();
 
       io.close();
-      await new Promise((done) => server.close(done));
+      await new Promise(done => server.close(done));
       logger.info(`server closed by ${event} signal`);
       process.exit(0);
     } catch (err) {
@@ -286,12 +304,11 @@ async function main() {
   };
   process.on('SIGTERM', shutdown('SIGTERM'));
   process.on('SIGINT', shutdown('SIGINT'));
-
 }
 
 // プロセスをクラッシュさせずに構造化ログへ記録する。
 // Cloud Run上でunhandled rejectionによるexit(1)→インスタンス再起動の連鎖を防止する意図的な設計。
-process.on('unhandledRejection', (reason) => {
+process.on('unhandledRejection', reason => {
   if (reason instanceof ErrorWithLogContext) {
     const [context, cause] = reason.unwrapAndGetContext();
     logger.errore('Unhandled rejection', cause, context);
@@ -299,12 +316,12 @@ process.on('unhandledRejection', (reason) => {
     logger.errore('Unhandled rejection', reason);
   }
 });
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', err => {
   logger.errore('Uncaught exception', err);
   process.exit(1);
 });
 
-main().catch((err) => {
+main().catch(err => {
   logger.errore('Failed to start server', err);
   process.exit(1);
 });

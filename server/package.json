@@ -11,7 +11,7 @@
     "start": "ts-node -T ./src/index.ts",
     "dev": "nodemon ./src/index.ts",
     "dev:mock": "ts-node -T ./mock-server/index.ts",
-    "ci": "tsc --noEmit"
+    "ci": "vp check"
   },
   "dependencies": {
     "@slack/oauth": "2.2.0",

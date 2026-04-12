@@ -87,7 +87,7 @@ export const logger = {
     return loggingContext.run({ ...store, ...context }, async () => {
       return Promise.resolve()
         .then(fn)
-        .catch((err) => {
+        .catch(err => {
           throw new ErrorWithLogContext(loggingContext.getStore() ?? {}, err);
         });
     });
