@@ -52,8 +52,31 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 他にfrontでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
+- Task: 不要なファイル・パッケージを削除する
+  - story2sketch.config.js（Storybook削除後の残骸）
+  - buffer, processパッケージ（CRA時代のpolyfill、ソースコードで未使用）
+- Task: postcss-custom-mediaとpostcss-nestingをネイティブCSSに置き換え、postcss.config.jsを削除する
+  - browserslistがIE11を除外しているためネイティブCSS nesting・@mediaで十分
+  - autoprefixerのみ残す場合はvite.config.tsのcss.postcss設定に移行
+- Task: React 16→18にアップグレードする
+  - ReactDOM.render→createRoot移行
+  - unmountComponentAtNode→root.unmount()移行
+  - @types/react, @types/react-domの更新
+  - typelessやreact-hook-form等の互換性確認
+- Task: react-router-dom 5→6にアップグレードする
+  - Switch→Routes、component prop→element prop移行
+  - useHistory→useNavigate移行（useRouter.ts内の変更で集約可能）
+  - historyパッケージの削除検討
+- Task: tsconfig.jsonのstrictFunctionTypesをtrueにする
+  - 現在strict: falseでstrictFunctionTypes: false。他のstrict系は個別にtrue設定済み
+  - strictFunctionTypesを有効にして型安全性を向上
 
 # Backlog
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。
+
+- Task: emoji-mart 2→5にアップグレードする
+  - v5はフルリライト（Web Components化）でAPI非互換。Picker/Emoji/CustomEmojiの全面書き換えが必要
+  - babel-runtime依存を解消できる
+- Task: rxjs 6→7にアップグレードする
+- Task: react-hook-form 5→7にアップグレードする

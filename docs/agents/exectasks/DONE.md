@@ -119,6 +119,10 @@
   - ジョブ結果の判定を!== 'success'に変更し、cancelled等も失敗扱いに
   - run--notify-deploy-completed.yamlを削除
 
+- Task: 他にfrontでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
+  - 不要ファイル/パッケージ削除、postcssネイティブ移行、React 18、react-router 6、strictFunctionTypesをTasksに追加
+  - emoji-mart 5、rxjs 7、react-hook-form 7をBacklogに追加
+
 - Task: frontの暗黙的な推移的依存を整理する
   - babel-runtime: emoji-mart 2.11.2が内部でrequireしているがdependenciesに未宣言（パッケージのバグ）。v5はフルリライトでAPI非互換のため現時点では明示的依存として維持
   - @types/webpack-env: CRA→vite+移行完了により既に削除済み
