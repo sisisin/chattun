@@ -1,6 +1,6 @@
 import { appRegistry } from 'app/services/AppRegistry';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Hmr, startHmr, TypelessContext } from 'typeless';
 import './app/css/main.css';
 import './app/imports';
@@ -12,16 +12,16 @@ if (!MOUNT_NODE) {
   throw new Error('<div id="root" /> not found');
 }
 
+const root = createRoot(MOUNT_NODE);
+
 const render = async () => {
   const { App } = await import('./app/App');
-  ReactDOM.unmountComponentAtNode(MOUNT_NODE);
-  ReactDOM.render(
+  root.render(
     <Hmr>
       <TypelessContext.Provider value={{ registry: appRegistry }}>
         <App />
       </TypelessContext.Provider>
     </Hmr>,
-    MOUNT_NODE,
   );
 };
 

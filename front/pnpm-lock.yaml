@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@types/react': 16.9.23
+  '@types/react': 18.3.28
 
 importers:
 
@@ -16,23 +16,23 @@ importers:
         version: 6.26.0
       emoji-mart:
         specifier: 2.11.2
-        version: 2.11.2(react@16.13.0)
+        version: 2.11.2(react@18.3.1)
       history:
         specifier: ^4.10.1
         version: 4.10.1
       react:
-        specifier: 16.13.0
-        version: 16.13.0
+        specifier: 18.3.1
+        version: 18.3.1
       react-dom:
-        specifier: 16.13.0
-        version: 16.13.0(react@16.13.0)
+        specifier: 18.3.1
+        version: 18.3.1(react@18.3.1)
       tslib:
         specifier: 2.6.2
         version: 2.6.2
     devDependencies:
       '@loadable/component':
         specifier: 5.12.0
-        version: 5.12.0(react@16.13.0)
+        version: 5.12.0(react@18.3.1)
       '@types/emoji-mart':
         specifier: 2.11.3
         version: 2.11.3
@@ -52,11 +52,11 @@ importers:
         specifier: 1.8.1
         version: 1.8.1
       '@types/react':
-        specifier: 16.9.23
-        version: 16.9.23
+        specifier: 18.3.28
+        version: 18.3.28
       '@types/react-dom':
-        specifier: 16.9.5
-        version: 16.9.5
+        specifier: 18.3.7
+        version: 18.3.7(@types/react@18.3.28)
       '@types/react-outside-click-handler':
         specifier: 1.3.0
         version: 1.3.0
@@ -83,13 +83,13 @@ importers:
         version: 2.5.4
       react-hook-form:
         specifier: 5.1.1
-        version: 5.1.1(react@16.13.0)
+        version: 5.1.1(react@18.3.1)
       react-outside-click-handler:
         specifier: 1.3.0
-        version: 1.3.0(react-dom@16.13.0(react@16.13.0))(react@16.13.0)
+        version: 1.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-router-dom:
         specifier: 5.1.2
-        version: 5.1.2(react@16.13.0)
+        version: 5.1.2(react@18.3.1)
       rxjs:
         specifier: 6.5.4
         version: 6.5.4
@@ -98,7 +98,7 @@ importers:
         version: 4.7.5
       typeless:
         specifier: 1.5.0
-        version: 1.5.0(react-dom@16.13.0(react@16.13.0))(react@16.13.0)(rxjs@6.5.4)
+        version: 1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@6.5.4)
       typescript:
         specifier: 6.0.2
         version: 6.0.2
@@ -654,8 +654,10 @@ packages:
   '@types/prop-types@15.7.0':
     resolution: {integrity: sha512-eItQyV43bj4rR3JPV0Skpl1SncRCdziTEK9/v8VwXmV6d/qOUO8/EuWeHBbCZcsfSHfzI5UyMJLCSXtxxznyZg==}
 
-  '@types/react-dom@16.9.5':
-    resolution: {integrity: sha512-BX6RQ8s9D+2/gDhxrj8OW+YD4R+8hj7FEM/OJHGNR0KipE1h1mSsf39YeyC81qafkq+N3rU3h3RFbLSwE5VqUg==}
+  '@types/react-dom@18.3.7':
+    resolution: {integrity: sha512-MEe3UeoENYVFXzoXEWsvcpg6ZvlrFNlOQ7EOsvhI3CfAXwzPfO8Qwuxd40nepsYKqyyVQnTdEfv68q91yLcKrQ==}
+    peerDependencies:
+      '@types/react': 18.3.28
 
   '@types/react-outside-click-handler@1.3.0':
     resolution: {integrity: sha512-BxQpd5GsbA9rjqLcM4lYp70VnvahgjMUeJ4OKi0A7QOsDLD2yUPswOVixtDpmvCu0PkRTfvMoStIR3gKC/L3XQ==}
@@ -666,8 +668,8 @@ packages:
   '@types/react-router@5.1.4':
     resolution: {integrity: sha512-PZtnBuyfL07sqCJvGg3z+0+kt6fobc/xmle08jBiezLS8FrmGeiGkJnuxL/8Zgy9L83ypUhniV5atZn/L8n9MQ==}
 
-  '@types/react@16.9.23':
-    resolution: {integrity: sha512-SsGVT4E7L2wLN3tPYLiF20hmZTPGuzaayVunfgXzUn1x4uHVsKH6QDJQ/TdpHqwsTLd4CwrmQ2vOgxN7gE24gw==}
+  '@types/react@18.3.28':
+    resolution: {integrity: sha512-z9VXpC7MWrhfWipitjNdgCauoMLRdIILQsAEV+ZesIzBq/oUlxk0m3ApZuMFCXdnS4U7KrI+l3WRUEGQ8K1QKw==}
 
   '@types/through@0.0.30':
     resolution: {integrity: sha512-FvnCJljyxhPM3gkRgWmxmDZyAQSiBQQWLI0A0VFL0K7W1oRUrPJSqNO0NvTnLkBcotdlp3lKvaT0JrnyRDkzOg==}
@@ -1034,8 +1036,8 @@ packages:
     resolution: {integrity: sha512-X7sjQzceUhu1u7Y/ylrRZFU2FS6LRiFVp6rKLPg23y3x3c3DOKAwuXGDp+PAGjh6CSnCjYeAul8pcT8bAl+lSA==}
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0}
 
-  csstype@2.6.3:
-    resolution: {integrity: sha512-rINUZXOkcBmoHWEyu7JdHu5JMzkGRoMX4ov9830WNgxf5UYxcBUO0QTKAqeJ5EZfSdlrcJYkC8WwfVW7JYi4yg==}
+  csstype@3.2.3:
+    resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
   data-urls@7.0.0:
     resolution: {integrity: sha512-23XHcCF+coGYevirZceTVD7NdJOqVn+49IHyxgszm+JIiHLoB2TkmPtsYkNWT1pvRSGkc35L6NHs0yHkN2SumA==}
@@ -1956,10 +1958,10 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  react-dom@16.13.0:
-    resolution: {integrity: sha512-y09d2c4cG220DzdlFkPTnVvGTszVvNpC73v+AaLGLHbkpy3SSgvYq8x0rNwPJ/Rk/CicTNgk0hbHNw1gMEZAXg==}
+  react-dom@18.3.1:
+    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
-      react: ^16.0.0
+      react: ^18.3.1
 
   react-hook-form@5.1.1:
     resolution: {integrity: sha512-ZG5YYL7ufdBiXbCdYp3uGg6JOTTeSZ2B0RGVM9/22KXuTv0jeu9oFUa7zJVGO+tM7QN+gEbBODTIfmeQLC89EA==}
@@ -1985,8 +1987,8 @@ packages:
     peerDependencies:
       react: '>=15'
 
-  react@16.13.0:
-    resolution: {integrity: sha512-TSavZz2iSLkq5/oiE7gnFzmURKZMltmi193rm5HEoUDAXpzT9Kzw6oNZnGoai/4+fUnm7FqS5dwgUL34TujcWQ==}
+  react@18.3.1:
+    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
     engines: {node: '>=0.10.0'}
 
   rechoir@0.6.2:
@@ -2079,8 +2081,8 @@ packages:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
 
-  scheduler@0.19.0:
-    resolution: {integrity: sha512-xowbVaTPe9r7y7RUejcK73/j8tt2jfiyTednOvHbA8JoClvMYCp+r8QegLwK/n8zWQAtZb1fFnER4XLBZXrCxA==}
+  scheduler@0.23.2:
+    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
 
   semver@6.3.0:
     resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}
@@ -2532,11 +2534,11 @@ snapshots:
 
   '@exodus/bytes@1.15.0': {}
 
-  '@loadable/component@5.12.0(react@16.13.0)':
+  '@loadable/component@5.12.0(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.8.7
       hoist-non-react-statics: 3.3.2
-      react: 16.13.0
+      react: 18.3.1
 
   '@napi-rs/wasm-runtime@1.1.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)':
     dependencies:
@@ -2768,7 +2770,7 @@ snapshots:
 
   '@types/emoji-mart@2.11.3':
     dependencies:
-      '@types/react': 16.9.23
+      '@types/react': 18.3.28
 
   '@types/events@3.0.0': {}
 
@@ -2797,7 +2799,7 @@ snapshots:
 
   '@types/loadable__component@5.10.0':
     dependencies:
-      '@types/react': 16.9.23
+      '@types/react': 18.3.28
 
   '@types/markdown-it@0.0.9':
     dependencies:
@@ -2811,29 +2813,29 @@ snapshots:
 
   '@types/prop-types@15.7.0': {}
 
-  '@types/react-dom@16.9.5':
+  '@types/react-dom@18.3.7(@types/react@18.3.28)':
     dependencies:
-      '@types/react': 16.9.23
+      '@types/react': 18.3.28
 
   '@types/react-outside-click-handler@1.3.0':
     dependencies:
-      '@types/react': 16.9.23
+      '@types/react': 18.3.28
 
   '@types/react-router-dom@5.1.3':
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 16.9.23
+      '@types/react': 18.3.28
       '@types/react-router': 5.1.4
 
   '@types/react-router@5.1.4':
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 16.9.23
+      '@types/react': 18.3.28
 
-  '@types/react@16.9.23':
+  '@types/react@18.3.28':
     dependencies:
       '@types/prop-types': 15.7.0
-      csstype: 2.6.3
+      csstype: 3.2.3
 
   '@types/through@0.0.30':
     dependencies:
@@ -2919,7 +2921,7 @@ snapshots:
       clean-stack: 2.2.0
       indent-string: 4.0.0
 
-  airbnb-prop-types@2.15.0(react@16.13.0):
+  airbnb-prop-types@2.15.0(react@18.3.1):
     dependencies:
       array.prototype.find: 2.1.0
       function.prototype.name: 1.1.2
@@ -2930,7 +2932,7 @@ snapshots:
       object.entries: 1.1.1
       prop-types: 15.7.2
       prop-types-exact: 1.2.0
-      react: 16.13.0
+      react: 18.3.1
       react-is: 16.13.0
 
   ansi-escapes@4.3.0:
@@ -3172,7 +3174,7 @@ snapshots:
       mdn-data: 2.27.1
       source-map-js: 1.2.1
 
-  csstype@2.6.3: {}
+  csstype@3.2.3: {}
 
   data-urls@7.0.0:
     dependencies:
@@ -3243,10 +3245,10 @@ snapshots:
 
   electron-to-chromium@1.3.364: {}
 
-  emoji-mart@2.11.2(react@16.13.0):
+  emoji-mart@2.11.2(react@18.3.1):
     dependencies:
       prop-types: 15.7.2
-      react: 16.13.0
+      react: 18.3.1
 
   emoji-regex@8.0.0: {}
 
@@ -3880,12 +3882,12 @@ snapshots:
 
   mimic-fn@2.1.0: {}
 
-  mini-create-react-context@0.3.2(prop-types@15.7.2)(react@16.13.0):
+  mini-create-react-context@0.3.2(prop-types@15.7.2)(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.8.7
       gud: 1.0.0
       prop-types: 15.7.2
-      react: 16.13.0
+      react: 18.3.1
       tiny-warning: 1.0.3
 
   minimatch@3.0.4:
@@ -4210,60 +4212,56 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  react-dom@16.13.0(react@16.13.0):
+  react-dom@18.3.1(react@18.3.1):
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
-      prop-types: 15.7.2
-      react: 16.13.0
-      scheduler: 0.19.0
+      react: 18.3.1
+      scheduler: 0.23.2
 
-  react-hook-form@5.1.1(react@16.13.0):
+  react-hook-form@5.1.1(react@18.3.1):
     dependencies:
-      react: 16.13.0
+      react: 18.3.1
 
   react-is@16.13.0: {}
 
-  react-outside-click-handler@1.3.0(react-dom@16.13.0(react@16.13.0))(react@16.13.0):
+  react-outside-click-handler@1.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      airbnb-prop-types: 2.15.0(react@16.13.0)
+      airbnb-prop-types: 2.15.0(react@18.3.1)
       consolidated-events: 2.0.2
       document.contains: 1.0.1
       object.values: 1.1.0
       prop-types: 15.7.2
-      react: 16.13.0
-      react-dom: 16.13.0(react@16.13.0)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
-  react-router-dom@5.1.2(react@16.13.0):
+  react-router-dom@5.1.2(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.8.7
       history: 4.10.1
       loose-envify: 1.4.0
       prop-types: 15.7.2
-      react: 16.13.0
-      react-router: 5.1.2(react@16.13.0)
+      react: 18.3.1
+      react-router: 5.1.2(react@18.3.1)
       tiny-invariant: 1.1.0
       tiny-warning: 1.0.3
 
-  react-router@5.1.2(react@16.13.0):
+  react-router@5.1.2(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.8.7
       history: 4.10.1
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
-      mini-create-react-context: 0.3.2(prop-types@15.7.2)(react@16.13.0)
+      mini-create-react-context: 0.3.2(prop-types@15.7.2)(react@18.3.1)
       path-to-regexp: 1.8.0
       prop-types: 15.7.2
-      react: 16.13.0
+      react: 18.3.1
       react-is: 16.13.0
       tiny-invariant: 1.1.0
       tiny-warning: 1.0.3
 
-  react@16.13.0:
+  react@18.3.1:
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
-      prop-types: 15.7.2
 
   rechoir@0.6.2:
     dependencies:
@@ -4358,10 +4356,9 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
-  scheduler@0.19.0:
+  scheduler@0.23.2:
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
 
   semver@6.3.0: {}
 
@@ -4585,11 +4582,11 @@ snapshots:
 
   type-fest@0.8.1: {}
 
-  typeless@1.5.0(react-dom@16.13.0(react@16.13.0))(react@16.13.0)(rxjs@6.5.4):
+  typeless@1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@6.5.4):
     dependencies:
       immer: 5.3.6
-      react: 16.13.0
-      react-dom: 16.13.0(react@16.13.0)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
       rxjs: 6.5.4
 
   typescript@6.0.2: {}
