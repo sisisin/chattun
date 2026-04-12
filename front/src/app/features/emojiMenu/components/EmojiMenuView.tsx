@@ -1,4 +1,4 @@
-import { getMartEmojis } from 'app/features/slack/SlackQuery';
+import { getMartEmojis } from 'app/features/slack/selector';
 import React from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useActions, useMappedState, useSelector } from 'typeless';

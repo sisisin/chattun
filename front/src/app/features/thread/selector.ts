@@ -1,7 +1,7 @@
 import { createSelector } from 'typeless';
 import { getSlackState } from '../slack/interface';
 import { getThreadState } from './interface';
-import { toSlackMessages, slackMessageToTweet } from '../slack/SlackQuery';
+import { toSlackMessages, slackMessageToTweet } from '../slack/selector';
 import { getGlobalSettingState } from '../globalSetting/interface';
 
 export const getThreadMessages = createSelector(

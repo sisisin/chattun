@@ -1,9 +1,9 @@
-import { TweetActions } from 'app/features/tweetList/interface';
+import { TweetActions } from './components/tweet/interface';
 import { slackClient } from 'app/services/http/SlackClient';
 import React from 'react';
 import { OperatorFunction } from 'rxjs';
 import * as Rx from 'typeless/rx';
-import { getMarkedByChannels, isAfterMarked } from '../slack/SlackQuery';
+import { getMarkedByChannels, isAfterMarked } from '../slack/selector';
 import { TimelineView } from './components/TimelineView';
 import { handle, TimelineActions, TimelineState } from './interface';
 

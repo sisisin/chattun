@@ -1,4 +1,4 @@
-import { isAfterMarked } from 'app/features/slack/SlackQuery';
+import { isAfterMarked } from 'app/features/slack/selector';
 import { slackClient } from 'app/services/http/SlackClient';
 import { SessionActions } from '../session/interface';
 import { TimelineActions } from '../timeline/interface';

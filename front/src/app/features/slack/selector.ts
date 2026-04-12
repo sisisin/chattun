@@ -10,7 +10,7 @@ import {
   Reaction,
   Tweet,
 } from '../timeline/interface';
-import { getChannelName, getMessageProfile } from '../timeline/TimelineQuery';
+import { getChannelName, getMessageProfile } from '../timeline/selector';
 
 function getReactions(
   reactions: SlackEntity.Message.Reaction[] | undefined,

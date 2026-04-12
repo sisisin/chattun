@@ -4,7 +4,7 @@ import { ChannelMatch } from 'app/types/TimelineSettings';
 import { assertNever } from 'app/types/typeAssertions';
 import { createSelector } from 'typeless';
 import { getGlobalSettingState } from '../globalSetting/interface';
-import { slackMessageToTweet, toSlackMessages } from '../slack/SlackQuery';
+import { slackMessageToTweet, toSlackMessages } from '../slack/selector';
 
 export function getChannelName(
   channelMap: SlackState['channels'],

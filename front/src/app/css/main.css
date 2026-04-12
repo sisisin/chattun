@@ -10,6 +10,5 @@
 @import '../features/login/components/Login.css';
 @import '../features/setting/components/Setting.css';
 @import '../components/menu/Menu.css';
-@import '../features/tweetList/components/TweetList.css';
-@import '../features/tweetList/components/tweet/Tweet.css';
+@import '../features/timeline/components/tweet/components/Tweet.css';
 @import '../features/toast/Toast.css';

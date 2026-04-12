@@ -1,7 +1,7 @@
 import { Tweet } from 'app/features/timeline/interface';
 import React from 'react';
 import { useActions } from 'typeless';
-import { TweetActions } from '../../interface';
+import { TweetActions } from '../interface';
 
 export function useSetIntersectionObserver(
   message: Tweet,

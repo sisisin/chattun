@@ -1,8 +1,5 @@
-import React from 'react';
 import { getSlackState } from 'app/features/slack/interface';
 import { handle, TweetActions } from './interface';
-import { TweetListView } from './components/TweetList';
-import { Tweet } from '../timeline/interface';
 
 handle.epic().on(TweetActions.copyClicked, ({ msg }) => {
   const { messagesByChannel } = getSlackState();
@@ -14,10 +11,6 @@ handle.epic().on(TweetActions.copyClicked, ({ msg }) => {
   return null;
 });
 
-interface Props {
-  messages: Tweet[];
-}
-export const TweetListModule: React.FC<Props> = p => {
+export function useTweetModule() {
   handle();
-  return <TweetListView {...p}></TweetListView>;
-};
+}
