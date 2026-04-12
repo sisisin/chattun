@@ -1,5 +1,6 @@
 # Done
 
+- Task: 設定項目を日本語にする
 - Task: スレッドかどうかを視覚的にわかりやすくする
 - Task: https://github.com/sisisin/chattun/issues/32 (tone違い絵文字の表示対応)
 - Task: channels listやらをサーバー側でキャッシュ
