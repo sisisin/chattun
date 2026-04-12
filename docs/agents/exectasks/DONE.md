@@ -1,5 +1,7 @@
 # Done
 
+- Task: emoji-martのアセット最適化
+  - React.lazy + dynamic importでemoji-martデータ(429KB)を遅延ロード化、500KB超え警告解消
 - Task: server/.env.localが適切に評価されるようにする
   - Node.js 22の--env-file-if-existsをdev/dev:mockスクリプトに追加、CLAUDE.md更新
 - Task: なんか古いやつが地味に残ってるのを消す
