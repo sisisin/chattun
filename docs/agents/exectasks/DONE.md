@@ -379,3 +379,4 @@
 - Task: mrkdwn（slackの記法）をパースしてコンポーネントに落とすレイヤーを実装する
 - Task: regexでのmrkdwnのパース処理のメンテナンス性を評価し、文字走査ベースにリファクタリング
 - Task: mrkdwnパーサーにメンション・絵文字・リンクの対応を追加する
+- Task: 既存の表示パイプラインをmrkdwnパーサー+レンダラーに差し替え、dangerouslySetInnerHTMLを除去する

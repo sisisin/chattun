@@ -52,11 +52,15 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 既存の表示パイプラインをmrkdwnパーサー+レンダラーに差し替え、dangerouslySetInnerHTMLを除去する
+- Task: モックサーバーのプリセットを充実させる
+  - とりあえず現状対応している仕様を確認できる範囲は入れておきたい
 - Task: 画像付き投稿のdeep linkが動かないので修正する
   - tmp/examples/message-with-image.json にdeeplinkに失敗するmessageのjsonを置いたので参考にすること
 - Task: front/src/app/components/Routes.tsx で一段コンポーネント挟む理由ないのでなくして
-- Task: Menuで定義してる画面ごとの表示とRouteごとの表示コンポーネント定義を同じ場所で定義できるようにしたい。可能かどうかを検討して具合のいい方法があれば実装して。
+- Task: Menuで定義してる画面ごとの表示とRouteごとの表示コンポーネント定義を同じ場所で定義できるようにしたい。可能かどうかを検討して具合のいい方法があれば実装して。迷うようであればresearchとして検討結果をまとめて、Backlogにpath/to/research.mdを元に意思決定した形でリファクタリングする、というアイテムを追加して
+- Task: server,frontでsocket.ioのバージョン揃ってないので是正して
+- Task: typelessのバージョン最新にしておいて
+- Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって。実装が複雑であれば残していいよ
 - Task: serverのindex.tsがゴチャ付いてるので整理したい。少なくとも`/api/*` は分けたい
   - src/router/とか切ってapiRouter変数をexportしてindex.tsでuseするとか
 - Task: typescript 6でdeprecation warnが出ている部分を修正する
