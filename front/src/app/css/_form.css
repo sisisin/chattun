@@ -103,9 +103,7 @@ input {
 }
 
 .button-add {
-  margin-top: var(--spacing-xs);
   padding: var(--spacing-sm) var(--spacing-md);
-  font-size: var(--font-small);
   color: var(--text-base);
   cursor: pointer;
   background: none;
