@@ -4,7 +4,9 @@ import { GlobalSettingActions, GlobalSettingState, handle } from './interface';
 // --- Epic ---
 handle.epic().on(GlobalSettingActions.$mounted, () => {
   const savedSetting = settingRepository.getSetting();
-  return GlobalSettingActions.updateGlobalSetting(savedSetting || initialState);
+  return GlobalSettingActions.updateGlobalSetting(
+    savedSetting ? { ...initialState, ...savedSetting } : initialState,
+  );
 });
 
 // --- Reducer ---
