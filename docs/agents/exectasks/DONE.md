@@ -1,5 +1,8 @@
 # Done
 
+- Task: Hono移行後のOAuth認証フローが「OAuth failed」になる問題を修正する
+  - 根本原因: @slack/oauth v2→v3でcookieベースstate CSRF検証がデフォルトになり、generateInstallUrlではstate cookieが未設定
+  - generateInstallUrl → handleInstallPath + directInstall: true に切り替え、failureコールバックにエラーログ追加
 - Task: scripts/,docker/をtools/へ統合する
   - deploy系をtools/deploy/、setup系をtools/setup/、docker-composeをtools/docker/に移動
   - スクリプト内相対パス修正、CI workflow・CLAUDE.md・README.md参照更新
