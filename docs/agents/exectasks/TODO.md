@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 設定画面でヘッダが「すべての投稿」と表示され、ギアアイコンも出てしまっているのを修正
 - Task: channel matchを複数設定できるようにする。例えばstartsWith `times-eng-` と startsWith `times-pdm-` といったマッチが出来ると良い
 - Task: keyword matchは流石にメンタルモデル変なので、mute かなあ、なんかそういう感じの名前と挙動にしたい。そのうえで機能を調整したい
   - ユーザー名マッチかつ複数条件が設定できるようにしたい。difyとかdevinみたいなslack botがめちゃくちゃうるさいがちなので。placeholderも `Devin` とか入れておいてもらえるとわかりやすいかと思う

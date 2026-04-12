@@ -308,6 +308,8 @@
   - _border-radius.css: --border-radius-sm(4px)/--border-radius-md(5px)/--border-radius-lg(8px)を定義
   - Tweet.css, Login.css, _form.css, Setting.css, Menu.cssのハードコード値をトークンに置き換え
 
+- Task: 設定画面でヘッダが「すべての投稿」と表示され、ギアアイコンも出てしまっているのを修正
+  - Menu.tsxにisSetting判定を追加、設定画面ではタイトル「設定」表示・ギアアイコン非表示に
 - Task: rxjs 6→7にアップグレードする
   - rxjs 6.5.4→7.8.2にアップグレード
   - ajax()にジェネリック型引数追加、toPromise()→firstValueFrom()移行
