@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: https://github.com/sisisin/chattun/issues/32
 - Task: 画像付き投稿のdeep linkが動かないので修正する
   - 問題が検討がつかない場合はユーザーに相談する必要があるため、一旦Backlogへ退避させてこのTaskをスキップする
 - Task: slack flavored markdownを適切に扱えるようにする
@@ -73,6 +72,8 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
   - 他にもあれば
 - Task: PWAのアプリとしてインストールされてなかったときにユーザーにインストールを促すようにしたい
   - 邪魔にならないように入れたい
+- Task: serverのindex.tsがゴチャ付いてるので整理したい。少なくとも`/api/*` は分けたい
+  - src/router/とか切ってapiRouter変数をexportしてindex.tsでuseするとか
 
 # Backlog
 
