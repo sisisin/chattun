@@ -23,10 +23,14 @@ function getReactions(
               return users[user]?.name ?? user;
             }
           });
-    const emoji = emojis[r.name];
+    const emojiUrl = emojis[r.name];
+    const emoji =
+      emojiUrl !== undefined && !emojiUrl.startsWith('alias:')
+        ? convertEmoji(r.name, emojiUrl)
+        : undefined;
     res.push({
       name: r.name,
-      emoji: emoji !== undefined ? convertEmoji(r.name, emoji) : undefined,
+      emoji,
       count: r.count,
       reactors,
       reacted,

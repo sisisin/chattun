@@ -186,10 +186,6 @@
   &:hover {
     border-color: var(--border-base);
   }
-
-  & .emoji-mart-emoji {
-    vertical-align: middle;
-  }
 }
 
 .tweet-actions-reacted {
