@@ -20,7 +20,7 @@ ExecTasks の実行を指示されたら、auto memory に実行中の ExecTasks
 
 <steps>
 <step>作業ディレクトリを `docs/agents/work/{yyyymmdd-hhmm}-{branch-name}/` の形式で作成する（branch-name のスラッシュはハイフンに置換）</step>
-<step>作業ディレクトリに `task.md` を作成し、遂行するTaskの内容（達成条件、背景、スコープ）を記述する。Task定義の原文をそのまま持ってくるセクションと、それを解釈したセクションを区別すること。ローカルレビュワーはこのファイルを参照してレビューする</step>
+<step>作業ディレクトリに `task.md` を作成し、遂行するTaskを転記する。それから達成条件、スコープを記述する。Task定義の原文をそのまま持ってくるセクションと、それを解釈したセクションを区別すること。ローカルレビュワーはこのファイルを参照してレビューする</step>
 <step>Taskを満たすよう修正を入れる</step>
 <step>`/verify` を実行し、レビュー＆動作確認ループが完了するまで修正する</step>
 <step>Approveされたら、Task遂行上の障害になったことや学びを作業ディレクトリの `learnings.md` に記載し、その中で仕組として実装して解決出来そうなことは新たなTaskとして追記する</step>
@@ -52,11 +52,11 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: mrkdwnパーサーにメンション・絵文字・リンクの対応を追加する
-  - ユーザーメンション(`<@UID>`)、チャンネル参照(`<#CID|name>`)、グループメンション、特殊メンション
-  - カスタム絵文字(`:emoji:`)、標準絵文字
-  - Slackリンク(`<url|text>`)
 - Task: 既存の表示パイプラインをmrkdwnパーサー+レンダラーに差し替え、dangerouslySetInnerHTMLを除去する
+- Task: 画像付き投稿のdeep linkが動かないので修正する
+  - tmp/examples/message-with-image.json にdeeplinkに失敗するmessageのjsonを置いたので参考にすること
+- Task: front/src/app/components/Routes.tsx で一段コンポーネント挟む理由ないのでなくして
+- Task: Menuで定義してる画面ごとの表示とRouteごとの表示コンポーネント定義を同じ場所で定義できるようにしたい。可能かどうかを検討して具合のいい方法があれば実装して。
 - Task: serverのindex.tsがゴチャ付いてるので整理したい。少なくとも`/api/*` は分けたい
   - src/router/とか切ってapiRouter変数をexportしてindex.tsでuseするとか
 - Task: typescript 6でdeprecation warnが出ている部分を修正する
@@ -65,8 +65,3 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 # Backlog
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。
-
-- Task: 画像付き投稿のdeep linkが動かないので修正する
-  - 中断理由: 問題の原因調査にユーザーの協力が必要。自律的な調査では解決が難しい可能性がある
-- Task: slack flavored markdownを適切に扱えるようにする
-  - 中断理由: ロバストな設計判断にユーザーとの相談が必要。文法差異が大きく、設計の方向性確認が先決

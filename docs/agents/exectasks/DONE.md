@@ -378,3 +378,4 @@
 - Task: docs/agents/work/20260412-0954-feat-css-migration の整理（既にマージ済み、作業ディレクトリをアーカイブ）
 - Task: mrkdwn（slackの記法）をパースしてコンポーネントに落とすレイヤーを実装する
 - Task: regexでのmrkdwnのパース処理のメンテナンス性を評価し、文字走査ベースにリファクタリング
+- Task: mrkdwnパーサーにメンション・絵文字・リンクの対応を追加する
