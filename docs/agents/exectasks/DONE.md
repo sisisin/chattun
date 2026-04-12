@@ -1,5 +1,8 @@
 # Done
 
+- Task: skill類を日本語化する
+  - local-reviewer.md, start-local-review.md, do-task, skill-dev, shell-scripting, sandbox-denied-troubleshootingの6ファイルを日本語化
+  - 不要なupdate-lightdash.mdを削除、壊れたgit-push.sh参照をgit pushに修正
 - Task: ブラウザ動作確認エージェントを独立定義し、local-reviewのBrowser Verification Phaseを置き換える
   - .claude/agents/browser-verifier.md として独立エージェント化、start-local-review.md からはエージェント参照に置き換え
 - Task: httpsが自己署名証明書使ってるのをやめる

@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: skill類を日本語化する。また、ドキュメントの出力は日本語にするよう指示を修正する。なお、ドキュメントは日本語にするが、thinkingやサブエージェントへの指示などは自由で構わない、というルールにする
 - Task: serverのpnpm化
 - Task: pnpm workspace化
   - docker build時にFEのアセットビルドやserver初期化で全installが実行されないように注意
