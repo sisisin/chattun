@@ -1,4 +1,3 @@
-# NOTE: この名前はrun--notify-deploy-completed.yamlで利用しているので変更には注意
 name: Build and deploy to Cloud Run
 
 on:
@@ -52,7 +51,6 @@ jobs:
           echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
 
   deploy:
-    # NOTE: この名前は通知処理（deploy-notify-deploy-completed.ts）で利用しているので変更には注意
     name: Deploy to Cloud Run
     needs:
       - build
@@ -63,3 +61,35 @@ jobs:
     secrets: inherit
     with:
       revision: ${{ needs.build.outputs.short_sha }}
+
+  notify:
+    name: Notify deploy result
+    needs:
+      - build
+      - deploy
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Notify deploy result to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const discordWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
+            if (!discordWebhookUrl) {
+              throw new Error('DISCORD_WEBHOOK_URL is not set');
+            }
+            const hasFailed = '${{ needs.build.result }}' === 'failure' || '${{ needs.deploy.result }}' === 'failure';
+            const response = await fetch(discordWebhookUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                content: `chattun deploy ${hasFailed ? 'failure' : 'success'}`,
+                username: 'chattun bot',
+              }),
+            });
+            if (!response.ok) {
+              throw new Error(`Failed to send notification: ${response.statusText}`);
+            }
+            core.info('Notification sent successfully');
