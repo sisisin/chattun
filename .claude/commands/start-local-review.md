@@ -64,7 +64,8 @@ Use the **Agent tool** with `subagent_type: "local-reviewer"` to spawn the revie
 > 1. chrome browser tools (mcp__claude-in-chrome__*) を使ってブラウザで http://localhost:3000 にアクセスする
 > 2. 変更内容に関連するページ・機能を操作して、表示崩れやコンソールエラーがないか確認する
 > 3. 確認結果を以下のファイルに `## Browser Verification (Round {N})` セクションとして追記する: {review output file path}
->    - {N} は現在のラウンド番号
+
+Note: `{N}` は主エージェントがプロンプト構築時に現在のラウンド番号（1, 2, ...）に置換して渡すこと。
 >
 > ## 注意
 > - レビューファイルへの書き込みのみ行う。ソースコードは変更しない
