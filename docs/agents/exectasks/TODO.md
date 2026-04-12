@@ -52,8 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- service workerのビルドをvpに含めてビルドコマンドをvpに統一
-  - 多分vite plugin使う
 - Task: tsconfig.jsonのstrictFunctionTypesをtrueにする
   - 現在strict: falseでstrictFunctionTypes: false。他のstrict系は個別にtrue設定済み
   - strictFunctionTypesを有効にして型安全性を向上

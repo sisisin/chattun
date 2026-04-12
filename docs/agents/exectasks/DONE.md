@@ -154,3 +154,18 @@
   - vite, @types/history@4を明示的devDependencyに追加（pnpm strict resolution対応）
   - Routes.tsx keyプロップ重複修正、useRouter.ts型制約追加
   - test-allにvp checkを使い型チェックを含めるよう変更
+
+- Task: service workerのビルドをvpに含めてビルドコマンドをvpに統一
+  - Viteプラグイン(swPlugin)でbuildStart+configureServerフックを利用しtsc -p ./swSrcを実行
+  - build-sw, watch-sw, start-jsタスクを削除、build-jsのdependsOnも除去
+  - package.jsonのstartスクリプトをvp devのみに簡素化
+
+- Task: npm scripts, vp tasksの簡素化
+  - build-js→buildにリネーム、format/format-checkタスクを削除（vpビルトインコマンドで十分）
+  - Dockerfile, CI, pre-push, CLAUDE.mdの参照を更新
+  - TypeScript 3.8.3→6.0.2にアップグレード
+  - tsconfig.json: target es2020, module preserve, moduleResolution bundler、baseUrl→paths移行、suppressImplicitAnyIndexErrors削除
+  - swSrc/tsconfig.json: ignoreDeprecations "6.0"追加（outFile非推奨対応）
+  - vite, @types/history@4を明示的devDependencyに追加（pnpm strict resolution対応）
+  - Routes.tsx keyプロップ重複修正、useRouter.ts型制約追加
+  - test-allにvp checkを使い型チェックを含めるよう変更
