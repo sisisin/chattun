@@ -20,6 +20,9 @@ chattun は Slack のタイムラインビューアーWebアプリ。Slack Socke
 ### 起動
 
 ```sh
+# 初回セットアップ (依存インストール + git hooks 設定)
+pnpm install
+
 # Redis
 cd docker && docker-compose up
 
@@ -27,7 +30,7 @@ cd docker && docker-compose up
 cd server && pnpm dev
 
 # フロントエンド (port 3000, vite+)
-cd front && pnpm install && pnpm start
+cd front && pnpm start
 ```
 
 ### モックモード起動 (Slack不要)
