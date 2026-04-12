@@ -282,6 +282,11 @@
   - Browser Verification Phaseを追加: front/src配下のdiffがある場合にブラウザ検証サブエージェントを起動
   - 逐次実行でファイル競合を防止、lsofでdevサーバー起動確認、ラウンド番号の明示的伝達
 
+- Task: 設定画面で変更をsubmitしたときにフィードバックが欲しい。検討して追加して
+  - 汎用トースト通知をtypeless module + createPortalで実装（features/toast/）
+  - 設定保存時に「保存しました」トースト表示、2秒後自動消去
+  - タイマー競合はversion counterパターンでepic内で解決
+
 - Task: スペーシング・ボーダーラジウスのCSSトークンを追加し、ハードコード値を置き換える
   - _spacing.css: --spacing-xs(4px)〜--spacing-3xl(64px)を定義
   - _border-radius.css: --border-radius-sm(4px)/--border-radius-md(5px)/--border-radius-lg(8px)を定義

@@ -52,8 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 設定画面で変更をsubmitしたときにフィードバックが欲しい。検討して追加して
-  - トースト・ローディングアニメーションなど、実現方法はお任せする
 - Task: 設定画面にdeveloper modeのチェックを入れて。trueの場合、localStorageでデバッグ用のコピーボタン出してるやつが出てくる、といったデバッグ用の動作が有効化されるようにしたい。設定は一番下へ。
 - Task: 設定のうち、deep linkingの設定の右に配置しているselect boxの選択肢があることを示すアイコン（vの字みたいなやつ）が文字と被ってしまってるのを修正
   - そもそもアイコンが文字に被らないようにサイズが調整されるようにするべき
@@ -83,6 +81,9 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
   - https://viteplus.dev/guide/ci
 - Task: pnpm installとかpnpm runをドキュメントからなくし、vp installのようにvpを利用することを前提に修正する
   - pnpm vpってやるのダルいんだけど、パスを通すいい方法ないんすかね
+- Task: Dockerfileのリファクタリング
+  - 近年はホストマシンのコードを持ってくるのにcopyを使わずキャッシュ付きmountとかを利用するらしい
+  - 他にもあれば
 
 # Backlog
 
