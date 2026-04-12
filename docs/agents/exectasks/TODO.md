@@ -52,8 +52,22 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: serverでvp checkを利用する
-- Task: serverでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
+- Task: requestパッケージをNode.js標準のfetchに置き換えて削除する
+  - `/api/file`エンドポイントのSlackファイルプロキシで使用。requestは2020年にdeprecated
+- Task: serverのlint warningを解消する
+  - io.ts: 未使用import（AppsEventAuthorizationsListResponse, webClient, socketClient）を削除
+  - logging/logger.ts: setNameのパラメータをアンダースコアプレフィックスに
+  - index.ts: /api/fooと/api/errのデバッグエンドポイントを削除
+  - utils.ts: unsafe optional chainingの修正
+- Task: ioredisを5.xにアップデートする
+  - @types/ioredisを削除（v5で型同梱）
+- Task: connect-redisを最新にアップデートする
+  - v7+でAPIが変わっている（new RedisStore直接パターンに移行）
+  - @types/connect-redisも不要になる
+- Task: helmetを最新にアップデートする
+- Task: express-sessionを最新にアップデートする
+- Task: @slack/oauthを3.xにアップデートする
+- Task: socket.io, @slack/socket-mode, ts-node, nodemonのマイナー/パッチアップデート
 - Task: scripts/,docker/をtools/へ統合する。スクリプトの置き方は役割に沿った構成になるように調節
 - Task: .vscodeをルートに統合・chattun.code-workspaceを消す
 - Task: なんか古いやつが地味に残ってるのを消す
@@ -66,3 +80,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 # Backlog
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。
+
+- Task: express 4→5にアップデートする
+  - Breaking Changeが多い（req.query、エラーハンドリング、ルーティング等）。他の依存アップデートが落ち着いてから着手

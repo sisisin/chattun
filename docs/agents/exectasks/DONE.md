@@ -1,5 +1,14 @@
 # Done
 
+- Task: serverでモダナイズが必要な点がないかをレビューし、Taskとして追加する
+  - 依存関係: request(deprecated)、ioredis 4→5、connect-redis 4→9、helmet 4→8等のアップデートタスクを追加
+  - コード品質: lint warning解消（未使用import、デバッグエンドポイント削除）タスクを追加
+  - express 5はBreaking Changeが大きいためBacklog行き
+- Task: serverでvp checkを利用する
+  - vp-shared.tsに共通fmt/lint設定を切り出し、front/serverのvite.config.tsで共有
+  - server/vite.config.ts作成（fmt+lint設定）、ci scriptをvp checkに変更
+  - ルートvite.config.tsのstagedにserver追加、Dockerfileにvp-shared.tsコピー追加
+  - server全ソースをoxfmtでフォーマット
 - Task: serverのnpm scriptsをvp task化 + repo root運用
   - 各パッケージにci script追加（front: vp run test-all, server: tsc --noEmit）
   - git hooksをfront/.vite-hooks/からルート.vite-hooks/に移動（pre-commit: vp staged, pre-push: vp run -r ci）
