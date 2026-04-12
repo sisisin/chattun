@@ -5,3 +5,5 @@ slack-app.json
 tmp
 .env.local
 .pnpm-store
+node_modules
+/pnpm-lock.yaml

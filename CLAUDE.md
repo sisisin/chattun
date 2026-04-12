@@ -13,7 +13,7 @@ chattun は Slack のタイムラインビューアーWebアプリ。Slack Socke
 ### 前提
 
 - mise でツールバージョンを管理 (Node 22.18.0, Terraform 1.11.4)
-- front / server ともに pnpm（corepack 経由）
+- pnpm workspace（front / server）、`shared-workspace-lockfile=false` で各パッケージに個別 lockfile
 - 環境変数は `.env.local` で設定 (`mise.toml` の `_.file` で自動読み込み)
 - 必須環境変数: `SLACK_APP_TOKEN`, `CLIENT_ID`, `CLIENT_SECRET`, `SERVER_BASE_URL`
 
