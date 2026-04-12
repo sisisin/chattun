@@ -1,5 +1,10 @@
 # Done
 
+- Task: pnpm workspaceのlockfileをrootに統合する
+  - shared-workspace-lockfile=false を廃止、ルート単一lockfileに移行
+  - pnpm overrides/patchedDependencies をルート package.json に移動
+  - server に @types/node を明示追加、Dockerfile・CI workflow をワークスペース構成に対応
+  - .npmrc に save-exact=true を追加
 - Task: move-assetsタスク削除、Dockerfileでbuild出力を直接COPY
 - Task: pnpm workspace化
   - shared-workspace-lockfile=falseで各パッケージの既存lockfileを維持しつつworkspace化

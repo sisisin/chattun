@@ -52,13 +52,10 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: pnpm workspaceのlockfileをrootに統合する
-  - `shared-workspace-lockfile=false` を外し、ルート単一lockfileに移行する
-  - ルートからの `vp run -r` で全ワークスペースの依存が正しく解決できるようにする
+- Task: typescriptなどの共通の依存をrootに移動し、個別のWorkspaceパッケージは自分の必要な分だけ持つようにする
 - Task: serverのnpm scriptsをvp task化
   - githookなど、front/特化になっていたところも、Workspace前提で統合して扱えるようにする
   - あわせてvp taskをrepo rootで扱う、Workspace運用に変更する
-- Task: typescriptなどの共通の依存をrootに移動し、個別のWorkspaceパッケージは自分の必要な分だけ持つようにする
 - Task: serverでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
 - Task: scripts/,docker/をtools/へ統合する。スクリプトの置き方は役割に沿った構成になるように調節
 - Task: .vscodeをルートに統合・chattun.code-workspaceを消す
