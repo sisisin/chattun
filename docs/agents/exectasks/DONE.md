@@ -1,5 +1,8 @@
 # Done
 
+- Task: requestパッケージをNode.js標準のfetchに置き換えて削除する
+  - /api/fileエンドポイントのSlackファイルプロキシをfetch+Readable.fromWebに移行
+  - request, @types/requestを削除
 - Task: serverのtypescript本番依存をなくす。Node.jsネイティブTS実行(ESM)に移行
   - serverをESM化（"type": "module"、tsconfig module/moduleResolution: nodenext）
   - 全importに.ts拡張子追加、__dirname→import.meta.dirname
