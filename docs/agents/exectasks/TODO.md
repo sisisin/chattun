@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: typescriptを最新にする
 - Task: CSSをvite+で利用できる技術に移行し、postcssを消す
 - Task: frontの暗黙的な推移的依存を整理する
   - babel-runtime: emoji-mart 2.11.2が実質依存しているがpackage.jsonに宣言していない。emoji-martのアップデートで解消できるか検討し、可能ならアップデート、不可なら明示的依存として残す理由をコメントする

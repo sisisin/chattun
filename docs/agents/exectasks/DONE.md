@@ -118,3 +118,11 @@
   - run--notify-deploy-completed.yaml（workflow_runトリガー）の通知処理をpush--build-and-deploy.yaml内のnotifyジョブに統合
   - ジョブ結果の判定を!== 'success'に変更し、cancelled等も失敗扱いに
   - run--notify-deploy-completed.yamlを削除
+
+- Task: typescriptを最新にする
+  - TypeScript 3.8.3→6.0.2にアップグレード
+  - tsconfig.json: target es2020, module preserve, moduleResolution bundler、baseUrl→paths移行、suppressImplicitAnyIndexErrors削除
+  - swSrc/tsconfig.json: ignoreDeprecations "6.0"追加（outFile非推奨対応）
+  - vite, @types/history@4を明示的devDependencyに追加（pnpm strict resolution対応）
+  - Routes.tsx keyプロップ重複修正、useRouter.ts型制約追加
+  - test-allにvp checkを使い型チェックを含めるよう変更
