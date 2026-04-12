@@ -52,8 +52,16 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: CSSにリファクタリングした方が良い場所があるかを検討し、あればリファクタリングTaskを追加する
-  - CSSの実装とデザインガイドを読み込んで、デザインガイドに即した実装をしやすい構造が作れないかを検討するのが良いかも（指示者も疎いのでより良い洞察に向けた切り口があればやってもらってかまわない）
+- Task: _shadow.cssのbox-shadow定義のシンタックスバグを修正する
+  - --shadow-strongと--shadow-strongestがカンマ区切りになっていてシャドウが適用されない
+- Task: CSSの不要ファイル・レガシーコードを削除する
+  - 空のCSS（Timeline.css, Thread.css, EmojiMenu.css）のインポート削除
+  - _base.cssのCRAテンプレート由来の.Appスタイル（.App, .App-logo, .App-header等）を削除
+  - emoji-custom.cssの1行をTweet.cssにインライン化
+- Task: スペーシング・ボーダーラジウスのCSSトークンを追加し、ハードコード値を置き換える
+  - _spacing.css: --spacing-xs(4px)〜--spacing-3xl(64px)を定義
+  - _border-radius.css: --border-radius-sm(4px), --border-radius-lg(8px)を定義
+  - 既存のハードコード値（特にTweet.css, Login.css, _form.css）をトークンに置き換え
 - Task: 設定画面で変更をsubmitしたときにフィードバックが欲しい。検討して追加して
   - トースト・ローディングアニメーションなど、実現方法はお任せする
 - Task: 設定画面にdeveloper modeのチェックを入れて。trueの場合、localStorageでデバッグ用のコピーボタン出してるやつが出てくる、といったデバッグ用の動作が有効化されるようにしたい。設定は一番下へ。
@@ -64,6 +72,7 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: keyword matchは流石にメンタルモデル変なので、mute かなあ、なんかそういう感じの名前と挙動にしたい。そのうえで機能を調整したい
   - ユーザー名マッチかつ複数条件が設定できるようにしたい。difyとかdevinみたいなslack botがめちゃくちゃうるさいがちなので。placeholderも `Devin` とか入れておいてもらえるとわかりやすいかと思う
 - Task: mark as readはなくしちゃって、常にmark as readするようにしちゃう
+- Task: ライト・ダークモード切り替えを設定できるようにする
 - Task: Tweetのチャンネル名表示をslackへのdeep linkとして、クリックしたら開けるようにする
 - Task: alertなどのブロッキングする機能の利用をやめたい。そのためのアラート用コンポーネントを用意して載せ替える
 - Task: channels listやらをサーバー側でキャッシュ
