@@ -53,11 +53,10 @@ CERT_DIR=/etc/letsencrypt/live/local.sisisin.house
 
 ### 開発用コマンド
 
+- `vp install` (ルートで依存インストール)
 - `tools/docker/` で `docker-compose up`
 - `server/` で `pnpm dev`
-- `front/` で
-  - `pnpm install`
-  - `pnpm start`
+- `front/` で `vp dev`
 
 # 本番環境設定
 

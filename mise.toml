@@ -5,7 +5,7 @@ terraform = "1.11.4"
 
 [[env]]
 _.file=".env.local"
-_.path = ["{{config_root}}/tools/bin"]
+_.path = ["{{config_root}}/node_modules/.bin", "{{config_root}}/tools/bin"]
 LOCAL_DOMAIN="local.sisisin.house"
 
 [settings]

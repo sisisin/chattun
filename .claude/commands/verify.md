@@ -69,7 +69,7 @@ Review history: {Round 2以降ならレビューファイルパスを記載。Ro
 
 **前提**: devサーバー（port 3000）とモックサーバー（port 3100）が起動していること。起動していなければ以下で起動する:
 - `cd server && pnpm dev:mock &`
-- `cd front && VITE_MOCK_MODE=true pnpm start &`
+- `cd front && VITE_MOCK_MODE=true vp dev &`
 
 general-purpose エージェントを起動し、`.claude/agents/browser-verifier.md` の手順に従わせる:
 
