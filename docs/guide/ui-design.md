@@ -34,6 +34,8 @@ chattunのUIデザイン仕様。新しいUIを実装する際はこのガイド
 
 直接カラーコードを使わず、セマンティックトークンを使うこと。ダーク/ライトモードで自動的に切り替わる。
 
+> 以下の表のライト/ダークモード列の値はCSSカスタムプロパティ名（`--` 付き）を省略して記載している。実際のCSSでは `var(--light-main)` のように参照する。
+
 ### テキスト
 
 | トークン | ライトモード | ダークモード | 用途 |
@@ -62,19 +64,27 @@ chattunのUIデザイン仕様。新しいUIを実装する際はこのガイド
 
 ### シャドウ
 
-5段階（weakest → strongest）。カードhoverには `--shadow-normal` を使用。
+| トークン | 値 | 用途 |
+|---|---|---|
+| `--shadow-weakest` | 0 1px 2px | 最も弱いシャドウ |
+| `--shadow-weak` | 0 1px 2px | 弱めのシャドウ |
+| `--shadow-normal` | 0 1px 2px | 標準シャドウ（カードhover） |
+| `--shadow-strong` | 0 2px 4px | 強めのシャドウ（ヘッダー） |
+| `--shadow-strongest` | 0 2px 4px | 最も強いシャドウ |
+
+各シャドウの色は `--shadow-color-*` でダーク/ライトモードごとに定義される。
 
 ## タイポグラフィ
 
 ### フォント
 
 ```css
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-  'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-  'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+  'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+  'Helvetica Neue', sans-serif;
 ```
 
-コード用: `SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace`
+コード用: `source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace`
 
 ### フォントサイズ
 
@@ -142,7 +152,7 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
 
 ## アイコン
 
-SVGベースのカスタムアイコン（`app/components/icons/Icons.tsx`）。
+SVGベースのカスタムアイコン（`front/src/app/components/icons/Icons.tsx`）。
 
 - stroke ベース（fill: none）
 - stroke 色: `--icon`（ダーク/ライトモードで自動切替）
@@ -151,7 +161,9 @@ SVGベースのカスタムアイコン（`app/components/icons/Icons.tsx`）。
 
 ## ダークモード
 
-`prefers-color-scheme: dark` メディアクエリで自動切替。セマンティックトークンが自動的に再マッピングされるため、コンポーネントでは直接カラーコードを使わずトークンを参照すること。
+現在の実装では、`:root` にライトモード用の値がデフォルトとして定義されており、`@media (prefers-color-scheme: dark)` メディアクエリ内でダークモード用の値に上書きする構造になっている。（ライトモード用の `prefers-color-scheme: light` メディアクエリはコメントアウトされている。）
+
+セマンティックトークンが自動的に再マッピングされるため、コンポーネントでは直接カラーコードを使わずトークンを参照すること。
 
 ## レスポンシブ
 
