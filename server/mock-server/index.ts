@@ -1,8 +1,7 @@
 import express from 'express';
 import http from 'http';
 import path from 'path';
-import socketIo from 'socket.io';
-const { Server } = socketIo;
+import { Server } from 'socket.io';
 import { getPreset, listPresets } from './presets.ts';
 
 const PORT = process.env.PORT || 3100;

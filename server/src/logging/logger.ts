@@ -1,6 +1,7 @@
 import type express from 'express';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { extractTrace } from './trace.ts';
+import type { LogLevel as LogLevelType } from '@slack/oauth';
 import slackOauth from '@slack/oauth';
 const { LogLevel } = slackOauth;
 
@@ -127,7 +128,7 @@ export const slackLogger = {
         return LogLevel.INFO;
     }
   },
-  setLevel(level: LogLevel) {
+  setLevel(level: LogLevelType) {
     switch (level) {
       case LogLevel.DEBUG:
         LOGLEVEL = 'DEBUG';
