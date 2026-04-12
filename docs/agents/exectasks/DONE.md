@@ -119,6 +119,11 @@
   - ジョブ結果の判定を!== 'success'に変更し、cancelled等も失敗扱いに
   - run--notify-deploy-completed.yamlを削除
 
+- Task: postcss-custom-mediaとpostcss-nestingをネイティブCSSに置き換え、postcss.config.jsを削除する
+  - @custom-mediaをネイティブ@media値に展開、_media_queries.cssを削除
+  - postcss.config.jsを削除、autoprefixerのみvite.config.tsのcss.postcssに移行
+  - postcss-custom-media, postcss-nestingパッケージを削除
+
 - Task: 不要なファイル・パッケージを削除する
   - story2sketch.config.js（Storybook削除後の残骸）、buffer/processパッケージ（CRA時代のpolyfill）を削除
 

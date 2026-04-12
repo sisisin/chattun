@@ -52,9 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: postcss-custom-mediaとpostcss-nestingをネイティブCSSに置き換え、postcss.config.jsを削除する
-  - browserslistがIE11を除外しているためネイティブCSS nesting・@mediaで十分
-  - autoprefixerのみ残す場合はvite.config.tsのcss.postcss設定に移行
 - Task: React 16→18にアップグレードする
   - ReactDOM.render→createRoot移行
   - unmountComponentAtNode→root.unmount()移行
