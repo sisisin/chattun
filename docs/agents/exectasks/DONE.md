@@ -1,5 +1,8 @@
 # Done
 
+- Task: serverのpnpm化
+  - pnpm importでyarn.lockからpnpm-lock.yaml生成、Dockerfile・CI・ドキュメント更新
+  - Dockerfileのfront/patchesコピー漏れも修正（既存バグ）
 - Task: skill類を日本語化する
   - local-reviewer.md, start-local-review.md, do-task, skill-dev, shell-scripting, sandbox-denied-troubleshootingの6ファイルを日本語化
   - 不要なupdate-lightdash.mdを削除、壊れたgit-push.sh参照をgit pushに修正
