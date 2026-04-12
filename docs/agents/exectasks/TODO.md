@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: rxjs 6→7にアップグレードする
 - Task: react-hook-form を別のformライブラリを検討して移行する
   - tanstackがいいかも
 - Task: react-router-domを別のrouterライブラリを検討して移行する
@@ -62,6 +61,12 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: httpsが自己署名証明書使ってるのをやめる
   - copy_pem.shで持ってきた証明書を利用して、ブラウザで開いたときに警告が出ないようにする
   - 補足: ../myinfraにlet's encryptで発行したローカル用ドメインの証明書に関するセットアップが書かれてるので必要であれば参照して
+- Task: serverのpnpm化
+- Task: pnpm workspace化
+  - docker build時にFEのアセットビルドやserver初期化で全installが実行されないように注意
+- Task: serverのnpm scriptsをvp task化
+  - githookなど、front/特化になっていたところも、Workspace前提で統合して扱えるようにする
+- Task: serverでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
 
 # Backlog
 
