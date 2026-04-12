@@ -1,5 +1,8 @@
 # Done
 
+- Task: デプロイが必要なときだけ動くようになってほしい
+  - pathsフィルタでfront/server/pnpm/mise等の変更時のみデプロイ実行
+  - 通知にコミットメッセージ・リビジョン・GitHub Actionsリンクを追加、workflow_dispatchフォールバック対応
 - Task: _shadow.cssのbox-shadow定義のシンタックスバグを修正する
   - --shadow-strongと--shadow-strongestのカンマ区切りをスペース区切りに修正
 - Task: CSSにリファクタリングした方が良い場所があるかを検討し、あればリファクタリングTaskを追加する

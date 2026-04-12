@@ -52,9 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: デプロイが必要なときだけ動くようになってほしい
-  - mise.toml,pnpm系,front,serverといった必要な変更にだけ反応させたい
-  - ついでに完了通知にデプロイしたリビジョンのコミットメッセージ、actionへのリンクが含まれて欲しい
 - Task: CSSの不要ファイル・レガシーコードを削除する
   - 空のCSS（Timeline.css, Thread.css, EmojiMenu.css）のインポート削除
   - \_base.cssのCRAテンプレート由来の.Appスタイル（.App, .App-logo, .App-header等）を削除
@@ -86,6 +83,7 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: スレッドかどうかを視覚的にわかりやすくする
   - 今はタイムライン画面で平たく表示されていて区別がつかないため、分かりにくい。スレッドであることが分かりやすくしたい
 - Task: 設定項目を日本語にする
+- Task: 自分へのメンションがハイライトされるようにする
 
 # Backlog
 
