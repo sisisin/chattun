@@ -152,16 +152,15 @@
 }
 
 .tweet-actions-list {
-  display: grid;
-  grid-template-rows: 28px;
-  grid-template-columns: auto auto auto auto 1fr;
+  display: flex;
+  align-items: center;
+  min-height: 28px;
 }
 
 .tweet-actions-list-openslack {
   display: flex;
   align-items: center;
   justify-content: center;
-  justify-self: right;
   width: 34px;
   margin: 0 var(--spacing-sm) 0 0;
   text-align: center;
@@ -221,11 +220,9 @@
 }
 
 .tweet-actions-thread-link {
-  display: block;
-  margin-top: var(--spacing-xs);
+  margin-left: auto;
   font-size: var(--font-small-ex);
   color: var(--text-sub);
-  text-align: right;
   text-decoration: none;
 
   &:hover {

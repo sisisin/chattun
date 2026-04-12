@@ -177,19 +177,19 @@ export const TweetItem = ({ message, parentRef }: Props) => {
             </span>
           </AppLink>
           <DeepLinkingButton {...message.slackLink} />
+          {message.threadTs && (
+            <AppLink
+              className="tweet-actions-thread-link"
+              to="/thread/$channelId/$ts"
+              params={{
+                channelId: message.channelId,
+                ts: linkingTs,
+              }}
+            >
+              スレッドを表示
+            </AppLink>
+          )}
         </div>
-        {message.threadTs && (
-          <AppLink
-            className="tweet-actions-thread-link"
-            to="/thread/$channelId/$ts"
-            params={{
-              channelId: message.channelId,
-              ts: linkingTs,
-            }}
-          >
-            スレッドを表示
-          </AppLink>
-        )}
       </div>
     </li>
   );
