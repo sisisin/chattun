@@ -1,5 +1,7 @@
 # Done
 
+- Task: CSSの不要ファイル・レガシーコードを削除する
+  - 空CSS（Timeline.css, Thread.css, EmojiMenu.css）削除、_base.cssのCRA .Appスタイル削除、emoji-custom.cssをTweet.cssにインライン化
 - Task: デプロイが必要なときだけ動くようになってほしい
   - pathsフィルタでfront/server/pnpm/mise等の変更時のみデプロイ実行
   - 通知にコミットメッセージ・リビジョン・GitHub Actionsリンクを追加、workflow_dispatchフォールバック対応

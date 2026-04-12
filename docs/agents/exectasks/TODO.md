@@ -52,10 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: CSSの不要ファイル・レガシーコードを削除する
-  - 空のCSS（Timeline.css, Thread.css, EmojiMenu.css）のインポート削除
-  - \_base.cssのCRAテンプレート由来の.Appスタイル（.App, .App-logo, .App-header等）を削除
-  - emoji-custom.cssの1行をTweet.cssにインライン化
 - Task: スペーシング・ボーダーラジウスのCSSトークンを追加し、ハードコード値を置き換える
   - \_spacing.css: --spacing-xs(4px)〜--spacing-3xl(64px)を定義
   - \_border-radius.css: --border-radius-sm(4px), --border-radius-lg(8px)を定義
@@ -84,6 +80,10 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
   - 今はタイムライン画面で平たく表示されていて区別がつかないため、分かりにくい。スレッドであることが分かりやすくしたい
 - Task: 設定項目を日本語にする
 - Task: 自分へのメンションがハイライトされるようにする
+- Task: pretteir.config.jsいらんくね？
+- Task: pinactをmiseで入れて、pre commitで実行されるようにする
+- Task: ciでvite-plusの公式アクションを利用するように修正する
+  - https://viteplus.dev/guide/ci
 
 # Backlog
 
