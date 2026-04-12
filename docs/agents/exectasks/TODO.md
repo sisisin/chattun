@@ -52,8 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: ioredisを5.xにアップデートする
-  - @types/ioredisを削除（v5で型同梱）
 - Task: expressをhonoに移行する
   - express, express-session, connect-redis, helmet, @types/express, @types/express-session, @types/connect-redisを置き換え
   - hono標準のミドルウェアでセッション・セキュリティヘッダーを実現

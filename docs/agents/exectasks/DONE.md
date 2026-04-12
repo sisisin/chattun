@@ -1,5 +1,8 @@
 # Done
 
+- Task: ioredisを5.xにアップデートする
+  - ioredis 4.27.7→5.10.1にアップグレード、@types/ioredisを削除（v5で型同梱）
+  - new Redis()コンストラクタ引数をオブジェクト形式に変更（v5のBreaking Change）
 - Task: serverのlint warning 7件を解消する
   - io.ts: 未使用import削除、logger.ts: _nameプレフィックス、index.ts: デバッグエンドポイント削除、utils.ts: unsafe optional chaining修正
 - Task: requestパッケージをNode.js標準のfetchに置き換えて削除する
