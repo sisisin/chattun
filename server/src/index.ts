@@ -50,8 +50,8 @@ async function main() {
 
   // OAuth routes
   app.get('/api/auth/slack', async c => {
-    const url = await installer.generateInstallUrl({
-      scopes: [],
+    const installUrlOptions = {
+      scopes: [] as string[],
       userScopes: [
         'channels:history',
         'channels:read',
@@ -64,23 +64,27 @@ async function main() {
         'files:read',
       ],
       redirectUri: `${serverBaseUrl}/api/slack/oauth_redirect`,
-    });
-    return c.redirect(url);
+    };
+    const { incoming, outgoing } = c.env;
+    await installer.handleInstallPath(incoming, outgoing, {}, installUrlOptions);
+    // handleInstallPath writes the response directly to outgoing (res.writeHead + res.end).
+    // Signal @hono/node-server to skip writing to outgoing again.
+    return new Response(null, { headers: { 'x-hono-already-sent': '1' } });
   });
 
   app.get('/api/slack/oauth_redirect', async c => {
     const { incoming, outgoing } = c.env;
 
     let installation: any = null;
-    let failed = false;
+    let failureError: Error | null = null;
 
     try {
       await installer.handleCallback(incoming, outgoing, {
         success: inst => {
           installation = inst;
         },
-        failure: () => {
-          failed = true;
+        failure: error => {
+          failureError = error;
         },
       });
     } catch (err) {
@@ -88,7 +92,8 @@ async function main() {
       return c.text('OAuth failed', 500);
     }
 
-    if (failed) {
+    if (failureError) {
+      logger.errore('OAuth callback failure', failureError);
       return c.text('OAuth failed', 500);
     }
 
