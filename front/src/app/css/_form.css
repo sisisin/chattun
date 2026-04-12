@@ -22,7 +22,7 @@ input {
   }
 }
 
-@media (prefers-color-scheme: dark) {
+[data-theme='dark'] {
   select {
     color: var(--text-revert);
     background: var(--background-sub);
@@ -142,7 +142,7 @@ input {
   stroke: var(--text-main);
 }
 
-@media (prefers-color-scheme: dark) {
+[data-theme='dark'] {
   .checkbox-chaticon {
     width: 28px;
     height: 28px;

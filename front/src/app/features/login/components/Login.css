@@ -12,10 +12,8 @@
   background-size: cover;
 }
 
-@media (prefers-color-scheme: dark) {
-  .login-visual {
-    background-image: url(../assets/background_chattun_dark.jpg);
-  }
+[data-theme='dark'] .login-visual {
+  background-image: url(../assets/background_chattun_dark.jpg);
 }
 
 .login-input {
