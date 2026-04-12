@@ -68,4 +68,4 @@ jobs:
       - name: Install dependencies
         working-directory: ./
         run: vp install --frozen-lockfile
-      - run: pnpm run ci
+      - run: vp check
