@@ -2,6 +2,6 @@ vp staged
 
 # Pin GitHub Actions versions to commit SHAs
 if git diff --cached --name-only | grep -qE '^\.github/'; then
-  pinact run
+  mise x -- pinact run
   git diff --cached --name-only | grep -E '^\.github/' | while read -r f; do git add "$f"; done
 fi

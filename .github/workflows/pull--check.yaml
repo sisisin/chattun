@@ -27,20 +27,18 @@ jobs:
           version=$(cat mise.toml | grep -E '^node' | cut -d '=' -f 2 | tr -d '[:space:]' | tr -d '"')
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - run: corepack enable pnpm
-
-      - name: Setup Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      - name: Setup vite-plus
+        uses: voidzero-dev/setup-vp@8ecb39174989ce55af90f45cf55b02738599831d # v1.6.0
         with:
           node-version: ${{ steps.node-version.outputs.version }}
-          cache: 'pnpm'
-          cache-dependency-path: 'pnpm-lock.yaml'
+          cache: true
+          run-install: false
 
       - name: Install dependencies
         working-directory: ./
-        run: pnpm install --frozen-lockfile
-      - run: pnpm vp run build
-      - run: pnpm vp run test-all
+        run: vp install --frozen-lockfile
+      - run: vp run build
+      - run: vp run test-all
 
   server-check:
     name: Server Type Check
@@ -60,16 +58,14 @@ jobs:
           version=$(cat mise.toml | grep -E '^node' | cut -d '=' -f 2 | tr -d '[:space:]' | tr -d '"')
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - run: corepack enable pnpm
-
-      - name: Setup Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      - name: Setup vite-plus
+        uses: voidzero-dev/setup-vp@8ecb39174989ce55af90f45cf55b02738599831d # v1.6.0
         with:
           node-version: ${{ steps.node-version.outputs.version }}
-          cache: 'pnpm'
-          cache-dependency-path: 'pnpm-lock.yaml'
+          cache: true
+          run-install: false
 
       - name: Install dependencies
         working-directory: ./
-        run: pnpm install --frozen-lockfile
+        run: vp install --frozen-lockfile
       - run: pnpm run ci
