@@ -42,12 +42,16 @@ Use the **Agent tool** with `subagent_type: "local-reviewer"` to spawn the revie
 
 #### Browser Verification Phase
 
-After the code review, check if the diff includes frontend-related files (`front/src/**/*.{ts,tsx,css}`).
+**実行条件**: ブランチ全体のdiff（`git diff main...HEAD --name-only`）に `front/src/` 配下のファイル（`.ts`, `.tsx`, `.css`）が含まれる場合のみ実行する。含まれない場合はスキップ。
 
-If frontend files are changed:
+**実行タイミング**: Review Phase が完了した後に逐次実行する（レビューファイルへの書き込み競合を防ぐため、Review Phase のサブエージェント完了を待ってから実行すること）。
 
-1. Ensure the dev server is running (`cd front && pnpm start` — if already running, skip)
-2. Use the **Agent tool** with `subagent_type: "general-purpose"` to spawn a browser verification subagent with the following prompt:
+**各ラウンドでの実行**: Round 1 で必ず実行する。Round 2 以降は、そのラウンドの Fix Phase でフロント関連ファイルを修正した場合のみ再実行する。
+
+手順:
+
+1. devサーバーが起動しているか確認する（`lsof -i :3000` でポートを確認）。起動していなければ `cd front && pnpm start` をバックグラウンドで起動する
+2. Review Phase のサブエージェント完了後、**Agent tool** (`subagent_type: "general-purpose"`) でブラウザ検証サブエージェントを起動する:
 
 > フロントエンドの動作検証を行ってください。
 >
@@ -59,14 +63,12 @@ If frontend files are changed:
 > ## 手順
 > 1. chrome browser tools (mcp__claude-in-chrome__*) を使ってブラウザで http://localhost:3000 にアクセスする
 > 2. 変更内容に関連するページ・機能を操作して、表示崩れやコンソールエラーがないか確認する
-> 3. 確認結果を以下のファイルに `## Browser Verification (Round N)` セクションとして追記する: {review output file path}
+> 3. 確認結果を以下のファイルに `## Browser Verification (Round {N})` セクションとして追記する: {review output file path}
+>    - {N} は現在のラウンド番号
 >
 > ## 注意
 > - レビューファイルへの書き込みのみ行う。ソースコードは変更しない
 > - コンソールエラーの有無、表示崩れ、基本操作の動作を確認する
-> - モックモードで起動している場合は http://localhost:3000 にモックデータが表示される前提で確認する
-
-If no frontend files are changed, skip this phase.
 
 #### Fix Phase (if NEEDS_FIX)
 
