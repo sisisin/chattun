@@ -132,6 +132,10 @@ async function main() {
       }
       const contentType = upstream.headers.get('content-type');
       if (contentType) res.setHeader('Content-Type', contentType);
+      if (!upstream.body) {
+        res.status(502).end();
+        return;
+      }
       Readable.fromWeb(upstream.body as any).pipe(res);
     } catch (error) {
       next(error);
