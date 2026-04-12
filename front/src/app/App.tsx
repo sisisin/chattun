@@ -1,7 +1,8 @@
+import { RouterProvider } from '@tanstack/react-router';
 import { useSlackModule } from 'app/features/slack/module';
+import { router } from 'app/router';
 import * as React from 'react';
 import { PwaInstallBanner } from './components/PwaInstallBanner';
-import { Routes } from './components/Routes';
 import { useGlobalSettingModule } from './features/globalSetting/module';
 import { useSessionModule } from './features/session/module';
 import { Toast } from './features/toast/module';
@@ -13,7 +14,7 @@ export const App = () => {
 
   return (
     <>
-      <Routes />
+      <RouterProvider router={router} />
       <Toast />
       <PwaInstallBanner />
     </>
