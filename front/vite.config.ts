@@ -1,4 +1,5 @@
 import { configDefaults, defineConfig } from 'vite-plus';
+import autoprefixer from 'autoprefixer';
 import fs from 'fs';
 import path from 'path';
 
@@ -18,6 +19,11 @@ const https =
     : undefined;
 
 export default defineConfig({
+  css: {
+    postcss: {
+      plugins: [autoprefixer()],
+    },
+  },
   oxc: {
     jsx: { runtime: 'classic' },
   },

@@ -37,7 +37,7 @@
   text-align: center;
 }
 
-@media (--large) {
+@media (min-width: 480px) {
   .login-visual-text {
     max-width: 100%;
   }
@@ -63,7 +63,7 @@
   text-align: center;
 }
 
-@media (--main) {
+@media (min-width: 960px) {
   .login {
     grid-template-columns: 60% 40%;
   }
