@@ -282,6 +282,10 @@
   - Browser Verification Phaseを追加: front/src配下のdiffがある場合にブラウザ検証サブエージェントを起動
   - 逐次実行でファイル競合を防止、lsofでdevサーバー起動確認、ラウンド番号の明示的伝達
 
+- Task: select boxのアイコンが文字と被る問題を修正
+  - selectにpadding-right: var(--spacing-lg)を追加してアイコン用スペースを確保
+  - アイコンをtop:50%+translateY(-50%)で垂直中央配置に変更、pointer-events:none追加
+
 - Task: 設定画面にdeveloper modeのチェックを追加
   - TimelineSettingsにdeveloperMode: boolean追加、設定画面の一番下にチェックボックス配置
   - Tweet.tsxのlocalStorage.getItem('EC')をglobalSetting経由のdeveloperModeに置き換え

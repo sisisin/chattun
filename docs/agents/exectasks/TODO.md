@@ -52,8 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 設定のうち、deep linkingの設定の右に配置しているselect boxの選択肢があることを示すアイコン（vの字みたいなやつ）が文字と被ってしまってるのを修正
-  - そもそもアイコンが文字に被らないようにサイズが調整されるようにするべき
 - Task: 設定画面でヘッダが「すべての投稿」と表示され、ギアアイコンも出てしまっているのを修正
 - Task: channel matchを複数設定できるようにする。例えばstartsWith `times-eng-` と startsWith `times-pdm-` といったマッチが出来ると良い
 - Task: keyword matchは流石にメンタルモデル変なので、mute かなあ、なんかそういう感じの名前と挙動にしたい。そのうえで機能を調整したい
