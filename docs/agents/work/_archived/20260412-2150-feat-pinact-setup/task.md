@@ -16,3 +16,7 @@ pinact は GitHub Actions のバージョンをコミットSHAにピン留めす
 - mise.toml に pinact を追加
 - pre-commit フックに pinact run を追加
 - 既存ワークフローに pinact run を適用
+
+## 検証ステップ
+
+- [x] review
