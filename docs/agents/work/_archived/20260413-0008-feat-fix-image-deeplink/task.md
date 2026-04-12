@@ -17,3 +17,8 @@
 ## スコープ
 - `front/src/app/types/slack/SlackEntity.d.ts` — files型に `user_team` 追加
 - `front/src/app/features/slack/SlackQuery.ts` — `getTeamId` ヘルパー追加、`getSlackLink`/`getChannelLink` で利用
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
