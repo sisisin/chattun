@@ -34,8 +34,11 @@ jobs:
         with:
           node-version: ${{ steps.node-version.outputs.version }}
           cache: 'pnpm'
-          cache-dependency-path: 'front/pnpm-lock.yaml'
-      - run: pnpm install --frozen-lockfile
+          cache-dependency-path: 'pnpm-lock.yaml'
+
+      - name: Install dependencies
+        working-directory: ./
+        run: pnpm install --frozen-lockfile
       - run: pnpm vp run build
       - run: pnpm vp run test-all
 
@@ -64,6 +67,9 @@ jobs:
         with:
           node-version: ${{ steps.node-version.outputs.version }}
           cache: 'pnpm'
-          cache-dependency-path: 'server/pnpm-lock.yaml'
-      - run: pnpm install --frozen-lockfile
+          cache-dependency-path: 'pnpm-lock.yaml'
+
+      - name: Install dependencies
+        working-directory: ./
+        run: pnpm install --frozen-lockfile
       - run: npx tsc --noEmit
