@@ -4,3 +4,4 @@ slack-app.json
 
 tmp
 .env.local
+.pnpm-store
