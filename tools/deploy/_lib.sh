@@ -2,7 +2,7 @@
 
 readonly repo_root="$script_dir/../.."
 
-output=$(terraform -chdir=${script_dir}/../terraform output -json)
+output=$(terraform -chdir="$repo_root/terraform" output -json)
 region=$(echo "$output" | jq -r '.region.value')
 chattun_service_name=$(echo "$output" | jq -r '.chattun_server_name.value')
 chattun_server_service_account=$(echo "$output" | jq -r '.chattun_server_service_account.value')
