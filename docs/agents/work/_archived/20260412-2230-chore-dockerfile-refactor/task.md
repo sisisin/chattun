@@ -18,3 +18,7 @@
 - `--mount=type=cache,id=pnpm,target=/pnpm/store` を両ステージの pnpm install に追加
 - builder/runner ともに slim イメージベースに変更
 - bind mount による COPY 置換は複雑さに見合わないため不採用
+
+## 検証ステップ
+
+- [x] review
