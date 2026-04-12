@@ -328,8 +328,6 @@ async function main() {
   process.on('SIGINT', shutdown('SIGINT'));
 }
 
-// プロセスをクラッシュさせずに構造化ログへ記録する。
-// Cloud Run上でunhandled rejectionによるexit(1)→インスタンス再起動の連鎖を防止する意図的な設計。
 process.on('unhandledRejection', reason => {
   if (reason instanceof ErrorWithLogContext) {
     const [context, cause] = reason.unwrapAndGetContext();
@@ -337,6 +335,7 @@ process.on('unhandledRejection', reason => {
   } else {
     logger.errore('Unhandled rejection', reason);
   }
+  process.exit(1);
 });
 process.on('uncaughtException', err => {
   logger.errore('Uncaught exception', err);
