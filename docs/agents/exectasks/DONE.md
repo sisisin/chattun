@@ -1,5 +1,8 @@
 # Done
 
+- Task: .vscodeをルートに統合・chattun.code-workspaceを消す
+  - front/.vscode, server/.vscode をルート.vscodeに統合、chattun.code-workspace削除
+  - 不要なlaunch.json(Nodemon)とPrettier拡張推奨を削除
 - Task: Hono移行後のOAuth認証フローが「OAuth failed」になる問題を修正する
   - 根本原因: @slack/oauth v2→v3でcookieベースstate CSRF検証がデフォルトになり、generateInstallUrlではstate cookieが未設定
   - generateInstallUrl → handleInstallPath + directInstall: true に切り替え、failureコールバックにエラーログ追加
