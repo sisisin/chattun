@@ -8,7 +8,7 @@ COPY .npmrc* ./
 COPY front/package.json ./front/
 COPY front/patches ./front/patches
 COPY server/package.json ./server/
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 COPY ./front ./front
 RUN pnpm --filter chattun-front exec vp run build

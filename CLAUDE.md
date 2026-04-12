@@ -69,7 +69,7 @@ pnpm vp run build          # 本番ビルド
 pnpm vp run test-all       # check + test 一括実行
 
 # サーバー (cd server で実行)
-pnpm ci                    # TypeScript型チェック (tsc --noEmit)
+pnpm run ci                # TypeScript型チェック (tsc --noEmit)
 ```
 
 ### デプロイ

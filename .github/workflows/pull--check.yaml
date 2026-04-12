@@ -72,4 +72,4 @@ jobs:
       - name: Install dependencies
         working-directory: ./
         run: pnpm install --frozen-lockfile
-      - run: npx tsc --noEmit
+      - run: pnpm run ci
