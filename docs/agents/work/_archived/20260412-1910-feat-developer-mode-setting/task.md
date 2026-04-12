@@ -15,3 +15,8 @@
 - globalSettingModuleでdeveloperModeを参照可能にする
 - 設定画面にDeveloperModeSettingコンポーネントを追加（一番下）
 - Tweet.tsxのlocalStorage参照をglobalSetting経由に変更
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
