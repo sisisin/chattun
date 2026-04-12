@@ -374,3 +374,4 @@
   - test-allにvp checkを使い型チェックを含めるよう変更
 - Task: slack flavored markdownを適切に扱うためにはどんな選択肢があるかを調査し、その結果を作業ディレクトリにresearch.mdに書く
 - Task: timelineでスレッド投稿の右下にスレッドページへのリンクを表示させる
+- Task: PWAのアプリとしてインストールされてなかったときにユーザーにインストールを促すようにしたい
