@@ -52,14 +52,14 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 画像付き投稿のdeep linkが動かないので修正する
-  - tmp/examples/message-with-image.json にdeeplinkに失敗するmessageのjsonを置いたので参考にすること
-- Task: front/src/app/components/Routes.tsx で一段コンポーネント挟む理由ないのでなくして
-- Task: Menuで定義してる画面ごとの表示とRouteごとの表示コンポーネント定義を同じ場所で定義できるようにしたい。可能かどうかを検討して具合のいい方法があれば実装して。迷うようであればresearchとして検討結果をまとめて、Backlogにpath/to/research.mdを元に意思決定した形でリファクタリングする、というアイテムを追加して
 - Task: Timeline,TweetList,Tweet,slack/SlackQuery,mrkdwnらへんがちょっとロジックが散逸してて見通しが悪いので整理して
   - 特にTweetListはtypeless moduleの実装がすっからかんなので、timelineに寄せて良いと思う
   - TweetのBody部分をTweetBodyとかにして、そのなかにmrkdwnとかを押し込めたほうがよさそう
   - SlackQueryに実装されてる関数が、selectorだったりTweet系コンポーネント向けの関数だったりでばらつきがありそう。selectorはselector.tsって名前にして置いてあるほうが良さそう（他の\*Query.ts系全般に言える）
+  - featuresはネストしていいので、例えばtimeline/tweet/とかも有り（tweetはthreadで再利用するからこうはならないが）
+- Task: Tweetが「テキスト・ファイル・添付画像すべて空なら非表示」となっているが、表示はして。本文がパースできなかった場合にTweetBodyは対応してないメッセージ形式なんでslack appを見てくれ、とでも出しておいて
+- Task: front/src/app/components/Routes.tsx で一段コンポーネント挟む理由ないのでなくして
+- Task: Menuで定義してる画面ごとの表示とRouteごとの表示コンポーネント定義を同じ場所で定義できるようにしたい。可能かどうかを検討して具合のいい方法があれば実装して。迷うようであればresearchとして検討結果をまとめて、Backlogにpath/to/research.mdを元に意思決定した形でリファクタリングする、というアイテムを追加して
 - Task: server,frontでsocket.ioのバージョン揃ってないので是正して
 - Task: typelessのバージョン最新にしておいて
 - Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって。実装が複雑であれば残していいよ
