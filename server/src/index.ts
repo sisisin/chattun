@@ -53,16 +53,6 @@ async function main() {
     }),
   );
 
-  app.get('/api/foo', (req, res) => {
-    logger.info('debug log', { v: req.header('X-Cloud-Trace-Context') });
-    logger.info('debug log', { v: req.header('x-cloud-trace-context') });
-    res.json({ bar: 'yeh' });
-  });
-  app.get('/api/err', (req, res) => {
-    logger.info('debug log');
-    throw new Error('test error');
-  });
-
   app.get('/api/auth/slack', async (req, res, next) => {
     try {
       const url = await installer.generateInstallUrl({

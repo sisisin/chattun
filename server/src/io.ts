@@ -1,8 +1,6 @@
-import type { AppsEventAuthorizationsListResponse } from '@slack/web-api';
 import { createIOAdapter } from './redis.ts';
 import { Server } from 'socket.io';
 import type * as http from 'http';
-import { webClient, socketClient } from './slack.ts';
 import { logger } from './logging/logger.ts';
 import { getSessionProfileFromRequest } from './utils.ts';
 

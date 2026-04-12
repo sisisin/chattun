@@ -1,9 +1,8 @@
 export function getSessionProfileFromRequest(req: any) {
-  if (!(req.session as any)?.slack?.user) {
+  const user = (req.session as any)?.slack?.user;
+  if (!user) {
     return undefined;
   }
 
-  const { token, id } = (req.session as any)?.slack?.user;
-
-  return { accessToken: token, userId: id };
+  return { accessToken: user.token, userId: user.id };
 }

@@ -146,7 +146,7 @@ export const slackLogger = {
         LOGLEVEL = 'INFO';
     }
   },
-  setName(name: string) {
+  setName(_name: string) {
     // noop
   },
 };
