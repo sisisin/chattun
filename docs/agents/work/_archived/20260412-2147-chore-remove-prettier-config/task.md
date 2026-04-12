@@ -12,3 +12,7 @@ Prettierは既にvite+のformatter(oxfmt)に移行済み。`front/prettier.confi
 ## スコープ
 
 - `front/prettier.config.js` の削除のみ
+
+## 検証ステップ
+
+- [x] review
