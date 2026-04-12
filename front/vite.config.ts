@@ -51,21 +51,15 @@ export default defineConfig({
       'start-js': {
         command: 'vp dev',
       },
-      'watch-css': {
-        command: 'postcss src/app/css/main.css -o public/index.css -w',
-      },
       'watch-sw': {
         command: 'tsc -p ./swSrc -w',
-      },
-      'build-css': {
-        command: 'postcss src/app/css/main.css -o public/index.css',
       },
       'build-sw': {
         command: 'tsc -p ./swSrc',
       },
       'build-js': {
         command: 'vp build',
-        dependsOn: ['build-css', 'build-sw'],
+        dependsOn: ['build-sw'],
       },
       'move-assets': {
         command: 'rm -rf ../server/public && mkdir -p ../server && mv build ../server/public',

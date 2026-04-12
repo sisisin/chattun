@@ -2,6 +2,7 @@ import { appRegistry } from 'app/services/AppRegistry';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Hmr, startHmr, TypelessContext } from 'typeless';
+import './app/css/main.css';
 import './app/imports';
 import * as serviceWorker from './app/serviceWorker';
 
