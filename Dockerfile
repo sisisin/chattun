@@ -4,7 +4,7 @@ RUN corepack enable pnpm
 WORKDIR /app/front
 
 COPY ./front/package.json ./front/pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --ignore-scripts
+RUN pnpm install --frozen-lockfile
 
 COPY ./front .
 RUN pnpm vp run build-js && pnpm vp run move-assets
