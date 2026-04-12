@@ -17,3 +17,7 @@
 
 - mise.toml に `node_modules/.bin` をPATH追加
 - CLAUDE.md, README.md, skill, command の pnpm → vp 置換
+
+## 検証ステップ
+
+- [x] review
