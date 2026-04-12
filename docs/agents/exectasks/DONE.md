@@ -327,6 +327,9 @@
   - prefers-color-schemeメディアクエリをdata-theme属性セレクタに置き換え
   - globalSetting epicでmatchMedia監視によるsystem/light/dark切り替え実装
   - ThemeSettingコンポーネントを設定画面に追加
+- Task: 設定フォームのUX改善（保存ボタン統一・disabled制御・トースト連続問題）
+  - Channel Match/ミュートの行ごと保存ボタンを廃止しセクション下部に1つの保存ボタンに統一
+  - hasChanges+hasEmptyValuesでdisabled制御、key={version}でトースト再マウント
 - Task: 設定画面でヘッダが「すべての投稿」と表示され、ギアアイコンも出てしまっているのを修正
   - Menu.tsxにisSetting判定を追加、設定画面ではタイトル「設定」表示・ギアアイコン非表示に
 - Task: rxjs 6→7にアップグレードする
