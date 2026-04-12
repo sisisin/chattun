@@ -1,8 +1,9 @@
 import express from 'express';
 import http from 'http';
 import path from 'path';
-import { Server } from 'socket.io';
-import { getPreset, listPresets } from './presets';
+import socketIo from 'socket.io';
+const { Server } = socketIo;
+import { getPreset, listPresets } from './presets.ts';
 
 const PORT = process.env.PORT || 3100;
 
@@ -26,7 +27,7 @@ app.get('/api/connection', (_req, res) => {
 });
 
 // モック用画像配信
-const assetsDir = path.resolve(__dirname, '../mock-assets');
+const assetsDir = path.resolve(import.meta.dirname, '../mock-assets');
 app.use('/api/mock/assets', express.static(assetsDir));
 
 // モック用ブートストラップ: FE初期化に必要なデータ一式
@@ -119,7 +120,7 @@ app.all('/api/*', (_req, res) => {
 });
 
 // SPA フォールバック (front のビルド済みファイルがある場合)
-const publicDir = path.join(__dirname, '../public');
+const publicDir = path.join(import.meta.dirname, '../public');
 app.use(express.static(publicDir));
 app.get('*', (_req, res) => {
   res.sendFile(path.join(publicDir, 'index.html'), err => {

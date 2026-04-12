@@ -1,10 +1,10 @@
 import type { AppsEventAuthorizationsListResponse } from '@slack/web-api';
-import { createIOAdapter } from './redis';
+import { createIOAdapter } from './redis.ts';
 import { Server } from 'socket.io';
 import type * as http from 'http';
-import { webClient, socketClient } from './slack';
-import { logger } from './logging/logger';
-import { getSessionProfileFromRequest } from './utils';
+import { webClient, socketClient } from './slack.ts';
+import { logger } from './logging/logger.ts';
+import { getSessionProfileFromRequest } from './utils.ts';
 
 export const configureIO = (server: http.Server, middleware: (...args: any[]) => void): Server => {
   const io = new Server(server, { adapter: createIOAdapter() });

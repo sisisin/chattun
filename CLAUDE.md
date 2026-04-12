@@ -26,7 +26,7 @@ pnpm install
 # Redis
 cd docker && docker-compose up
 
-# サーバー (port 3100, nodemon でホットリロード)
+# サーバー (port 3100, node --watch でホットリロード)
 cd server && pnpm dev
 
 # フロントエンド (port 3000, vite+)

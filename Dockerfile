@@ -32,4 +32,4 @@ COPY ./server ./
 COPY --from=builder /app/front/build ./public
 
 EXPOSE 3100
-CMD ["./node_modules/.bin/ts-node", "-T", "./src/index.ts"]
+CMD ["node", "--experimental-strip-types", "./src/index.ts"]

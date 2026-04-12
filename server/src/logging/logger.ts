@@ -1,7 +1,8 @@
 import type express from 'express';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { extractTrace } from './trace';
-import { LogLevel } from '@slack/oauth';
+import { extractTrace } from './trace.ts';
+import slackOauth from '@slack/oauth';
+const { LogLevel } = slackOauth;
 
 const severities = ['DEFAULT', 'DEBUG', 'INFO', 'WARNING', 'WARN', 'ERROR', 'EMERGENCY'] as const;
 type Severity = (typeof severities)[number];

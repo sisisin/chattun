@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "module": "commonjs",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "lib": ["es2022"],
     "noEmit": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": true
   }
 }

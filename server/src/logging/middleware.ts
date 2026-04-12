@@ -1,5 +1,5 @@
 import type express from 'express';
-import { logger } from './logger';
+import { logger } from './logger.ts';
 
 export const loggingMiddleware = (
   req: express.Request,

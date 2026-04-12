@@ -1,6 +1,6 @@
 import session from 'express-session';
 import connectRedis from 'connect-redis';
-import { redis } from './redis';
+import { redis } from './redis.ts';
 import helmet from 'helmet';
 
 const RedisStore = connectRedis(session);

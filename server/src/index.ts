@@ -1,24 +1,26 @@
-import express, { ErrorRequestHandler, RequestHandler } from 'express';
+import express from 'express';
+import type { ErrorRequestHandler, RequestHandler } from 'express';
 import path from 'path';
-import * as middleware from './middleware';
+import * as middleware from './middleware.ts';
 import http from 'http';
 import https from 'https';
-import { configureSocketClient, installer, socketClient } from './slack';
-import { configureIO } from './io';
-import { port, serverBaseUrl } from './config';
+import { configureSocketClient, installer, socketClient } from './slack.ts';
+import { configureIO } from './io.ts';
+import { port, serverBaseUrl } from './config.ts';
 import request from 'request';
 import fs from 'node:fs';
-import { getSessionProfileFromRequest } from './utils';
-import { ErrorWithLogContext, logger } from './logging/logger';
-import { loggingMiddleware } from './logging/middleware';
-import { WebClient } from '@slack/web-api';
+import { getSessionProfileFromRequest } from './utils.ts';
+import { ErrorWithLogContext, logger } from './logging/logger.ts';
+import { loggingMiddleware } from './logging/middleware.ts';
+import slackWebApi from '@slack/web-api';
+const { WebClient } = slackWebApi;
 
 async function main() {
   const app = express();
 
   const server = (() => {
     if (process.env.SERVER_HTTPS === 'true') {
-      const tmpDir = path.resolve(__dirname, '../../tmp');
+      const tmpDir = path.resolve(import.meta.dirname, '../../tmp');
       return https.createServer(
         {
           key: fs.readFileSync(path.join(tmpDir, 'privkey.pem')),
@@ -42,7 +44,7 @@ async function main() {
   app.use(express.json());
   app.use(sessionMiddleware);
   app.use(
-    express.static(path.join(__dirname, '../public'), {
+    express.static(path.join(import.meta.dirname, '../public'), {
       setHeaders: (res, path) => {
         if (path.endsWith('.css')) {
           res.setHeader('Content-Type', 'text/css');
@@ -258,7 +260,7 @@ async function main() {
     res.status(404).end();
   });
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+    res.sendFile(path.join(import.meta.dirname, '../public/index.html'));
   });
 
   const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {

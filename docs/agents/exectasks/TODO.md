@@ -52,6 +52,7 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
+- Task: serverのtypescript本番依存をなくす。Node.jsのネイティブTS実行に切り替えてts-nodeを削除する
 - Task: requestパッケージをNode.js標準のfetchに置き換えて削除する
   - `/api/file`エンドポイントのSlackファイルプロキシで使用。requestは2020年にdeprecated
 - Task: serverのlint warningを解消する

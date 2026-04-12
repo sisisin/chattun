@@ -1,10 +1,14 @@
-import { InstallProvider } from '@slack/oauth';
-import { SocketModeClient } from '@slack/socket-mode';
-import { AppsEventAuthorizationsListResponse, WebClient } from '@slack/web-api';
-import * as socketIO from 'socket.io';
-import { slackAppToken, slackClientId, slackClientSecret } from './config';
-import { ErrorWithLogContext, logger } from './logging/logger';
-import { redis } from './redis';
+import slackOauth from '@slack/oauth';
+const { InstallProvider } = slackOauth;
+import slackSocketMode from '@slack/socket-mode';
+const { SocketModeClient } = slackSocketMode;
+import type { AppsEventAuthorizationsListResponse } from '@slack/web-api';
+import slackWebApi from '@slack/web-api';
+const { WebClient } = slackWebApi;
+import type * as socketIO from 'socket.io';
+import { slackAppToken, slackClientId, slackClientSecret } from './config.ts';
+import { ErrorWithLogContext, logger } from './logging/logger.ts';
+import { redis } from './redis.ts';
 
 export const installer = new InstallProvider({
   clientId: slackClientId,
