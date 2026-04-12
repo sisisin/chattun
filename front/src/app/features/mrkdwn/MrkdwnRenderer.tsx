@@ -1,3 +1,4 @@
+import { emojify, has } from 'node-emoji';
 import React, { createContext, useContext } from 'react';
 import { type MrkdwnNode, parseMrkdwn } from './parser';
 
@@ -59,6 +60,10 @@ function RenderNode({ node }: { node: MrkdwnNode }) {
       const emojiUrl = ctx.resolveEmoji?.(node.name);
       if (emojiUrl) {
         return <img className="tweet-contents-slack-emoji" src={emojiUrl} alt={node.name} />;
+      }
+      // Standard emoji: convert to Unicode via node-emoji
+      if (has(node.name)) {
+        return <>{emojify(`:${node.name}:`)}</>;
       }
       return <>:{node.name}:</>;
     }

@@ -59,7 +59,7 @@ export function slackMessageToTweet(
 
   const { displayName, fullName, iconUrl } = getMessageProfile(users, msg);
 
-  const text = getMessageText(msg);
+  const text = msg.text ?? '';
   const files = getFileAttachments(msg);
   const imageAttachments = getImageAttachments(msg);
 
@@ -144,16 +144,6 @@ function getChannelLink(
 }
 
 const imgFileRegexp = /(png|jpg|jpeg|gif)/;
-function getMessageText(msg: Message): string {
-  // For message_changed with image attachments, use fallback text
-  if (msg.subtype === 'message_changed' && msg.message && Array.isArray(msg.message.attachments)) {
-    const hasImage = msg.message.attachments.some(a => a.image_url);
-    if (hasImage) {
-      return msg.text ?? '';
-    }
-  }
-  return msg.text ?? '';
-}
 
 function getFileAttachments(msg: Message): FileAttachment[] {
   if (!msg.files) return [];
@@ -166,11 +156,11 @@ function getFileAttachments(msg: Message): FileAttachment[] {
 }
 
 function getImageAttachments(msg: Message): ImageAttachment[] {
-  if (msg.subtype !== 'message_changed' || !msg.message?.attachments) return [];
+  if (!msg.message?.attachments) return [];
   return msg.message.attachments
     .filter(a => a.image_url)
     .map(a => ({
-      fallback: a.fallback ?? '',
+      fallback: a.fallback,
       imageUrl: a.image_url!,
     }));
 }

@@ -64,8 +64,9 @@ export const TweetItem = ({ message, parentRef }: Props) => {
     [users, emojis, myUserId],
   );
 
-  // 空文字なら Tweet 自体一切表示しない
-  if (message.text === '') return null;
+  // テキスト・ファイル・添付画像すべて空なら非表示
+  if (message.text === '' && message.files.length === 0 && message.imageAttachments.length === 0)
+    return null;
 
   const isThreadReply = message.threadTs != null && message.threadTs !== message.ts;
   const linkingTs = message.threadTs || message.ts;
