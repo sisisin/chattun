@@ -5,9 +5,9 @@ import { useActions, useMappedState } from 'typeless';
 import { getSettingState, SettingActions } from '../interface';
 
 const matchOptions: { [K in MatchMethod]: { text: string; value: K } } = {
-  contain: { text: 'contain', value: 'contain' },
-  startsWith: { text: 'startsWith', value: 'startsWith' },
-  endsWith: { text: 'endsWith', value: 'endsWith' },
+  contain: { text: '含む', value: 'contain' },
+  startsWith: { text: '前方一致', value: 'startsWith' },
+  endsWith: { text: '後方一致', value: 'endsWith' },
 };
 
 interface ChannelMatchRowProps {
@@ -90,7 +90,7 @@ export const ChannelMatchSetting: React.FC = () => {
 
   return (
     <div className="setting-group">
-      <h3 className="setting-group-title">Channel Match</h3>
+      <h3 className="setting-group-title">チャンネル絞り込み</h3>
       {localMatches.map((match, index) => (
         <ChannelMatchRow
           key={index}

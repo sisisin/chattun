@@ -5,8 +5,8 @@ import { useActions, useMappedState } from 'typeless';
 import { getSettingState, SettingActions } from '../interface';
 
 const deepLinkingOptions: { [K in DeepLinking]: { text: string; value: K } } = {
-  viaBrowser: { text: 'Via Web Browser', value: 'viaBrowser' },
-  directly: { text: 'Open Slack App Directly', value: 'directly' },
+  viaBrowser: { text: 'ブラウザで開く', value: 'viaBrowser' },
+  directly: { text: 'Slackアプリで直接開く', value: 'directly' },
 };
 
 export const DeepLinkSetting: React.FC = () => {
@@ -14,7 +14,7 @@ export const DeepLinkSetting: React.FC = () => {
   const { form } = useMappedState([getSettingState], setting => setting);
   return (
     <div className="setting-group">
-      <h3 className="setting-group-title">Deep Linking</h3>
+      <h3 className="setting-group-title">ディープリンク</h3>
       <div className="select-group">
         <select
           className="setting-group-select"

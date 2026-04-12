@@ -10,7 +10,7 @@ export const DeveloperModeSetting: React.FC = () => {
   } = useMappedState([getSettingState], s => s);
   return (
     <div className="setting-group">
-      <h3 className="setting-group-title">Developer Mode</h3>
+      <h3 className="setting-group-title">開発者モード</h3>
       <div className="select-group">
         <label htmlFor="devmode" className="select-group-label">
           <input
@@ -22,7 +22,7 @@ export const DeveloperModeSetting: React.FC = () => {
             }}
           />
           <IconCheck className="checkbox-chaticon" />
-          Developer Mode
+          開発者モード
         </label>
       </div>
     </div>
