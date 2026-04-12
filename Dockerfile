@@ -8,7 +8,7 @@ COPY ./front/patches ./patches
 RUN pnpm install --frozen-lockfile
 
 COPY ./front .
-RUN pnpm vp run build && pnpm vp run move-assets
+RUN pnpm vp run build
 
 FROM node:22.18.0-alpine AS runner
 
@@ -20,7 +20,7 @@ COPY ./server/package.json ./server/pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile --prod
 
 COPY ./server ./
-COPY --from=builder /app/server/public ./public
+COPY --from=builder /app/front/build ./public
 
 EXPOSE 3100
 CMD ["./node_modules/.bin/ts-node", "-T", "./src/index.ts"]

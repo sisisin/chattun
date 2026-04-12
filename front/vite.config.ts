@@ -92,9 +92,6 @@ export default defineConfig({
       build: {
         command: 'vp build',
       },
-      'move-assets': {
-        command: 'rm -rf ../server/public && mkdir -p ../server && mv build ../server/public',
-      },
       'test-all': {
         command: 'vp check && vp test run',
       },
