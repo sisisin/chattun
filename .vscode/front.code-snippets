@@ -1,0 +1,14 @@
+{
+  "react function component": {
+    "scope": "typescriptreact",
+    "prefix": "react function",
+    "body": [
+      "import React from 'react';",
+      "",
+      "export const ${TM_FILENAME/(.*)\\..+$/$1/}: React.FC$1 = ({$2}) => {",
+      "  return ($3);",
+      "};",
+      ""
+    ]
+  }
+}
