@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: serverのtypescript本番依存をなくす。Node.jsのネイティブTS実行に切り替えてts-nodeを削除する
 - Task: requestパッケージをNode.js標準のfetchに置き換えて削除する
   - `/api/file`エンドポイントのSlackファイルプロキシで使用。requestは2020年にdeprecated
 - Task: serverのlint warningを解消する
@@ -68,7 +67,7 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: helmetを最新にアップデートする
 - Task: express-sessionを最新にアップデートする
 - Task: @slack/oauthを3.xにアップデートする
-- Task: socket.io, @slack/socket-mode, ts-node, nodemonのマイナー/パッチアップデート
+- Task: socket.io, @slack/socket-modeのマイナー/パッチアップデート
 - Task: scripts/,docker/をtools/へ統合する。スクリプトの置き方は役割に沿った構成になるように調節
 - Task: .vscodeをルートに統合・chattun.code-workspaceを消す
 - Task: なんか古いやつが地味に残ってるのを消す

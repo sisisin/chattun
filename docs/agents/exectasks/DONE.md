@@ -1,5 +1,11 @@
 # Done
 
+- Task: serverのtypescript本番依存をなくす。Node.jsネイティブTS実行(ESM)に移行
+  - serverをESM化（"type": "module"、tsconfig module/moduleResolution: nodenext）
+  - 全importに.ts拡張子追加、__dirname→import.meta.dirname
+  - CJSパッケージのnamed importをdefault import+destructuringに変換
+  - ts-node, typescript, nodemonをserver/dependenciesから削除
+  - Dockerfile CMD: node --experimental-strip-types、dev: node --watch
 - Task: serverでモダナイズが必要な点がないかをレビューし、Taskとして追加する
   - 依存関係: request(deprecated)、ioredis 4→5、connect-redis 4→9、helmet 4→8等のアップデートタスクを追加
   - コード品質: lint warning解消（未使用import、デバッグエンドポイント削除）タスクを追加
