@@ -1,5 +1,6 @@
 select {
   padding: var(--spacing-sm);
+  padding-right: var(--spacing-lg);
   cursor: pointer;
   background: var(--background-base);
   border: 1px solid var(--border-main);
@@ -48,10 +49,11 @@ input {
 
 .select-group-chaticon {
   position: absolute;
-  top: 18px;
+  top: 50%;
   right: var(--spacing-sm);
   width: 12px;
-  transform: rotate(180deg);
+  pointer-events: none;
+  transform: translateY(-50%) rotate(180deg);
 }
 
 .button-primary {
