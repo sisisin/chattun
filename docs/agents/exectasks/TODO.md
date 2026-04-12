@@ -52,8 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: react-hook-form を別のformライブラリを検討して移行する
-  - tanstackがいいかも
 - Task: react-router-domを別のrouterライブラリを検討して移行する
   - tanstackがいいかも
 - Task: dynamic importによるchunkを適切に行えるように実装を調整
@@ -67,6 +65,7 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: serverのnpm scriptsをvp task化
   - githookなど、front/特化になっていたところも、Workspace前提で統合して扱えるようにする
 - Task: serverでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
+- Task: scripts/,docker/をtools/へ統合する。スクリプトの置き方は役割に沿った構成になるように調節
 
 # Backlog
 

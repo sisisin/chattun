@@ -1,5 +1,8 @@
 # Done
 
+- Task: react-hook-form を削除しネイティブ FormData API に移行
+  - 利用箇所が2ファイルのみでAPIも単純だったため、ライブラリ移行ではなく削除で対応
+
 - Task: Cloud Runのエラーログが構造化ログになっていない問題を修正する
   - Cloud Run上でSocket.IOのWebSocket接続（`/socket.io/?EIO=4&transport=websocket`）が500/503を返しているが、アプリケーション側の構造化ログと紐づいていない
   - Cloud Runのリクエストログ（`run.googleapis.com/requests`）のエラーに対応するアプリケーションログが構造化されていない可能性を調査・修正する
