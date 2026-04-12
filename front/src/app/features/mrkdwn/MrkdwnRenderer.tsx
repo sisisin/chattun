@@ -48,9 +48,5 @@ function RenderNodes({ nodes }: { nodes: MrkdwnNode[] }) {
 
 export const MrkdwnContent = ({ text }: { text: string }) => {
   const nodes = parseMrkdwn(text);
-  return (
-    <div className="tweet-contents">
-      <RenderNodes nodes={nodes} />
-    </div>
-  );
+  return <RenderNodes nodes={nodes} />;
 };

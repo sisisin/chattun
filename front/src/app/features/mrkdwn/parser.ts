@@ -35,7 +35,10 @@ function parseInline(input: string): MrkdwnNode[] {
   const nodes: MrkdwnNode[] = [];
   // Match inline code, bold, italic, strike, or newlines
   // Order matters: code first (to prevent inner parsing), then formatting
-  const inlineRegex = /`([^`\n]+)`|\*([^*\n]+)\*|_([^_\n]+)_|~([^~\n]+)~|\n/g;
+  // Formatting markers require non-word char (or start/end) boundary to avoid
+  // matching mid-word (e.g. foo_bar_baz should not produce italic)
+  const inlineRegex =
+    /`([^`\n]+)`|(?<=^|\W)\*([^*\n]+)\*(?=$|\W)|(?<=^|\W)_([^_\n]+)_(?=$|\W)|(?<=^|\W)~([^~\n]+)~(?=$|\W)|\n/g;
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 

@@ -17,14 +17,6 @@ describe('parseMrkdwn', () => {
         { type: 'bold', children: [{ type: 'text', text: 'bold' }] },
       ]);
     });
-
-    it('parses bold within text', () => {
-      expect(parseMrkdwn('hello *bold* world')).toEqual([
-        { type: 'text', text: 'hello ' },
-        { type: 'bold', children: [{ type: 'text', text: 'bold' }] },
-        { type: 'text', text: ' world' },
-      ]);
-    });
   });
 
   describe('italic', () => {
@@ -77,6 +69,42 @@ describe('parseMrkdwn', () => {
         { type: 'text', text: 'hello' },
         { type: 'linebreak' },
         { type: 'text', text: 'world' },
+      ]);
+    });
+  });
+
+  describe('word boundary', () => {
+    it('does not parse underscore in middle of word as italic', () => {
+      expect(parseMrkdwn('foo_bar_baz')).toEqual([{ type: 'text', text: 'foo_bar_baz' }]);
+    });
+
+    it('does not parse asterisk in middle of expression as bold', () => {
+      expect(parseMrkdwn('2*3*4')).toEqual([{ type: 'text', text: '2*3*4' }]);
+    });
+
+    it('does not parse tilde in middle of word as strike', () => {
+      expect(parseMrkdwn('foo~bar~baz')).toEqual([{ type: 'text', text: 'foo~bar~baz' }]);
+    });
+
+    it('parses formatting after space', () => {
+      expect(parseMrkdwn('hello *bold* world')).toEqual([
+        { type: 'text', text: 'hello ' },
+        { type: 'bold', children: [{ type: 'text', text: 'bold' }] },
+        { type: 'text', text: ' world' },
+      ]);
+    });
+
+    it('parses formatting at start of string', () => {
+      expect(parseMrkdwn('*bold* text')).toEqual([
+        { type: 'bold', children: [{ type: 'text', text: 'bold' }] },
+        { type: 'text', text: ' text' },
+      ]);
+    });
+
+    it('parses formatting at end of string', () => {
+      expect(parseMrkdwn('text *bold*')).toEqual([
+        { type: 'text', text: 'text ' },
+        { type: 'bold', children: [{ type: 'text', text: 'bold' }] },
       ]);
     });
   });
