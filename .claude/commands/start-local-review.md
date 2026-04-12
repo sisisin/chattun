@@ -42,9 +42,13 @@ Use the **Agent tool** with `subagent_type: "local-reviewer"` to spawn the revie
 
 #### Browser Verification (optional)
 
-フロントエンド変更（`front/src/` 配下の `.ts`, `.tsx`, `.css`）を含むブランチでは、レビュー APPROVED 後のマージ前に `browser-verifier` エージェントで動作確認を行うことを推奨する。
+**実行条件**: `git diff main...HEAD --name-only` に `front/src/` 配下のファイル（`.ts`, `.tsx`, `.css`）が含まれる場合のみ。
 
-起動例:
+**実行タイミング**: レビュー APPROVED 後、マージ前に実行する。
+
+**前提**: devサーバー（port 3000）が起動していること。起動していなければ呼び出し元が `cd front && pnpm start` で起動する。
+
+`browser-verifier` エージェントを起動する:
 
 > Agent(subagent_type: "browser-verifier")
 >
