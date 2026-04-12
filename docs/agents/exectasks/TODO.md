@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: pretteir.config.jsいらんくね？
 - Task: pinactをmiseで入れて、pre commitで実行されるようにする
 - Task: ciでvite-plusの公式アクションを利用するように修正する
   - https://viteplus.dev/guide/ci

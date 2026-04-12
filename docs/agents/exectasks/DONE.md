@@ -10,6 +10,8 @@
   - toMentionにmyUserId引数追加、自分宛<@USERID>を`<span class="mention-self">`でハイライト
   - @channel/@hereは常にハイライト、CSSはcolor-mixで半透明背景
   - テスト4件追加（自分メンション、他人メンション、@channel、@here）
+- Task: pretteir.config.jsいらんくね？
+  - Prettier→vite+ formatter移行後の残骸ファイル`front/prettier.config.js`を削除
 - Task: 追加ボタンと保存ボタンの大きさが揃ってないのを直す
 - Task: CSSの不要ファイル・レガシーコードを削除する
   - 空CSS（Timeline.css, Thread.css, EmojiMenu.css）削除、_base.cssのCRA .Appスタイル削除、emoji-custom.cssをTweet.cssにインライン化
