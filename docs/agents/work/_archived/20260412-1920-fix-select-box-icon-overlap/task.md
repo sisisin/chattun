@@ -11,3 +11,8 @@
 ## スコープ
 - _form.cssのselect要素にpadding-rightを追加してアイコン分のスペースを確保
 - select-group-chaticonの位置を適切に調整
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
