@@ -1,0 +1,1 @@
+cd "$(git rev-parse --show-toplevel)/front" && vp run build-js && vp run test-all
