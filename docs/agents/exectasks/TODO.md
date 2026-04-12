@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: alertなどのブロッキングする機能の利用をやめたい。そのためのアラート用コンポーネントを用意して載せ替える
 - Task: channels listやらをサーバー側でキャッシュ
   - 毎回fetchしてるの無駄
 - Task: 画像付き投稿のdeep linkが動かないので修正する
