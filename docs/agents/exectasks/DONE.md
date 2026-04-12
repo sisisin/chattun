@@ -320,6 +320,9 @@
   - .button-removeを32px→36px、font-sizeを--font-small→--font-normalに変更
   - デザインガイドにコンポーネントサイズ節を追加（タッチターゲット最小サイズ、ボタンバリエーション、フォーム行高さ揃え）
   - .claude/skills/frontend-development/design.mdにもコンポーネントサイズの要約を追記
+- Task: mark as readはなくしちゃって、常にmark as readするようにしちゃう
+  - TimelineSettingsからmarkAsReadプロパティを削除、MarkAsReadSettingコンポーネントを削除
+  - timeline/module.tsxのRx.filterを削除し常にmark as readする動作に変更
 - Task: 設定画面でヘッダが「すべての投稿」と表示され、ギアアイコンも出てしまっているのを修正
   - Menu.tsxにisSetting判定を追加、設定画面ではタイトル「設定」表示・ギアアイコン非表示に
 - Task: rxjs 6→7にアップグレードする

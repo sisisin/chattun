@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: mark as readはなくしちゃって、常にmark as readするようにしちゃう
 - Task: ライト・ダークモード切り替えを設定できるようにする
 - Task: 投稿者の名前表示を表示名の値を利用する
 - Task: Tweetのチャンネル名表示をslackへのdeep linkとして、クリックしたら開けるようにする
