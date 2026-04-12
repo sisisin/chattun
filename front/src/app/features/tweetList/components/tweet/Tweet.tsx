@@ -38,9 +38,10 @@ export const TweetItem = ({ message, parentRef }: Props) => {
   // 空文字なら Tweet 自体一切表示しない
   if (message.text === '') return null;
 
+  const isThreadReply = message.threadTs != null && message.threadTs !== message.ts;
   const linkingTs = message.threadTs || message.ts;
   return (
-    <li ref={tweetRef} className="tweet">
+    <li ref={tweetRef} className={`tweet${isThreadReply ? ' tweet--thread-reply' : ''}`}>
       <AppLink
         className="tweet-icon-link"
         to="/thread/$channelId/$ts"

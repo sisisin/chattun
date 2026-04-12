@@ -214,3 +214,8 @@
 .emoji-parent {
   position: relative;
 }
+
+.tweet--thread-reply {
+  border-left: 3px solid var(--border-main);
+  background: var(--background-sub);
+}
