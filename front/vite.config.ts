@@ -77,7 +77,7 @@ export default defineConfig({
         command: 'vp fmt --check && vp lint',
       },
       'test-all': {
-        command: 'vp fmt --check && vp lint && vp test run',
+        command: 'vp check && vp test run',
       },
       g: {
         command: 'plop feature',

@@ -18,8 +18,7 @@ export const Routes: React.FC = () => {
     <Router history={(appHistory as any).history}>
       <Switch>
         {Object.values(appRouteDefinitions).map(({ Component, path, requiresAuth }, key) => {
-          const base: RouteProps & { key: React.Key } = {
-            key,
+          const base: RouteProps = {
             exact: true,
             sensitive: true,
             path: path as string | string[],

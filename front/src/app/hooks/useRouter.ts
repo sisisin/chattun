@@ -2,7 +2,7 @@
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { appHistory } from 'app/services/appHistory';
 
-export const useRouter = <T>() => {
+export const useRouter = <T extends { [K in keyof T]?: string | undefined }>() => {
   const { params } = useRouteMatch<T>();
   const history = appHistory;
   const { state: _state, ...location } = useLocation();

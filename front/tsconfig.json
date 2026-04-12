@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
-    "target": "es5",
-    "module": "esnext",
+    "target": "es2020",
+    "paths": {
+      "app/*": ["./src/app/*"]
+    },
+    "module": "preserve",
     "jsx": "preserve",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -18,12 +20,11 @@
     "noImplicitAny": true,
     "importHelpers": true,
     "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
     "strict": false,
     "alwaysStrict": true,
     "strictPropertyInitialization": true,
     "strictFunctionTypes": false,
-    "lib": ["es2017", "dom"]
+    "lib": ["es2020", "dom"]
   },
   "include": ["src"]
 }
