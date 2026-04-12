@@ -35,6 +35,6 @@ jobs:
           node-version: ${{ steps.node-version.outputs.version }}
           cache: 'pnpm'
           cache-dependency-path: 'front/pnpm-lock.yaml'
-      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm install --frozen-lockfile
       - run: pnpm vp run build-js
       - run: pnpm vp run test-all
