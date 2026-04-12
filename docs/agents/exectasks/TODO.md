@@ -52,16 +52,15 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: なんか古いやつが地味に残ってるのを消す
-  - たとえばmise.tomlにyarnがいる
 - Task: /.env.localにサーバー用の環境変数を渋々置いてるんだけど、サーバー開発時にserver/.env.localが適切に評価されるようにしたい
   - 依存増やさない方法が一番いい
 - emoji-martのアセットが500kb超えてるっぽいので、UXの最適化をする
   - 単独でエンドポイントから配信するようにしてbundleに入れない・キャッシュされやすくするとか？（なんもわからん）
 - Task: InstallProviderのstateSecretを環境変数から読み込むようにする
   - handleInstallPath切り替えでstate CSRF検証が有効になったため、ハードコード値からの脱却が必要
+- Task: unhandledRejectionでプロセス終了するように直す
+  - 握りつぶすのは悪
 
 # Backlog
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。
-

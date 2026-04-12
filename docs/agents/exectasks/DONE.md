@@ -1,5 +1,7 @@
 # Done
 
+- Task: なんか古いやつが地味に残ってるのを消す
+  - READMEから.circleci/heroku関連の古い記述を除去、デプロイ情報をGitHub Actions + Cloud Runに更新
 - Task: .vscodeをルートに統合・chattun.code-workspaceを消す
   - front/.vscode, server/.vscode をルート.vscodeに統合、chattun.code-workspace削除
   - 不要なlaunch.json(Nodemon)とPrettier拡張推奨を削除
