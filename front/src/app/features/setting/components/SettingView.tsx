@@ -5,6 +5,7 @@ import { DeepLinkSetting } from './DeepLinkSetting';
 import { ChannelMatchSetting } from './ChannelMatchSetting';
 import { KeywordMatchSetting } from './KeywordMatchSetting';
 import { MarkAsReadSetting } from './MarkAsReadSetting';
+import { DeveloperModeSetting } from './DeveloperModeSetting';
 
 export const SettingView = () => {
   return (
@@ -15,6 +16,7 @@ export const SettingView = () => {
         <ChannelMatchSetting></ChannelMatchSetting>
         <KeywordMatchSetting></KeywordMatchSetting>
         <MarkAsReadSetting></MarkAsReadSetting>
+        <DeveloperModeSetting></DeveloperModeSetting>
       </div>
     </>
   );

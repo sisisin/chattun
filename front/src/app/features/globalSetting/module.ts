@@ -13,6 +13,7 @@ export const initialState: GlobalSettingState = {
   channelMatch: undefined,
   keywordMatch: undefined,
   markAsRead: true,
+  developerMode: false,
 };
 
 export const reducer = handle

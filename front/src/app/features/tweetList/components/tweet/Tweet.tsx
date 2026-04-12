@@ -1,9 +1,10 @@
 import { AppLink } from 'app/components/AppLink';
 import { IconAddReaction, IconThread } from 'app/components/icons/Icons';
 import { EmojiMenuActions } from 'app/features/emojiMenu/interface';
+import { getGlobalSettingState } from 'app/features/globalSetting/interface';
 import { Tweet } from 'app/features/timeline/interface';
 import * as React from 'react';
-import { useActions } from 'typeless';
+import { useActions, useMappedState } from 'typeless';
 import { TweetActions } from '../../interface';
 import { DeepLinkingButton } from './deepLinkingButton/DeepLinkingButton';
 import { useSetIntersectionObserver } from './hooks';
@@ -18,6 +19,9 @@ interface Props {
 export const TweetItem = ({ message, parentRef }: Props) => {
   const { addReaction, removeReaction, toggleEmojiMenu } = useActions(EmojiMenuActions);
   const { copyClicked } = useActions(TweetActions);
+  const { developerMode } = useMappedState([getGlobalSettingState], s => ({
+    developerMode: s.developerMode,
+  }));
   const tweetRef = React.useRef<HTMLLIElement>(null);
 
   useSetIntersectionObserver(message, tweetRef, parentRef);
@@ -88,7 +92,7 @@ export const TweetItem = ({ message, parentRef }: Props) => {
           >
             <IconAddReaction className="tweet-actions-reaction-icon" />
           </span>
-          {localStorage.getItem('EC') === '1' && (
+          {developerMode && (
             <span className="tweet-actions-reaction" onClick={() => copyClicked(message)}>
               <span className="tweet-actions-reaction-icon">C</span>
             </span>

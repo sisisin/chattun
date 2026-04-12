@@ -30,6 +30,7 @@ export const initialState: SettingState = {
     channelMatch: undefined,
     keywordMatch: undefined,
     markAsRead: false,
+    developerMode: false,
   },
 };
 

@@ -19,4 +19,5 @@ export type TimelineSettings = {
   channelMatch: ChannelMatch | undefined;
   keywordMatch: KeywordMatch | undefined;
   markAsRead: boolean;
+  developerMode: boolean;
 };
