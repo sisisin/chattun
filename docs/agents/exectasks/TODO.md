@@ -53,7 +53,14 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 # Tasks
 
 - Task: mrkdwn（slackの記法）をパースしてコンポーネントに落とすレイヤーを実装する
-  -
+  - 今はdangerouslySetInnerHTML使ってるけど、普通にreact componentに展開する実装が良い気がする
+  - 相当複雑になることが予想されるので、TDDで実装するのが望ましいでしょう
+  - また、仕様スコープを切りながら実装するのがいいでしょう。必要最低限の展開処理をこのTaskで実装し、残りの仕様を足していく各Taskを追加して順に対応するのがいいでしょう
+- Task: mrkdwnパーサーにメンション・絵文字・リンクの対応を追加する
+  - ユーザーメンション(`<@UID>`)、チャンネル参照(`<#CID|name>`)、グループメンション、特殊メンション
+  - カスタム絵文字(`:emoji:`)、標準絵文字
+  - Slackリンク(`<url|text>`)
+- Task: 既存の表示パイプラインをmrkdwnパーサー+レンダラーに差し替え、dangerouslySetInnerHTMLを除去する
 - Task: serverのindex.tsがゴチャ付いてるので整理したい。少なくとも`/api/*` は分けたい
   - src/router/とか切ってapiRouter変数をexportしてindex.tsでuseするとか
 

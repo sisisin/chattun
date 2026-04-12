@@ -1,0 +1,123 @@
+import { parseMrkdwn } from './parser';
+
+describe('parseMrkdwn', () => {
+  describe('plain text', () => {
+    it('parses plain text', () => {
+      expect(parseMrkdwn('hello world')).toEqual([{ type: 'text', text: 'hello world' }]);
+    });
+
+    it('returns empty array for empty string', () => {
+      expect(parseMrkdwn('')).toEqual([]);
+    });
+  });
+
+  describe('bold', () => {
+    it('parses *bold* text', () => {
+      expect(parseMrkdwn('*bold*')).toEqual([
+        { type: 'bold', children: [{ type: 'text', text: 'bold' }] },
+      ]);
+    });
+
+    it('parses bold within text', () => {
+      expect(parseMrkdwn('hello *bold* world')).toEqual([
+        { type: 'text', text: 'hello ' },
+        { type: 'bold', children: [{ type: 'text', text: 'bold' }] },
+        { type: 'text', text: ' world' },
+      ]);
+    });
+  });
+
+  describe('italic', () => {
+    it('parses _italic_ text', () => {
+      expect(parseMrkdwn('_italic_')).toEqual([
+        { type: 'italic', children: [{ type: 'text', text: 'italic' }] },
+      ]);
+    });
+  });
+
+  describe('strikethrough', () => {
+    it('parses ~strike~ text', () => {
+      expect(parseMrkdwn('~strike~')).toEqual([
+        { type: 'strike', children: [{ type: 'text', text: 'strike' }] },
+      ]);
+    });
+  });
+
+  describe('inline code', () => {
+    it('parses `code` text', () => {
+      expect(parseMrkdwn('`code`')).toEqual([{ type: 'code', text: 'code' }]);
+    });
+
+    it('does not parse formatting inside inline code', () => {
+      expect(parseMrkdwn('`*not bold*`')).toEqual([{ type: 'code', text: '*not bold*' }]);
+    });
+  });
+
+  describe('code block', () => {
+    it('parses ```code block```', () => {
+      expect(parseMrkdwn('```code block```')).toEqual([{ type: 'codeblock', text: 'code block' }]);
+    });
+
+    it('parses multiline code block', () => {
+      expect(parseMrkdwn('```\nline1\nline2\n```')).toEqual([
+        { type: 'codeblock', text: '\nline1\nline2\n' },
+      ]);
+    });
+
+    it('does not parse formatting inside code block', () => {
+      expect(parseMrkdwn('```*bold* _italic_```')).toEqual([
+        { type: 'codeblock', text: '*bold* _italic_' },
+      ]);
+    });
+  });
+
+  describe('linebreak', () => {
+    it('parses newline as linebreak', () => {
+      expect(parseMrkdwn('hello\nworld')).toEqual([
+        { type: 'text', text: 'hello' },
+        { type: 'linebreak' },
+        { type: 'text', text: 'world' },
+      ]);
+    });
+  });
+
+  describe('nested formatting', () => {
+    it('parses bold inside italic', () => {
+      expect(parseMrkdwn('_hello *bold* world_')).toEqual([
+        {
+          type: 'italic',
+          children: [
+            { type: 'text', text: 'hello ' },
+            { type: 'bold', children: [{ type: 'text', text: 'bold' }] },
+            { type: 'text', text: ' world' },
+          ],
+        },
+      ]);
+    });
+  });
+
+  describe('mixed content', () => {
+    it('parses text with multiple formatting types', () => {
+      const result = parseMrkdwn('hello *bold* and _italic_ and `code`');
+      expect(result).toEqual([
+        { type: 'text', text: 'hello ' },
+        { type: 'bold', children: [{ type: 'text', text: 'bold' }] },
+        { type: 'text', text: ' and ' },
+        { type: 'italic', children: [{ type: 'text', text: 'italic' }] },
+        { type: 'text', text: ' and ' },
+        { type: 'code', text: 'code' },
+      ]);
+    });
+
+    it('parses text before and after code block', () => {
+      const result = parseMrkdwn('before\n```code```\nafter');
+      expect(result).toEqual([
+        { type: 'text', text: 'before' },
+        { type: 'linebreak' },
+        { type: 'codeblock', text: 'code' },
+        { type: 'linebreak' },
+        { type: 'text', text: 'after' },
+      ]);
+    });
+  });
+});
