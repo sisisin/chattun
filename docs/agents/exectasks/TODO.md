@@ -55,11 +55,13 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: Timeline,TweetList,Tweet,slack/SlackQuery,mrkdwnらへんがちょっとロジックが散逸してて見通しが悪いので整理して
-  - 特にTweetListはtypeless moduleの実装がすっからかんなので、timelineかtweetに寄せて良いと思う。コピーボタンはTweetのものだからtweetが適当そうか
-  - TweetのContent部分をTweetContentとかにして、そのなかにmrkdwnとかを押し込めたほうがよさそう
-  - SlackQueryに実装されてる関数が、selectorだったりTweet系コンポーネント向けの関数だったりでばらつきがありそう。selectorはselector.tsって名前にして置いてあるほうが良さそう（他の\*Query.ts系全般に言える）
-  - featuresはネストしていいので、例えばtimeline/tweet/とかも有り
+- Task: Tweetの表示が崩れているので修正して
+  - 参考: tmp/examples/image.png
+  - アクションボタンの大きさがバラバラ・画像付きTweetの表示で文字と画像が横並びは流石に変。文字→画像の順に縦に並ぶべき
+- Task: user muteとtimeline filterのロジックが散ってるので集約して
+- Task: main.cssで個別コンポーネント向けのcssをimportするのをやめる
+  - 局所化するべき
+  - この内容をfrontend-development skillに記載するのもやる
 - Task: server,frontでsocket.ioのバージョン揃ってないので是正して
 - Task: typelessのバージョン最新にしておいて
 - Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって。実装が複雑であれば残していいよ
@@ -72,5 +74,5 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。
 
-- Task: docs/agents/work/_archived/20260413-0022-feat-unify-menu-route-definitions/research.md を元に意思決定し、Menu定義とRoute定義の統合リファクタリングを行う
+- Task: docs/agents/work/\_archived/20260413-0022-feat-unify-menu-route-definitions/research.md を元に意思決定し、Menu定義とRoute定義の統合リファクタリングを行う
   - 画面数が増えたタイミングで着手するのが適切
