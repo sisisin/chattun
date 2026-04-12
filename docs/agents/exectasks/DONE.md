@@ -113,3 +113,8 @@
   - CI: corepack enable pnpm + actions/setup-nodeのpnpmキャッシュ設定
   - Dockerfile: corepack enable pnpm + pnpm install --frozen-lockfile --ignore-scripts
   - CLAUDE.md, README.md, mock-dev SKILL.md のyarn→pnpm更新
+
+- Task: CI整理
+  - run--notify-deploy-completed.yaml（workflow_runトリガー）の通知処理をpush--build-and-deploy.yaml内のnotifyジョブに統合
+  - ジョブ結果の判定を!== 'success'に変更し、cancelled等も失敗扱いに
+  - run--notify-deploy-completed.yamlを削除
