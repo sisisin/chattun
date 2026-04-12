@@ -89,6 +89,18 @@ gap: var(--spacing-xl);       /* 32px */
 | `--shadow-strong` | 強め（ヘッダー） |
 | `--shadow-strongest` | 最も強いシャドウ |
 
+## コンポーネントサイズ
+
+インタラクティブ要素の最小タッチターゲットは **36px × 36px**。
+
+| クラス | サイズ | padding | font-size | 用途 |
+|---|---|---|---|---|
+| `.button-primary` | 自動 | `--spacing-sm` `--spacing-md` | 継承（1rem） | 保存・送信 |
+| `.button-remove` | 36px × 36px | 0 | `--font-normal` | 行削除（✕） |
+| `.button-add` | 自動 | `--spacing-sm` `--spacing-md` | `--font-small` | 条件追加（+） |
+
+フォーム行では `align-items: center` で高さを揃え、隣接ボタンは input/select と同程度の高さ（36px）にする。
+
 ## アイコン
 
 SVGベースのカスタムアイコン（`front/src/app/components/icons/Icons.tsx`）。

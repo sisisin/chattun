@@ -151,7 +151,7 @@ CSSでは `_border-radius.css` に定義されたトークンを使うこと。
 - `align-items: center` でグリッド行内を中央揃えする
 - input と select は同じ padding (`--spacing-sm`: 8px) を使い、高さを自然に揃える
 - 隣接ボタン（remove 等）は input/select と同程度の高さ（36px）に合わせる
-- アクションボタン群は `display: flex; gap: --spacing-xs; align-items: center` でまとめる
+- アクションボタン群は `display: flex; gap: var(--spacing-xs); align-items: center` でまとめる
 
 ## コンポーネント
 
