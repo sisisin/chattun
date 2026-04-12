@@ -52,8 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: dynamic importによるchunkを適切に行えるように実装を調整
-  - loadableとかいらないんちゃうんかな、多分
 - Task: httpsが自己署名証明書使ってるのをやめる
   - copy_pem.shで持ってきた証明書を利用して、ブラウザで開いたときに警告が出ないようにする
   - 補足: ../myinfraにlet's encryptで発行したローカル用ドメインの証明書に関するセットアップが書かれてるので必要であれば参照して

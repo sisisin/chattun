@@ -1,5 +1,7 @@
 # Done
 
+- Task: dynamic importによるchunkを適切に行えるように実装を調整
+  - @loadable/component は TanStack Router 移行タスクで削除済み。lazyRouteComponent で code splitting が適切に動作
 - Task: react-router-dom v5 を TanStack Router に移行
   - history, @loadable/component も併せて削除。lazyRouteComponent で code splitting を維持
 - Task: react-hook-form を削除しネイティブ FormData API に移行
