@@ -39,6 +39,13 @@ const defaultKey = path.resolve(import.meta.dirname, '../tmp/privkey.pem');
 
 const certFile = envLocal.SSL_CRT_FILE || (fs.existsSync(defaultCert) ? defaultCert : undefined);
 const keyFile = envLocal.SSL_KEY_FILE || (fs.existsSync(defaultKey) ? defaultKey : undefined);
+
+if ((certFile && !keyFile) || (!certFile && keyFile)) {
+  throw new Error(
+    `HTTPS config incomplete: cert=${certFile ?? 'missing'}, key=${keyFile ?? 'missing'}. Both are required.`,
+  );
+}
+
 const https =
   certFile && keyFile
     ? { cert: fs.readFileSync(certFile), key: fs.readFileSync(keyFile) }

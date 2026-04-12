@@ -39,7 +39,7 @@ scripts/setup_pem.sh
 CERT_DIR=/etc/letsencrypt/live/local.sisisin.house
 ```
 
-- 証明書がなければ `myinfra/domains/local/` の手順で発行
+- 証明書の発行手順は別途管理
 - `front/.env.local` に `HOST=local.sisisin.house` を設定
 - Slack App の Redirect URLs: `https://local.sisisin.house:3000/api/slack/oauth_redirect`
 - SERVER_BASE_URL: `https://local.sisisin.house:3000`
