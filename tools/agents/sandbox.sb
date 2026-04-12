@@ -44,6 +44,7 @@
     (subpath (string-append (param "HOME_DIR") "/.npm")) ;; npm
     (subpath (string-append (param "HOME_DIR") "/.local/share/aquaproj-aqua")) ;; aqua
     (subpath (string-append (param "HOME_DIR") "/.config/gcloud")) ;; gcloud
+    (subpath (string-append (param "HOME_DIR") "/.docker")) ;; docker
 
     ;; STDOUTとか
     (literal "/dev/stdout")
