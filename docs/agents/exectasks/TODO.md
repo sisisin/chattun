@@ -20,7 +20,7 @@ ExecTasks の実行を指示されたら、auto memory に実行中の ExecTasks
 
 <steps>
 <step>作業ディレクトリを `docs/agents/work/{yyyymmdd-hhmm}-{branch-name}/` の形式で作成する（branch-name のスラッシュはハイフンに置換）</step>
-<step>作業ディレクトリに `task.md` を作成し、遂行するTaskの内容（達成条件、背景、スコープ）を記述する。ローカルレビュワーがこのファイルを参照してレビューする</step>
+<step>作業ディレクトリに `task.md` を作成し、遂行するTaskの内容（達成条件、背景、スコープ）を記述する。Task定義の原文をそのまま持ってくるセクションと、それを解釈したセクションを区別すること。ローカルレビュワーはこのファイルを参照してレビューする</step>
 <step>Taskを満たすよう修正を入れる</step>
 <step>`/verify` を実行し、レビュー＆動作確認ループが完了するまで修正する</step>
 <step>Approveされたら、Task遂行上の障害になったことや学びを作業ディレクトリの `learnings.md` に記載し、その中で仕組として実装して解決出来そうなことは新たなTaskとして追記する</step>
@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: regexでのmrkdwnのパース処理のメンテナンス性を評価し、必要性が認められればregexをやめるリファクタリングを行う
 - Task: mrkdwnパーサーにメンション・絵文字・リンクの対応を追加する
   - ユーザーメンション(`<@UID>`)、チャンネル参照(`<#CID|name>`)、グループメンション、特殊メンション
   - カスタム絵文字(`:emoji:`)、標準絵文字
@@ -60,6 +59,8 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: 既存の表示パイプラインをmrkdwnパーサー+レンダラーに差し替え、dangerouslySetInnerHTMLを除去する
 - Task: serverのindex.tsがゴチャ付いてるので整理したい。少なくとも`/api/*` は分けたい
   - src/router/とか切ってapiRouter変数をexportしてindex.tsでuseするとか
+- Task: typescript 6でdeprecation warnが出ている部分を修正する
+  - 大規模になる場合、スコープごとにTaskを切り出して対応する形でも可
 
 # Backlog
 
