@@ -10,6 +10,10 @@
   - toMentionにmyUserId引数追加、自分宛<@USERID>を`<span class="mention-self">`でハイライト
   - @channel/@hereは常にハイライト、CSSはcolor-mixで半透明背景
   - テスト4件追加（自分メンション、他人メンション、@channel、@here）
+- Task: ciでvite-plusの公式アクションを利用するように修正する
+  - pull--check.yamlのactions/setup-node + corepack enable pnpmをvoidzero-dev/setup-vp@v1に置換
+  - vp install --frozen-lockfile、vp check等vpコマンドに統一
+  - pre-commitフックのpinactをmise x経由に修正（vp staged実行時のPATH問題）
 - Task: pinactをmiseで入れて、pre commitで実行されるようにする
   - mise.tomlにpinact 3.9.0追加、pre-commitフックで.github/配下のステージ済みファイルにpinact run実行
   - while readループで空入力ガード、git diff --cachedでステージ済みファイルのみ再add
