@@ -12,10 +12,15 @@ export const [handle, SettingActions, getSettingState] = createModule(SettingSym
     updateSettingFulfilled: (newSetting: TimelineSettings) => ({
       payload: { newSetting },
     }),
+    loadSettingFulfilled: (newSetting: TimelineSettings) => ({
+      payload: { newSetting },
+    }),
+    hideToast: null,
   })
   .withState<SettingState>();
 
 // --- Types ---
 export interface SettingState {
   form: TimelineSettings;
+  showToast: boolean;
 }
