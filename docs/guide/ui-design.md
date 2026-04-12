@@ -103,23 +103,27 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
 
 ## スペーシング
 
-基本単位は 4px / 8px。
+基本単位は 4px / 8px。CSSでは `_spacing.css` に定義されたトークンを使うこと。
 
-| 値 | 用途 |
-|---|---|
-| 4px | 小さな内部余白、インラインコード padding |
-| 8px | 標準 padding（ツイート、フォーム入力） |
-| 16px | セクション間 margin |
-| 32px | 大きなセクション間の gap（設定画面） |
-| 48px | ヘッダー高さ、メニューアイコン幅 |
+| トークン | 値 | 用途 |
+|---|---|---|
+| `--spacing-xs` | 4px | 小さな内部余白、インラインコード padding |
+| `--spacing-sm` | 8px | 標準 padding（ツイート、フォーム入力） |
+| `--spacing-md` | 16px | セクション間 margin |
+| `--spacing-lg` | 24px | リスト padding-left |
+| `--spacing-xl` | 32px | 大きなセクション間の gap（設定画面） |
+| `--spacing-2xl` | 48px | ヘッダー高さ、メニューアイコン幅 |
+| `--spacing-3xl` | 64px | メニューグリッドカラム幅 |
 
 ## ボーダーラジウス
 
-| 値 | 用途 |
-|---|---|
-| 4px | ボタン、ラベル、リアクション、インラインコード |
-| 5px | フォーム入力（input, select） |
-| 8px | コードブロック（pre）、画像 |
+CSSでは `_border-radius.css` に定義されたトークンを使うこと。
+
+| トークン | 値 | 用途 |
+|---|---|---|
+| `--border-radius-sm` | 4px | ボタン、ラベル、リアクション、インラインコード |
+| `--border-radius-md` | 5px | フォーム入力（input, select） |
+| `--border-radius-lg` | 8px | コードブロック（pre）、画像 |
 
 ## コンポーネント
 

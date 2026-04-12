@@ -7,11 +7,11 @@
   top: 0;
   z-index: 2;
   display: grid;
-  grid-template-columns: 64px 1fr 64px;
+  grid-template-columns: var(--spacing-3xl) 1fr var(--spacing-3xl);
   width: 100%;
-  height: 48px;
+  height: var(--spacing-2xl);
   padding: 0;
-  line-height: 48px;
+  line-height: var(--spacing-2xl);
   list-style: none;
   background: var(--background-main);
   box-shadow: var(--shadow-strong);
@@ -19,7 +19,7 @@
   & + div,
   & + ul,
   & + a {
-    padding: 48px 0 0;
+    padding: var(--spacing-2xl) 0 0;
   }
 }
 
@@ -38,8 +38,8 @@
 }
 
 .menu-goback-link-item-icon {
-  width: 16px;
-  margin: 0 8px 0 0;
+  width: var(--spacing-md);
+  margin: 0 var(--spacing-sm) 0 0;
   stroke: var(--border-revert);
   transform: rotate(270deg);
 }

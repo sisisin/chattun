@@ -46,23 +46,33 @@ font-size: var(--font-large-ex);  /* 1.5rem — 大見出し */
 
 ## スペーシング
 
-基本単位は 4px / 8px。
+基本単位は 4px / 8px。`_spacing.css` のトークンを使うこと。
 
-| 値 | 用途 |
+```css
+padding: var(--spacing-sm);   /* 8px */
+margin: var(--spacing-md);    /* 16px */
+gap: var(--spacing-xl);       /* 32px */
+```
+
+| トークン | 値 |
 |---|---|
-| 4px | 小さな内部余白 |
-| 8px | 標準 padding |
-| 16px | セクション間 margin |
-| 32px | 大きなセクション間 |
-| 48px | ヘッダー高さ |
+| `--spacing-xs` | 4px |
+| `--spacing-sm` | 8px |
+| `--spacing-md` | 16px |
+| `--spacing-lg` | 24px |
+| `--spacing-xl` | 32px |
+| `--spacing-2xl` | 48px |
+| `--spacing-3xl` | 64px |
 
 ## ボーダーラジウス
 
-| 値 | 用途 |
-|---|---|
-| 4px | ボタン、ラベル、リアクション |
-| 5px | フォーム入力（input, select） |
-| 8px | コードブロック、画像 |
+`_border-radius.css` のトークンを使うこと。
+
+| トークン | 値 | 用途 |
+|---|---|---|
+| `--border-radius-sm` | 4px | ボタン、ラベル、リアクション |
+| `--border-radius-md` | 5px | フォーム入力（input, select） |
+| `--border-radius-lg` | 8px | コードブロック、画像 |
 
 ## ダークモード
 

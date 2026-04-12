@@ -31,7 +31,7 @@
 
 .login-visual-text {
   max-width: 96%;
-  margin: 0 auto 16px;
+  margin: 0 auto var(--spacing-md);
   font-size: var(--font-large);
   font-weight: bold;
   text-align: center;
@@ -48,8 +48,8 @@
 }
 
 .login-input-message {
-  margin-top: 64px;
-  margin-bottom: 28px;
+  margin-top: var(--spacing-3xl);
+  margin-bottom: var(--spacing-xl);
   font-size: var(--font-large);
   font-weight: bold;
   color: var(--text-revert);
@@ -59,7 +59,7 @@
 .login-input-link {
   display: block;
   min-width: 192px;
-  margin: 0 auto 32px;
+  margin: 0 auto var(--spacing-xl);
   text-align: center;
 }
 

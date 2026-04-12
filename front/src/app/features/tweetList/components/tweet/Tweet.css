@@ -2,8 +2,8 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 48px 1fr 144px;
-  grid-gap: 0 8px;
-  padding: 8px;
+  grid-gap: 0 var(--spacing-sm);
+  padding: var(--spacing-sm);
   margin: 1px 0;
   border-bottom: 1px solid var(--border-sub);
 
@@ -12,7 +12,7 @@
   }
 
   & p {
-    margin-bottom: 8px;
+    margin-bottom: var(--spacing-sm);
   }
 
   & a {
@@ -37,13 +37,13 @@
 }
 
 .tweet-timestamp {
-  margin-left: 8px;
+  margin-left: var(--spacing-sm);
   font-size: var(--font-small-ex);
   color: var(--text-sub);
 }
 
 .tweet-edited-marker {
-  margin-left: 8px;
+  margin-left: var(--spacing-sm);
   font-size: var(--font-small-ex);
   color: var(--text-sub);
 }
@@ -59,7 +59,7 @@
   color: var(--text-revert);
   text-align: center;
   background: var(--label-base);
-  border-radius: 4px;
+  border-radius: var(--border-radius-sm);
 }
 
 .tweet-icon-link {
@@ -78,15 +78,15 @@
   word-wrap: break-word;
 
   & code {
-    padding: 4px;
+    padding: var(--spacing-xs);
     background: var(--background-sub);
-    border-radius: 4px;
+    border-radius: var(--border-radius-sm);
   }
 
   & pre {
-    padding: 8px;
+    padding: var(--spacing-sm);
     background: var(--background-sub);
-    border-radius: 8px;
+    border-radius: var(--border-radius-lg);
 
     & code {
       background: transparent;
@@ -99,8 +99,8 @@
 
   & ul,
   & ol {
-    padding-left: 24px;
-    margin: 8px 0;
+    padding-left: var(--spacing-lg);
+    margin: var(--spacing-sm) 0;
   }
 
   & ul ul {
@@ -121,8 +121,8 @@
 }
 
 .tweet-contents-image {
-  margin-bottom: 8px;
-  border-radius: 8px;
+  margin-bottom: var(--spacing-sm);
+  border-radius: var(--border-radius-lg);
 }
 
 .tweet-actions {
@@ -135,11 +135,11 @@
   align-items: center;
   justify-content: center;
   width: 34px;
-  margin: 0 8px 0 0;
+  margin: 0 var(--spacing-sm) 0 0;
   text-align: center;
   cursor: pointer;
   border: 1px solid var(--border-sub);
-  border-radius: 4px;
+  border-radius: var(--border-radius-sm);
 
   &:hover {
     border-color: var(--border-base);
@@ -158,11 +158,11 @@
   justify-content: center;
   justify-self: right;
   width: 34px;
-  margin: 0 8px 0 0;
+  margin: 0 var(--spacing-sm) 0 0;
   text-align: center;
   cursor: pointer;
   border: 1px solid var(--border-sub);
-  border-radius: 4px;
+  border-radius: var(--border-radius-sm);
 
   &:hover {
     border-color: var(--border-base);
@@ -172,16 +172,16 @@
 .tweet-actions-list-emojis {
   display: flex;
   flex-wrap: wrap;
-  padding: 4px 0;
-  margin-bottom: 8px;
+  padding: var(--spacing-xs) 0;
+  margin-bottom: var(--spacing-sm);
   cursor: pointer;
 }
 
 .tweet-actions-list-emojis-emoji {
   padding: 0 6px 2px;
-  margin: 0 8px 8px 0;
+  margin: 0 var(--spacing-sm) var(--spacing-sm) 0;
   border: 1px solid var(--border-sub);
-  border-radius: 4px;
+  border-radius: var(--border-radius-sm);
 
   &:hover {
     border-color: var(--border-base);
@@ -193,7 +193,7 @@
 }
 
 .tweet-actions-list-emojis-count {
-  margin-left: 4px;
+  margin-left: var(--spacing-xs);
   font-weight: bold;
   color: var(--icon);
   vertical-align: middle;
