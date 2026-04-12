@@ -55,9 +55,8 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: Tweetの表示が崩れているので修正して
-  - 参考: tmp/examples/image.png
-  - アクションボタンの大きさがバラバラ・画像付きTweetの表示で文字と画像が横並びは流石に変。文字→画像の順に縦に並ぶべき
+- Task: useTweetModuleをTimelineViewで実行してるのは誤り。.blueprintで出力するfeatureの構造を確認して、適切な構造に整理して。module.tsxがTweetというComponentを定義してその中で利用するのが正しい。そして今のTweet ComponentはTweetViewという名前にするのが適切でしょう
+  - featureの構造をskillに落とすのもやっておいて
 - Task: user muteとtimeline filterのロジックが散ってるので集約して
 - Task: main.cssで個別コンポーネント向けのcssをimportするのをやめる
   - 局所化するべき

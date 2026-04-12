@@ -1,5 +1,6 @@
 # Done
 
+- Task: Tweetの表示が崩れているので修正して [20260413-0145-feat-fix-tweet-layout](../work/_archived/20260413-0145-feat-fix-tweet-layout)
 - Task: Timeline,TweetList,Tweet,slack/SlackQuery,mrkdwnらへんの整理 [20260413-0025-feat-reorganize-tweet-features](../work/_archived/20260413-0025-feat-reorganize-tweet-features)
 - Task: Menuで定義してる画面ごとの表示とRouteごとの表示コンポーネント定義を同じ場所で定義できるようにしたい [20260413-0022-feat-unify-menu-route-definitions](../work/_archived/20260413-0022-feat-unify-menu-route-definitions)
 - Task: 設定項目を日本語にする
