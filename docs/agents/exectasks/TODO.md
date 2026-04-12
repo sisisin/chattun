@@ -52,12 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: レビュー＆動作確認スキルを整備する
-  - browser-verifierエージェントが利用可能なエージェントタイプとして動作するようにする（現状 `Agent type 'browser-verifier' not found` で起動できない）
-  - start-local-reviewのループ部分をxml like syntaxの `<step>` で囲う等して読みやすくリファクタする
-  - 「ブラウザ動作確認（任意）」の「任意」表記をやめ、front/で動きに関係する変更がある場合に実施する条件として明記する
-  - 検証対象を判定したらtask.mdに検証ステップとしてチェックリスト（`- [ ] review`, `- [ ] browser-verification` 等）を作り、すべてチェックがつくまで実行する動きにする
-  - start-local-reviewという名前がレビュー＋動作確認をカバーしきれていないので適切な名前に変更する
 - Task: 設定画面にdeveloper modeのチェックを入れて。trueの場合、localStorageでデバッグ用のコピーボタン出してるやつが出てくる、といったデバッグ用の動作が有効化されるようにしたい。設定は一番下へ。
 - Task: 設定のうち、deep linkingの設定の右に配置しているselect boxの選択肢があることを示すアイコン（vの字みたいなやつ）が文字と被ってしまってるのを修正
   - そもそもアイコンが文字に被らないようにサイズが調整されるようにするべき

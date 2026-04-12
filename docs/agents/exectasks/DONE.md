@@ -282,6 +282,13 @@
   - Browser Verification Phaseを追加: front/src配下のdiffがある場合にブラウザ検証サブエージェントを起動
   - 逐次実行でファイル競合を防止、lsofでdevサーバー起動確認、ラウンド番号の明示的伝達
 
+- Task: レビュー＆動作確認スキルを整備する
+  - /start-local-review を /verify にリネーム（レビュー＋動作確認をカバーする名前）
+  - プロンプトを `<step>` XML構造でリファクタ
+  - 「任意」表記を廃止、front/src変更時にブラウザ検証を実行する条件として明記
+  - task.mdにチェックリスト（`- [ ] review`, `- [ ] browser-verification`）を生成し全チェック完了まで実行する動きに変更
+  - browser-verifierをgeneral-purposeエージェント＋.md参照で起動する形に修正
+
 - Task: 設定画面で変更をsubmitしたときにフィードバックが欲しい。検討して追加して
   - 汎用トースト通知をtypeless module + createPortalで実装（features/toast/）
   - 設定保存時に「保存しました」トースト表示、2秒後自動消去
