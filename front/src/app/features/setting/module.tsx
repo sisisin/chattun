@@ -3,17 +3,20 @@ import { SettingView } from './components/SettingView';
 import { handle, SettingState, SettingActions, getSettingState } from './interface';
 import { settingRepository } from 'app/services/localstorage/SettingRepository';
 import { getGlobalSettingState, GlobalSettingActions } from '../globalSetting/interface';
+import { showToast } from 'app/services/toast';
+
 // --- Epic ---
 handle
   .epic()
   .on(SettingActions.$mounted, () => {
     const globalSetting = getGlobalSettingState();
-    return SettingActions.loadSettingFulfilled({ ...initialState.form, ...globalSetting });
+    return SettingActions.updateSettingFulfilled({ ...initialState, ...globalSetting });
   })
   .on(SettingActions.updateSetting, ({ diff }) => {
     const { form } = getSettingState();
     const newSetting = { ...form, ...diff };
     settingRepository.putSetting(newSetting);
+    showToast('保存しました');
     return [
       GlobalSettingActions.updateGlobalSetting(newSetting),
       SettingActions.updateSettingFulfilled(newSetting),
@@ -28,20 +31,12 @@ export const initialState: SettingState = {
     keywordMatch: undefined,
     markAsRead: false,
   },
-  showToast: false,
 };
 
 export const reducer = handle
   .reducer(initialState)
-  .on(SettingActions.loadSettingFulfilled, (state, { newSetting }) => {
-    state.form = newSetting;
-  })
   .on(SettingActions.updateSettingFulfilled, (state, { newSetting }) => {
     state.form = newSetting;
-    state.showToast = true;
-  })
-  .on(SettingActions.hideToast, state => {
-    state.showToast = false;
   });
 
 // --- Module ---

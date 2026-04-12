@@ -12,3 +12,4 @@
 @import '../components/menu/Menu.css';
 @import '../features/tweetList/components/TweetList.css';
 @import '../features/tweetList/components/tweet/Tweet.css';
+@import '../components/toast/Toast.css';

@@ -1,6 +1,7 @@
 import { useSlackModule } from 'app/features/slack/module';
 import * as React from 'react';
 import { Routes } from './components/Routes';
+import { Toast } from './components/toast/Toast';
 import { useGlobalSettingModule } from './features/globalSetting/module';
 import { useSessionModule } from './features/session/module';
 
@@ -9,5 +10,10 @@ export const App = () => {
   useGlobalSettingModule();
   useSlackModule();
 
-  return <Routes></Routes>;
+  return (
+    <>
+      <Routes />
+      <Toast />
+    </>
+  );
 };

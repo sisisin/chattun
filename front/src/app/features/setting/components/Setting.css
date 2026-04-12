@@ -8,29 +8,3 @@
   width: 90%;
   margin: 0 auto;
 }
-
-.setting-toast {
-  position: fixed;
-  bottom: var(--spacing-lg);
-  left: 50%;
-  padding: var(--spacing-sm) var(--spacing-lg);
-  font-size: var(--font-small);
-  color: var(--text-revert);
-  background: var(--background-main);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-strong);
-  transform: translateX(-50%);
-  animation: toast-in 0.3s ease-out;
-}
-
-@keyframes toast-in {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(var(--spacing-sm));
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
