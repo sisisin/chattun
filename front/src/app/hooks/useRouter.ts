@@ -1,15 +1,12 @@
-// oxlint-disable-next-line no-restricted-imports -- useRouter.ts自体がuseLocationをラップする正当な箇所
-import { useLocation, useRouteMatch } from 'react-router-dom';
-import { appHistory } from 'app/services/appHistory';
+// oxlint-disable-next-line no-restricted-imports -- useRouter.ts自体がuseLocation/useParamsをラップする正当な箇所
+import { useLocation, useParams } from '@tanstack/react-router';
 
-export const useRouter = <T extends { [K in keyof T]?: string | undefined }>() => {
-  const { params } = useRouteMatch<T>();
-  const history = appHistory;
-  const { state: _state, ...location } = useLocation();
+export const useRouter = <T extends Record<string, string>>() => {
+  const params = useParams({ strict: false }) as T;
+  const location = useLocation();
 
   return {
     params,
-    history,
     location,
   };
 };

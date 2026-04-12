@@ -123,8 +123,8 @@ export default defineConfig({
         {
           paths: [
             {
-              name: 'react-router-dom',
-              importNames: ['useLocation', 'useParams', 'useHistory'],
+              name: '@tanstack/react-router',
+              importNames: ['useLocation', 'useParams', 'useNavigate'],
               message: 'useRouter.tsを使って（API足りない場合はこっちに追加して）',
             },
             {

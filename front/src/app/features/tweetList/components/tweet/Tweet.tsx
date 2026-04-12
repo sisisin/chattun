@@ -30,7 +30,7 @@ export const TweetItem = ({ message, parentRef }: Props) => {
     <li ref={tweetRef} className="tweet">
       <AppLink
         className="tweet-icon-link"
-        to="/thread/:channelId/:ts"
+        to="/thread/$channelId/$ts"
         params={{
           channelId: message.channelId,
           ts: linkingTs,
@@ -95,7 +95,7 @@ export const TweetItem = ({ message, parentRef }: Props) => {
           )}
           <AppLink
             className="tweet-actions-list-thread"
-            to="/thread/:channelId/:ts"
+            to="/thread/$channelId/$ts"
             params={{
               channelId: message.channelId,
               ts: linkingTs,

@@ -1,7 +1,7 @@
+import { Link } from '@tanstack/react-router';
 import { IconArrow, IconSetting } from 'app/components/icons/Icons';
 import { useRouter } from 'app/hooks/useRouter';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 export const Menu: React.FC = () => {
   const { location } = useRouter();
