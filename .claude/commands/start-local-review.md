@@ -40,36 +40,20 @@ Use the **Agent tool** with `subagent_type: "local-reviewer"` to spawn the revie
 >
 > Review history: {Round 2+ の場合、レビューファイルパスを記載。Round 1 なら「なし」}
 
-#### Browser Verification Phase
+#### Browser Verification (optional)
 
-**実行条件**: ブランチ全体のdiff（`git diff main...HEAD --name-only`）に `front/src/` 配下のファイル（`.ts`, `.tsx`, `.css`）が含まれる場合のみ実行する。含まれない場合はスキップ。
+フロントエンド変更（`front/src/` 配下の `.ts`, `.tsx`, `.css`）を含むブランチでは、レビュー APPROVED 後のマージ前に `browser-verifier` エージェントで動作確認を行うことを推奨する。
 
-**実行タイミング**: Review Phase が完了した後に逐次実行する（レビューファイルへの書き込み競合を防ぐため、Review Phase のサブエージェント完了を待ってから実行すること）。
+起動例:
 
-**各ラウンドでの実行**: Round 1 で必ず実行する。Round 2 以降は、そのラウンドの Fix Phase でフロント関連ファイルを修正した場合のみ再実行する。
-
-手順:
-
-1. devサーバーが起動しているか確認する（`lsof -i :3000` でポートを確認）。起動していなければ `cd front && pnpm start` をバックグラウンドで起動する
-2. Review Phase のサブエージェント完了後、**Agent tool** (`subagent_type: "general-purpose"`) でブラウザ検証サブエージェントを起動する:
-
+> Agent(subagent_type: "browser-verifier")
+>
 > フロントエンドの動作検証を行ってください。
 >
-> ## 対象
-> ブランチの変更にフロントエンドの差分が含まれています。
+> Task context: {タスクの内容}
 >
-> Task context: {$1 の内容}
->
-> ## 手順
-> 1. chrome browser tools (mcp__claude-in-chrome__*) を使ってブラウザで http://localhost:3000 にアクセスする
-> 2. 変更内容に関連するページ・機能を操作して、表示崩れやコンソールエラーがないか確認する
-> 3. 確認結果を以下のファイルに `## Browser Verification (Round {N})` セクションとして追記する: {review output file path}
-
-Note: `{N}` は主エージェントがプロンプト構築時に現在のラウンド番号（1, 2, ...）に置換して渡すこと。
->
-> ## 注意
-> - レビューファイルへの書き込みのみ行う。ソースコードは変更しない
-> - コンソールエラーの有無、表示崩れ、基本操作の動作を確認する
+> Output file: {review output file path}
+> Section heading: `## Browser Verification`
 
 #### Fix Phase (if NEEDS_FIX)
 

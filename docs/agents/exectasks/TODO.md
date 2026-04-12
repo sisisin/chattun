@@ -52,6 +52,10 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
+- Task: ブラウザ動作確認エージェントを独立定義し、local-reviewのBrowser Verification Phaseを置き換える
+  - .claude/agents/ にブラウザ動作確認エージェントを定義
+  - start-local-review.md から Browser Verification Phase を削除し、必要に応じて動作確認エージェントを起動する形に変更
+- Task: skill類を日本語化する。また、英語でアウトプットを要求している指示は全てなくす
 - Task: serverのpnpm化
 - Task: pnpm workspace化
   - docker build時にFEのアセットビルドやserver初期化で全installが実行されないように注意
