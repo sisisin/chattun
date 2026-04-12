@@ -31,7 +31,7 @@
     "@types/react-outside-click-handler": "1.3.0",
     "autoprefixer": "9.7.4",
     "jsdom": "29.0.2",
-    "node-emoji": "1.10.0",
+    "node-emoji": "2.2.0",
     "plop": "2.5.4",
     "react-outside-click-handler": "1.3.0",
     "rxjs": "7.8.2",
