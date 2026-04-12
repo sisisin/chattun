@@ -42,8 +42,16 @@ handle
 // --- Module ---
 export const Toast = () => {
   handle();
-  const { message } = useMappedState([getToastState], s => ({ message: s.message }));
+  const { message, version } = useMappedState([getToastState], s => ({
+    message: s.message,
+    version: s.version,
+  }));
 
   if (!message) return null;
-  return createPortal(<div className="toast">{message}</div>, document.body);
+  return createPortal(
+    <div key={version} className="toast">
+      {message}
+    </div>,
+    document.body,
+  );
 };

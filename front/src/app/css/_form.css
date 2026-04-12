@@ -65,6 +65,11 @@ input {
   border-radius: var(--border-radius-sm);
 }
 
+.button-primary:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
 .setting-group-match {
   display: grid;
   grid-template-columns: 1fr minmax(auto, 120px) auto;
@@ -74,10 +79,12 @@ input {
   margin-bottom: var(--spacing-sm);
 }
 
-.setting-group-match-actions {
+.setting-group-footer {
   display: flex;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
   align-items: center;
+  max-width: 520px;
+  margin-top: var(--spacing-xs);
 }
 
 .button-remove {
