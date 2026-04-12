@@ -16,3 +16,7 @@
 - server/mock-server/presets.ts にプリセットを追加
 - `message-with-image` プリセットの `filetype` 欠落を修正
 - 新プリセット: formatted-message（太字/斜体/取消線/コード）、message-with-mentions（メンション各種）、message-with-links（URL/mailto）、message-with-emojis（絵文字）
+
+## 検証ステップ
+
+- [x] review
