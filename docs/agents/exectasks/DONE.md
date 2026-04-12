@@ -1,5 +1,9 @@
 # Done
 
+- Task: デザインガイドを実装レベルで利用・守れるように整備する
+  - frontend-development skill（user-invocable: false）を作成し、design.mdへの誘導を実装
+  - design.mdに実装時のルール要約を記載、docs/guide/ui-design.mdへリンク
+  - local-reviewer agentにskill参照によるレビュー指針を追加
 - Task: UIデザインの設計を明文化する
   - docs/guide/ui-design.mdにカラーパレット・セマンティックトークン・タイポグラフィ・スペーシング・コンポーネントパターン等を文書化
   - CSSソースから設計意図を分析し、ダークモード実装の現状も明記
