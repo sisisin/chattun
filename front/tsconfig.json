@@ -23,7 +23,7 @@
     "strict": false,
     "alwaysStrict": true,
     "strictPropertyInitialization": true,
-    "strictFunctionTypes": false,
+    "strictFunctionTypes": true,
     "lib": ["es2020", "dom"]
   },
   "include": ["src"]
