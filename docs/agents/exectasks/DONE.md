@@ -316,6 +316,10 @@
   - channelMatchを単一オブジェクトから配列(channelMatches)に変更、OR条件で複数マッチ対応
   - controlled componentでUI実装、旧データのマイグレーション付き
   - verifyスキルをreview/browser-verification並列起動に改善
+- Task: channel matchのバツボタンが小さい
+  - .button-removeを32px→36px、font-sizeを--font-small→--font-normalに変更
+  - デザインガイドにコンポーネントサイズ節を追加（タッチターゲット最小サイズ、ボタンバリエーション、フォーム行高さ揃え）
+  - .claude/skills/frontend-development/design.mdにもコンポーネントサイズの要約を追記
 - Task: 設定画面でヘッダが「すべての投稿」と表示され、ギアアイコンも出てしまっているのを修正
   - Menu.tsxにisSetting判定を追加、設定画面ではタイトル「設定」表示・ギアアイコン非表示に
 - Task: rxjs 6→7にアップグレードする
