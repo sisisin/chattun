@@ -62,6 +62,8 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
   - 依存増やさない方法が一番いい
 - emoji-martのアセットが500kb超えてるっぽいので、UXの最適化をする
   - 単独でエンドポイントから配信するようにしてbundleに入れない・キャッシュされやすくするとか？（なんもわからん）
+- Task: InstallProviderのstateSecretを環境変数から読み込むようにする
+  - handleInstallPath切り替えでstate CSRF検証が有効になったため、ハードコード値からの脱却が必要
 
 # Backlog
 
