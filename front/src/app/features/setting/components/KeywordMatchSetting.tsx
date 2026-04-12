@@ -18,9 +18,12 @@ export const KeywordMatchSetting: React.FC = () => {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const formData = new FormData(e.currentTarget);
+      const matchValue = formData.get('matchValue');
+      const matchMethod = formData.get('matchMethod');
+      if (typeof matchValue !== 'string' || typeof matchMethod !== 'string') return;
       const data: KeywordMatch = {
-        matchValue: formData.get('matchValue') as string,
-        matchMethod: formData.get('matchMethod') as KeywordMatchMethod,
+        matchValue,
+        matchMethod: matchMethod as KeywordMatchMethod,
       };
       updateSetting({ keywordMatch: data });
     },
