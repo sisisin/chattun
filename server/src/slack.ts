@@ -14,6 +14,7 @@ export const installer = new InstallProvider({
   clientId: slackClientId,
   clientSecret: slackClientSecret,
   stateSecret: 'my-state-secret',
+  directInstall: true,
 
   installationStore: {
     storeInstallation: async installation => {
