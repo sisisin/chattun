@@ -17,7 +17,7 @@ chattun は Slack のタイムラインビューアーWebアプリ。Slack Socke
 - mise activate 済みの環境では `vp` コマンドが直接使える（`mise.toml` の `_.path` で `node_modules/.bin` を PATH に追加）
 - 環境変数は `.env.local` で設定（2箇所どちらでも可）
   - ルート `.env.local` — `mise.toml` の `_.file` で自動読み込み
-  - `server/.env.local` — `vp dev` 時に `--env-file-if-exists` で読み込み
+  - `server/.env.local` — `pnpm dev` 時に `--env-file-if-exists` で読み込み
 - 必須環境変数: `SLACK_APP_TOKEN`, `CLIENT_ID`, `CLIENT_SECRET`, `SERVER_BASE_URL`
 
 ### 起動
