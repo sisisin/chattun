@@ -7,6 +7,11 @@ settings:
 overrides:
   '@types/react': 18.3.28
 
+patchedDependencies:
+  typeless@1.5.0:
+    hash: dad5692a2cf432388c023054d57a24b48965494f1fd4e0bdc7c4de7549384007
+    path: patches/typeless@1.5.0.patch
+
 importers:
 
   .:
@@ -91,14 +96,14 @@ importers:
         specifier: 5.1.2
         version: 5.1.2(react@18.3.1)
       rxjs:
-        specifier: 6.5.4
-        version: 6.5.4
+        specifier: 7.8.2
+        version: 7.8.2
       socket.io-client:
         specifier: 4.7.5
         version: 4.7.5
       typeless:
         specifier: 1.5.0
-        version: 1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@6.5.4)
+        version: 1.5.0(patch_hash=dad5692a2cf432388c023054d57a24b48965494f1fd4e0bdc7c4de7549384007)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2)
       typescript:
         specifier: 6.0.2
         version: 6.0.2
@@ -2065,6 +2070,9 @@ packages:
     resolution: {integrity: sha512-naMQXcgEo3csAEGvw/NydRA0fuS2nDZJiw1YUWFKU7aPPAPGZEsD4Iimit96qwCieH6y614MCLYwdkrWx7z/7Q==}
     engines: {npm: '>=2.0.0'}
 
+  rxjs@7.8.2:
+    resolution: {integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==}
+
   safe-regex@1.1.0:
     resolution: {integrity: sha512-aJXcif4xnaNUzvUuC5gcb46oTS7zvg4jpMTnuqtrEPlR3vFr4pxtdTwaF1Qs3Enjn9HK+ZlwQui+a7z0SywIzg==}
 
@@ -2790,7 +2798,7 @@ snapshots:
   '@types/inquirer@6.0.1':
     dependencies:
       '@types/through': 0.0.30
-      rxjs: 6.5.4
+      rxjs: 7.8.2
 
   '@types/linkify-it@2.1.0': {}
 
@@ -4331,6 +4339,10 @@ snapshots:
     dependencies:
       tslib: 1.9.3
 
+  rxjs@7.8.2:
+    dependencies:
+      tslib: 2.6.2
+
   safe-regex@1.1.0:
     dependencies:
       ret: 0.1.15
@@ -4567,12 +4579,12 @@ snapshots:
 
   type-fest@0.8.1: {}
 
-  typeless@1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@6.5.4):
+  typeless@1.5.0(patch_hash=dad5692a2cf432388c023054d57a24b48965494f1fd4e0bdc7c4de7549384007)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2):
     dependencies:
       immer: 5.3.6
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      rxjs: 6.5.4
+      rxjs: 7.8.2
 
   typescript@6.0.2: {}
 

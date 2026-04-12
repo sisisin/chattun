@@ -1,5 +1,6 @@
 import { appHistory } from 'app/services/appHistory';
 import { httpClient } from 'app/services/http/HttpClient';
+import { firstValueFrom } from 'rxjs';
 import { getSessionState, handle, SessionActions, SessionState } from './interface';
 
 // --- Epic ---
@@ -10,7 +11,7 @@ export const epic = handle
       return null;
     }
 
-    const result = await httpClient.get<unknown, { userId: string }>('/connection').toPromise();
+    const result = await firstValueFrom(httpClient.get<unknown, { userId: string }>('/connection'));
     if (result.left != null) {
       // サーバーの実装的に401以外は異常系
       const msg =

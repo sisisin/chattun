@@ -14,7 +14,7 @@ const headerBase = {
 
 export class HttpClient {
   get<Error, Body>(path: string): Observable<HttpResponseEither<Error, Body>> {
-    return ajax({
+    return ajax<Body>({
       method: 'GET',
       url: `${api}${path}`,
       headers: { ...headerBase },
@@ -33,7 +33,7 @@ export class HttpClient {
     path: string,
     body: Record<string, any> = {},
   ): Observable<HttpResponseEither<Error, Body>> {
-    return ajax({
+    return ajax<Body>({
       method: 'POST',
       url: `${api}${path}`,
       body,
