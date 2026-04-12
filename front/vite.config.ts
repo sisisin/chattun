@@ -1,7 +1,7 @@
 import { configDefaults, defineConfig } from 'vite-plus';
-import autoprefixer from 'autoprefixer';
 import fs from 'fs';
 import path from 'path';
+import autoprefixer from 'autoprefixer';
 
 const envLocal = fs.existsSync('.env.local')
   ? Object.fromEntries(
