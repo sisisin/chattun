@@ -25,3 +25,8 @@
 - parser.test.tsへのテスト追加
 - MrkdwnRenderer.tsxへの新ノードタイプのレンダリング追加
 - 既存パイプラインへの統合は行わない（後続タスク）
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
