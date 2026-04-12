@@ -65,7 +65,7 @@ export const getMessageProfile = (map: SlackState['users'], msg: Message) => {
     }
   }
   return {
-    displayName: member.profile.display_name || member.name,
+    displayName: member.profile.display_name || member.real_name,
     fullName: member.real_name,
     iconUrl: member.profile.image_48,
   };
@@ -77,7 +77,7 @@ export const getProfile = (map: SlackState['users'], userId: string) => {
     return { displayName: userId, fullName: userId, iconUrl: '' };
   }
   return {
-    displayName: member.name,
+    displayName: member.profile.display_name || member.real_name,
     fullName: member.real_name,
     iconUrl: member.profile.image_48,
   };
