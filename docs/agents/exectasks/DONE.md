@@ -323,6 +323,10 @@
 - Task: mark as readはなくしちゃって、常にmark as readするようにしちゃう
   - TimelineSettingsからmarkAsReadプロパティを削除、MarkAsReadSettingコンポーネントを削除
   - timeline/module.tsxのRx.filterを削除し常にmark as readする動作に変更
+- Task: ライト・ダークモード切り替えを設定できるようにする
+  - prefers-color-schemeメディアクエリをdata-theme属性セレクタに置き換え
+  - globalSetting epicでmatchMedia監視によるsystem/light/dark切り替え実装
+  - ThemeSettingコンポーネントを設定画面に追加
 - Task: 設定画面でヘッダが「すべての投稿」と表示され、ギアアイコンも出てしまっているのを修正
   - Menu.tsxにisSetting判定を追加、設定画面ではタイトル「設定」表示・ギアアイコン非表示に
 - Task: rxjs 6→7にアップグレードする
