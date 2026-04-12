@@ -119,6 +119,9 @@
   - ジョブ結果の判定を!== 'success'に変更し、cancelled等も失敗扱いに
   - run--notify-deploy-completed.yamlを削除
 
+- Task: 不要なファイル・パッケージを削除する
+  - story2sketch.config.js（Storybook削除後の残骸）、buffer/processパッケージ（CRA時代のpolyfill）を削除
+
 - Task: 他にfrontでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
   - 不要ファイル/パッケージ削除、postcssネイティブ移行、React 18、react-router 6、strictFunctionTypesをTasksに追加
   - emoji-mart 5、rxjs 7、react-hook-form 7をBacklogに追加

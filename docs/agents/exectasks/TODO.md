@@ -52,9 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 不要なファイル・パッケージを削除する
-  - story2sketch.config.js（Storybook削除後の残骸）
-  - buffer, processパッケージ（CRA時代のpolyfill、ソースコードで未使用）
 - Task: postcss-custom-mediaとpostcss-nestingをネイティブCSSに置き換え、postcss.config.jsを削除する
   - browserslistがIE11を除外しているためネイティブCSS nesting・@mediaで十分
   - autoprefixerのみ残す場合はvite.config.tsのcss.postcss設定に移行
