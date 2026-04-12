@@ -34,9 +34,14 @@ const envLocal = fs.existsSync('.env.local')
     )
   : {};
 
+const defaultCert = path.resolve(import.meta.dirname, '../tmp/fullchain.pem');
+const defaultKey = path.resolve(import.meta.dirname, '../tmp/privkey.pem');
+
+const certFile = envLocal.SSL_CRT_FILE || (fs.existsSync(defaultCert) ? defaultCert : undefined);
+const keyFile = envLocal.SSL_KEY_FILE || (fs.existsSync(defaultKey) ? defaultKey : undefined);
 const https =
-  envLocal.SSL_CRT_FILE && envLocal.SSL_KEY_FILE
-    ? { cert: fs.readFileSync(envLocal.SSL_CRT_FILE), key: fs.readFileSync(envLocal.SSL_KEY_FILE) }
+  certFile && keyFile
+    ? { cert: fs.readFileSync(certFile), key: fs.readFileSync(keyFile) }
     : undefined;
 
 export default defineConfig({

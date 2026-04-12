@@ -67,6 +67,10 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 - Task: .vscodeをルートに統合・chattun.code-workspaceを消す
 - Task: なんか古いやつが地味に残ってるのを消す
   - たとえばmise.tomlにyarnがいる
+- Task: /.env.localにサーバー用の環境変数を渋々置いてるんだけど、サーバー開発時にserver/.env.localが適切に評価されるようにしたい
+  - 依存増やさない方法が一番いい
+- emoji-martのアセットが500kb超えてるっぽいので、UXの最適化をする
+  - 単独でエンドポイントから配信するようにしてbundleに入れない・キャッシュされやすくするとか？（なんもわからん）
 
 # Backlog
 
