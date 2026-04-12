@@ -6,7 +6,6 @@ import { secureHeaders } from 'hono/secure-headers';
 import path from 'path';
 import https from 'https';
 import fs from 'node:fs';
-import type { ServerResponse } from 'node:http';
 import { configureSocketClient, installer, socketClient } from './slack.ts';
 import { configureIO } from './io.ts';
 import { port, serverBaseUrl } from './config.ts';
@@ -73,27 +72,24 @@ async function main() {
     const { incoming, outgoing } = c.env;
 
     let installation: any = null;
+    let failed = false;
 
     try {
       await installer.handleCallback(incoming, outgoing, {
         success: inst => {
           installation = inst;
         },
-        failure: (_error, _options, _callbackReq, callbackRes) => {
-          const res = callbackRes as ServerResponse;
-          if (!res.headersSent) {
-            res.writeHead(500);
-            res.end('OAuth failed');
-          }
+        failure: () => {
+          failed = true;
         },
       });
     } catch (err) {
-      if (!outgoing.headersSent) {
-        outgoing.writeHead(500);
-        outgoing.end('OAuth failed');
-      }
       logger.errore('OAuth callback error', err);
-      return c.body(null);
+      return c.text('OAuth failed', 500);
+    }
+
+    if (failed) {
+      return c.text('OAuth failed', 500);
     }
 
     if (installation) {
@@ -103,7 +99,7 @@ async function main() {
       return c.redirect(serverBaseUrl, 302);
     }
 
-    return c.body(null);
+    return c.text('OAuth failed', 500);
   });
 
   // Auth check helper

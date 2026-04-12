@@ -1,6 +1,5 @@
 import crypto from 'node:crypto';
 import type { MiddlewareHandler } from 'hono';
-import { getCookie } from 'hono/cookie';
 import { redis } from './redis.ts';
 
 const SESSION_COOKIE = 'sid';
@@ -38,7 +37,7 @@ export async function loadSessionFromCookieHeader(
 }
 
 export const sessionMiddleware: MiddlewareHandler = async (c, next) => {
-  const sessionId = getCookie(c, SESSION_COOKIE);
+  const sessionId = parseSessionIdFromCookie(c.req.header('cookie'));
   let session: SessionData = {};
 
   if (sessionId) {
