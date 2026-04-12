@@ -119,6 +119,16 @@
   - ジョブ結果の判定を!== 'success'に変更し、cancelled等も失敗扱いに
   - run--notify-deploy-completed.yamlを削除
 
+- Task: frontの暗黙的な推移的依存を整理する
+  - babel-runtime: emoji-mart 2.11.2が内部でrequireしているがdependenciesに未宣言（パッケージのバグ）。v5はフルリライトでAPI非互換のため現時点では明示的依存として維持
+  - @types/webpack-env: CRA→vite+移行完了により既に削除済み
+
+- Task: CSSをvite+で利用できる技術に移行し、postcssを消す
+  - postcss-cli, cssnano, postcss-import, postcss-nested, postcss-custom-propertiesを削除
+  - index.htmlの静的CSSリンクを削除、index.tsxにimport './app/css/main.css'を追加しViteのCSSパイプラインで処理
+  - vite.config.tsからwatch-css/build-cssタスクを削除、postcss.config.jsはcustom-media/nesting/autoprefixerのみに簡素化
+  - markdown-itのESMインポート修正（namespace→default import）、global: 'globalThis'ポリフィル追加
+
 - Task: typescriptを最新にする
   - TypeScript 3.8.3→6.0.2にアップグレード
   - tsconfig.json: target es2020, module preserve, moduleResolution bundler、baseUrl→paths移行、suppressImplicitAnyIndexErrors削除
