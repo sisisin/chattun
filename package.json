@@ -8,5 +8,11 @@
     "patchedDependencies": {
       "typeless@1.5.0": "front/patches/typeless@1.5.0.patch"
     }
+  },
+  "devDependencies": {
+    "@types/node": "22.19.17",
+    "typescript": "6.0.2",
+    "vite": "8.0.8",
+    "vite-plus": "0.1.16"
   }
 }

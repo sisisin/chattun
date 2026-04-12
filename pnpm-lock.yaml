@@ -14,7 +14,20 @@ patchedDependencies:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      '@types/node':
+        specifier: 22.19.17
+        version: 22.19.17
+      typescript:
+        specifier: 6.0.2
+        version: 6.0.2
+      vite:
+        specifier: 8.0.8
+        version: 8.0.8(@types/node@22.19.17)
+      vite-plus:
+        specifier: 0.1.16
+        version: 0.1.16(@types/node@22.19.17)(jsdom@29.0.2)(typescript@6.0.2)(vite@8.0.8(@types/node@22.19.17))
 
   front:
     dependencies:
@@ -43,9 +56,6 @@ importers:
       '@types/markdown-it':
         specifier: 0.0.9
         version: 0.0.9
-      '@types/node':
-        specifier: 13.7.7
-        version: 13.7.7
       '@types/node-emoji':
         specifier: 1.8.1
         version: 1.8.1
@@ -85,15 +95,6 @@ importers:
       typeless:
         specifier: 1.5.0
         version: 1.5.0(patch_hash=dad5692a2cf432388c023054d57a24b48965494f1fd4e0bdc7c4de7549384007)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2)
-      typescript:
-        specifier: 6.0.2
-        version: 6.0.2
-      vite:
-        specifier: 8.0.8
-        version: 8.0.8(@types/node@13.7.7)
-      vite-plus:
-        specifier: 0.1.16
-        version: 0.1.16(@types/node@13.7.7)(jsdom@29.0.2)(typescript@6.0.2)(vite@8.0.8(@types/node@13.7.7))
 
   server:
     dependencies:
@@ -132,7 +133,7 @@ importers:
         version: 4.7.5
       ts-node:
         specifier: 10.2.0
-        version: 10.2.0(@types/node@22.19.17)(typescript@5.8.3)
+        version: 10.2.0(@types/node@22.19.17)(typescript@6.0.2)
     devDependencies:
       '@types/connect-redis':
         specifier: 0.0.17
@@ -146,18 +147,12 @@ importers:
       '@types/ioredis':
         specifier: 4.26.7
         version: 4.26.7
-      '@types/node':
-        specifier: 22.19.17
-        version: 22.19.17
       '@types/request':
         specifier: 2.48.7
         version: 2.48.7
       nodemon:
         specifier: 2.0.12
         version: 2.0.12
-      typescript:
-        specifier: 5.8.3
-        version: 5.8.3
 
 packages:
 
@@ -845,9 +840,6 @@ packages:
 
   '@types/node-emoji@1.8.1':
     resolution: {integrity: sha512-0fRfA90FWm6KJfw6P9QGyo0HDTCmthZ7cWaBQndITlaWLTZ6njRyKwrwpzpg+n6kBXBIGKeUHEQuBx7bphGJkA==}
-
-  '@types/node@13.7.7':
-    resolution: {integrity: sha512-Uo4chgKbnPNlxQwoFmYIwctkQVkMMmsAoGGU4JKwLuvBefF0pCq4FybNSnfkfRCpC7ZW7kttcC/TrRtAJsvGtg==}
 
   '@types/node@22.19.17':
     resolution: {integrity: sha512-wGdMcf+vPYM6jikpS/qhg6WiqSV/OhG+jeeHT/KlVqxYfD40iYJf9/AE1uQxVWFvU7MipKRkRv8NSHiCGgPr8Q==}
@@ -3535,11 +3527,6 @@ packages:
       react-dom: ^16.8.2
       rxjs: ^6.3.3
 
-  typescript@5.8.3:
-    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   typescript@6.0.2:
     resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==}
     engines: {node: '>=14.17'}
@@ -4343,8 +4330,6 @@ snapshots:
 
   '@types/node-emoji@1.8.1': {}
 
-  '@types/node@13.7.7': {}
-
   '@types/node@22.19.17':
     dependencies:
       undici-types: 6.21.0
@@ -4406,14 +4391,14 @@ snapshots:
     dependencies:
       '@types/node': 22.19.17
 
-  '@voidzero-dev/vite-plus-core@0.1.16(@types/node@13.7.7)(typescript@6.0.2)':
+  '@voidzero-dev/vite-plus-core@0.1.16(@types/node@22.19.17)(typescript@6.0.2)':
     dependencies:
       '@oxc-project/runtime': 0.123.0
       '@oxc-project/types': 0.123.0
       lightningcss: 1.32.0
       postcss: 8.5.9
     optionalDependencies:
-      '@types/node': 13.7.7
+      '@types/node': 22.19.17
       fsevents: 2.3.3
       typescript: 6.0.2
 
@@ -4435,11 +4420,11 @@ snapshots:
   '@voidzero-dev/vite-plus-linux-x64-musl@0.1.16':
     optional: true
 
-  '@voidzero-dev/vite-plus-test@0.1.16(@types/node@13.7.7)(jsdom@29.0.2)(typescript@6.0.2)(vite@8.0.8(@types/node@13.7.7))':
+  '@voidzero-dev/vite-plus-test@0.1.16(@types/node@22.19.17)(jsdom@29.0.2)(typescript@6.0.2)(vite@8.0.8(@types/node@22.19.17))':
     dependencies:
       '@standard-schema/spec': 1.1.0
       '@types/chai': 5.2.3
-      '@voidzero-dev/vite-plus-core': 0.1.16(@types/node@13.7.7)(typescript@6.0.2)
+      '@voidzero-dev/vite-plus-core': 0.1.16(@types/node@22.19.17)(typescript@6.0.2)
       es-module-lexer: 1.7.0
       obug: 2.1.1
       pixelmatch: 7.1.0
@@ -4449,10 +4434,10 @@ snapshots:
       tinybench: 2.9.0
       tinyexec: 1.1.1
       tinyglobby: 0.2.16
-      vite: 8.0.8(@types/node@13.7.7)
+      vite: 8.0.8(@types/node@22.19.17)
       ws: 8.20.0
     optionalDependencies:
-      '@types/node': 13.7.7
+      '@types/node': 22.19.17
       jsdom: 29.0.2
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
@@ -7280,7 +7265,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  ts-node@10.2.0(@types/node@22.19.17)(typescript@5.8.3):
+  ts-node@10.2.0(@types/node@22.19.17)(typescript@6.0.2):
     dependencies:
       '@cspotcode/source-map-support': 0.6.1
       '@tsconfig/node10': 1.0.12
@@ -7294,7 +7279,7 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.4
       make-error: 1.3.6
-      typescript: 5.8.3
+      typescript: 6.0.2
       yn: 3.1.1
 
   tslib@1.14.1: {}
@@ -7359,8 +7344,6 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       rxjs: 7.8.2
-
-  typescript@5.8.3: {}
 
   typescript@6.0.2: {}
 
@@ -7470,11 +7453,11 @@ snapshots:
       core-util-is: 1.0.2
       extsprintf: 1.3.0
 
-  vite-plus@0.1.16(@types/node@13.7.7)(jsdom@29.0.2)(typescript@6.0.2)(vite@8.0.8(@types/node@13.7.7)):
+  vite-plus@0.1.16(@types/node@22.19.17)(jsdom@29.0.2)(typescript@6.0.2)(vite@8.0.8(@types/node@22.19.17)):
     dependencies:
       '@oxc-project/types': 0.123.0
-      '@voidzero-dev/vite-plus-core': 0.1.16(@types/node@13.7.7)(typescript@6.0.2)
-      '@voidzero-dev/vite-plus-test': 0.1.16(@types/node@13.7.7)(jsdom@29.0.2)(typescript@6.0.2)(vite@8.0.8(@types/node@13.7.7))
+      '@voidzero-dev/vite-plus-core': 0.1.16(@types/node@22.19.17)(typescript@6.0.2)
+      '@voidzero-dev/vite-plus-test': 0.1.16(@types/node@22.19.17)(jsdom@29.0.2)(typescript@6.0.2)(vite@8.0.8(@types/node@22.19.17))
       oxfmt: 0.43.0
       oxlint: 1.58.0(oxlint-tsgolint@0.20.0)
       oxlint-tsgolint: 0.20.0
@@ -7515,7 +7498,7 @@ snapshots:
       - vite
       - yaml
 
-  vite@8.0.8(@types/node@13.7.7):
+  vite@8.0.8(@types/node@22.19.17):
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.4
@@ -7523,7 +7506,7 @@ snapshots:
       rolldown: 1.0.0-rc.15
       tinyglobby: 0.2.16
     optionalDependencies:
-      '@types/node': 13.7.7
+      '@types/node': 22.19.17
       fsevents: 2.3.3
 
   w3c-xmlserializer@5.0.0:
