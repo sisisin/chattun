@@ -1,16 +1,19 @@
-import type express from 'express';
 export interface TraceInfo {
   traceId: string;
   parentId: string;
   isSampled: boolean;
 }
 
-export function extractTrace(req: express.Request): TraceInfo | undefined {
+export interface HeaderAccessor {
+  header(name: string): string | undefined;
+}
+
+export function extractTrace(req: HeaderAccessor): TraceInfo | undefined {
   return extractTraceparent(req) ?? extractXCloudTraceContext(req);
 }
 
 // ref. https://www.w3.org/TR/trace-context/
-export function extractTraceparent(req: express.Request): TraceInfo | undefined {
+export function extractTraceparent(req: HeaderAccessor): TraceInfo | undefined {
   const traceparentHeader = req.header('traceparent');
   if (!traceparentHeader) {
     return undefined;
@@ -57,7 +60,7 @@ export function extractTraceparent(req: express.Request): TraceInfo | undefined 
 }
 
 // ref. https://cloud.google.com/trace/docs/trace-context?hl=ja#legacy-http-header
-export function extractXCloudTraceContext(req: express.Request): TraceInfo | undefined {
+export function extractXCloudTraceContext(req: HeaderAccessor): TraceInfo | undefined {
   const xCloudTraceContextHeader = req.header('x-cloud-trace-context') ?? '';
 
   const traceAndSpan = xCloudTraceContextHeader.split('/');

@@ -1,6 +1,6 @@
-import type express from 'express';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { extractTrace } from './trace.ts';
+import type { HeaderAccessor } from './trace.ts';
 import type { LogLevel as LogLevelType } from '@slack/oauth';
 import slackOauth from '@slack/oauth';
 const { LogLevel } = slackOauth;
@@ -94,7 +94,7 @@ export const logger = {
         });
     });
   },
-  withRequestContext: <T>(req: express.Request, fn: () => T): T => {
+  withRequestContext: <T>(req: HeaderAccessor, fn: () => T): T => {
     const context = extractLogDataFromRequest(req);
     return loggingContext.run(context, fn);
   },
@@ -177,7 +177,7 @@ function errorToLogObject(err: unknown): Record<string, unknown> {
  * 規定のLogEntryに入れるデータを抽出する
  * LogEntryの仕様はこちら: https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#LogSeverity
  */
-function extractLogDataFromRequest(req: express.Request): Record<string, unknown> {
+function extractLogDataFromRequest(req: HeaderAccessor): Record<string, unknown> {
   const obj: Record<string, unknown> = {};
   const traceMeta = getTraceMeta(req);
 
@@ -187,7 +187,7 @@ function extractLogDataFromRequest(req: express.Request): Record<string, unknown
   };
 }
 
-function getTraceMeta(req: express.Request): object {
+function getTraceMeta(req: HeaderAccessor): object {
   const trace = extractTrace(req);
 
   return trace

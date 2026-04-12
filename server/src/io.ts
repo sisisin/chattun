@@ -2,16 +2,25 @@ import { createIOAdapter } from './redis.ts';
 import { Server } from 'socket.io';
 import type * as http from 'http';
 import { logger } from './logging/logger.ts';
-import { getSessionProfileFromRequest } from './utils.ts';
+import { getSessionProfile } from './utils.ts';
+import { loadSessionFromCookieHeader } from './session.ts';
 
-export const configureIO = (server: http.Server, middleware: (...args: any[]) => void): Server => {
+export const configureIO = (server: http.Server): Server => {
   const io = new Server(server, { adapter: createIOAdapter() });
 
-  io.use((socket, next) => {
-    middleware(socket.request as any, {} as any, next as any);
+  io.use(async (socket, next) => {
+    try {
+      const cookieHeader = socket.request.headers.cookie;
+      const { data } = await loadSessionFromCookieHeader(cookieHeader);
+      (socket.request as any).__session = data;
+      next();
+    } catch (err) {
+      next(err as Error);
+    }
   });
+
   io.on('connection', socket => {
-    const sessionProfile = getSessionProfileFromRequest(socket.request);
+    const sessionProfile = getSessionProfile((socket.request as any).__session ?? {});
     if (!sessionProfile) {
       logger.warn('sessionProfile not found');
       socket.disconnect(true);

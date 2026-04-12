@@ -1,9 +1,9 @@
-import Redis from 'ioredis';
+import { Redis } from 'ioredis';
 import { redisConfig } from './config.ts';
 import socketIoRedisAdapter from '@socket.io/redis-adapter';
 const { createAdapter } = socketIoRedisAdapter;
 
-export const redis = new Redis(redisConfig);
+export const redis = redisConfig ? new Redis(redisConfig) : new Redis();
 const pubClient = redis.duplicate();
 const subClient = redis.duplicate();
 

@@ -14,20 +14,13 @@
     "ci": "vp check"
   },
   "dependencies": {
+    "@hono/node-server": "1.19.13",
     "@slack/oauth": "2.2.0",
     "@slack/socket-mode": "2.0.4",
     "@slack/web-api": "7.15.0",
     "@socket.io/redis-adapter": "8.3.0",
-    "connect-redis": "4.0.4",
-    "express": "4.17.1",
-    "express-session": "1.17.0",
-    "helmet": "4.6.0",
+    "hono": "4.12.12",
     "ioredis": "5.10.1",
     "socket.io": "4.7.5"
-  },
-  "devDependencies": {
-    "@types/connect-redis": "0.0.17",
-    "@types/express": "5.0.6",
-    "@types/express-session": "1.17.4"
   }
 }

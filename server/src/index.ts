@@ -1,273 +1,268 @@
-import express from 'express';
-import type { ErrorRequestHandler, RequestHandler } from 'express';
+import { Hono } from 'hono';
+import type { HttpBindings } from '@hono/node-server';
+import { createAdaptorServer } from '@hono/node-server';
+import { serveStatic } from '@hono/node-server/serve-static';
+import { secureHeaders } from 'hono/secure-headers';
 import path from 'path';
-import * as middleware from './middleware.ts';
-import http from 'http';
 import https from 'https';
+import fs from 'node:fs';
+import type { ServerResponse } from 'node:http';
 import { configureSocketClient, installer, socketClient } from './slack.ts';
 import { configureIO } from './io.ts';
 import { port, serverBaseUrl } from './config.ts';
-import fs from 'node:fs';
-import { Readable } from 'node:stream';
-import { getSessionProfileFromRequest } from './utils.ts';
 import { ErrorWithLogContext, logger } from './logging/logger.ts';
 import { loggingMiddleware } from './logging/middleware.ts';
+import {
+  sessionMiddleware,
+  createSessionId,
+  saveSession,
+  serializeSessionCookie,
+  type SessionData,
+} from './session.ts';
+import { getSessionProfile } from './utils.ts';
 import slackWebApi from '@slack/web-api';
 const { WebClient } = slackWebApi;
 
+type Env = {
+  Bindings: HttpBindings;
+  Variables: {
+    session: SessionData;
+    sessionId: string | undefined;
+  };
+};
+
 async function main() {
-  const app = express();
+  const app = new Hono<Env>();
 
-  const server = (() => {
-    if (process.env.SERVER_HTTPS === 'true') {
-      const tmpDir = path.resolve(import.meta.dirname, '../../tmp');
-      return https.createServer(
-        {
-          key: fs.readFileSync(path.join(tmpDir, 'privkey.pem')),
-          cert: fs.readFileSync(path.join(tmpDir, 'fullchain.pem')),
-        },
-        app,
-      );
-    } else {
-      return http.createServer(app);
-    }
-  })();
-
-  const sessionMiddleware = middleware.makeSession();
-
-  const io = configureIO(server, sessionMiddleware);
-  configureSocketClient(io);
-
+  // Global middleware
   app.use(loggingMiddleware);
-  app.use(middleware.makeHelmet());
-  app.set('trust proxy', 1);
-  app.use(express.json());
-  app.use(sessionMiddleware);
+  app.use(secureHeaders());
+
+  // Static files (before session to avoid unnecessary Redis lookups)
   app.use(
-    express.static(path.join(import.meta.dirname, '../public'), {
-      setHeaders: (res, path) => {
-        if (path.endsWith('.css')) {
-          res.setHeader('Content-Type', 'text/css');
-        }
-      },
+    '/*',
+    serveStatic({
+      root: path.relative(process.cwd(), path.join(import.meta.dirname, '../public')),
     }),
   );
 
-  app.get('/api/auth/slack', async (req, res, next) => {
-    try {
-      const url = await installer.generateInstallUrl({
-        scopes: [],
-        userScopes: [
-          'channels:history',
-          'channels:read',
-          'channels:write',
-          'users:read',
-          'emoji:read',
-          'team:read',
-          'reactions:read',
-          'reactions:write',
-          'files:read',
-        ],
+  // Session middleware
+  app.use(sessionMiddleware);
 
-        redirectUri: `${serverBaseUrl}/api/slack/oauth_redirect`,
-      });
-      res.redirect(url);
-    } catch (error) {
-      next(error);
-    }
+  // OAuth routes
+  app.get('/api/auth/slack', async c => {
+    const url = await installer.generateInstallUrl({
+      scopes: [],
+      userScopes: [
+        'channels:history',
+        'channels:read',
+        'channels:write',
+        'users:read',
+        'emoji:read',
+        'team:read',
+        'reactions:read',
+        'reactions:write',
+        'files:read',
+      ],
+      redirectUri: `${serverBaseUrl}/api/slack/oauth_redirect`,
+    });
+    return c.redirect(url);
   });
-  app.get('/api/slack/oauth_redirect', async (req, res, next) => {
+
+  app.get('/api/slack/oauth_redirect', async c => {
+    const { incoming, outgoing } = c.env;
+
+    let installation: any = null;
+
     try {
-      await installer.handleCallback(req, res, {
-        success: (installation, options, callbackReq, callbackRes) => {
-          if ((callbackReq as any).session) {
-            (callbackReq as any).session.slack = installation;
+      await installer.handleCallback(incoming, outgoing, {
+        success: inst => {
+          installation = inst;
+        },
+        failure: (_error, _options, _callbackReq, callbackRes) => {
+          const res = callbackRes as ServerResponse;
+          if (!res.headersSent) {
+            res.writeHead(500);
+            res.end('OAuth failed');
           }
-          (callbackRes as any).redirect(serverBaseUrl);
         },
       });
-    } catch (error) {
-      next(error);
+    } catch (err) {
+      if (!outgoing.headersSent) {
+        outgoing.writeHead(500);
+        outgoing.end('OAuth failed');
+      }
+      logger.errore('OAuth callback error', err);
+      return c.body(null);
     }
-  });
-  const checkAuthentication: RequestHandler = (req, res, next) => {
-    const slack = getSessionProfileFromRequest(req);
 
-    if (slack) {
-      next();
-    } else {
-      res.status(401).end();
+    if (installation) {
+      const sessionId = createSessionId();
+      await saveSession(sessionId, { slack: installation });
+      c.header('Set-Cookie', serializeSessionCookie(sessionId));
+      return c.redirect(serverBaseUrl, 302);
     }
+
+    return c.body(null);
+  });
+
+  // Auth check helper
+  const getAuthProfile = (c: { get: (key: 'session') => SessionData }) => {
+    const session = c.get('session');
+    return getSessionProfile(session);
   };
 
-  app.get('/api/connection', checkAuthentication, (req, res) => {
-    const { userId } = getSessionProfileFromRequest(req)!;
+  // Authenticated API routes
+  app.get('/api/connection', c => {
+    const profile = getAuthProfile(c);
+    if (!profile) return c.body(null, 401);
+    return c.json({ userId: profile.userId });
+  });
 
-    return res.json({ userId });
-  });
-  app.get('/api/file', checkAuthentication, async (req, res, next) => {
-    try {
-      const { accessToken } = getSessionProfileFromRequest(req)!;
-      const targetUrl = (req.query as any).target_url;
-      if (!targetUrl || !targetUrl.startsWith('https://files.slack.com')) {
-        res.status(400).end();
-        return;
-      }
-      const upstream = await fetch(targetUrl, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      if (!upstream.ok) {
-        res.status(upstream.status).end();
-        return;
-      }
-      const contentType = upstream.headers.get('content-type');
-      if (contentType) res.setHeader('Content-Type', contentType);
-      if (!upstream.body) {
-        res.status(502).end();
-        return;
-      }
-      Readable.fromWeb(upstream.body as any).pipe(res);
-    } catch (error) {
-      next(error);
+  app.get('/api/file', async c => {
+    const profile = getAuthProfile(c);
+    if (!profile) return c.body(null, 401);
+
+    const targetUrl = c.req.query('target_url');
+    if (!targetUrl || !targetUrl.startsWith('https://files.slack.com')) {
+      return c.body(null, 400);
     }
+
+    const upstream = await fetch(targetUrl, {
+      headers: { Authorization: `Bearer ${profile.accessToken}` },
+    });
+    if (!upstream.ok) {
+      return c.body(null, upstream.status as any);
+    }
+    if (!upstream.body) {
+      return c.body(null, 502);
+    }
+
+    const contentType = upstream.headers.get('content-type');
+    const headers: Record<string, string> = {};
+    if (contentType) headers['Content-Type'] = contentType;
+    return new Response(upstream.body, { headers });
   });
-  // Slack API proxy endpoints
-  const getSlackClient = (req: express.Request) => {
-    const { accessToken } = getSessionProfileFromRequest(req)!;
-    return new WebClient(accessToken);
+
+  // Slack API proxy helper
+  const getSlackClient = (c: { get: (key: 'session') => SessionData }) => {
+    const profile = getAuthProfile(c);
+    if (!profile) return null;
+    return new WebClient(profile.accessToken);
   };
 
-  app.get('/api/slack/emoji.list', checkAuthentication, async (req, res, next) => {
-    try {
-      const client = getSlackClient(req);
-      const result = await client.emoji.list();
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
+  app.get('/api/slack/emoji.list', async c => {
+    const client = getSlackClient(c);
+    if (!client) return c.body(null, 401);
+    const result = await client.emoji.list();
+    return c.json(result);
   });
 
-  app.get('/api/slack/users.list', checkAuthentication, async (req, res, next) => {
-    try {
-      const client = getSlackClient(req);
-      const members: any[] = [];
-      let cursor: string | undefined;
-      do {
-        const result: any = await client.users.list({ limit: 200, cursor });
-        members.push(...result.members);
-        cursor = result.response_metadata?.next_cursor || undefined;
-      } while (cursor);
-      res.json({ ok: true, members });
-    } catch (error) {
-      next(error);
-    }
+  app.get('/api/slack/users.list', async c => {
+    const client = getSlackClient(c);
+    if (!client) return c.body(null, 401);
+    const members: any[] = [];
+    let cursor: string | undefined;
+    do {
+      const result: any = await client.users.list({ limit: 200, cursor });
+      members.push(...result.members);
+      cursor = result.response_metadata?.next_cursor || undefined;
+    } while (cursor);
+    return c.json({ ok: true, members });
   });
 
-  app.get('/api/slack/conversations.list', checkAuthentication, async (req, res, next) => {
-    try {
-      const client = getSlackClient(req);
-      const channels: any[] = [];
-      let cursor: string | undefined;
-      do {
-        const result: any = await client.conversations.list({
-          types: 'public_channel',
-          exclude_archived: true,
-          limit: 200,
-          cursor,
-        });
-        channels.push(
-          ...result.channels.map((c: any) => ({
-            id: c.id,
-            is_im: c.is_im,
-            is_member: c.is_member,
-            name: c.name,
-            user: c.user,
-          })),
-        );
-        cursor = result.response_metadata?.next_cursor || undefined;
-      } while (cursor);
-      res.json({ ok: true, channels });
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  app.get('/api/slack/team.info', checkAuthentication, async (req, res, next) => {
-    try {
-      const client = getSlackClient(req);
-      const result = await client.team.info();
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  app.post('/api/slack/reactions.add', checkAuthentication, async (req, res, next) => {
-    try {
-      const client = getSlackClient(req);
-      const { channel, timestamp, name } = req.body;
-      const result = await client.reactions.add({ channel, timestamp, name });
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  app.post('/api/slack/reactions.remove', checkAuthentication, async (req, res, next) => {
-    try {
-      const client = getSlackClient(req);
-      const { channel, timestamp, name } = req.body;
-      const result = await client.reactions.remove({ channel, timestamp, name });
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  app.get('/api/slack/conversations.replies', checkAuthentication, async (req, res, next) => {
-    try {
-      const client = getSlackClient(req);
-      const channel = req.query.channel as string;
-      const ts = req.query.ts as string;
-      const result: any = await client.conversations.replies({ channel, ts });
-      res.json({
-        ...result,
-        messages: result.messages.map((m: any) => ({ ...m, channel })),
+  app.get('/api/slack/conversations.list', async c => {
+    const client = getSlackClient(c);
+    if (!client) return c.body(null, 401);
+    const channels: any[] = [];
+    let cursor: string | undefined;
+    do {
+      const result: any = await client.conversations.list({
+        types: 'public_channel',
+        exclude_archived: true,
+        limit: 200,
+        cursor,
       });
-    } catch (error) {
-      next(error);
-    }
+      channels.push(
+        ...result.channels.map((ch: any) => ({
+          id: ch.id,
+          is_im: ch.is_im,
+          is_member: ch.is_member,
+          name: ch.name,
+          user: ch.user,
+        })),
+      );
+      cursor = result.response_metadata?.next_cursor || undefined;
+    } while (cursor);
+    return c.json({ ok: true, channels });
   });
 
-  app.post('/api/slack/conversations.mark', checkAuthentication, async (req, res, next) => {
+  app.get('/api/slack/team.info', async c => {
+    const client = getSlackClient(c);
+    if (!client) return c.body(null, 401);
+    const result = await client.team.info();
+    return c.json(result);
+  });
+
+  app.post('/api/slack/reactions.add', async c => {
+    const client = getSlackClient(c);
+    if (!client) return c.body(null, 401);
+    const { channel, timestamp, name } = await c.req.json();
+    const result = await client.reactions.add({ channel, timestamp, name });
+    return c.json(result);
+  });
+
+  app.post('/api/slack/reactions.remove', async c => {
+    const client = getSlackClient(c);
+    if (!client) return c.body(null, 401);
+    const { channel, timestamp, name } = await c.req.json();
+    const result = await client.reactions.remove({ channel, timestamp, name });
+    return c.json(result);
+  });
+
+  app.get('/api/slack/conversations.replies', async c => {
+    const client = getSlackClient(c);
+    if (!client) return c.body(null, 401);
+    const channel = c.req.query('channel')!;
+    const ts = c.req.query('ts')!;
+    const result: any = await client.conversations.replies({ channel, ts });
+    return c.json({
+      ...result,
+      messages: result.messages.map((m: any) => ({ ...m, channel })),
+    });
+  });
+
+  app.post('/api/slack/conversations.mark', async c => {
+    const client = getSlackClient(c);
+    if (!client) return c.body(null, 401);
+    const { channel, ts } = await c.req.json();
+    const result = await client.conversations.mark({ channel, ts });
+    return c.json(result);
+  });
+
+  app.get('/api/slack/auth.test', async c => {
+    const client = getSlackClient(c);
+    if (!client) return c.body(null, 401);
+    const result = await client.auth.test();
+    return c.json(result);
+  });
+
+  // API catch-all 404
+  app.all('/api/*', c => c.body(null, 404));
+
+  // SPA fallback
+  app.get('*', c => {
+    const filePath = path.join(import.meta.dirname, '../public/index.html');
     try {
-      const client = getSlackClient(req);
-      const { channel, ts } = req.body;
-      const result = await client.conversations.mark({ channel, ts });
-      res.json(result);
-    } catch (error) {
-      next(error);
+      const html = fs.readFileSync(filePath, 'utf-8');
+      return c.html(html);
+    } catch {
+      return c.notFound();
     }
   });
 
-  app.get('/api/slack/auth.test', checkAuthentication, async (req, res, next) => {
-    try {
-      const client = getSlackClient(req);
-      const result = await client.auth.test();
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  app.get('/api/*', (req, res) => {
-    res.status(404).end();
-  });
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(import.meta.dirname, '../public/index.html'));
-  });
-
-  const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
+  // Error handler
+  app.onError((err, c) => {
     if (err instanceof Error) {
       if (err instanceof ErrorWithLogContext) {
         const [context, cause] = err.unwrapAndGetContext();
@@ -279,16 +274,36 @@ async function main() {
       logger.errore(`Error processing request: ${err}`, err);
     }
 
-    res.status(err?.status || 500);
-    const error = req.app.get('env') === 'development' ? err : {};
-    res.json({ message: err.message, ...error });
-  };
-  app.use(errorHandler);
+    const status = (err as any)?.status || 500;
+    return c.json({ message: (err as Error).message ?? String(err) }, status);
+  });
 
-  server.listen(port || 3100, () => {
+  // Create HTTP(S) server
+  const serverOptions = (() => {
+    if (process.env.SERVER_HTTPS === 'true') {
+      const tmpDir = path.resolve(import.meta.dirname, '../../tmp');
+      return {
+        createServer: https.createServer as any,
+        serverOptions: {
+          key: fs.readFileSync(path.join(tmpDir, 'privkey.pem')),
+          cert: fs.readFileSync(path.join(tmpDir, 'fullchain.pem')),
+        },
+      };
+    }
+    return {};
+  })();
+
+  const server = createAdaptorServer({
+    fetch: app.fetch,
+    ...serverOptions,
+  });
+
+  const io = configureIO(server as import('http').Server);
+  configureSocketClient(io);
+
+  server.listen(Number(port) || 3100, () => {
     const addr = server.address();
     const addrString = typeof addr === 'string' ? addr : `${addr?.address}:${addr?.port}`;
-
     logger.info(`server running on ${addrString}`);
   });
   socketClient.start();
