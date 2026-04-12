@@ -220,6 +220,20 @@
   background: var(--background-sub);
 }
 
+.tweet-actions-thread-link {
+  display: block;
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-small-ex);
+  color: var(--text-sub);
+  text-align: right;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--button-primary);
+    text-decoration: underline;
+  }
+}
+
 .mention-self {
   padding: 1px 4px;
   font-weight: bold;
