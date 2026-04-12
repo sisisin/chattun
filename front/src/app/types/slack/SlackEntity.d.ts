@@ -75,7 +75,13 @@ export namespace SlackEntity {
       };
 
       // todo:https://api.slack.com/events/message/file_share
-      files?: { id: string; filetype: string; thumb_360: string; url_private: string }[];
+      files?: {
+        id: string;
+        filetype: string;
+        thumb_360: string;
+        url_private: string;
+        user_team?: string;
+      }[];
       event_ts: string;
     }
 

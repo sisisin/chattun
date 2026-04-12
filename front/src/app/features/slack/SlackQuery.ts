@@ -82,6 +82,10 @@ export function slackMessageToTweet(
   };
 }
 
+function getTeamId(msg: Message): string | undefined {
+  return msg.team ?? msg.files?.[0]?.user_team;
+}
+
 function getSlackLink(
   profile: SlackState['profile'],
   msg: Message,
@@ -103,13 +107,18 @@ function getSlackLink(
                 msg.thread_ts ? `?thread_ts=${msg.thread_ts}&cid=${channelId}` : ''
               }`,
       };
-    case 'directly':
+    case 'directly': {
+      const teamId = getTeamId(msg);
       return {
         ...base,
-        link: `slack://channel?team=${msg.team}&id=${channelId}&message=${ts}${
-          msg.thread_ts ? `&thread_ts=${msg.thread_ts}` : ''
-        }`,
+        link:
+          teamId === undefined
+            ? undefined
+            : `slack://channel?team=${teamId}&id=${channelId}&message=${ts}${
+                msg.thread_ts ? `&thread_ts=${msg.thread_ts}` : ''
+              }`,
       };
+    }
     default:
       assertNever(deepLinking);
   }
@@ -132,12 +141,13 @@ function getChannelLink(
             ? undefined
             : `https://${profile.domain}.slack.com/archives/${channelId}`,
       };
-    case 'directly':
+    case 'directly': {
+      const teamId = getTeamId(msg);
       return {
         ...base,
-        link:
-          msg.team === undefined ? undefined : `slack://channel?team=${msg.team}&id=${channelId}`,
+        link: teamId === undefined ? undefined : `slack://channel?team=${teamId}&id=${channelId}`,
       };
+    }
     default:
       assertNever(deepLinking);
   }
