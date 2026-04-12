@@ -1,5 +1,6 @@
 # Done
 
+- Task: Menuで定義してる画面ごとの表示とRouteごとの表示コンポーネント定義を同じ場所で定義できるようにしたい [20260413-0022-feat-unify-menu-route-definitions](../work/_archived/20260413-0022-feat-unify-menu-route-definitions)
 - Task: 設定項目を日本語にする
 - Task: スレッドかどうかを視覚的にわかりやすくする
 - Task: https://github.com/sisisin/chattun/issues/32 (tone違い絵文字の表示対応)

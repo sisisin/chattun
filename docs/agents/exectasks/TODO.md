@@ -24,7 +24,10 @@ ExecTasks の実行を指示されたら、auto memory に実行中の ExecTasks
 <step>Taskを満たすよう修正を入れる</step>
 <step>`/verify` を実行し、レビュー＆動作確認ループが完了するまで修正する</step>
 <step>Approveされたら、Task遂行上の障害になったことや学びを作業ディレクトリの `learnings.md` に記載し、その中で仕組として実装して解決出来そうなことは新たなTaskとして追記する</step>
-<step>Taskを DONE.md に移動し、コミットして main へマージする</step>
+<step>Taskを DONE.mdの一番上に移動し、対応work directoryへのリンクを行末に追記する。その後、コミットして main へマージする
+例:
+- Task: 〜する [{yyyymmdd-hhmm}-{branch-name}](../work/_archived/[{yyyymmdd-hhmm}-{branch-name}])
+</step>
 </steps>
 
 途中、Task 遂行を達成できないような状況になった場合（e.g. レビューが Approve されない・現在の状況では解決できない問題があったなど）、該当 Task の実施は中断する
@@ -57,7 +60,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
   - TweetのContent部分をTweetContentとかにして、そのなかにmrkdwnとかを押し込めたほうがよさそう
   - SlackQueryに実装されてる関数が、selectorだったりTweet系コンポーネント向けの関数だったりでばらつきがありそう。selectorはselector.tsって名前にして置いてあるほうが良さそう（他の\*Query.ts系全般に言える）
   - featuresはネストしていいので、例えばtimeline/tweet/とかも有り
-- Task: Menuで定義してる画面ごとの表示とRouteごとの表示コンポーネント定義を同じ場所で定義できるようにしたい。可能かどうかを検討して具合のいい方法があれば実装して。迷うようであればresearchとして検討結果をまとめて、Backlogにpath/to/research.mdを元に意思決定した形でリファクタリングする、というアイテムを追加して
 - Task: server,frontでsocket.ioのバージョン揃ってないので是正して
 - Task: typelessのバージョン最新にしておいて
 - Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって。実装が複雑であれば残していいよ
@@ -69,3 +71,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 # Backlog
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。
+
+- Task: docs/agents/work/_archived/20260413-0022-feat-unify-menu-route-definitions/research.md を元に意思決定し、Menu定義とRoute定義の統合リファクタリングを行う
+  - 画面数が増えたタイミングで着手するのが適切
