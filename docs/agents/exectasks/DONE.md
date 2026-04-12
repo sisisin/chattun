@@ -1,5 +1,7 @@
 # Done
 
+- Task: socket.io, @slack/socket-modeのマイナー/パッチアップデート
+  - socket.io 4.7.5→4.8.3、@slack/socket-mode 2.0.4→2.0.6。コード変更なし
 - Task: @slack/oauthを3.xにアップデートする
   - @slack/oauth 2.2.0→3.0.5。API互換のためコード変更なし
 - Task: expressをhonoに移行する
