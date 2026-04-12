@@ -126,7 +126,8 @@ function getChannelLink(
     case 'directly':
       return {
         ...base,
-        link: `slack://channel?team=${msg.team}&id=${channelId}`,
+        link:
+          msg.team === undefined ? undefined : `slack://channel?team=${msg.team}&id=${channelId}`,
       };
     default:
       assertNever(deepLinking);
