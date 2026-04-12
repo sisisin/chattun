@@ -4,7 +4,12 @@
 declare namespace JSX {
   interface IntrinsicElements {
     'em-emoji': React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLElement> & { id?: string; size?: string; native?: string },
+      React.HTMLAttributes<HTMLElement> & {
+        id?: string;
+        size?: string;
+        native?: string;
+        skin?: number;
+      },
       HTMLElement
     >;
   }

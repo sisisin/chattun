@@ -11,6 +11,15 @@ import { useSetIntersectionObserver } from './hooks';
 import { TweetTimestamp } from './TweetTimestamp';
 import { TweetEditedMarker } from './TweetEditedMarker';
 
+const skinToneRegex = /^(.+?)::skin-tone-(\d)$/;
+function parseSkinTone(name: string): { id: string; skin?: number } {
+  const match = skinToneRegex.exec(name);
+  if (match) {
+    return { id: match[1], skin: Number(match[2]) };
+  }
+  return { id: name };
+}
+
 interface Props {
   message: Tweet;
   parentRef: React.RefObject<HTMLUListElement>;
@@ -87,7 +96,7 @@ export const TweetItem = ({ message, parentRef }: Props) => {
                     style={{ width: 20, height: 20 }}
                   />
                 ) : (
-                  <em-emoji id={elem.name} size="20px" />
+                  <em-emoji {...parseSkinTone(elem.name)} size="20px" />
                 )}
 
                 <span className="tweet-actions-list-emojis-count">{elem.count}</span>
