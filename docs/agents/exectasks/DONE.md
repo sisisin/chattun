@@ -10,6 +10,9 @@
   - toMentionにmyUserId引数追加、自分宛<@USERID>を`<span class="mention-self">`でハイライト
   - @channel/@hereは常にハイライト、CSSはcolor-mixで半透明背景
   - テスト4件追加（自分メンション、他人メンション、@channel、@here）
+- Task: pinactをmiseで入れて、pre commitで実行されるようにする
+  - mise.tomlにpinact 3.9.0追加、pre-commitフックで.github/配下のステージ済みファイルにpinact run実行
+  - while readループで空入力ガード、git diff --cachedでステージ済みファイルのみ再add
 - Task: pretteir.config.jsいらんくね？
   - Prettier→vite+ formatter移行後の残骸ファイル`front/prettier.config.js`を削除
 - Task: 追加ボタンと保存ボタンの大きさが揃ってないのを直す
