@@ -7,8 +7,8 @@ import https from 'https';
 import { configureSocketClient, installer, socketClient } from './slack.ts';
 import { configureIO } from './io.ts';
 import { port, serverBaseUrl } from './config.ts';
-import request from 'request';
 import fs from 'node:fs';
+import { Readable } from 'node:stream';
 import { getSessionProfileFromRequest } from './utils.ts';
 import { ErrorWithLogContext, logger } from './logging/logger.ts';
 import { loggingMiddleware } from './logging/middleware.ts';
@@ -115,16 +115,26 @@ async function main() {
 
     return res.json({ userId });
   });
-  app.get('/api/file', checkAuthentication, (req, res) => {
-    const { accessToken } = getSessionProfileFromRequest(req)!;
-    const isValidTargetUrl = (req.query as any).target_url.startsWith('https://files.slack.com');
-    if (isValidTargetUrl) {
-      request({
-        url: req.query.target_url as string,
+  app.get('/api/file', checkAuthentication, async (req, res, next) => {
+    try {
+      const { accessToken } = getSessionProfileFromRequest(req)!;
+      const targetUrl = (req.query as any).target_url;
+      if (!targetUrl || !targetUrl.startsWith('https://files.slack.com')) {
+        res.status(400).end();
+        return;
+      }
+      const upstream = await fetch(targetUrl, {
         headers: { Authorization: `Bearer ${accessToken}` },
-      }).pipe(res);
-    } else {
-      res.status(400).end();
+      });
+      if (!upstream.ok) {
+        res.status(upstream.status).end();
+        return;
+      }
+      const contentType = upstream.headers.get('content-type');
+      if (contentType) res.setHeader('Content-Type', contentType);
+      Readable.fromWeb(upstream.body as any).pipe(res);
+    } catch (error) {
+      next(error);
     }
   });
   // Slack API proxy endpoints
