@@ -308,6 +308,10 @@
   - _border-radius.css: --border-radius-sm(4px)/--border-radius-md(5px)/--border-radius-lg(8px)を定義
   - Tweet.css, Login.css, _form.css, Setting.css, Menu.cssのハードコード値をトークンに置き換え
 
+- Task: keyword matchをミュート機能にリデザイン
+  - keywordMatch(単一・テキスト含む)をmutedUsers(複数・ユーザー名のみ)に変更
+  - フィルタをdisplayName/fullNameのみに特化、placeholder「Devin」
+  - browser-verifier.mdにデザイン検証項目を追加
 - Task: channel matchを複数設定できるようにする
   - channelMatchを単一オブジェクトから配列(channelMatches)に変更、OR条件で複数マッチ対応
   - controlled componentでUI実装、旧データのマイグレーション付き
