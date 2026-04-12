@@ -22,13 +22,12 @@
     "express": "4.17.1",
     "express-session": "1.17.0",
     "helmet": "4.6.0",
-    "ioredis": "4.27.7",
+    "ioredis": "5.10.1",
     "socket.io": "4.7.5"
   },
   "devDependencies": {
     "@types/connect-redis": "0.0.17",
     "@types/express": "5.0.6",
-    "@types/express-session": "1.17.4",
-    "@types/ioredis": "4.26.7"
+    "@types/express-session": "1.17.4"
   }
 }
