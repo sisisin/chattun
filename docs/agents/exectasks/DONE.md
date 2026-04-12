@@ -1,5 +1,7 @@
 # Done
 
+- Task: react-router-dom v5 を TanStack Router に移行
+  - history, @loadable/component も併せて削除。lazyRouteComponent で code splitting を維持
 - Task: react-hook-form を削除しネイティブ FormData API に移行
   - 利用箇所が2ファイルのみでAPIも単純だったため、ライブラリ移行ではなく削除で対応
 

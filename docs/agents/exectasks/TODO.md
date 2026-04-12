@@ -52,8 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: react-router-domを別のrouterライブラリを検討して移行する
-  - tanstackがいいかも
 - Task: dynamic importによるchunkを適切に行えるように実装を調整
   - loadableとかいらないんちゃうんかな、多分
 - Task: httpsが自己署名証明書使ってるのをやめる
@@ -64,9 +62,13 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
   - docker build時にFEのアセットビルドやserver初期化で全installが実行されないように注意
 - Task: serverのnpm scriptsをvp task化
   - githookなど、front/特化になっていたところも、Workspace前提で統合して扱えるようにする
+  - あわせてvp taskをrepo rootで扱う、Workspace運用に変更する
+- Task: typescriptなどの共通の依存をrootに移動し、個別のWorkspaceパッケージは自分の必要な分だけ持つようにする
 - Task: serverでモダナイズが必要な点がないかをレビューし、その結果得られた必要であろう作業をTaskとして追加する
 - Task: scripts/,docker/をtools/へ統合する。スクリプトの置き方は役割に沿った構成になるように調節
 - Task: .vscodeをルートに統合・chattun.code-workspaceを消す
+- Task: なんか古いやつが地味に残ってるのを消す
+  - たとえばmise.tomlにyarnがいる
 
 # Backlog
 
