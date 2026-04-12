@@ -22,7 +22,7 @@ ExecTasks の実行を指示されたら、auto memory に実行中の ExecTasks
 <step>作業ディレクトリを `docs/agents/work/{yyyymmdd-hhmm}-{branch-name}/` の形式で作成する（branch-name のスラッシュはハイフンに置換）</step>
 <step>作業ディレクトリに `task.md` を作成し、遂行するTaskの内容（達成条件、背景、スコープ）を記述する。ローカルレビュワーがこのファイルを参照してレビューする</step>
 <step>Taskを満たすよう修正を入れる</step>
-<step>`/start-local-review` を実行し、レビューをうけ、レビューループが完了するまで修正する</step>
+<step>`/verify` を実行し、レビュー＆動作確認ループが完了するまで修正する</step>
 <step>Approveされたら、Task遂行上の障害になったことや学びを作業ディレクトリの `learnings.md` に記載し、その中で仕組として実装して解決出来そうなことは新たなTaskとして追記する</step>
 <step>Taskを DONE.md に移動し、コミットして main へマージする</step>
 </steps>
@@ -52,6 +52,12 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
+- Task: レビュー＆動作確認スキルを整備する
+  - browser-verifierエージェントが利用可能なエージェントタイプとして動作するようにする（現状 `Agent type 'browser-verifier' not found` で起動できない）
+  - start-local-reviewのループ部分をxml like syntaxの `<step>` で囲う等して読みやすくリファクタする
+  - 「ブラウザ動作確認（任意）」の「任意」表記をやめ、front/で動きに関係する変更がある場合に実施する条件として明記する
+  - 検証対象を判定したらtask.mdに検証ステップとしてチェックリスト（`- [ ] review`, `- [ ] browser-verification` 等）を作り、すべてチェックがつくまで実行する動きにする
+  - start-local-reviewという名前がレビュー＋動作確認をカバーしきれていないので適切な名前に変更する
 - Task: 設定画面にdeveloper modeのチェックを入れて。trueの場合、localStorageでデバッグ用のコピーボタン出してるやつが出てくる、といったデバッグ用の動作が有効化されるようにしたい。設定は一番下へ。
 - Task: 設定のうち、deep linkingの設定の右に配置しているselect boxの選択肢があることを示すアイコン（vの字みたいなやつ）が文字と被ってしまってるのを修正
   - そもそもアイコンが文字に被らないようにサイズが調整されるようにするべき

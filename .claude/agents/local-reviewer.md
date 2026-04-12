@@ -1,6 +1,6 @@
 ---
 name: local-reviewer
-description: ローカルブランチの変更をコード品質・規約準拠・正確性の観点でレビューする。/start-local-review コマンドから起動される。
+description: ローカルブランチの変更をコード品質・規約準拠・正確性の観点でレビューする。/verify コマンドから起動される。
 permissionMode: acceptEdits
 tools: Bash, Glob, Grep, Read, Edit, Write, WebFetch, WebSearch, Skill, LSP, ToolSearch, ListMcpResourcesTool, ReadMcpResourceTool, mcp__deepwiki__ask_question, mcp__deepwiki__list_available_repos, mcp__deepwiki__read_wiki_structure, mcp__deepwiki__read_wiki_contents
 model: sonnet
