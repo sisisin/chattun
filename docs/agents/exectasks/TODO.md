@@ -52,14 +52,12 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: tsconfig.jsonのstrictFunctionTypesをtrueにする
-  - 現在strict: falseでstrictFunctionTypes: false。他のstrict系は個別にtrue設定済み
-  - strictFunctionTypesを有効にして型安全性を向上
 - Task: emoji-mart 2→5にアップグレードする
   - v5はフルリライト（Web Components化）でAPI非互換。Picker/Emoji/CustomEmojiの全面書き換えが必要
   - babel-runtime依存を解消できる
 - Task: rxjs 6→7にアップグレードする
-- Task: react-hook-form 5→7にアップグレードする
+- Task: react-hook-form を別のformライブラリを検討して移行する
+  - tanstackがいいかも
 - Task: react-router-domを別のrouterライブラリを検討して移行する
   - tanstackがいいかも
 - Task: dynamic importによるchunkを適切に行えるように実装を調整

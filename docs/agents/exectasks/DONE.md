@@ -163,6 +163,10 @@
 - Task: npm scripts, vp tasksの簡素化
   - build-js→buildにリネーム、format/format-checkタスクを削除（vpビルトインコマンドで十分）
   - Dockerfile, CI, pre-push, CLAUDE.mdの参照を更新
+
+- Task: tsconfig.jsonのstrictFunctionTypesをtrueにする
+  - strictFunctionTypesをfalse→trueに変更
+  - reduce()の型引数にSlackEntity.Message.Reaction[]を明示して型エラーを解消
   - TypeScript 3.8.3→6.0.2にアップグレード
   - tsconfig.json: target es2020, module preserve, moduleResolution bundler、baseUrl→paths移行、suppressImplicitAnyIndexErrors削除
   - swSrc/tsconfig.json: ignoreDeprecations "6.0"追加（outFile非推奨対応）
