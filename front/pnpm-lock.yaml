@@ -61,11 +61,11 @@ importers:
         specifier: 1.3.0
         version: 1.3.0
       '@types/react-router':
-        specifier: 5.1.4
-        version: 5.1.4
+        specifier: 5.1.20
+        version: 5.1.20
       '@types/react-router-dom':
-        specifier: 5.1.3
-        version: 5.1.3
+        specifier: 5.3.3
+        version: 5.3.3
       autoprefixer:
         specifier: 9.7.4
         version: 9.7.4
@@ -662,11 +662,11 @@ packages:
   '@types/react-outside-click-handler@1.3.0':
     resolution: {integrity: sha512-BxQpd5GsbA9rjqLcM4lYp70VnvahgjMUeJ4OKi0A7QOsDLD2yUPswOVixtDpmvCu0PkRTfvMoStIR3gKC/L3XQ==}
 
-  '@types/react-router-dom@5.1.3':
-    resolution: {integrity: sha512-pCq7AkOvjE65jkGS5fQwQhvUp4+4PVD9g39gXLZViP2UqFiFzsEpB3PKf0O6mdbKsewSK8N14/eegisa/0CwnA==}
+  '@types/react-router-dom@5.3.3':
+    resolution: {integrity: sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw==}
 
-  '@types/react-router@5.1.4':
-    resolution: {integrity: sha512-PZtnBuyfL07sqCJvGg3z+0+kt6fobc/xmle08jBiezLS8FrmGeiGkJnuxL/8Zgy9L83ypUhniV5atZn/L8n9MQ==}
+  '@types/react-router@5.1.20':
+    resolution: {integrity: sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==}
 
   '@types/react@18.3.28':
     resolution: {integrity: sha512-z9VXpC7MWrhfWipitjNdgCauoMLRdIILQsAEV+ZesIzBq/oUlxk0m3ApZuMFCXdnS4U7KrI+l3WRUEGQ8K1QKw==}
@@ -2821,13 +2821,13 @@ snapshots:
     dependencies:
       '@types/react': 18.3.28
 
-  '@types/react-router-dom@5.1.3':
+  '@types/react-router-dom@5.3.3':
     dependencies:
       '@types/history': 4.7.11
       '@types/react': 18.3.28
-      '@types/react-router': 5.1.4
+      '@types/react-router': 5.1.20
 
-  '@types/react-router@5.1.4':
+  '@types/react-router@5.1.20':
     dependencies:
       '@types/history': 4.7.11
       '@types/react': 18.3.28

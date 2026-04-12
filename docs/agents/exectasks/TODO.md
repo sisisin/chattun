@@ -57,20 +57,19 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
   - unmountComponentAtNode→root.unmount()移行
   - @types/react, @types/react-domの更新
   - typelessやreact-hook-form等の互換性確認
-- Task: react-router-dom 5→6にアップグレードする
-  - Switch→Routes、component prop→element prop移行
-  - useHistory→useNavigate移行（useRouter.ts内の変更で集約可能）
-  - historyパッケージの削除検討
 - Task: tsconfig.jsonのstrictFunctionTypesをtrueにする
   - 現在strict: falseでstrictFunctionTypes: false。他のstrict系は個別にtrue設定済み
   - strictFunctionTypesを有効にして型安全性を向上
-
-# Backlog
-
-着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。
-
 - Task: emoji-mart 2→5にアップグレードする
   - v5はフルリライト（Web Components化）でAPI非互換。Picker/Emoji/CustomEmojiの全面書き換えが必要
   - babel-runtime依存を解消できる
 - Task: rxjs 6→7にアップグレードする
 - Task: react-hook-form 5→7にアップグレードする
+- Task: react-router-domを別のrouterライブラリを検討して移行する
+  - tanstackがいいかも
+- Task: dynamic importによるchunkを適切に行えるように実装を調整
+  - loadableとかいらないんちゃうんかな、多分
+
+# Backlog
+
+着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。

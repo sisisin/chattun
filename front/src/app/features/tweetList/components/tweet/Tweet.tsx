@@ -2,7 +2,7 @@ import { AppLink } from 'app/components/AppLink';
 import { IconAddReaction, IconThread } from 'app/components/icons/Icons';
 import { EmojiMenuActions } from 'app/features/emojiMenu/interface';
 import { Tweet } from 'app/features/timeline/interface';
-import { Emoji } from 'emoji-mart';
+import { Emoji, EmojiData } from 'emoji-mart';
 import * as React from 'react';
 import { useActions } from 'typeless';
 import { TweetActions } from '../../interface';
@@ -59,7 +59,7 @@ export const TweetItem = ({ message, parentRef }: Props) => {
                 <Emoji
                   emoji={elem.emoji || elem.name}
                   size={20}
-                  onClick={emoji =>
+                  onClick={(emoji: EmojiData) =>
                     elem.reacted
                       ? removeReaction(message, emoji.id!)
                       : addReaction(message, emoji.id!)

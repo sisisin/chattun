@@ -5,6 +5,7 @@ interface Props {
   to: string;
   params: Record<string, string | number | boolean | undefined>;
   className?: string;
+  children?: React.ReactNode;
 }
 export const AppLink: React.FC<Props> = ({ children, to, params, className }) => {
   const path = generatePath(to, params);

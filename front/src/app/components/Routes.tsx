@@ -5,7 +5,7 @@ import React from 'react';
 import { Route, RouteProps, Router, Switch } from 'react-router-dom';
 import { useActions, useMappedState } from 'typeless';
 
-const WithAuth: React.FC = ({ children }) => {
+const WithAuth: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { authRequiredRoutesTransitionStarted } = useActions(SessionActions);
   authRequiredRoutesTransitionStarted();
   const { isConnected } = useMappedState([getSessionState], state => state);
