@@ -10,66 +10,115 @@ export type MrkdwnNode =
 
 export function parseMrkdwn(input: string): MrkdwnNode[] {
   const nodes: MrkdwnNode[] = [];
+  let pos = 0;
 
-  // First, extract code blocks (``` ... ```)
-  const codeBlockRegex = /```([\s\S]*?)```/g;
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-
-  while ((match = codeBlockRegex.exec(input)) !== null) {
-    if (match.index > lastIndex) {
-      nodes.push(...parseInline(input.slice(lastIndex, match.index)));
+  while (pos < input.length) {
+    // Code block: ``` ... ```
+    if (input.startsWith('```', pos)) {
+      const endIndex = input.indexOf('```', pos + 3);
+      if (endIndex !== -1) {
+        flushText(nodes, input, pos, pos);
+        nodes.push({ type: 'codeblock', text: input.slice(pos + 3, endIndex) });
+        pos = endIndex + 3;
+        continue;
+      }
     }
-    nodes.push({ type: 'codeblock', text: match[1] });
-    lastIndex = match.index + match[0].length;
-  }
 
-  if (lastIndex < input.length) {
-    nodes.push(...parseInline(input.slice(lastIndex)));
+    // Inline code: ` ... ` (no newlines inside)
+    if (input[pos] === '`') {
+      const endIndex = findClosing(input, '`', pos + 1, true);
+      if (endIndex !== -1) {
+        nodes.push({ type: 'code', text: input.slice(pos + 1, endIndex) });
+        pos = endIndex + 1;
+        continue;
+      }
+    }
+
+    // Formatting: *bold*, _italic_, ~strike~
+    // Only at word boundary: preceded by non-word char or start of string
+    if (isFormattingChar(input[pos]) && isAtOpenBoundary(input, pos)) {
+      const marker = input[pos];
+      const endIndex = findClosing(input, marker, pos + 1, true);
+      if (endIndex !== -1 && isAtCloseBoundary(input, endIndex)) {
+        const innerText = input.slice(pos + 1, endIndex);
+        const children = parseInline(innerText);
+        nodes.push(makeFormattingNode(marker, children));
+        pos = endIndex + 1;
+        continue;
+      }
+    }
+
+    // Newline
+    if (input[pos] === '\n') {
+      nodes.push({ type: 'linebreak' });
+      pos++;
+      continue;
+    }
+
+    // Plain text: accumulate until next special char
+    const textStart = pos;
+    pos++;
+    while (pos < input.length && !isSpecialAt(input, pos)) {
+      pos++;
+    }
+    nodes.push({ type: 'text', text: input.slice(textStart, pos) });
   }
 
   return nodes;
 }
 
 function parseInline(input: string): MrkdwnNode[] {
-  const nodes: MrkdwnNode[] = [];
-  // Match inline code, bold, italic, strike, or newlines
-  // Order matters: code first (to prevent inner parsing), then formatting
-  // Formatting markers require non-word char (or start/end) boundary to avoid
-  // matching mid-word (e.g. foo_bar_baz should not produce italic)
-  const inlineRegex =
-    /`([^`\n]+)`|(?<=^|\W)\*([^*\n]+)\*(?=$|\W)|(?<=^|\W)_([^_\n]+)_(?=$|\W)|(?<=^|\W)~([^~\n]+)~(?=$|\W)|\n/g;
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
+  // Re-use the top-level parser for inline content (no code blocks expected inside formatting)
+  return parseMrkdwn(input);
+}
 
-  while ((match = inlineRegex.exec(input)) !== null) {
-    if (match.index > lastIndex) {
-      nodes.push({ type: 'text', text: input.slice(lastIndex, match.index) });
-    }
+function isFormattingChar(ch: string): boolean {
+  return ch === '*' || ch === '_' || ch === '~';
+}
 
-    if (match[1] !== undefined) {
-      // inline code
-      nodes.push({ type: 'code', text: match[1] });
-    } else if (match[2] !== undefined) {
-      // bold
-      nodes.push({ type: 'bold', children: parseInline(match[2]) });
-    } else if (match[3] !== undefined) {
-      // italic
-      nodes.push({ type: 'italic', children: parseInline(match[3]) });
-    } else if (match[4] !== undefined) {
-      // strike
-      nodes.push({ type: 'strike', children: parseInline(match[4]) });
-    } else {
-      // newline
-      nodes.push({ type: 'linebreak' });
-    }
+function isWordChar(ch: string): boolean {
+  return /\w/.test(ch);
+}
 
-    lastIndex = match.index + match[0].length;
+function isAtOpenBoundary(input: string, pos: number): boolean {
+  if (pos === 0) return true;
+  return !isWordChar(input[pos - 1]);
+}
+
+function isAtCloseBoundary(input: string, pos: number): boolean {
+  if (pos + 1 >= input.length) return true;
+  return !isWordChar(input[pos + 1]);
+}
+
+function findClosing(input: string, marker: string, start: number, noNewlines: boolean): number {
+  for (let i = start; i < input.length; i++) {
+    if (noNewlines && input[i] === '\n') return -1;
+    if (input[i] === marker && i > start) return i;
   }
+  return -1;
+}
 
-  if (lastIndex < input.length) {
-    nodes.push({ type: 'text', text: input.slice(lastIndex) });
+function flushText(_nodes: MrkdwnNode[], _input: string, _start: number, _end: number): void {
+  // No-op: text accumulation is handled in the main loop
+}
+
+function makeFormattingNode(marker: string, children: MrkdwnNode[]): MrkdwnNode {
+  switch (marker) {
+    case '*':
+      return { type: 'bold', children };
+    case '_':
+      return { type: 'italic', children };
+    case '~':
+      return { type: 'strike', children };
+    default:
+      return { type: 'text', text: marker };
   }
+}
 
-  return nodes;
+function isSpecialAt(input: string, pos: number): boolean {
+  const ch = input[pos];
+  if (ch === '\n' || ch === '`') return true;
+  if (isFormattingChar(ch) && isAtOpenBoundary(input, pos)) return true;
+  if (input.startsWith('```', pos)) return true;
+  return false;
 }
