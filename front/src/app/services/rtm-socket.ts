@@ -1,4 +1,5 @@
 import { SlackActions } from 'app/features/slack/interface';
+import { ToastActions } from 'app/features/toast/interface';
 import { appRegistry } from 'app/services/AppRegistry';
 import { io } from 'socket.io-client';
 import { basePath } from 'app/config';
@@ -15,7 +16,9 @@ export async function connect() {
   });
   socket.on('disconnect', reason => {
     if (reason === 'io server disconnect') {
-      alert('セッションの有効期限が切れました。再度ログインしてください。');
+      appRegistry.dispatch(
+        ToastActions.showToast('セッションの有効期限が切れました。再度ログインしてください。'),
+      );
       appHistory.push('/login');
     }
   });

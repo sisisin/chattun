@@ -1,3 +1,4 @@
+import { ToastActions } from 'app/features/toast/interface';
 import { appHistory } from 'app/services/appHistory';
 import { httpClient } from 'app/services/http/HttpClient';
 import { firstValueFrom } from 'rxjs';
@@ -18,9 +19,8 @@ export const epic = handle
         result.left.status === 401
           ? 'セッションの有効期限が切れました。'
           : '未知の問題が起きました。';
-      alert(`${msg}再度ログインしてください。`);
       appHistory.push('/login');
-      return null;
+      return ToastActions.showToast(`${msg}再度ログインしてください。`);
     }
     return SessionActions.connectionInitialized(result.right.body);
   });
