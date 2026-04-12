@@ -28,6 +28,7 @@ export default defineConfig({
   },
   define: {
     'process.env': '{}',
+    global: 'globalThis',
   },
   server: {
     port: 3000,

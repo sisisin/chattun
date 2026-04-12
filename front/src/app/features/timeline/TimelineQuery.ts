@@ -2,7 +2,7 @@ import { getSlackState, SlackState, Message } from 'app/features/slack/interface
 import { SlackEntity } from 'app/types/slack';
 import { ChannelMatch } from 'app/types/TimelineSettings';
 import { assertNever } from 'app/types/typeAssertions';
-import * as MI from 'markdown-it';
+import MI from 'markdown-it';
 import { emojify } from 'node-emoji';
 import { createSelector } from 'typeless';
 import { getGlobalSettingState } from '../globalSetting/interface';
@@ -10,13 +10,7 @@ import { slackMessageToTweet, toSlackMessages } from '../slack/SlackQuery';
 import { basePath } from 'app/config';
 
 function getMditInstance() {
-  const md =
-    import.meta.env.MODE === 'test'
-      ? (MI as any).default({ html: true, breaks: true })
-      : (MI as any)({
-          html: true,
-          breaks: true,
-        });
+  const md = MI({ html: true, breaks: true });
 
   // add _blank attribute to anchor tag
   // ref. https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
