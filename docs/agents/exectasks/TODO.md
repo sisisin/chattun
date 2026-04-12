@@ -52,11 +52,8 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: React 16→18にアップグレードする
-  - ReactDOM.render→createRoot移行
-  - unmountComponentAtNode→root.unmount()移行
-  - @types/react, @types/react-domの更新
-  - typelessやreact-hook-form等の互換性確認
+- service workerのビルドをvpに含めてビルドコマンドをvpに統一
+  - 多分vite plugin使う
 - Task: tsconfig.jsonのstrictFunctionTypesをtrueにする
   - 現在strict: falseでstrictFunctionTypes: false。他のstrict系は個別にtrue設定済み
   - strictFunctionTypesを有効にして型安全性を向上

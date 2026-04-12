@@ -119,6 +119,12 @@
   - ジョブ結果の判定を!== 'success'に変更し、cancelled等も失敗扱いに
   - run--notify-deploy-completed.yamlを削除
 
+- Task: React 16→18にアップグレードする
+  - react/react-domを16.13.0→18.3.1に更新、@types/react/@types/react-domを18系に更新
+  - ReactDOM.render→createRoot API移行（index.tsx, App.test.tsx）
+  - React 18でReact.FCからchildren型が削除された対応（Props型にchildren追加）
+  - @types/react-router/react-router-domを最新v5に更新、emoji-mart EmojiData型明示
+
 - Task: postcss-custom-mediaとpostcss-nestingをネイティブCSSに置き換え、postcss.config.jsを削除する
   - @custom-mediaをネイティブ@media値に展開、_media_queries.cssを削除
   - postcss.config.jsを削除、autoprefixerのみvite.config.tsのcss.postcssに移行
