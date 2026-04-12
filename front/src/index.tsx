@@ -3,7 +3,6 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Hmr, startHmr, TypelessContext } from 'typeless';
 import './app/css/main.css';
-import './app/imports';
 import * as serviceWorker from './app/serviceWorker';
 
 const MOUNT_NODE = document.getElementById('root');
