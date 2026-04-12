@@ -6,6 +6,7 @@ import * as React from 'react';
 export const Menu: React.FC = () => {
   const { location } = useRouter();
   const isTimeline = location.pathname === '/';
+  const isSetting = location.pathname === '/setting';
 
   return (
     <ul className="menu">
@@ -20,15 +21,21 @@ export const Menu: React.FC = () => {
         </Link>
       </li>
       <li className="menu-timeline">
-        <Link to="/" className="menu-timeline-link">
-          すべての投稿
-        </Link>
+        {isSetting ? (
+          <span className="menu-timeline-link">設定</span>
+        ) : (
+          <Link to="/" className="menu-timeline-link">
+            すべての投稿
+          </Link>
+        )}
       </li>
-      <li className="menu-setting">
-        <Link to="/setting" className="menu-setting-link">
-          <IconSetting className="menu-setting-link-icon" />
-        </Link>
-      </li>
+      {!isSetting && (
+        <li className="menu-setting">
+          <Link to="/setting" className="menu-setting-link">
+            <IconSetting className="menu-setting-link-icon" />
+          </Link>
+        </li>
+      )}
     </ul>
   );
 };
