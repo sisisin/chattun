@@ -175,6 +175,10 @@
   - CustomEmoji型をローカル定義（v5形式: id, name, keywords, skins）に変更
   - babel-runtime、@types/emoji-martを削除、旧emoji-mart.css削除
   - alias絵文字のリアクション表示バグも修正
+
+- Task: local-reviewのプロセス内にフロントの動作確認エージェントを含める
+  - Browser Verification Phaseを追加: front/src配下のdiffがある場合にブラウザ検証サブエージェントを起動
+  - 逐次実行でファイル競合を防止、lsofでdevサーバー起動確認、ラウンド番号の明示的伝達
   - TypeScript 3.8.3→6.0.2にアップグレード
   - tsconfig.json: target es2020, module preserve, moduleResolution bundler、baseUrl→paths移行、suppressImplicitAnyIndexErrors削除
   - swSrc/tsconfig.json: ignoreDeprecations "6.0"追加（outFile非推奨対応）

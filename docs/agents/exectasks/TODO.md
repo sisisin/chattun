@@ -52,8 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: local-reviewのプロセス内にフロントの動作確認エージェントを含める。
-  - フロントエンドの動作に関わるdiffが含まれていた場合に、ブラウザを利用する動作検証サブエージェントを使って確認し、その結果をレビューログに記載する、という動きをする。ファイルの競合はちょっとだけ気をつけて
 - Task: rxjs 6→7にアップグレードする
 - Task: react-hook-form を別のformライブラリを検討して移行する
   - tanstackがいいかも
@@ -61,6 +59,9 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
   - tanstackがいいかも
 - Task: dynamic importによるchunkを適切に行えるように実装を調整
   - loadableとかいらないんちゃうんかな、多分
+- Task: httpsが自己署名証明書使ってるのをやめる
+  - copy_pem.shで持ってきた証明書を利用して、ブラウザで開いたときに警告が出ないようにする
+  - 補足: ../myinfraにlet's encryptで発行したローカル用ドメインの証明書に関するセットアップが書かれてるので必要であれば参照して
 
 # Backlog
 
