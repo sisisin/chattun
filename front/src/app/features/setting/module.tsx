@@ -3,7 +3,7 @@ import { SettingView } from './components/SettingView';
 import { handle, SettingState, SettingActions, getSettingState } from './interface';
 import { settingRepository } from 'app/services/localstorage/SettingRepository';
 import { getGlobalSettingState, GlobalSettingActions } from '../globalSetting/interface';
-import { showToast } from 'app/services/toast';
+import { ToastActions } from '../toast/interface';
 
 // --- Epic ---
 handle
@@ -16,8 +16,8 @@ handle
     const { form } = getSettingState();
     const newSetting = { ...form, ...diff };
     settingRepository.putSetting(newSetting);
-    showToast('保存しました');
     return [
+      ToastActions.showToast('保存しました'),
       GlobalSettingActions.updateGlobalSetting(newSetting),
       SettingActions.updateSettingFulfilled(newSetting),
     ];
