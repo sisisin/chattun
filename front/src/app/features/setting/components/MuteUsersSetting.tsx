@@ -38,7 +38,7 @@ export const MuteUsersSetting: React.FC = () => {
   };
 
   const handleSave = () => {
-    updateSetting({ mutedUsers: localUsers.filter(u => u !== '') });
+    updateSetting({ mutedUsers: localUsers });
   };
 
   const canSave = hasChanges(localUsers, mutedUsers) && !hasEmptyValues(localUsers);
