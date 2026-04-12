@@ -23,3 +23,8 @@
   - 添付画像の表示
 - textToHtml および関連するHTML生成関数の除去
 - markdown-it 依存の除去（mrkdwnパーサーで代替）
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
