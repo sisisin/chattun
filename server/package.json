@@ -9,8 +9,8 @@
   },
   "scripts": {
     "start": "node --experimental-strip-types ./src/index.ts",
-    "dev": "node --watch --experimental-strip-types ./src/index.ts",
-    "dev:mock": "node --experimental-strip-types ./mock-server/index.ts",
+    "dev": "node --watch --env-file-if-exists=.env.local --experimental-strip-types ./src/index.ts",
+    "dev:mock": "node --env-file-if-exists=.env.local --experimental-strip-types ./mock-server/index.ts",
     "ci": "vp check"
   },
   "dependencies": {
