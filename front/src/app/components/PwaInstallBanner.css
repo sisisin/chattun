@@ -1,0 +1,62 @@
+.pwa-install-banner {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  left: 50%;
+  z-index: 9998;
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-small);
+  color: var(--text-revert);
+  background: var(--background-main);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-strong);
+  transform: translateX(-50%);
+  animation: pwa-banner-in 0.3s ease-out;
+}
+
+.pwa-install-banner-text {
+  white-space: nowrap;
+}
+
+.pwa-install-banner-install {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-small);
+  font-weight: bold;
+  color: var(--background-main);
+  cursor: pointer;
+  background: var(--text-revert);
+  border: none;
+  border-radius: var(--border-radius-sm);
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.pwa-install-banner-dismiss {
+  padding: 0 var(--spacing-xs);
+  font-size: var(--font-small);
+  color: var(--text-revert);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+@keyframes pwa-banner-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(var(--spacing-sm));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
