@@ -29,7 +29,6 @@ export const initialState: SettingState = {
     deepLinking: 'viaBrowser',
     channelMatches: [],
     mutedUsers: [],
-    markAsRead: false,
     developerMode: false,
   },
 };

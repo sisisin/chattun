@@ -12,6 +12,5 @@ export type TimelineSettings = {
   deepLinking: DeepLinking;
   channelMatches: ChannelMatch[];
   mutedUsers: string[];
-  markAsRead: boolean;
   developerMode: boolean;
 };

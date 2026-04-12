@@ -36,7 +36,6 @@ export const initialState: GlobalSettingState = {
   deepLinking: 'directly',
   channelMatches: [],
   mutedUsers: [],
-  markAsRead: true,
   developerMode: false,
 };
 

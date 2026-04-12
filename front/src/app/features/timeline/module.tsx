@@ -3,7 +3,6 @@ import { slackClient } from 'app/services/http/SlackClient';
 import React from 'react';
 import { OperatorFunction } from 'rxjs';
 import * as Rx from 'typeless/rx';
-import { getGlobalSettingState } from '../globalSetting/interface';
 import { getMarkedByChannels, isAfterMarked } from '../slack/SlackQuery';
 import { TimelineView } from './components/TimelineView';
 import { handle, TimelineActions, TimelineState } from './interface';
@@ -14,7 +13,6 @@ const withInterval: <T>(period: number) => OperatorFunction<T, T> = period =>
 // --- Epic ---
 handle.epic().onMany([TimelineActions.$mounted, TimelineActions.$remounted], (_, { action$ }) =>
   action$.pipe(
-    Rx.filter(() => getGlobalSettingState().markAsRead),
     Rx.ofType(TweetActions.tweetIntersected),
     Rx.takeUntil(action$.pipe(Rx.ofType(TimelineActions.$unmounting))),
     Rx.map(({ payload: { message } }) => message),
