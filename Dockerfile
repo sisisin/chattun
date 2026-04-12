@@ -11,12 +11,12 @@ RUN pnpm vp run build && pnpm vp run move-assets
 
 FROM node:22.18.0-alpine AS runner
 
+RUN corepack enable pnpm
 WORKDIR /app/server
 ENV NODE_ENV=production
 
-COPY ./server/package.json ./server/yarn.lock ./
-RUN yarn install --frozen-lockfile --production && \
-  rm -rf $(yarn cache dir)
+COPY ./server/package.json ./server/pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --prod
 
 COPY ./server ./
 COPY --from=builder /app/server/public ./public

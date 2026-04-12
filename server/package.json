@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "engines": {
-    "node": "^22.18.0",
-    "yarn": "^1.22.5"
+    "node": "^22.18.0"
   },
   "scripts": {
     "start": "ts-node -T ./src/index.ts",

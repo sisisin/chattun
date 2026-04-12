@@ -38,3 +38,32 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm vp run build
       - run: pnpm vp run test-all
+
+  server-check:
+    name: Server Type Check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Get node version
+        id: node-version
+        working-directory: ./
+        run: |
+          version=$(cat mise.toml | grep -E '^node' | cut -d '=' -f 2 | tr -d '[:space:]' | tr -d '"')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - run: corepack enable pnpm
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: ${{ steps.node-version.outputs.version }}
+          cache: 'pnpm'
+          cache-dependency-path: 'server/pnpm-lock.yaml'
+      - run: pnpm install --frozen-lockfile
+      - run: npx tsc --noEmit

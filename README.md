@@ -54,7 +54,7 @@ CERT_DIR=/etc/letsencrypt/live/local.sisisin.house
 ### 開発用コマンド
 
 - `docker/` で `docker-compose up`
-- `server/` で `yarn dev`
+- `server/` で `pnpm dev`
 - `front/` で
   - `pnpm install`
   - `pnpm start`
