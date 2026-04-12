@@ -25,7 +25,8 @@
     "ioredis": "4.27.7",
     "request": "2.88.2",
     "socket.io": "4.7.5",
-    "ts-node": "10.2.0"
+    "ts-node": "10.2.0",
+    "typescript": "6.0.2"
   },
   "devDependencies": {
     "@types/connect-redis": "0.0.17",

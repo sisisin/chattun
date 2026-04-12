@@ -134,6 +134,9 @@ importers:
       ts-node:
         specifier: 10.2.0
         version: 10.2.0(@types/node@22.19.17)(typescript@6.0.2)
+      typescript:
+        specifier: 6.0.2
+        version: 6.0.2
     devDependencies:
       '@types/connect-redis':
         specifier: 0.0.17
