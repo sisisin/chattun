@@ -64,9 +64,8 @@ export const TweetItem = ({ message, parentRef }: Props) => {
     [users, emojis, myUserId],
   );
 
-  // テキスト・ファイル・添付画像すべて空なら非表示
-  if (message.text === '' && message.files.length === 0 && message.imageAttachments.length === 0)
-    return null;
+  const hasContent =
+    message.text !== '' || message.files.length > 0 || message.imageAttachments.length > 0;
 
   const isThreadReply = message.threadTs != null && message.threadTs !== message.ts;
   const linkingTs = message.threadTs || message.ts;
@@ -103,19 +102,27 @@ export const TweetItem = ({ message, parentRef }: Props) => {
         )}
       </div>
       <div className="tweet-contents">
-        <MrkdwnContent text={message.text} context={mrkdwnContext} />
-        {message.files.map((file, i) => {
-          const params = new URLSearchParams();
-          params.append('target_url', file.thumb360);
-          return (
-            <a key={i} href={file.urlPrivate} target="_blank" rel="noopener">
-              <img className="tweet-contents-image" src={`${basePath}/api/file?${params}`} />
-            </a>
-          );
-        })}
-        {message.imageAttachments.map((att, i) => (
-          <img key={`att-${i}`} alt={att.fallback} src={att.imageUrl} />
-        ))}
+        {hasContent ? (
+          <>
+            <MrkdwnContent text={message.text} context={mrkdwnContext} />
+            {message.files.map((file, i) => {
+              const params = new URLSearchParams();
+              params.append('target_url', file.thumb360);
+              return (
+                <a key={i} href={file.urlPrivate} target="_blank" rel="noopener">
+                  <img className="tweet-contents-image" src={`${basePath}/api/file?${params}`} />
+                </a>
+              );
+            })}
+            {message.imageAttachments.map((att, i) => (
+              <img key={`att-${i}`} alt={att.fallback} src={att.imageUrl} />
+            ))}
+          </>
+        ) : (
+          <span className="tweet-contents-unsupported">
+            対応していないメッセージ形式です。Slack appで確認してください。
+          </span>
+        )}
       </div>
       <div className="tweet-actions">
         <div className="tweet-actions-list-emojis">
