@@ -16,11 +16,11 @@
   "dependencies": {
     "@hono/node-server": "1.19.13",
     "@slack/oauth": "3.0.5",
-    "@slack/socket-mode": "2.0.4",
+    "@slack/socket-mode": "2.0.6",
     "@slack/web-api": "7.15.0",
     "@socket.io/redis-adapter": "8.3.0",
     "hono": "4.12.12",
     "ioredis": "5.10.1",
-    "socket.io": "4.7.5"
+    "socket.io": "4.8.3"
   }
 }
