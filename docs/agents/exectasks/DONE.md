@@ -1,5 +1,7 @@
 # Done
 
+- Task: CSSにリファクタリングした方が良い場所があるかを検討し、あればリファクタリングTaskを追加する
+  - シャドウバグ修正、不要ファイル削除、トークン追加の3タスクを追加
 - Task: デザインガイドを実装レベルで利用・守れるように整備する
   - frontend-development skill（user-invocable: false）を作成し、design.mdへの誘導を実装
   - design.mdに実装時のルール要約を記載、docs/guide/ui-design.mdへリンク
