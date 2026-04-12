@@ -4,6 +4,7 @@ RUN corepack enable pnpm
 WORKDIR /app/front
 
 COPY ./front/package.json ./front/pnpm-lock.yaml ./
+COPY ./front/patches ./patches
 RUN pnpm install --frozen-lockfile
 
 COPY ./front .
