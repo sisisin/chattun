@@ -21,7 +21,9 @@ export const TweetListView = ({ messages }: { messages: Tweet[] }) => {
             .filter(message => {
               if (mutedUsers.length === 0) return true;
               return !mutedUsers.some(
-                muted => message.displayName.includes(muted) || message.fullName.includes(muted),
+                muted =>
+                  muted !== '' &&
+                  (message.displayName.includes(muted) || message.fullName.includes(muted)),
               );
             })
             .map((message, _i) => {

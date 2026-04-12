@@ -30,7 +30,7 @@ export const MuteUsersSetting: React.FC = () => {
 
   const handleSave = (index: number) => {
     if (localUsers[index] === '') return;
-    updateSetting({ mutedUsers: localUsers });
+    updateSetting({ mutedUsers: localUsers.filter(u => u !== '') });
   };
 
   return (
