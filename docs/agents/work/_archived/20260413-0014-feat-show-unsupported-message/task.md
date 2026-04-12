@@ -9,3 +9,9 @@ Tweetが「テキスト・ファイル・添付画像すべて空なら非表示
 
 ## スコープ
 - `front/src/app/features/tweetList/components/tweet/Tweet.tsx` の空チェック(67-69行目)をフォールバック表示に変更
+- `front/src/app/features/tweetList/components/tweet/Tweet.css` にフォールバック用スタイル追加
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
