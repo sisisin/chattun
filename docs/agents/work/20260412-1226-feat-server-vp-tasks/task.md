@@ -2,16 +2,20 @@
 
 ## 達成条件
 
-- server に vite.config.ts を追加し、npm scripts を vp tasks に移行
-- repo root で `pnpm vp run` できるようにし、workspace 全体のタスクを管理
-- git hooks を repo root から実行する形に変更（front 特化から workspace 対応へ）
-- pre-push で front の build+test-all と server の型チェックを実行
+- 各パッケージに `ci` npm script を定義（front: `vp run test-all`, server: `tsc --noEmit`）
+- ルートで `vp run -r ci` を実行して全ワークスペースの CI を一括実行できる
+- git hooks をルートに移動（front/.vite-hooks/ → .vite-hooks/）
+  - pre-commit: `vp staged`（ルートの vite.config.ts の staged 設定を参照）
+  - pre-push: `vp run -r ci`
+- ルートの vite.config.ts に staged 設定のみ定義
+- front/vite.config.ts から staged 設定を削除
+- ルートの package.json に `prepare: "vp config"` を設定
 - Docker ビルド、CI が引き続き成功する
+- CLAUDE.md 更新
 
 ## スコープ
 
-- `server/vite.config.ts` 作成（run.tasks 定義）
-- `server/package.json` の scripts を vp tasks に移行
-- repo root から workspace 全体の操作ができる形に
-- git hooks の workspace 対応
-- Dockerfile、CI、CLAUDE.md 更新
+- git hooks の workspace 対応（front 特化 → ルート統合）
+- 各パッケージの ci script 定義
+- ルート vite.config.ts（staged のみ）
+- Dockerfile、CLAUDE.md 更新

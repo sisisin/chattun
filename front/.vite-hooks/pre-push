@@ -1,2 +1,0 @@
-root="$(git rev-parse --show-toplevel)"
-cd "$root/front" && vp run build && vp run test-all

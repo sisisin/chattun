@@ -25,7 +25,7 @@ COPY .npmrc* ./
 COPY front/package.json ./front/
 COPY front/patches ./front/patches
 COPY server/package.json ./server/
-RUN pnpm install --frozen-lockfile --filter chattun-server --prod
+RUN pnpm install --frozen-lockfile --filter chattun-server --prod --ignore-scripts
 
 WORKDIR /app/server
 COPY ./server ./

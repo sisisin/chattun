@@ -54,6 +54,9 @@ curl -X POST http://localhost:3100/api/mock/event/raw -H 'Content-Type: applicat
 ### ビルド・リント・テスト
 
 ```sh
+# ルートから一括実行
+pnpm vp run -r ci          # front check+test + server 型チェック
+
 # フロント (cd front で実行)
 # vpビルトインコマンド
 pnpm vp test run           # Vitest
@@ -61,13 +64,12 @@ pnpm vp lint               # Oxlint
 pnpm vp lint --fix         # Oxlint autofix
 pnpm vp check              # fmt + lint + type-check 一括実行
 
-# vp run タスク (vite.config.ts で定義)
+# vp run タスク (front/vite.config.ts で定義)
 pnpm vp run build          # 本番ビルド
 pnpm vp run test-all       # check + test 一括実行
 
-# サーバー (テストスクリプトなし、TypeScript型チェックのみ)
-cd server
-npx tsc --noEmit
+# サーバー (cd server で実行)
+pnpm ci                    # TypeScript型チェック (tsc --noEmit)
 ```
 
 ### デプロイ

@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "vp dev",
-    "prepare": "vp config"
+    "ci": "vp run test-all"
   },
   "browserslist": [
     ">0.2%",
