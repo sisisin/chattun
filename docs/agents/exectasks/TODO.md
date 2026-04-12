@@ -52,11 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: serverのlint warningを解消する
-  - io.ts: 未使用import（AppsEventAuthorizationsListResponse, webClient, socketClient）を削除
-  - logging/logger.ts: setNameのパラメータをアンダースコアプレフィックスに
-  - index.ts: /api/fooと/api/errのデバッグエンドポイントを削除
-  - utils.ts: unsafe optional chainingの修正
 - Task: ioredisを5.xにアップデートする
   - @types/ioredisを削除（v5で型同梱）
 - Task: expressをhonoに移行する

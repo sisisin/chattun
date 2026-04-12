@@ -1,5 +1,7 @@
 # Done
 
+- Task: serverのlint warning 7件を解消する
+  - io.ts: 未使用import削除、logger.ts: _nameプレフィックス、index.ts: デバッグエンドポイント削除、utils.ts: unsafe optional chaining修正
 - Task: requestパッケージをNode.js標準のfetchに置き換えて削除する
   - /api/fileエンドポイントのSlackファイルプロキシをfetch+Readable.fromWebに移行
   - request, @types/requestを削除
