@@ -59,13 +59,6 @@ CERT_DIR=/etc/letsencrypt/live/local.sisisin.house
   - `pnpm install`
   - `pnpm start`
 
-# How to build Docker image
-
-```sh
-$ cd .circleci
-$ ./build_image
-```
-
 # 本番環境設定
 
 ## Slack App 設定
@@ -90,12 +83,8 @@ $ ./build_image
 - CLIENT_SECRET: 同 Client Secret
 - SERVER_BASE_URL: サーバーの URL。OAuth フローでのリダイレクト先設定などに利用
 - REDIS_URL: セッション情報保存用の redis の connection string
-  - heroku なら redis を設定した時点で自動で設定される
 
-### フロント側
+## デプロイ
 
-- VITE_BASE_URL: ホストされる URL。heroku を利用する場合、ビルドも heroku で行うため heroku 上でサーバーの環境変数として設定してやる必要があるので注意
-
-## デプロイ設定
-
-heroku なら `git push heroku master` でデプロイする設定してあれば push するだけで OK のはず
+main push で GitHub Actions が Cloud Run へ自動デプロイ。
+手動: `tools/deploy/build_image.sh --tag=<tag>` → `tools/deploy/deploy.sh`
