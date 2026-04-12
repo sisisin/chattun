@@ -1,5 +1,8 @@
 # Done
 
+- Task: scripts/,docker/をtools/へ統合する
+  - deploy系をtools/deploy/、setup系をtools/setup/、docker-composeをtools/docker/に移動
+  - スクリプト内相対パス修正、CI workflow・CLAUDE.md・README.md参照更新
 - Task: socket.io, @slack/socket-modeのマイナー/パッチアップデート
   - socket.io 4.7.5→4.8.3、@slack/socket-mode 2.0.4→2.0.6。コード変更なし
 - Task: @slack/oauthを3.xにアップデートする

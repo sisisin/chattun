@@ -52,7 +52,9 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: scripts/,docker/をtools/へ統合する。スクリプトの置き方は役割に沿った構成になるように調節
+- Task: Hono移行後のOAuth認証フローが「OAuth failed」になる問題を修正する
+  - デプロイ後、Slack OAuth認証で「OAuth failed」が表示される
+  - handleCallbackのreq/res互換性、セッションCookie設定、リダイレクト処理を調査・修正
 - Task: .vscodeをルートに統合・chattun.code-workspaceを消す
 - Task: なんか古いやつが地味に残ってるのを消す
   - たとえばmise.tomlにyarnがいる
