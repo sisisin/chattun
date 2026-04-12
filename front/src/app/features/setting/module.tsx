@@ -3,9 +3,6 @@ import { SettingView } from './components/SettingView';
 import { handle, SettingState, SettingActions, getSettingState } from './interface';
 import { settingRepository } from 'app/services/localstorage/SettingRepository';
 import { getGlobalSettingState, GlobalSettingActions } from '../globalSetting/interface';
-import { of } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
-
 // --- Epic ---
 handle
   .epic()
@@ -21,12 +18,6 @@ handle
       GlobalSettingActions.updateGlobalSetting(newSetting),
       SettingActions.updateSettingFulfilled(newSetting),
     ];
-  })
-  .on(SettingActions.updateSettingFulfilled, () => {
-    return of(null).pipe(
-      delay(2000),
-      map(() => SettingActions.hideToast()),
-    );
   });
 
 // --- Reducer ---

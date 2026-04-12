@@ -1,7 +1,7 @@
 import { Menu } from 'app/components/menu/Menu';
 import React from 'react';
-import { useMappedState } from 'typeless';
-import { getSettingState } from '../interface';
+import { useActions, useMappedState } from 'typeless';
+import { getSettingState, SettingActions } from '../interface';
 
 import { DeepLinkSetting } from './DeepLinkSetting';
 import { ChannelMatchSetting } from './ChannelMatchSetting';
@@ -12,6 +12,13 @@ export const SettingView = () => {
   const { showToast } = useMappedState([getSettingState], s => ({
     showToast: s.showToast,
   }));
+  const { hideToast } = useActions(SettingActions);
+
+  React.useEffect(() => {
+    if (!showToast) return;
+    const id = setTimeout(() => hideToast(), 2000);
+    return () => clearTimeout(id);
+  }, [showToast, hideToast]);
 
   return (
     <>
