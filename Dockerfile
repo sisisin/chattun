@@ -3,7 +3,7 @@ FROM node:22.18.0 AS builder
 RUN corepack enable pnpm
 WORKDIR /app/front
 
-COPY ./front/package.json ./front/pnpm-lock.yaml ./front/.npmrc ./
+COPY ./front/package.json ./front/pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 COPY ./front .

@@ -13,7 +13,7 @@ front/plopfile.js
 front/regconfig.json
 front/story2sketch.config.js
 
-node_modules
+**/node_modules
 
 .env.development
 .env.local

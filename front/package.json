@@ -8,6 +8,7 @@
   "dependencies": {
     "babel-runtime": "6.26.0",
     "emoji-mart": "2.11.2",
+    "history": "^4.10.1",
     "react": "16.13.0",
     "react-dom": "16.13.0",
     "tslib": "2.6.2"
