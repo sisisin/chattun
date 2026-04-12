@@ -52,7 +52,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 追加ボタンと保存ボタンの大きさが揃ってないのを直す
 - Task: Tweetのチャンネル名表示をslackへのdeep linkとして、クリックしたら開けるようにする
 - Task: alertなどのブロッキングする機能の利用をやめたい。そのためのアラート用コンポーネントを用意して載せ替える
 - Task: channels listやらをサーバー側でキャッシュ
