@@ -56,6 +56,7 @@ const presetFactories: Record<string, () => object> = {
         {
           id: `mock-file-${Date.now()}`,
           name: 'sample.png',
+          filetype: 'png',
           mimetype: 'image/png',
           url_private: '/api/mock/assets/sample.png',
           thumb_360: '/api/mock/assets/sample.png',
@@ -127,6 +128,66 @@ const presetFactories: Record<string, () => object> = {
       deleted_ts: deletedTs,
       ts,
       event_ts: deletedTs,
+    };
+  },
+
+  'formatted-message': () => {
+    const ts = nowTs();
+    return {
+      type: 'message',
+      user: MOCK_USER,
+      ts,
+      client_msg_id: `mock-${Date.now()}`,
+      text: '*太字* _斜体_ ~取消線~ `インラインコード`\n```\nコードブロック\nconst x = 1;\n```',
+      team: MOCK_TEAM,
+      channel: MOCK_CHANNEL,
+      event_ts: ts,
+      channel_type: 'channel',
+    };
+  },
+
+  'message-with-mentions': () => {
+    const ts = nowTs();
+    return {
+      type: 'message',
+      user: MOCK_USER,
+      ts,
+      client_msg_id: `mock-${Date.now()}`,
+      text: '<@UMOCKUSER> さんへ\n<#CMOCKCH001|mock-general> で <!here> に通知します',
+      team: MOCK_TEAM,
+      channel: MOCK_CHANNEL,
+      event_ts: ts,
+      channel_type: 'channel',
+    };
+  },
+
+  'message-with-links': () => {
+    const ts = nowTs();
+    return {
+      type: 'message',
+      user: MOCK_USER,
+      ts,
+      client_msg_id: `mock-${Date.now()}`,
+      text: 'リンク: <https://example.com|Example Site> と <https://github.com>\nメール: <mailto:test@example.com|test@example.com>',
+      team: MOCK_TEAM,
+      channel: MOCK_CHANNEL,
+      event_ts: ts,
+      channel_type: 'channel',
+    };
+  },
+
+  'message-with-emojis': () => {
+    const ts = nowTs();
+    return {
+      type: 'message',
+      user: MOCK_USER,
+      ts,
+      client_msg_id: `mock-${Date.now()}`,
+      text: '標準絵文字 :wave: :thumbsup: :heart:\nカスタム絵文字 :thumbsup: :laughing:',
+      team: MOCK_TEAM,
+      channel: MOCK_CHANNEL,
+      event_ts: ts,
+      channel_type: 'channel',
     };
   },
 
