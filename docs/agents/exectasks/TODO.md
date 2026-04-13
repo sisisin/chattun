@@ -55,8 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: TweetContentで電話番号がリンクになっていない
-  - tmp/examples/message-tel-link.json
 - Task: リアクションした人をマウスホバーした瞬間に出したい。あとホバーしたときの表示名を投稿の表示名と同じになるようにしたい
   - slack appだとこういうのがホバーしてすぐ出てくる tmp/examples/SCR-20260413-npot.png
   - ネイティブのhoverじゃ難しいならコンポーネントを実装してかまわない
