@@ -55,7 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: スレッド画面で「スレッドを表示」をなくして
 - Task: resolveContextがTweetごとに生成されるの多分大分メモリに悪いので、Timeline時点で作って参照する構造が良さそう
 - Task: server,frontでsocket.ioのバージョン揃ってないので是正して
 - Task: typelessのバージョン最新にしておいて

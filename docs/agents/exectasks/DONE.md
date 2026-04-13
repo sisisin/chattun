@@ -1,5 +1,6 @@
 # Done
 
+- Task: スレッド画面で「スレッドを表示」をなくして [20260413-2029-feat-remove-thread-link-in-thread](../work/_archived/20260413-2029-feat-remove-thread-link-in-thread)
 - Task: 他人のメンションも「メンションである」ことが分かる見た目にして [20260413-2025-feat-mention-other-style](../work/_archived/20260413-2025-feat-mention-other-style)
 - Task: メッセージがないときのアイコン表示の位置がおかしい [20260413-2015-fix-empty-state-icon-position](../work/_archived/20260413-2015-fix-empty-state-icon-position)
 - Task: TODOに書いたはずのことが消されていないか確認 → 全タスク追跡可能、消失なし
