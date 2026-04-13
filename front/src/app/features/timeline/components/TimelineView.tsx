@@ -2,7 +2,7 @@ import './TimelineView.css';
 import { Menu } from 'app/components/menu/Menu';
 import { EmojiMenuModule } from 'app/features/emojiMenu/module';
 import { getGlobalSettingState } from 'app/features/globalSetting/interface';
-import { TweetItem } from './tweet/module';
+import { Tweet } from './tweet/module';
 import React from 'react';
 import { useMappedState, useSelector } from 'typeless';
 import { getTimelineMessages } from '../selector';
@@ -38,7 +38,7 @@ export const TimelineView = () => {
                 );
               })
               .map(message => (
-                <TweetItem
+                <Tweet
                   key={`${message.channelId}_${message.ts}`}
                   message={message}
                   parentRef={ulistRef}

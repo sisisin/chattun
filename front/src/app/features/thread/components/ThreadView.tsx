@@ -1,7 +1,7 @@
 import { Menu } from 'app/components/menu/Menu';
 import { EmojiMenuModule } from 'app/features/emojiMenu/module';
 import { getGlobalSettingState } from 'app/features/globalSetting/interface';
-import { TweetItem } from 'app/features/timeline/components/tweet/module';
+import { Tweet } from 'app/features/timeline/components/tweet/module';
 import { getThreadMessages } from '../selector';
 import React from 'react';
 import { useMappedState, useSelector } from 'typeless';
@@ -37,7 +37,7 @@ export const ThreadView = () => {
                 );
               })
               .map(message => (
-                <TweetItem
+                <Tweet
                   key={`${message.channelId}_${message.ts}`}
                   message={message}
                   parentRef={ulistRef}

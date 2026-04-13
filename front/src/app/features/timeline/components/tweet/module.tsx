@@ -1,5 +1,5 @@
 import { getSlackState } from 'app/features/slack/interface';
-import { Tweet } from 'app/features/timeline/interface';
+import type { Tweet as TweetData } from 'app/features/timeline/interface';
 import React from 'react';
 import { TweetView } from './components/TweetView';
 import { handle, TweetActions } from './interface';
@@ -16,12 +16,12 @@ handle.epic().on(TweetActions.copyClicked, ({ msg }) => {
 });
 
 // --- Module ---
-interface TweetItemProps {
-  message: Tweet;
+interface TweetProps {
+  message: TweetData;
   parentRef: React.RefObject<HTMLUListElement>;
 }
 
-export const TweetItem = ({ message, parentRef }: TweetItemProps) => {
+export const Tweet = ({ message, parentRef }: TweetProps) => {
   handle();
   return <TweetView message={message} parentRef={parentRef} />;
 };
