@@ -36,7 +36,7 @@ function InlineElement({ element }: { element: BlockKit.InlineElement }) {
       const user = ctx.resolveUser?.(element.user_id);
       const displayName = user ? `@${user.displayName}` : `@${element.user_id}`;
       const isSelf = ctx.myUserId === element.user_id;
-      return <span className={isSelf ? styles.mentionSelf : undefined}>{displayName}</span>;
+      return <span className={isSelf ? styles.mentionSelf : styles.mention}>{displayName}</span>;
     }
     case 'channel': {
       const channelName = ctx.resolveChannel?.(element.channel_id);

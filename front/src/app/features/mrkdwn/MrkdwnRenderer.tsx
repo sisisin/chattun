@@ -50,7 +50,7 @@ function RenderNode({ node }: { node: MrkdwnNode }) {
       const user = ctx.resolveUser?.(node.userId);
       const displayName = user ? `@${user.displayName}` : `@${node.userId}`;
       const isSelf = ctx.myUserId === node.userId;
-      return <span className={isSelf ? styles.mentionSelf : undefined}>{displayName}</span>;
+      return <span className={isSelf ? styles.mentionSelf : styles.mention}>{displayName}</span>;
     }
     case 'channel_ref': {
       const channelName = ctx.resolveChannel?.(node.channelId) ?? node.name;
