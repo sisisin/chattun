@@ -1,16 +1,10 @@
 import { emojify, has } from 'node-emoji';
 import React, { createContext, useContext } from 'react';
 import { type MrkdwnNode, parseMrkdwn } from './parser';
+import type { ResolveContext } from './ResolveContext';
 import styles from './MrkdwnRenderer.module.css';
 
-export interface MrkdwnContext {
-  resolveUser?: (userId: string) => { displayName: string } | undefined;
-  resolveChannel?: (channelId: string) => string | undefined;
-  resolveEmoji?: (name: string) => string | undefined;
-  myUserId?: string;
-}
-
-const MrkdwnCtx = createContext<MrkdwnContext>({});
+const MrkdwnCtx = createContext<ResolveContext>({});
 
 function RenderNode({ node }: { node: MrkdwnNode }) {
   const ctx = useContext(MrkdwnCtx);
@@ -90,7 +84,7 @@ function RenderNodes({ nodes }: { nodes: MrkdwnNode[] }) {
   );
 }
 
-export const MrkdwnContent = ({ text, context }: { text: string; context?: MrkdwnContext }) => {
+export const MrkdwnContent = ({ text, context }: { text: string; context?: ResolveContext }) => {
   const nodes = parseMrkdwn(text);
   if (context) {
     return (

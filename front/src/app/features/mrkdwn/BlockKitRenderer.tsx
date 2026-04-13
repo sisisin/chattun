@@ -1,16 +1,10 @@
 import { emojify, has } from 'node-emoji';
 import React, { useContext, createContext } from 'react';
 import type { BlockKit } from 'app/types/slack';
+import type { ResolveContext } from './ResolveContext';
 import styles from './MrkdwnRenderer.module.css';
 
-export interface BlockKitContext {
-  resolveUser?: (userId: string) => { displayName: string } | undefined;
-  resolveChannel?: (channelId: string) => string | undefined;
-  resolveEmoji?: (name: string) => string | undefined;
-  myUserId?: string;
-}
-
-const BlockKitCtx = createContext<BlockKitContext>({});
+const BlockKitCtx = createContext<ResolveContext>({});
 
 function InlineElement({ element }: { element: BlockKit.InlineElement }) {
   const ctx = useContext(BlockKitCtx);
@@ -130,7 +124,7 @@ export const BlockKitContent = ({
   context,
 }: {
   blocks: BlockKit.RichTextBlock[];
-  context?: BlockKitContext;
+  context?: ResolveContext;
 }) => {
   return (
     <BlockKitCtx.Provider value={context ?? {}}>
