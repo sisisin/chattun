@@ -33,8 +33,8 @@ export const EmojiMenuView = () => {
         closeEmojiMenu();
       }
     };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown, true);
+    return () => document.removeEventListener('keydown', handleKeyDown, true);
   }, [isEmojiMenuVisible, closeEmojiMenu]);
 
   const picker = React.useMemo(
