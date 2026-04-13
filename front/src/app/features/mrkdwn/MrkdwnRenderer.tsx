@@ -85,7 +85,7 @@ function RenderNodes({ nodes }: { nodes: MrkdwnNode[] }) {
 }
 
 export const MrkdwnContent = ({ text, context }: { text: string; context?: ResolveContext }) => {
-  const nodes = parseMrkdwn(text);
+  const nodes = React.useMemo(() => parseMrkdwn(text), [text]);
   if (context) {
     return (
       <MrkdwnCtx.Provider value={context}>
