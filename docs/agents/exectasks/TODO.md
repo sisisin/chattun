@@ -55,10 +55,10 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: user muteとtimeline filterのロジックが散ってるので集約して
-- Task: main.cssで個別コンポーネント向けのcssをimportするのをやめる
-  - 局所化するべき
-  - この内容をfrontend-development skillに記載するのもやる
+- Task: 既存のコンポーネントごとのスタイリングのcssを.module.cssとし、css modules化する
+  - main.cssで個別コンポーネント向けのCSSをimportしているのもなんとかする
+  - css.modules.localsConventionという設定でcssのクラスをcamelize出来るようなのでこれを利用すると良さそう ref. https://ja.vite.dev/guide/features#css-modules
+- Task: css moduleを利用するべきであるという内容をfrontend-development skillに記載する
 - Task: TweetContent上で `>` が `&gt` になるのを修正
   - 再現json: tmp/examples/message-gt.json
 - Task: アイコンのリンク切れ・本文のパースに一部失敗

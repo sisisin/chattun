@@ -1,5 +1,6 @@
 # Done
 
+- Task: user muteとtimeline filterのロジックが散ってるので集約して [20260413-1750-feat-consolidate-mute-filter](../work/_archived/20260413-1750-feat-consolidate-mute-filter)
 - Task: tweet featureのmodule構造をblueprintパターンに合わせる [20260413-0152-feat-fix-tweet-module-structure](../work/_archived/20260413-0152-feat-fix-tweet-module-structure)
 - Task: Tweetの表示が崩れているので修正して [20260413-0145-feat-fix-tweet-layout](../work/_archived/20260413-0145-feat-fix-tweet-layout)
 - Task: Timeline,TweetList,Tweet,slack/SlackQuery,mrkdwnらへんの整理 [20260413-0025-feat-reorganize-tweet-features](../work/_archived/20260413-0025-feat-reorganize-tweet-features)
