@@ -1,5 +1,6 @@
 # Done
 
+- Task: dev modeのCボタンの文字位置ズレ修正・コピーフィードバック [20260413-1910-fix-dev-copy-button](../work/_archived/20260413-1910-fix-dev-copy-button)
 - Task: リアクションした人をマウスホバーした瞬間に出したい [20260413-1903-feat-reaction-hover-tooltip](../work/_archived/20260413-1903-feat-reaction-hover-tooltip)
 - Task: TweetContentで電話番号がリンクになっていない [20260413-1900-feat-tel-link](../work/_archived/20260413-1900-feat-tel-link)
 - Task: 未対応メッセージの対応 [20260413-1852-feat-unsupported-message-handling](../work/_archived/20260413-1852-feat-unsupported-message-handling)
