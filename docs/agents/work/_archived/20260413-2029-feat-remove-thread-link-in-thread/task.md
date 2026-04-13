@@ -17,3 +17,8 @@
 
 - `Tweet` / `TweetView` に `inThread` prop を追加し、スレッド画面では「スレッドを表示」リンクを非表示にする
 - ThreadView から `inThread={true}` を渡す
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
