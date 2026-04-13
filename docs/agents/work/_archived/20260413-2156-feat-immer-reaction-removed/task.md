@@ -21,3 +21,8 @@ onReactionAdded (155-172行) が既に findIndex+splice パターンを使って
 - reduce+spread を直接操作に置き換え
 - onReactionAdded と一貫したスタイル
 - lint / type-check が通る
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
