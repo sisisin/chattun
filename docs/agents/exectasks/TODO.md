@@ -55,7 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: スレッド画面のヘッダ表示が「すべての投稿」なのは誤り
 - Task: 未対応メッセージの対応
   - tmp/examples/message-unsupported.json , tmp/examples/message-unsupported2.json
   - あと、「対応してない」の表記、chattunからのものであるとわかるような表記にしたい
