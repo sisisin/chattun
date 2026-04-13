@@ -55,7 +55,7 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: front/src/app/imports.ts と EmojiMenuViewの処理が被ってるように見える。どういう理屈なのか整理して、適切な処理に直して
+- Task: パフォーマンスチューニングしたほうがよさそうなところを探し、Task化する
 
 # Backlog
 
