@@ -55,7 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: css moduleを利用するべきであるという内容をfrontend-development skillに記載する
 - Task: TweetContent上で `>` が `&gt` になるのを修正
   - 再現json: tmp/examples/message-gt.json
 - Task: アイコンのリンク切れ・本文のパースに一部失敗
