@@ -30,5 +30,5 @@
 
 ## 検証ステップ
 
-- [ ] review
+- [x] review
 - [x] browser-verification
