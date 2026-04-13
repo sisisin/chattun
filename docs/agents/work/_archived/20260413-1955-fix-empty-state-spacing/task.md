@@ -23,3 +23,8 @@
 
 1. 空状態のロゴとヘッダの間に適切なスペースが確保される
 2. ThreadView の空状態も同様に修正（同じCSSクラスを使用している場合）
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
