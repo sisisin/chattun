@@ -55,8 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: TweetContent上で `>` が `&gt` になるのを修正
-  - 再現json: tmp/examples/message-gt.json
 - Task: アイコンのリンク切れ・本文のパースに一部失敗
   - 再現json: tmp/examples/message-linkmissing.json , tmp/examples/message-linkmissing2.json
   - linkmissing2の元メッセージURL: https://knowledge-work.slack.com/archives/C044DHKG5GF/p1776068105261909

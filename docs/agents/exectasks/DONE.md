@@ -1,5 +1,6 @@
 # Done
 
+- Task: TweetContent上で `>` が `&gt` になるのを修正 [20260413-1830-fix-gt-entity](../work/_archived/20260413-1830-fix-gt-entity)
 - Task: css moduleを利用するべきであるという内容をfrontend-development skillに記載する [20260413-1825-feat-skill-css-modules-doc](../work/_archived/20260413-1825-feat-skill-css-modules-doc)
 - Task: 既存のコンポーネントごとのスタイリングのcssを.module.cssとし、css modules化する [20260413-1500-feat-css-modules](../work/_archived/20260413-1500-feat-css-modules)
 - Task: user muteとtimeline filterのロジックが散ってるので集約して [20260413-1750-feat-consolidate-mute-filter](../work/_archived/20260413-1750-feat-consolidate-mute-filter)
