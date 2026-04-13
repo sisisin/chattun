@@ -11,3 +11,8 @@
 1. 他人へのメンション（@username）にもメンションらしいスタイルが付く
 2. 自分へのメンションとは視覚的に区別できる（自分はより目立つ）
 3. MrkdwnRenderer と BlockKitRenderer の両方で対応
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
