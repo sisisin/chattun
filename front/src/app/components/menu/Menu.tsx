@@ -25,7 +25,7 @@ export const Menu: React.FC = () => {
         </Link>
       </li>
       <li className={styles.menuTimeline}>
-        {isTimeline ? (
+        {isTimeline || isSetting ? (
           <span className={styles.menuTimelineLink}>{headerTitle}</span>
         ) : (
           <Link to="/" className={styles.menuTimelineLink}>
