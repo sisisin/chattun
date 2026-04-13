@@ -231,6 +231,35 @@ describe('parseMrkdwn', () => {
     });
   });
 
+  describe('HTML entity decoding', () => {
+    it('decodes &gt; to >', () => {
+      expect(parseMrkdwn('hello&gt;world')).toEqual([{ type: 'text', text: 'hello>world' }]);
+    });
+
+    it('decodes &lt; to <', () => {
+      expect(parseMrkdwn('a &lt; b')).toEqual([{ type: 'text', text: 'a < b' }]);
+    });
+
+    it('decodes &amp; to &', () => {
+      expect(parseMrkdwn('foo &amp; bar')).toEqual([{ type: 'text', text: 'foo & bar' }]);
+    });
+
+    it('decodes multiple entities in one text node', () => {
+      expect(parseMrkdwn('a &gt; b &amp; c &lt; d')).toEqual([
+        { type: 'text', text: 'a > b & c < d' },
+      ]);
+    });
+
+    it('decodes entities mixed with formatting', () => {
+      const result = parseMrkdwn('*bold* &gt; _italic_');
+      expect(result).toEqual([
+        { type: 'bold', children: [{ type: 'text', text: 'bold' }] },
+        { type: 'text', text: ' > ' },
+        { type: 'italic', children: [{ type: 'text', text: 'italic' }] },
+      ]);
+    });
+  });
+
   describe('mixed content', () => {
     it('parses text with multiple formatting types', () => {
       const result = parseMrkdwn('hello *bold* and _italic_ and `code`');

@@ -94,10 +94,14 @@ export function parseMrkdwn(input: string): MrkdwnNode[] {
     while (pos < input.length && !isSpecialAt(input, pos)) {
       pos++;
     }
-    nodes.push({ type: 'text', text: input.slice(textStart, pos) });
+    nodes.push({ type: 'text', text: decodeSlackEntities(input.slice(textStart, pos)) });
   }
 
   return nodes;
+}
+
+function decodeSlackEntities(text: string): string {
+  return text.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 }
 
 function parseInline(input: string): MrkdwnNode[] {
