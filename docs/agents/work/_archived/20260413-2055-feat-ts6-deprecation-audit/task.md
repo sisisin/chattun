@@ -7,13 +7,21 @@
 
 ## 調査結果
 
-TypeScript 6.0.2 環境で `tsc --noEmit` を実行し、TS5xxx 系の deprecation warning を確認したが、front/server ともに deprecation warning は**ゼロ**だった。
+`front/swSrc/tsconfig.json` に `"ignoreDeprecations": "6.0"` が設定されており、deprecation warning が抑制されていた。
+抑制を外すと以下の2件が発生：
 
-- `npx tsc -p front/tsconfig.json --noEmit 2>&1 | grep "TS5"` → 出力なし
-- `npx tsc -p server/tsconfig.json --noEmit 2>&1 | grep "TS5"` → 出力なし
+1. **TS5107**: `moduleResolution: "node"` (node10) が非推奨
+2. **TS5101**: `outFile` が非推奨
 
-front/tsconfig.json には `esModuleInterop`, `allowSyntheticDefaultImports` 等の TS6 でデフォルト化されたオプションが明示的に指定されているが、TS6 はこれらを明示しても warning を出さない。
+## 修正内容
 
-## 結論
+- `moduleResolution: "node"` → `"bundler"` に変更
+- `outFile: "../public/sw.js"` → `outDir: "../public/"` に変更（入力が sw.ts 1ファイルのみなので出力パスは同じ）
+- `module: "es2022"` を明示（`moduleResolution: "bundler"` に対応）
+- `ignoreDeprecations: "6.0"` を削除
+- `esModuleInterop`, `allowSyntheticDefaultImports` を削除（TS6 でデフォルト化済み）
 
-現時点で修正すべき deprecation warning は存在しない。タスクは達成済みとする。
+## 達成条件
+
+- `ignoreDeprecations` なしで `tsc -p swSrc/tsconfig.json` がエラー/warning なしで通る
+- 出力 `public/sw.js` の内容が変わらない

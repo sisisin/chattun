@@ -1,13 +1,11 @@
 {
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
     "target": "es2017",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "module": "es2022",
+    "moduleResolution": "bundler",
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "outFile": "../public/sw.js",
+    "outDir": "../public/",
     "strict": true,
     "lib": ["es2017", "WebWorker"],
     "typeRoots": []
