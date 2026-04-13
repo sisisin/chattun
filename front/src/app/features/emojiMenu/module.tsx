@@ -3,6 +3,7 @@ import { EmojiMenuView } from './components/EmojiMenuView';
 import { EmojiMenuActions, EmojiMenuState, handle, getEmojiMenuState } from './interface';
 import { slackClient } from 'app/services/http/SlackClient';
 import { getSlackState, SlackActions } from 'app/features/slack/interface';
+import { appRegistry } from 'app/services/AppRegistry';
 
 // --- Epic ---
 handle
@@ -22,16 +23,23 @@ handle
 
     const { profile } = getSlackState();
     const now = String(Date.now() / 1000);
-    SlackActions.onReactionAdded({
-      type: 'reaction_added',
+    const reactionEvent = {
+      type: 'reaction_added' as const,
       user: profile.userId,
       reaction,
-      item: { type: 'message', channel: message.channelId, ts: message.ts },
+      item: { type: 'message' as const, channel: message.channelId, ts: message.ts },
       event_ts: now,
       ts: now,
-    });
+    };
+    appRegistry.dispatch(SlackActions.onReactionAdded(reactionEvent));
 
-    await slackClient.addReaction(message.channelId, message.ts, reaction);
+    try {
+      await slackClient.addReaction(message.channelId, message.ts, reaction);
+    } catch {
+      appRegistry.dispatch(
+        SlackActions.onReactionRemoved({ ...reactionEvent, type: 'reaction_removed' }),
+      );
+    }
     return null;
   })
   .on(EmojiMenuActions.removeReaction, async ({ message, reaction }) => {
@@ -41,16 +49,23 @@ handle
 
     const { profile } = getSlackState();
     const now = String(Date.now() / 1000);
-    SlackActions.onReactionRemoved({
-      type: 'reaction_removed',
+    const reactionEvent = {
+      type: 'reaction_removed' as const,
       user: profile.userId,
       reaction,
-      item: { type: 'message', channel: message.channelId, ts: message.ts },
+      item: { type: 'message' as const, channel: message.channelId, ts: message.ts },
       event_ts: now,
       ts: now,
-    });
+    };
+    appRegistry.dispatch(SlackActions.onReactionRemoved(reactionEvent));
 
-    await slackClient.removeReaction(message.channelId, message.ts, reaction);
+    try {
+      await slackClient.removeReaction(message.channelId, message.ts, reaction);
+    } catch {
+      appRegistry.dispatch(
+        SlackActions.onReactionAdded({ ...reactionEvent, type: 'reaction_added' }),
+      );
+    }
     return null;
   });
 
