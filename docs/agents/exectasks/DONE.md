@@ -1,5 +1,6 @@
 # Done
 
+- Task: パフォーマンスチューニングしたほうがよさそうなところを探し、Task化する [20260413-2148-feat-perf-audit](../work/_archived/20260413-2148-feat-perf-audit/task.md)
 - Task: front/src/app/imports.ts と EmojiMenuViewの処理が被ってるように見える。どういう理屈なのか整理して、適切な処理に直して [20260413-2141-feat-fix-imports-emoji-overlap](../work/_archived/20260413-2141-feat-fix-imports-emoji-overlap/task.md)
 - Task: DONE.mdのフォルダのリンクをtask.mdへのリンクにして [20260413-2138-feat-fix-done-links](../work/_archived/20260413-2138-feat-fix-done-links/task.md)
 - Task: typescript 6でdeprecation warnが出ている部分を修正する [20260413-2055-feat-ts6-deprecation-audit](../work/_archived/20260413-2055-feat-ts6-deprecation-audit/task.md)
