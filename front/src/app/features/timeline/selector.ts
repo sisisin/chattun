@@ -114,9 +114,24 @@ export const getTimelineMessages = createSelector(
   [getSlackState, slack => slack.emojis],
   [getSlackState, slack => slack.profile],
   [getGlobalSettingState, s => s.deepLinking],
-  (filtered, channels, users, emojis, profile, deepLinking) => {
-    return filtered.map(msg =>
+  [getGlobalSettingState, s => s.mutedUsers],
+  (filtered, channels, users, emojis, profile, deepLinking, mutedUsers) => {
+    const tweets = filtered.map(msg =>
       slackMessageToTweet(msg, { channels, emojis, users, profile }, deepLinking),
     );
+    return filterMutedUsers(tweets, mutedUsers);
   },
 );
+
+export function filterMutedUsers<T extends { displayName: string; fullName: string }>(
+  messages: T[],
+  mutedUsers: string[],
+): T[] {
+  if (mutedUsers.length === 0) return messages;
+  return messages.filter(
+    msg =>
+      !mutedUsers.some(
+        muted => muted !== '' && (msg.displayName.includes(muted) || msg.fullName.includes(muted)),
+      ),
+  );
+}

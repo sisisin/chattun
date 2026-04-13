@@ -1,15 +1,13 @@
 import { Menu } from 'app/components/menu/Menu';
 import { EmojiMenuModule } from 'app/features/emojiMenu/module';
-import { getGlobalSettingState } from 'app/features/globalSetting/interface';
 import { Tweet } from 'app/features/timeline/components/tweet/module';
 import { getThreadMessages } from '../selector';
 import React from 'react';
-import { useMappedState, useSelector } from 'typeless';
+import { useSelector } from 'typeless';
 
 export const ThreadView = () => {
   const messages = useSelector(getThreadMessages);
   const ulistRef = React.useRef<HTMLUListElement>(null);
-  const { mutedUsers } = useMappedState([getGlobalSettingState], s => s);
 
   return (
     <>
@@ -27,22 +25,13 @@ export const ThreadView = () => {
           </div>
         ) : (
           <ul className="tweetlist" ref={ulistRef}>
-            {messages
-              .filter(message => {
-                if (mutedUsers.length === 0) return true;
-                return !mutedUsers.some(
-                  muted =>
-                    muted !== '' &&
-                    (message.displayName.includes(muted) || message.fullName.includes(muted)),
-                );
-              })
-              .map(message => (
-                <Tweet
-                  key={`${message.channelId}_${message.ts}`}
-                  message={message}
-                  parentRef={ulistRef}
-                />
-              ))}
+            {messages.map(message => (
+              <Tweet
+                key={`${message.channelId}_${message.ts}`}
+                message={message}
+                parentRef={ulistRef}
+              />
+            ))}
           </ul>
         )}
       </div>
