@@ -32,7 +32,7 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
       },
       resolveChannel: (channelId: string) => {
         const channel = channels[channelId];
-        if (!channel) return undefined;
+        if (!channel || channel.is_im) return undefined;
         return channel.name;
       },
       myUserId,
