@@ -8,9 +8,9 @@ overrides:
   '@types/react': 18.3.28
 
 patchedDependencies:
-  typeless@1.5.0:
+  typeless@1.7.0:
     hash: dad5692a2cf432388c023054d57a24b48965494f1fd4e0bdc7c4de7549384007
-    path: front/patches/typeless@1.5.0.patch
+    path: front/patches/typeless@1.7.0.patch
 
 importers:
 
@@ -87,8 +87,8 @@ importers:
         specifier: 4.8.3
         version: 4.8.3
       typeless:
-        specifier: 1.5.0
-        version: 1.5.0(patch_hash=dad5692a2cf432388c023054d57a24b48965494f1fd4e0bdc7c4de7549384007)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2)
+        specifier: 1.7.0
+        version: 1.7.0(patch_hash=dad5692a2cf432388c023054d57a24b48965494f1fd4e0bdc7c4de7549384007)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2)
 
   server:
     dependencies:
@@ -2746,8 +2746,8 @@ packages:
     resolution: {integrity: sha512-3KS2b+kL7fsuk/eJZ7EQdnEmQoaho/r6KUef7hxvltNA5DR8NAUM+8wJMbJyZ4G9/7i3v5zPBIMN5aybAh2/Jg==}
     engines: {node: '>= 0.4'}
 
-  typeless@1.5.0:
-    resolution: {integrity: sha512-SDNtE5BZkxgBud9TOwWeO6MaweeiqioMF9/qN2praXtIZVhWCgLY9gnYFnOa1ZMybIbF51LBQZ8Z039IUax2Gw==}
+  typeless@1.7.0:
+    resolution: {integrity: sha512-vXXfo1Z89UKQ4cqVFK3epxhPOENq8IjmRYlwQPAc/qWeSeoGyPR354sQxvO59QTmqWlHNCAMLNq4tUgAN8hskg==}
     peerDependencies:
       react: ^16.8.2
       react-dom: ^16.8.2
@@ -5677,7 +5677,7 @@ snapshots:
       possible-typed-array-names: 1.1.0
       reflect.getprototypeof: 1.0.10
 
-  typeless@1.5.0(patch_hash=dad5692a2cf432388c023054d57a24b48965494f1fd4e0bdc7c4de7549384007)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2):
+  typeless@1.7.0(patch_hash=dad5692a2cf432388c023054d57a24b48965494f1fd4e0bdc7c4de7549384007)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2):
     dependencies:
       immer: 5.3.6
       react: 18.3.1
