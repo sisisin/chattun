@@ -55,9 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: typescript 6でdeprecation warnが出ている部分を修正する
-  - 大規模になる場合、スコープごとにTaskを切り出して対応する形でも可
-
 # Backlog
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。

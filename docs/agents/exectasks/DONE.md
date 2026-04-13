@@ -1,5 +1,6 @@
 # Done
 
+- Task: typescript 6でdeprecation warnが出ている部分を修正する → 調査の結果warning無し [20260413-2055-feat-ts6-deprecation-audit](../work/_archived/20260413-2055-feat-ts6-deprecation-audit)
 - Task: serverのindex.tsがゴチャ付いてるので整理したい [20260413-2051-feat-extract-api-router](../work/_archived/20260413-2051-feat-extract-api-router)
 - Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって [20260413-2045-feat-remove-outside-click-handler](../work/_archived/20260413-2045-feat-remove-outside-click-handler)
 - Task: typelessのバージョン最新にしておいて [20260413-2043-feat-update-typeless](../work/_archived/20260413-2043-feat-update-typeless)
