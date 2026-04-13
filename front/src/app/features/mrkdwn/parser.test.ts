@@ -230,6 +230,18 @@ describe('parseMrkdwn', () => {
         { type: 'link', url: 'mailto:user@example.com', text: undefined },
       ]);
     });
+
+    it('parses tel link', () => {
+      expect(parseMrkdwn('<tel:050-5593-4946|050-5593-4946>')).toEqual([
+        { type: 'link', url: 'tel:050-5593-4946', text: '050-5593-4946' },
+      ]);
+    });
+
+    it('parses tel link without text', () => {
+      expect(parseMrkdwn('<tel:050-5593-4946>')).toEqual([
+        { type: 'link', url: 'tel:050-5593-4946', text: undefined },
+      ]);
+    });
   });
 
   describe('HTML entity decoding', () => {
