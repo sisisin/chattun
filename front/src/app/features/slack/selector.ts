@@ -80,6 +80,9 @@ export function slackMessageToTweet(
     slackLink: getSlackLink(profile, msg, deepLinking),
     edited: msg.edited,
     isHuddle: msg.room?.call_family === 'huddle',
+    blocks: msg.blocks?.filter(
+      (b): b is import('app/types/slack').BlockKit.RichTextBlock => b.type === 'rich_text',
+    ),
     updatedAt: msg.updatedAt,
   };
 }

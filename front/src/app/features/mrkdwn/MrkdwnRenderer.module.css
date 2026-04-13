@@ -11,3 +11,10 @@
   height: var(--font-large-ex);
   object-fit: contain;
 }
+
+.blockquote {
+  margin: var(--spacing-xs) 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-left: 4px solid var(--border-main);
+  color: var(--text-sub);
+}

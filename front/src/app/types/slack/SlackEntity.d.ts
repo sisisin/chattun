@@ -1,3 +1,5 @@
+import { BlockKit } from './BlockKit';
+
 export namespace SlackEntity {
   export interface Attachment {
     fallback: string;
@@ -111,6 +113,7 @@ export namespace SlackEntity {
         call_family?: string;
       };
       permalink?: string;
+      blocks?: BlockKit.Block[];
     }
   }
 }

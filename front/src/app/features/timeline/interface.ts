@@ -1,6 +1,7 @@
 import { createModule } from 'typeless';
 import { TimelineSymbol } from './symbol';
 import { DeepLinking } from 'app/types/TimelineSettings';
+import { BlockKit } from 'app/types/slack';
 
 // --- Actions ---
 export const [handle, TimelineActions, getTimelineState] = createModule(TimelineSymbol)
@@ -67,6 +68,7 @@ export interface Tweet {
     ts: string;
   };
   isHuddle: boolean;
+  blocks?: BlockKit.RichTextBlock[];
   updatedAt: number;
 }
 

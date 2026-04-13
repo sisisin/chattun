@@ -176,6 +176,109 @@ const presetFactories: Record<string, () => object> = {
     };
   },
 
+  'block-kit-rich': () => {
+    const ts = nowTs();
+    return {
+      type: 'message',
+      user: MOCK_USER,
+      ts,
+      client_msg_id: `mock-${Date.now()}`,
+      text: 'Block Kit テスト: 太字 斜体 取消線 コード リスト\n\n1. 番号付きリスト1\n2. 番号付きリスト2\n\n• 箇条書き1\n• 箇条書き2\n\n> 引用文です\n\nconst code = "preformatted";',
+      team: MOCK_TEAM,
+      blocks: [
+        {
+          type: 'rich_text',
+          block_id: `mock-block-${Date.now()}`,
+          elements: [
+            {
+              type: 'rich_text_section',
+              elements: [
+                { type: 'text', text: 'Block Kit テスト: ' },
+                { type: 'text', text: '太字', style: { bold: true } },
+                { type: 'text', text: ' ' },
+                { type: 'text', text: '斜体', style: { italic: true } },
+                { type: 'text', text: ' ' },
+                { type: 'text', text: '取消線', style: { strike: true } },
+                { type: 'text', text: ' ' },
+                { type: 'text', text: 'コード', style: { code: true } },
+                { type: 'text', text: ' ' },
+                { type: 'text', text: '太字+斜体', style: { bold: true, italic: true } },
+              ],
+            },
+            {
+              type: 'rich_text_list',
+              style: 'ordered',
+              elements: [
+                {
+                  type: 'rich_text_section',
+                  elements: [{ type: 'text', text: '番号付きリスト1' }],
+                },
+                {
+                  type: 'rich_text_section',
+                  elements: [{ type: 'text', text: '番号付きリスト2' }],
+                },
+              ],
+            },
+            {
+              type: 'rich_text_list',
+              style: 'bullet',
+              elements: [
+                {
+                  type: 'rich_text_section',
+                  elements: [{ type: 'text', text: '箇条書き1' }],
+                },
+                {
+                  type: 'rich_text_section',
+                  elements: [
+                    { type: 'text', text: '箇条書き2 ' },
+                    { type: 'text', text: '太字アイテム', style: { bold: true } },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'rich_text_quote',
+              elements: [
+                { type: 'text', text: 'これは引用文です。Block Kitで構造化されています。' },
+              ],
+            },
+            {
+              type: 'rich_text_preformatted',
+              elements: [
+                { type: 'text', text: 'const code = "preformatted";\nconsole.log(code);' },
+              ],
+            },
+            {
+              type: 'rich_text_section',
+              elements: [
+                { type: 'text', text: 'メンション: ' },
+                { type: 'user', user_id: MOCK_USER },
+                { type: 'text', text: ' チャンネル: ' },
+                { type: 'channel', channel_id: MOCK_CHANNEL },
+                { type: 'text', text: ' ブロードキャスト: ' },
+                { type: 'broadcast', range: 'here' },
+              ],
+            },
+            {
+              type: 'rich_text_section',
+              elements: [
+                { type: 'text', text: '絵文字: ' },
+                { type: 'emoji', name: 'wave', unicode: '1f44b' },
+                { type: 'text', text: ' ' },
+                { type: 'emoji', name: 'rocket', unicode: '1f680' },
+                { type: 'text', text: ' リンク: ' },
+                { type: 'link', url: 'https://example.com', text: 'Example Site' },
+              ],
+            },
+          ],
+        },
+      ],
+      channel: MOCK_CHANNEL,
+      event_ts: ts,
+      channel_type: 'channel',
+    };
+  },
+
   'message-with-emojis': () => {
     const ts = nowTs();
     return {
