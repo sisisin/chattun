@@ -1,5 +1,6 @@
 # Done
 
+- Task: emojiのパレットをescキーを押したら閉じるようにして [20260413-2002-feat-emoji-escape-close](../work/_archived/20260413-2002-feat-emoji-escape-close)
 - Task: まだ投稿がありませんのときのアイコンがヘッダ部分との隙間がなくなってしまっているのを修正 [20260413-1955-fix-empty-state-spacing](../work/_archived/20260413-1955-fix-empty-state-spacing)
 - Task: block kitのパース・レンダリング [20260413-1430-feat-block-kit-parser](../work/_archived/20260413-1430-feat-block-kit-parser)
 - Task: リアクションのoptimistic UI [20260413-1922-feat-optimistic-reaction](../work/_archived/20260413-1922-feat-optimistic-reaction)
