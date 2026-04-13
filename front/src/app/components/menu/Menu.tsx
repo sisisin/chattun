@@ -4,8 +4,6 @@ import { useRouter } from 'app/hooks/useRouter';
 import * as React from 'react';
 import styles from './Menu.module.css';
 
-export { styles as menuStyles };
-
 export const Menu: React.FC = () => {
   const { location } = useRouter();
   const isTimeline = location.pathname === '/';

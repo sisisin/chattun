@@ -1,4 +1,4 @@
-import { Menu, menuStyles } from 'app/components/menu/Menu';
+import { Menu } from 'app/components/menu/Menu';
 import { EmojiMenuModule } from 'app/features/emojiMenu/module';
 import { Tweet } from './tweet/module';
 import React from 'react';
@@ -13,7 +13,7 @@ export const TimelineView = () => {
   return (
     <>
       <EmojiMenuModule />
-      <div className={menuStyles.menuParent}>
+      <div className={styles.menuParent}>
         <Menu />
         {messages.length === 0 ? (
           <div className={styles.tweetlistEmpty}>

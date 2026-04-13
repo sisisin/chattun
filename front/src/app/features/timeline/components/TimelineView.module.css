@@ -1,3 +1,7 @@
+.menu-parent {
+  position: relative;
+}
+
 .tweetlist {
   padding: 0;
   list-style: none;
@@ -7,6 +11,7 @@
   display: grid;
   height: 100vh;
   padding: 20vh 0 30vh;
+  list-style: none;
 }
 
 .tweetlist-empty-logo {

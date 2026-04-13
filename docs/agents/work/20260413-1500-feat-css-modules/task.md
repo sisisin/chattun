@@ -27,3 +27,8 @@
 
 対象外（グローバルCSS、main.css に残す）:
 - `_reboot.css`, `_colors.css`, `_font.css`, `_spacing.css`, `_border-radius.css`, `_shadow.css`, `_icon.css`, `_base.css`, `_form.css`
+
+## 検証ステップ
+
+- [ ] review
+- [x] browser-verification
