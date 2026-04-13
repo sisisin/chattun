@@ -26,7 +26,8 @@ function getReactions(
             if (user === userId) {
               return 'You';
             } else {
-              return users[user]?.name ?? user;
+              const member = users[user];
+              return member ? member.profile.display_name || member.real_name : user;
             }
           });
     const emojiUrl = emojis[r.name];

@@ -87,11 +87,11 @@ export const TweetView = ({ message, parentRef }: Props) => {
               <span
                 className={classNames.join(' ')}
                 key={i}
-                title={elem.reactors.join(', ')}
                 onClick={() =>
                   elem.reacted ? removeReaction(message, emojiId) : addReaction(message, emojiId)
                 }
               >
+                <span className={styles.tweetActionsEmojiTooltip}>{elem.reactors.join(', ')}</span>
                 {elem.emoji ? (
                   <img
                     src={elem.emoji.skins[0].src}
