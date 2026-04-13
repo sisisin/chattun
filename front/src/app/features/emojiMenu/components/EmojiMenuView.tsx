@@ -4,13 +4,10 @@ import { useActions, useMappedState, useSelector } from 'typeless';
 import { EmojiMenuActions, getEmojiMenuState } from '../interface';
 
 const LazyPicker = React.lazy(async () => {
-  const [{ default: Picker }, { default: data }] = await Promise.all([
-    import('@emoji-mart/react'),
-    import('@emoji-mart/data'),
-  ]);
+  const { default: Picker } = await import('@emoji-mart/react');
   return {
     default: (props: { custom: any; onEmojiSelect: (emoji: { id: string }) => void }) => (
-      <Picker data={data} {...props} autoFocus />
+      <Picker {...props} autoFocus />
     ),
   };
 });
