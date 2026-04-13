@@ -1,5 +1,6 @@
 # Done
 
+- Task: DONE.mdのフォルダのリンクをtask.mdへのリンクにして [20260413-2138-feat-fix-done-links](../work/_archived/20260413-2138-feat-fix-done-links/task.md)
 - Task: typescript 6でdeprecation warnが出ている部分を修正する [20260413-2055-feat-ts6-deprecation-audit](../work/_archived/20260413-2055-feat-ts6-deprecation-audit/task.md)
 - Task: serverのindex.tsがゴチャ付いてるので整理したい [20260413-2051-feat-extract-api-router](../work/_archived/20260413-2051-feat-extract-api-router/task.md)
 - Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって [20260413-2045-feat-remove-outside-click-handler](../work/_archived/20260413-2045-feat-remove-outside-click-handler/task.md)
