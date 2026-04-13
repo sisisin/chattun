@@ -22,6 +22,27 @@ function parseSkinTone(name: string): { id: string; skin?: number } {
   return { id: name };
 }
 
+const CopyButton = ({ message }: { message: Tweet }) => {
+  const { copyClicked } = useActions(TweetActions);
+  const [copied, setCopied] = React.useState(false);
+
+  const handleClick = () => {
+    copyClicked(message);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <span className={styles.tweetActionsReaction} onClick={handleClick}>
+      {copied ? (
+        <span className={styles.tweetActionsCopyFeedback}>Copied!</span>
+      ) : (
+        <span className={styles.tweetActionsCopyText}>C</span>
+      )}
+    </span>
+  );
+};
+
 interface Props {
   message: Tweet;
   parentRef: React.RefObject<HTMLUListElement>;
@@ -29,7 +50,6 @@ interface Props {
 
 export const TweetView = ({ message, parentRef }: Props) => {
   const { addReaction, removeReaction, toggleEmojiMenu } = useActions(EmojiMenuActions);
-  const { copyClicked } = useActions(TweetActions);
   const { developerMode } = useMappedState([getGlobalSettingState], s => ({
     developerMode: s.developerMode,
   }));
@@ -117,11 +137,7 @@ export const TweetView = ({ message, parentRef }: Props) => {
           >
             <IconAddReaction className={styles.tweetActionsReactionIcon} />
           </span>
-          {developerMode && (
-            <span className={styles.tweetActionsReaction} onClick={() => copyClicked(message)}>
-              <span className={styles.tweetActionsReactionIcon}>C</span>
-            </span>
-          )}
+          {developerMode && <CopyButton message={message} />}
           <AppLink
             className={styles.tweetActionsListThread}
             to="/thread/$channelId/$ts"

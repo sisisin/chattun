@@ -220,6 +220,19 @@
   stroke: var(--icon);
 }
 
+.tweet-actions-copy-text {
+  font-size: var(--font-small-ex);
+  font-weight: bold;
+  line-height: 1;
+  color: var(--icon);
+}
+
+.tweet-actions-copy-feedback {
+  font-size: 10px;
+  line-height: 1;
+  color: var(--icon);
+}
+
 .emoji-parent {
   position: relative;
 }
