@@ -1,45 +1,13 @@
 import { basePath } from 'app/config';
-import { type BlockKitContext, BlockKitContent } from 'app/features/mrkdwn/BlockKitRenderer';
-import { type MrkdwnContext, MrkdwnContent } from 'app/features/mrkdwn/MrkdwnRenderer';
-import { getSlackState } from 'app/features/slack/interface';
+import { BlockKitContent } from 'app/features/mrkdwn/BlockKitRenderer';
+import { MrkdwnContent } from 'app/features/mrkdwn/MrkdwnRenderer';
+import { useResolveContext } from 'app/features/mrkdwn/ResolveContext';
 import { Tweet } from 'app/features/timeline/interface';
 import * as React from 'react';
-import { useMappedState } from 'typeless';
 import styles from './Tweet.module.css';
 
 export const TweetContent = ({ message }: { message: Tweet }) => {
-  const { users, channels, emojis, myUserId } = useMappedState([getSlackState], s => ({
-    users: s.users,
-    channels: s.channels,
-    emojis: s.emojis,
-    myUserId: s.profile.userId,
-  }));
-
-  const resolveContext = React.useMemo<MrkdwnContext & BlockKitContext>(
-    () => ({
-      resolveUser: (userId: string) => {
-        const member = users[userId];
-        if (!member) return undefined;
-        return { displayName: member.profile.display_name || member.real_name };
-      },
-      resolveEmoji: (name: string) => {
-        const url = emojis[name];
-        if (!url) return undefined;
-        if (url.startsWith('alias:')) {
-          const aliasUrl = emojis[url.slice(6)];
-          return aliasUrl && !aliasUrl.startsWith('alias:') ? aliasUrl : undefined;
-        }
-        return url;
-      },
-      resolveChannel: (channelId: string) => {
-        const channel = channels[channelId];
-        if (!channel || channel.is_im) return undefined;
-        return channel.name;
-      },
-      myUserId,
-    }),
-    [users, channels, emojis, myUserId],
-  );
+  const resolveContext = useResolveContext();
 
   const hasBlocks = message.blocks && message.blocks.length > 0;
   const hasText = message.text !== '';
