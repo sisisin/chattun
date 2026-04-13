@@ -55,8 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: serverのindex.tsがゴチャ付いてるので整理したい。少なくとも`/api/*` は分けたい
-  - src/router/とか切ってapiRouter変数をexportしてindex.tsでuseするとか
 - Task: typescript 6でdeprecation warnが出ている部分を修正する
   - 大規模になる場合、スコープごとにTaskを切り出して対応する形でも可
 

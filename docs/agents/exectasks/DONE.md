@@ -1,5 +1,6 @@
 # Done
 
+- Task: serverのindex.tsがゴチャ付いてるので整理したい [20260413-2051-feat-extract-api-router](../work/_archived/20260413-2051-feat-extract-api-router)
 - Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって [20260413-2045-feat-remove-outside-click-handler](../work/_archived/20260413-2045-feat-remove-outside-click-handler)
 - Task: typelessのバージョン最新にしておいて [20260413-2043-feat-update-typeless](../work/_archived/20260413-2043-feat-update-typeless)
 - Task: server,frontでsocket.ioのバージョン揃ってないので是正して [20260413-2041-feat-align-socketio-version](../work/_archived/20260413-2041-feat-align-socketio-version)
