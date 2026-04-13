@@ -1,5 +1,6 @@
 # Done
 
+- Task: リアクションした人をマウスホバーした瞬間に出したい [20260413-1903-feat-reaction-hover-tooltip](../work/_archived/20260413-1903-feat-reaction-hover-tooltip)
 - Task: TweetContentで電話番号がリンクになっていない [20260413-1900-feat-tel-link](../work/_archived/20260413-1900-feat-tel-link)
 - Task: 未対応メッセージの対応 [20260413-1852-feat-unsupported-message-handling](../work/_archived/20260413-1852-feat-unsupported-message-handling)
 - Task: スレッド画面のヘッダ表示が「すべての投稿」なのは誤り [20260413-1846-fix-thread-header-title](../work/_archived/20260413-1846-fix-thread-header-title)
