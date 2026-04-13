@@ -55,12 +55,28 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: useTweetModuleをTimelineViewで実行してるのは誤り。.blueprintで出力するfeatureの構造を確認して、適切な構造に整理して。module.tsxがTweetというComponentを定義してその中で利用するのが正しい。そして今のTweet ComponentはTweetViewという名前にするのが適切でしょう
-  - featureの構造をskillに落とすのもやっておいて
 - Task: user muteとtimeline filterのロジックが散ってるので集約して
 - Task: main.cssで個別コンポーネント向けのcssをimportするのをやめる
   - 局所化するべき
   - この内容をfrontend-development skillに記載するのもやる
+- Task: TweetContent上で `>` が `&gt` になるのを修正
+  - 再現json: tmp/examples/message-gt.json
+- Task: アイコンのリンク切れ・本文のパースに一部失敗
+  - 再現json: tmp/examples/message-linkmissing.json , tmp/examples/message-linkmissing2.json
+  - linkmissing2の元メッセージURL: https://knowledge-work.slack.com/archives/C044DHKG5GF/p1776068105261909
+- Task: スレッド画面のヘッダ表示が「すべての投稿」なのは誤り
+- Task: 未対応メッセージの対応
+  - tmp/examples/message-unsupported.json , tmp/examples/message-unsupported2.json
+  - あと、「対応してない」の表記、chattunからのものであるとわかるような表記にしたい
+- Task: TweetContentで電話番号がリンクになっていない
+  - tmp/examples/message-tel-link.json
+- Task: リアクションした人をマウスホバーした瞬間に出したい。あとホバーしたときの表示名を投稿の表示名と同じになるようにしたい
+  - slack appだとこういうのがホバーしてすぐ出てくる tmp/examples/SCR-20260413-npot.png
+  - ネイティブのhoverじゃ難しいならコンポーネントを実装してかまわない
+- Task: dev modeの `C` ボタンの文字位置がボタンの下部にズレているのを修正。あとコピーしたら「コピーしました」を表示するようにする
+- Task: リアクション表示がアクションボタンとの間が広すぎる・TweetContentとの間が狭すぎる。逆ぐらいがちょうど良さそうにみえる
+- Task: リアクションしたときにサーバーからのイベントを待たずにUIに反映させちゃいたい。十全に情報が揃っていなければ無理にやらなくてもいいかも
+- Task: block kitのパース・レンダリング
 - Task: server,frontでsocket.ioのバージョン揃ってないので是正して
 - Task: typelessのバージョン最新にしておいて
 - Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって。実装が複雑であれば残していいよ
