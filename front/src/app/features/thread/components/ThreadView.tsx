@@ -1,6 +1,7 @@
 import { Menu } from 'app/components/menu/Menu';
 import { EmojiMenuModule } from 'app/features/emojiMenu/module';
 import { Tweet } from 'app/features/timeline/components/tweet/module';
+import styles from 'app/features/timeline/components/TimelineView.module.css';
 import { getThreadMessages } from '../selector';
 import React from 'react';
 import { useSelector } from 'typeless';
@@ -15,16 +16,16 @@ export const ThreadView = () => {
       <div>
         <Menu />
         {messages.length === 0 ? (
-          <div className="tweetlist is-empty">
+          <div className={styles.tweetlistEmpty}>
             <img
               src="/assets/logo_chattun_gray.svg"
               alt="chattun"
-              className="tweetlist-empty-logo"
+              className={styles.tweetlistEmptyLogo}
             />
-            <p className="tweetlist-empty-text">まだ投稿がありません。</p>
+            <p className={styles.tweetlistEmptyText}>まだ投稿がありません。</p>
           </div>
         ) : (
-          <ul className="tweetlist" ref={ulistRef}>
+          <ul className={styles.tweetlist} ref={ulistRef}>
             {messages.map(message => (
               <Tweet
                 key={`${message.channelId}_${message.ts}`}

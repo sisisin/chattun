@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { toDisplayTime } from 'app/utility/time';
+import styles from './Tweet.module.css';
 
 interface Props {
   datetime: Date;
@@ -7,7 +8,7 @@ interface Props {
 
 export const TweetTimestamp = ({ datetime }: Props) => {
   return (
-    <span className="tweet-timestamp" title={datetime.toLocaleString()}>
+    <span className={styles.tweetTimestamp} title={datetime.toLocaleString()}>
       {toDisplayTime(datetime)}
     </span>
   );

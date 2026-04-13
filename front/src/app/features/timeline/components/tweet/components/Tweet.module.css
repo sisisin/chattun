@@ -119,12 +119,6 @@
   }
 }
 
-.tweet-contents-slack-emoji {
-  width: var(--font-large-ex);
-  height: var(--font-large-ex);
-  object-fit: contain;
-}
-
 .tweet-contents-image {
   margin-bottom: var(--spacing-sm);
   border-radius: var(--border-radius-lg);
@@ -206,7 +200,7 @@
   position: relative;
 }
 
-.tweet--thread-reply {
+.tweet-thread-reply {
   border-left: 3px solid var(--border-main);
   background: var(--background-sub);
 }
@@ -221,12 +215,4 @@
     color: var(--button-primary);
     text-decoration: underline;
   }
-}
-
-.mention-self {
-  padding: 1px 4px;
-  font-weight: bold;
-  color: var(--button-primary);
-  background: color-mix(in srgb, var(--button-primary) 15%, transparent);
-  border-radius: var(--border-radius-sm);
 }

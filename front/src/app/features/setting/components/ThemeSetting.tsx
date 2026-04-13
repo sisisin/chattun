@@ -3,6 +3,7 @@ import { Theme } from 'app/types/TimelineSettings';
 import React from 'react';
 import { useActions, useMappedState } from 'typeless';
 import { getSettingState, SettingActions } from '../interface';
+import settingStyles from './Setting.module.css';
 
 const themeOptions: { value: Theme; label: string }[] = [
   { value: 'system', label: 'システム' },
@@ -17,7 +18,7 @@ export const ThemeSetting: React.FC = () => {
   } = useMappedState([getSettingState], s => s);
 
   return (
-    <div className="setting-group">
+    <div className={settingStyles.settingGroup}>
       <h3 className="setting-group-title">テーマ</h3>
       <div className="select-group">
         <select

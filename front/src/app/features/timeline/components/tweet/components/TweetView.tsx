@@ -11,6 +11,7 @@ import { useSetIntersectionObserver } from './hooks';
 import { TweetContent } from './TweetContent';
 import { TweetTimestamp } from './TweetTimestamp';
 import { TweetEditedMarker } from './TweetEditedMarker';
+import styles from './Tweet.module.css';
 
 const skinToneRegex = /^(.+?)::skin-tone-(\d)$/;
 function parseSkinTone(name: string): { id: string; skin?: number } {
@@ -39,9 +40,12 @@ export const TweetView = ({ message, parentRef }: Props) => {
   const isThreadReply = message.threadTs != null && message.threadTs !== message.ts;
   const linkingTs = message.threadTs || message.ts;
   return (
-    <li ref={tweetRef} className={`tweet${isThreadReply ? ' tweet--thread-reply' : ''}`}>
+    <li
+      ref={tweetRef}
+      className={`${styles.tweet}${isThreadReply ? ` ${styles.tweetThreadReply}` : ''}`}
+    >
       <AppLink
-        className="tweet-icon-link"
+        className={styles.tweetIconLink}
         to="/thread/$channelId/$ts"
         params={{
           channelId: message.channelId,
@@ -51,12 +55,12 @@ export const TweetView = ({ message, parentRef }: Props) => {
         <img src={message.iconUrl} alt={message.displayName} />
       </AppLink>
 
-      <div className="tweet-status">
-        <span className="tweet-displayname">{message.displayName}</span>
+      <div className={styles.tweetStatus}>
+        <span className={styles.tweetDisplayname}>{message.displayName}</span>
         <TweetTimestamp datetime={new Date(+message.ts * 1000)} />
         <TweetEditedMarker edit={message.edited} />
       </div>
-      <div className="tweet-channelname">
+      <div className={styles.tweetChannelname}>
         {message.channelLink.link ? (
           <a
             href={message.channelLink.link}
@@ -71,12 +75,12 @@ export const TweetView = ({ message, parentRef }: Props) => {
         )}
       </div>
       <TweetContent message={message} />
-      <div className="tweet-actions">
-        <div className="tweet-actions-list-emojis">
+      <div className={styles.tweetActions}>
+        <div className={styles.tweetActionsListEmojis}>
           {message.reactions.map((elem, i) => {
-            const classNames = ['tweet-actions-list-emojis-emoji'];
+            const classNames = [styles.tweetActionsListEmojisEmoji];
             if (elem.reacted) {
-              classNames.push('tweet-actions-reacted');
+              classNames.push(styles.tweetActionsReacted);
             }
             const emojiId = elem.emoji?.id ?? elem.name;
             return (
@@ -98,28 +102,28 @@ export const TweetView = ({ message, parentRef }: Props) => {
                   <em-emoji {...parseSkinTone(elem.name)} size="20px" />
                 )}
 
-                <span className="tweet-actions-list-emojis-count">{elem.count}</span>
+                <span className={styles.tweetActionsListEmojisCount}>{elem.count}</span>
               </span>
             );
           })}
         </div>
 
-        <div className="tweet-actions-list">
+        <div className={styles.tweetActionsList}>
           <span
-            className="tweet-actions-reaction emoji-parent"
+            className={`${styles.tweetActionsReaction} ${styles.emojiParent}`}
             onClick={({ clientX, clientY }) => {
               toggleEmojiMenu({ targetMessage: message, clientX, clientY });
             }}
           >
-            <IconAddReaction className="tweet-actions-reaction-icon" />
+            <IconAddReaction className={styles.tweetActionsReactionIcon} />
           </span>
           {developerMode && (
-            <span className="tweet-actions-reaction" onClick={() => copyClicked(message)}>
-              <span className="tweet-actions-reaction-icon">C</span>
+            <span className={styles.tweetActionsReaction} onClick={() => copyClicked(message)}>
+              <span className={styles.tweetActionsReactionIcon}>C</span>
             </span>
           )}
           <AppLink
-            className="tweet-actions-list-thread"
+            className={styles.tweetActionsListThread}
             to="/thread/$channelId/$ts"
             params={{
               channelId: message.channelId,
@@ -127,13 +131,13 @@ export const TweetView = ({ message, parentRef }: Props) => {
             }}
           >
             <span>
-              <IconThread className="tweet-actions-list-thread-icon" />
+              <IconThread className={styles.tweetActionsListThreadIcon} />
             </span>
           </AppLink>
           <DeepLinkingButton {...message.slackLink} />
           {message.threadTs && (
             <AppLink
-              className="tweet-actions-thread-link"
+              className={styles.tweetActionsThreadLink}
               to="/thread/$channelId/$ts"
               params={{
                 channelId: message.channelId,

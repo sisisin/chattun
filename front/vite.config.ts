@@ -55,6 +55,9 @@ const https =
 export default defineConfig({
   plugins: [swPlugin()],
   css: {
+    modules: {
+      localsConvention: 'camelCaseOnly',
+    },
     postcss: {
       plugins: [autoprefixer()],
     },

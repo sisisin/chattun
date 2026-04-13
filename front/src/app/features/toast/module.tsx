@@ -2,6 +2,7 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import { useMappedState } from 'typeless';
 import { of, EMPTY } from 'rxjs';
+import styles from './Toast.module.css';
 import { delay, mergeMap } from 'rxjs/operators';
 import { handle, ToastActions, getToastState, ToastState } from './interface';
 
@@ -49,7 +50,7 @@ export const Toast = () => {
 
   if (!message) return null;
   return createPortal(
-    <div key={version} className="toast">
+    <div key={version} className={styles.toast}>
       {message}
     </div>,
     document.body,

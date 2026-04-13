@@ -12,7 +12,7 @@
   background-size: cover;
 }
 
-[data-theme='dark'] .login-visual {
+:global([data-theme='dark']) .login-visual {
   background-image: url(../assets/background_chattun_dark.jpg);
 }
 

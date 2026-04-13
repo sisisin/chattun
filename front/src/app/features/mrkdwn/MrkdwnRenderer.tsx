@@ -1,6 +1,7 @@
 import { emojify, has } from 'node-emoji';
 import React, { createContext, useContext } from 'react';
 import { type MrkdwnNode, parseMrkdwn } from './parser';
+import styles from './MrkdwnRenderer.module.css';
 
 export interface MrkdwnContext {
   resolveUser?: (userId: string) => { displayName: string } | undefined;
@@ -48,18 +49,18 @@ function RenderNode({ node }: { node: MrkdwnNode }) {
       const user = ctx.resolveUser?.(node.userId);
       const displayName = user ? `@${user.displayName}` : `@${node.userId}`;
       const isSelf = ctx.myUserId === node.userId;
-      return <span className={isSelf ? 'mention-self' : 'mention'}>{displayName}</span>;
+      return <span className={isSelf ? styles.mentionSelf : undefined}>{displayName}</span>;
     }
     case 'channel_ref':
-      return <span className="channel-ref">#{node.name}</span>;
+      return <span>#{node.name}</span>;
     case 'group_mention':
-      return <span className="mention">{node.name}</span>;
+      return <span>{node.name}</span>;
     case 'special_mention':
-      return <span className="mention-self">@{node.keyword}</span>;
+      return <span className={styles.mentionSelf}>@{node.keyword}</span>;
     case 'emoji': {
       const emojiUrl = ctx.resolveEmoji?.(node.name);
       if (emojiUrl) {
-        return <img className="tweet-contents-slack-emoji" src={emojiUrl} alt={node.name} />;
+        return <img className={styles.slackEmoji} src={emojiUrl} alt={node.name} />;
       }
       // Standard emoji: convert to Unicode via node-emoji
       if (has(node.name)) {

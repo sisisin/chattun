@@ -1,6 +1,7 @@
 import React from 'react';
 import { useActions, useMappedState } from 'typeless';
 import { getSettingState, SettingActions } from '../interface';
+import settingStyles from './Setting.module.css';
 
 function hasChanges(local: string[], stored: string[]): boolean {
   if (local.length !== stored.length) return true;
@@ -44,7 +45,7 @@ export const MuteUsersSetting: React.FC = () => {
   const canSave = hasChanges(localUsers, mutedUsers) && !hasEmptyValues(localUsers);
 
   return (
-    <div className="setting-group">
+    <div className={settingStyles.settingGroup}>
       <h3 className="setting-group-title">ミュート</h3>
       {localUsers.map((user, index) => (
         <div key={index} className="setting-group-mute">

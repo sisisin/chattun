@@ -1,0 +1,13 @@
+.mention-self {
+  padding: 1px 4px;
+  font-weight: bold;
+  color: var(--button-primary);
+  background: color-mix(in srgb, var(--button-primary) 15%, transparent);
+  border-radius: var(--border-radius-sm);
+}
+
+.slack-emoji {
+  width: var(--font-large-ex);
+  height: var(--font-large-ex);
+  object-fit: contain;
+}

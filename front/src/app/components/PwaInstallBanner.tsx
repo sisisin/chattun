@@ -1,6 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import './PwaInstallBanner.css';
+import styles from './PwaInstallBanner.module.css';
 
 const DISMISSED_KEY = 'pwa-install-dismissed';
 
@@ -41,12 +41,12 @@ export const PwaInstallBanner = () => {
   if (!deferredPrompt || dismissed) return null;
 
   return createPortal(
-    <div className="pwa-install-banner">
-      <span className="pwa-install-banner-text">アプリとしてインストールできます</span>
-      <button type="button" className="pwa-install-banner-install" onClick={handleInstall}>
+    <div className={styles.pwaInstallBanner}>
+      <span className={styles.pwaInstallBannerText}>アプリとしてインストールできます</span>
+      <button type="button" className={styles.pwaInstallBannerInstall} onClick={handleInstall}>
         インストール
       </button>
-      <button type="button" className="pwa-install-banner-dismiss" onClick={handleDismiss}>
+      <button type="button" className={styles.pwaInstallBannerDismiss} onClick={handleDismiss}>
         ✕
       </button>
     </div>,

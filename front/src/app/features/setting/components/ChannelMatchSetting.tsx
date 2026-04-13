@@ -3,6 +3,7 @@ import React from 'react';
 import { ChannelMatch, MatchMethod } from 'app/types/TimelineSettings';
 import { useActions, useMappedState } from 'typeless';
 import { getSettingState, SettingActions } from '../interface';
+import settingStyles from './Setting.module.css';
 
 const matchOptions: { [K in MatchMethod]: { text: string; value: K } } = {
   contain: { text: '含む', value: 'contain' },
@@ -89,7 +90,7 @@ export const ChannelMatchSetting: React.FC = () => {
   const canSave = hasChanges(localMatches, channelMatches) && !hasEmptyValues(localMatches);
 
   return (
-    <div className="setting-group">
+    <div className={settingStyles.settingGroup}>
       <h3 className="setting-group-title">チャンネル絞り込み</h3>
       {localMatches.map((match, index) => (
         <ChannelMatchRow

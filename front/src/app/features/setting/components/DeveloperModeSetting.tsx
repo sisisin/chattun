@@ -2,6 +2,7 @@ import React from 'react';
 import { useActions, useMappedState } from 'typeless';
 import { SettingActions, getSettingState } from '../interface';
 import { IconCheck } from 'app/components/icons/Icons';
+import settingStyles from './Setting.module.css';
 
 export const DeveloperModeSetting: React.FC = () => {
   const { updateSetting } = useActions(SettingActions);
@@ -9,7 +10,7 @@ export const DeveloperModeSetting: React.FC = () => {
     form: { developerMode },
   } = useMappedState([getSettingState], s => s);
   return (
-    <div className="setting-group">
+    <div className={settingStyles.settingGroup}>
       <h3 className="setting-group-title">開発者モード</h3>
       <div className="select-group">
         <label htmlFor="devmode" className="select-group-label">

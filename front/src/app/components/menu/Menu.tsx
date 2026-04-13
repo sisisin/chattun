@@ -2,6 +2,9 @@ import { Link } from '@tanstack/react-router';
 import { IconArrow, IconSetting } from 'app/components/icons/Icons';
 import { useRouter } from 'app/hooks/useRouter';
 import * as React from 'react';
+import styles from './Menu.module.css';
+
+export { styles as menuStyles };
 
 export const Menu: React.FC = () => {
   const { location } = useRouter();
@@ -9,30 +12,30 @@ export const Menu: React.FC = () => {
   const isSetting = location.pathname === '/setting';
 
   return (
-    <ul className="menu">
-      <li className="menu-goback">
-        <Link to="/" className="menu-goback-link">
+    <ul className={styles.menu}>
+      <li className={styles.menuGoback}>
+        <Link to="/" className={styles.menuGobackLink}>
           {!isTimeline && (
-            <span className="menu-goback-link-item">
-              <IconArrow className="menu-goback-link-item-icon" />
+            <span>
+              <IconArrow className={styles.menuGobackLinkItemIcon} />
               <span>戻る</span>
             </span>
           )}
         </Link>
       </li>
-      <li className="menu-timeline">
+      <li className={styles.menuTimeline}>
         {isSetting ? (
-          <span className="menu-timeline-link">設定</span>
+          <span className={styles.menuTimelineLink}>設定</span>
         ) : (
-          <Link to="/" className="menu-timeline-link">
+          <Link to="/" className={styles.menuTimelineLink}>
             すべての投稿
           </Link>
         )}
       </li>
       {!isSetting && (
-        <li className="menu-setting">
-          <Link to="/setting" className="menu-setting-link">
-            <IconSetting className="menu-setting-link-icon" />
+        <li>
+          <Link to="/setting" className={styles.menuSettingLink}>
+            <IconSetting className={styles.menuSettingLinkIcon} />
           </Link>
         </li>
       )}

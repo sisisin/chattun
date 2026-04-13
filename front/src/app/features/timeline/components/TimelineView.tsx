@@ -1,10 +1,10 @@
-import './TimelineView.css';
-import { Menu } from 'app/components/menu/Menu';
+import { Menu, menuStyles } from 'app/components/menu/Menu';
 import { EmojiMenuModule } from 'app/features/emojiMenu/module';
 import { Tweet } from './tweet/module';
 import React from 'react';
 import { useSelector } from 'typeless';
 import { getTimelineMessages } from '../selector';
+import styles from './TimelineView.module.css';
 
 export const TimelineView = () => {
   const messages = useSelector(getTimelineMessages);
@@ -13,19 +13,19 @@ export const TimelineView = () => {
   return (
     <>
       <EmojiMenuModule />
-      <div className="timeline menu-parent">
+      <div className={menuStyles.menuParent}>
         <Menu />
         {messages.length === 0 ? (
-          <div className="tweetlist is-empty">
+          <div className={styles.tweetlistEmpty}>
             <img
               src="/assets/logo_chattun_gray.svg"
               alt="chattun"
-              className="tweetlist-empty-logo"
+              className={styles.tweetlistEmptyLogo}
             />
-            <p className="tweetlist-empty-text">まだ投稿がありません。</p>
+            <p className={styles.tweetlistEmptyText}>まだ投稿がありません。</p>
           </div>
         ) : (
-          <ul className="tweetlist" ref={ulistRef}>
+          <ul className={styles.tweetlist} ref={ulistRef}>
             {messages.map(message => (
               <Tweet
                 key={`${message.channelId}_${message.ts}`}

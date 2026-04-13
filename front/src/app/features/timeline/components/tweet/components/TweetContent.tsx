@@ -4,6 +4,7 @@ import { getSlackState } from 'app/features/slack/interface';
 import { Tweet } from 'app/features/timeline/interface';
 import * as React from 'react';
 import { useMappedState } from 'typeless';
+import styles from './Tweet.module.css';
 
 export const TweetContent = ({ message }: { message: Tweet }) => {
   const { users, emojis, myUserId } = useMappedState([getSlackState], s => ({
@@ -37,7 +38,7 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
     message.text !== '' || message.files.length > 0 || message.imageAttachments.length > 0;
 
   return (
-    <div className="tweet-contents">
+    <div className={styles.tweetContents}>
       {hasContent ? (
         <>
           <MrkdwnContent text={message.text} context={mrkdwnContext} />
@@ -46,7 +47,7 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
             params.append('target_url', file.thumb360);
             return (
               <a key={i} href={file.urlPrivate} target="_blank" rel="noopener">
-                <img className="tweet-contents-image" src={`${basePath}/api/file?${params}`} />
+                <img className={styles.tweetContentsImage} src={`${basePath}/api/file?${params}`} />
               </a>
             );
           })}
@@ -55,7 +56,7 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
           ))}
         </>
       ) : (
-        <span className="tweet-contents-unsupported">
+        <span className={styles.tweetContentsUnsupported}>
           対応していないメッセージ形式です。Slack appで確認してください。
         </span>
       )}
