@@ -26,6 +26,24 @@ design.md には以下が定義されている:
 - スペーシングは 4px / 8px の基本単位に揃えること
 - 新規コンポーネントは既存のコンポーネントパターンに合わせること
 
+## CSS Modules
+
+コンポーネント固有のスタイルは **CSS Modules** (`.module.css`) を使う。
+
+### 基本ルール
+
+- コンポーネント固有の CSS ファイルは `.module.css` で作成し、コンポーネントと同じディレクトリに配置する
+- `import styles from './Foo.module.css'` で import し、`className={styles.fooBar}` でアクセスする
+- vite.config.ts に `css.modules.localsConvention: 'camelCaseOnly'` が設定されているため、CSS 側の `.foo-bar` は JS 側で `styles.fooBar` としてアクセスする
+- グローバル CSS（`front/src/app/css/_*.css`）には CSS Modules を使わない。`_form.css` 等のユーティリティクラスはそのままグローバルとして利用する
+
+### アンチパターン
+
+- CSS Module の `styles` オブジェクトを他コンポーネントに export しない（カプセル化違反）。レイアウト用のクラスは使う側の module に定義する
+- `main.css` にコンポーネント固有の CSS を `@import` しない
+- BEM の複合セレクタ `.foo.is-bar` は CSS Modules と相性が悪い。`.foo-bar` のように単一クラスにする
+- `[data-theme='dark']` 等のグローバル属性セレクタとの組み合わせには `:global()` を使う: `:global([data-theme='dark']) .local-class`
+
 ## feature モジュールパターン
 
 各機能は `features/<name>/` に以下の構成で実装する（`.blueprints/feature` テンプレート参照）:
