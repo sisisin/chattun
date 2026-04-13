@@ -24,9 +24,9 @@ ExecTasks の実行を指示されたら、auto memory に実行中の ExecTasks
 <step>Taskを満たすよう修正を入れる</step>
 <step>`/verify` を実行し、レビュー＆動作確認ループが完了するまで修正する</step>
 <step>Approveされたら、Task遂行上の障害になったことや学びを作業ディレクトリの `learnings.md` に記載し、その中で仕組として実装して解決出来そうなことは新たなTaskとして追記する</step>
-<step>Taskを DONE.mdの一番上に移動し、対応work directoryへのリンクを行末に追記する。その後、コミットして main へマージする
+<step>Taskを DONE.mdの一番上に移動し、対応work directoryのtask.mdへのリンクを行末に追記する。その後、コミットして main へマージする
 例:
-- Task: 〜する [{yyyymmdd-hhmm}-{branch-name}](../work/_archived/[{yyyymmdd-hhmm}-{branch-name}])
+- Task: 〜する [{yyyymmdd-hhmm}-{branch-name}](../work/_archived/{yyyymmdd-hhmm}-{branch-name}/task.md)
 </step>
 </steps>
 
@@ -55,9 +55,9 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
+- Task: DONE.mdのフォルダのリンクをtask.mdへのリンクにして。exectaskのDONEへの転記のしかたもそのようにして
+- Task: front/src/app/imports.ts と EmojiMenuViewの処理が被ってるように見える。どういう理屈なのか整理して、適切な処理に直して
+
 # Backlog
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。
-
-- Task: docs/agents/work/\_archived/20260413-0022-feat-unify-menu-route-definitions/research.md を元に意思決定し、Menu定義とRoute定義の統合リファクタリングを行う
-  - 画面数が増えたタイミングで着手するのが適切
