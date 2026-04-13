@@ -32,3 +32,8 @@ Block Kit（特に `rich_text` ブロック）は以下の利点がある：
 - `rich_text` 内の要素: `rich_text_section`, `rich_text_list`, `rich_text_preformatted`, `rich_text_quote`
 - 各要素内のインライン要素: `text`, `user`, `channel`, `emoji`, `link`, `usergroup`, `broadcast`
 - ファイル添付、画像添付は従来のロジックをそのまま維持
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
