@@ -55,7 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: server,frontでsocket.ioのバージョン揃ってないので是正して
 - Task: typelessのバージョン最新にしておいて
 - Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって。実装が複雑であれば残していいよ
 - Task: serverのindex.tsがゴチャ付いてるので整理したい。少なくとも`/api/*` は分けたい
