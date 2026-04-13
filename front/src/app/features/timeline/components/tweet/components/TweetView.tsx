@@ -26,7 +26,7 @@ interface Props {
   parentRef: React.RefObject<HTMLUListElement>;
 }
 
-export const TweetItem = ({ message, parentRef }: Props) => {
+export const TweetView = ({ message, parentRef }: Props) => {
   const { addReaction, removeReaction, toggleEmojiMenu } = useActions(EmojiMenuActions);
   const { copyClicked } = useActions(TweetActions);
   const { developerMode } = useMappedState([getGlobalSettingState], s => ({

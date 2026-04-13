@@ -1,6 +1,10 @@
 import { getSlackState } from 'app/features/slack/interface';
+import { Tweet } from 'app/features/timeline/interface';
+import React from 'react';
+import { TweetView } from './components/TweetView';
 import { handle, TweetActions } from './interface';
 
+// --- Epic ---
 handle.epic().on(TweetActions.copyClicked, ({ msg }) => {
   const { messagesByChannel } = getSlackState();
   if (navigator.clipboard) {
@@ -11,6 +15,13 @@ handle.epic().on(TweetActions.copyClicked, ({ msg }) => {
   return null;
 });
 
-export function useTweetModule() {
-  handle();
+// --- Module ---
+interface TweetItemProps {
+  message: Tweet;
+  parentRef: React.RefObject<HTMLUListElement>;
 }
+
+export const TweetItem = ({ message, parentRef }: TweetItemProps) => {
+  handle();
+  return <TweetView message={message} parentRef={parentRef} />;
+};

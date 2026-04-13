@@ -28,8 +28,35 @@ design.md には以下が定義されている:
 
 ## feature モジュールパターン
 
-各機能は `features/<name>/` に以下の構成で実装する:
-- `interface.ts` — Action 定義、State 型、Symbol
-- `module.ts(x)` — Epic (副作用) + Reducer + Module フック
-- `components/` — React コンポーネント
+各機能は `features/<name>/` に以下の構成で実装する（`.blueprints/feature` テンプレート参照）:
+
+### ファイル構成
+
+- `interface.ts` — `createModule()` で Actions・State・getter を定義
 - `symbol.ts` — typeless の Symbol 定義
+- `module.tsx` — Epic (副作用) + Reducer + **Module コンポーネント**
+- `components/` — View コンポーネント（`<Name>View.tsx`）、CSS、サブコンポーネント
+
+### module.tsx のパターン
+
+module.tsx は typeless の `handle()` を呼び出し、対応する View コンポーネントをレンダリングする **Module コンポーネント** を export する:
+
+```tsx
+// --- Epic ---
+handle.epic().on(XxxActions.someAction, ...);
+
+// --- Reducer ---
+export const reducer = handle.reducer(initialState);
+
+// --- Module ---
+export const XxxModule = (props) => {
+  handle();
+  return <XxxView {...props} />;
+};
+```
+
+**重要**: `handle()` は Module コンポーネント内で呼ぶ。View や親コンポーネントから `useSomeModule()` のようなフックで呼び出すのは誤り。
+
+### ネスト feature
+
+feature はネストしてよい（例: `timeline/components/tweet/`）。ネストされた feature も同じパターン（interface.ts + symbol.ts + module.tsx + components/）に従う。
