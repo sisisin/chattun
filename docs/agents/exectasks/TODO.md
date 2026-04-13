@@ -55,9 +55,12 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: block kitのパース・レンダリング
 - Task: まだ投稿がありませんのときのアイコンがヘッダ部分との隙間がなくなってしまっているのを修正
   - tmp/examples/image copy.png
+- Task: emojiのパレットをescキーを押したら閉じるようにして
+- Task: 他人のメンションも「メンションである」ことが分かる見た目にして
+- Task: スレッド画面で「スレッドを表示」をなくして
+- Task: resolveContextがTweetごとに生成されるの多分大分メモリに悪いので、Timeline時点で作って参照する構造が良さそう
 - Task: server,frontでsocket.ioのバージョン揃ってないので是正して
 - Task: typelessのバージョン最新にしておいて
 - Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって。実装が複雑であれば残していいよ
