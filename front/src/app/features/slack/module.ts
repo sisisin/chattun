@@ -157,6 +157,7 @@ export const reducer = handle
           const idx = reactions.findIndex(r => r.name === reaction.reaction);
           if (idx > -1) {
             const { name, count, users } = reactions[idx];
+            if (users.includes(reaction.user)) return;
             message.reactions!.splice(idx, 1, {
               name,
               users: [...users, reaction.user],
@@ -186,6 +187,10 @@ export const reducer = handle
           message.reactions = message.reactions.reduce<SlackEntity.Message.Reaction[]>(
             (acc, curr) => {
               if (curr.name !== reaction.reaction) {
+                return [...acc, curr];
+              }
+
+              if (!curr.users.includes(reaction.user)) {
                 return [...acc, curr];
               }
 

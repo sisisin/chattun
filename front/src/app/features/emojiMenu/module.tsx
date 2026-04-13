@@ -2,6 +2,7 @@ import React from 'react';
 import { EmojiMenuView } from './components/EmojiMenuView';
 import { EmojiMenuActions, EmojiMenuState, handle, getEmojiMenuState } from './interface';
 import { slackClient } from 'app/services/http/SlackClient';
+import { getSlackState, SlackActions } from 'app/features/slack/interface';
 
 // --- Epic ---
 handle
@@ -19,6 +20,17 @@ handle
       return null;
     }
 
+    const { profile } = getSlackState();
+    const now = String(Date.now() / 1000);
+    SlackActions.onReactionAdded({
+      type: 'reaction_added',
+      user: profile.userId,
+      reaction,
+      item: { type: 'message', channel: message.channelId, ts: message.ts },
+      event_ts: now,
+      ts: now,
+    });
+
     await slackClient.addReaction(message.channelId, message.ts, reaction);
     return null;
   })
@@ -26,6 +38,18 @@ handle
     if (message === undefined) {
       return null;
     }
+
+    const { profile } = getSlackState();
+    const now = String(Date.now() / 1000);
+    SlackActions.onReactionRemoved({
+      type: 'reaction_removed',
+      user: profile.userId,
+      reaction,
+      item: { type: 'message', channel: message.channelId, ts: message.ts },
+      event_ts: now,
+      ts: now,
+    });
+
     await slackClient.removeReaction(message.channelId, message.ts, reaction);
     return null;
   });
