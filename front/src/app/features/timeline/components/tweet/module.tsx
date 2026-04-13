@@ -19,9 +19,10 @@ handle.epic().on(TweetActions.copyClicked, ({ msg }) => {
 interface TweetProps {
   message: TweetData;
   parentRef: React.RefObject<HTMLUListElement>;
+  inThread?: boolean;
 }
 
-export const Tweet = ({ message, parentRef }: TweetProps) => {
+export const Tweet = ({ message, parentRef, inThread }: TweetProps) => {
   handle();
-  return <TweetView message={message} parentRef={parentRef} />;
+  return <TweetView message={message} parentRef={parentRef} inThread={inThread} />;
 };

@@ -31,6 +31,7 @@ export const ThreadView = () => {
                 key={`${message.channelId}_${message.ts}`}
                 message={message}
                 parentRef={ulistRef}
+                inThread
               />
             ))}
           </ul>

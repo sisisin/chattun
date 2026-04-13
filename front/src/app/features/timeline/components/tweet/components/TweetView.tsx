@@ -51,9 +51,10 @@ const CopyButton = ({ message }: { message: Tweet }) => {
 interface Props {
   message: Tweet;
   parentRef: React.RefObject<HTMLUListElement>;
+  inThread?: boolean;
 }
 
-export const TweetView = ({ message, parentRef }: Props) => {
+export const TweetView = ({ message, parentRef, inThread }: Props) => {
   const { addReaction, removeReaction, toggleEmojiMenu } = useActions(EmojiMenuActions);
   const { developerMode } = useMappedState([getGlobalSettingState], s => ({
     developerMode: s.developerMode,
@@ -156,7 +157,7 @@ export const TweetView = ({ message, parentRef }: Props) => {
             </span>
           </AppLink>
           <DeepLinkingButton {...message.slackLink} />
-          {message.threadTs && (
+          {!inThread && message.threadTs && (
             <AppLink
               className={styles.tweetActionsThreadLink}
               to="/thread/$channelId/$ts"
