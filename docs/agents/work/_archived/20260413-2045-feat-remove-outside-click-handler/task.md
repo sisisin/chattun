@@ -12,3 +12,8 @@
 
 - `react-outside-click-handler` が package.json から削除されている
 - 絵文字ピッカーの外側クリックで閉じる動作が維持されている
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
