@@ -1,5 +1,6 @@
 # Done
 
+- Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって [20260413-2045-feat-remove-outside-click-handler](../work/_archived/20260413-2045-feat-remove-outside-click-handler)
 - Task: typelessのバージョン最新にしておいて [20260413-2043-feat-update-typeless](../work/_archived/20260413-2043-feat-update-typeless)
 - Task: server,frontでsocket.ioのバージョン揃ってないので是正して [20260413-2041-feat-align-socketio-version](../work/_archived/20260413-2041-feat-align-socketio-version)
 - Task: resolveContextがTweetごとに生成されるの多分大分メモリに悪いので、Timeline時点で作って参照する構造が良さそう [20260413-2033-feat-resolve-context-memoize](../work/_archived/20260413-2033-feat-resolve-context-memoize)
