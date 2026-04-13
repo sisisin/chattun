@@ -9,7 +9,7 @@
 
 .tweetlist-empty {
   display: grid;
-  min-height: calc(100vh - var(--spacing-2xl));
+  min-height: calc(100vh - var(--spacing-2xl) * 2);
   place-content: center;
   list-style: none;
 }
