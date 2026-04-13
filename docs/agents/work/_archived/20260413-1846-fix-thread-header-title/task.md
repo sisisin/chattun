@@ -22,5 +22,5 @@
 
 ## 検証ステップ
 
-- [ ] review
-- [ ] browser-verification
+- [x] review
+- [x] browser-verification
