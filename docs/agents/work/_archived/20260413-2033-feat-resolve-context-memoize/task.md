@@ -21,3 +21,8 @@ TimelineView / ThreadView レベルで1回だけ resolveContext を生成し、R
 - 共通の ResolveContext Provider を作成
 - TimelineView, ThreadView でそれぞれ Provider を配置
 - TweetContent の useMemo / useMappedState を削除し、Context から取得に変更
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
