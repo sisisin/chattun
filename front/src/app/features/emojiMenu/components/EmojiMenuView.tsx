@@ -25,6 +25,18 @@ export const EmojiMenuView = () => {
     },
   );
   const { addReaction, closeEmojiMenu } = useActions(EmojiMenuActions);
+
+  React.useEffect(() => {
+    if (!isEmojiMenuVisible) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeEmojiMenu();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isEmojiMenuVisible, closeEmojiMenu]);
+
   const picker = React.useMemo(
     () => (
       <div style={{ position: 'absolute', zIndex: 1, top: `${clientY + 15}px` }}>
