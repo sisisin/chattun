@@ -19,3 +19,7 @@ server/src/index.ts に OAuth ルート、認証済み API ルート、Slack プ
 
 - `src/router/api.ts` を作成し、全 `/api/*` ルートを移動
 - index.ts でルーターを組み込む
+
+## 検証ステップ
+
+- [x] review
