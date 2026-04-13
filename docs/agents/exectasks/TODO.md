@@ -55,8 +55,9 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: リアクションしたときにサーバーからのイベントを待たずにUIに反映させちゃいたい。十全に情報が揃っていなければ無理にやらなくてもいいかも
 - Task: block kitのパース・レンダリング
+- Task: まだ投稿がありませんのときのアイコンがヘッダ部分との隙間がなくなってしまっているのを修正
+  - tmp/examples/image copy.png
 - Task: server,frontでsocket.ioのバージョン揃ってないので是正して
 - Task: typelessのバージョン最新にしておいて
 - Task: OutsideClickが簡単に実装できるならreact-outside-click-handler消しちゃって。実装が複雑であれば残していいよ

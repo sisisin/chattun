@@ -1,5 +1,6 @@
 # Done
 
+- Task: リアクションのoptimistic UI [20260413-1922-feat-optimistic-reaction](../work/_archived/20260413-1922-feat-optimistic-reaction)
 - Task: リアクション表示の間隔調整 [20260413-1918-fix-reaction-spacing](../work/_archived/20260413-1918-fix-reaction-spacing)
 - Task: dev modeのCボタンの文字位置ズレ修正・コピーフィードバック [20260413-1910-fix-dev-copy-button](../work/_archived/20260413-1910-fix-dev-copy-button)
 - Task: リアクションした人をマウスホバーした瞬間に出したい [20260413-1903-feat-reaction-hover-tooltip](../work/_archived/20260413-1903-feat-reaction-hover-tooltip)
