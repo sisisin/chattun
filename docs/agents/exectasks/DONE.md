@@ -1,5 +1,6 @@
 # Done
 
+- Task: アイコンのリンク切れ・本文のパースに一部失敗 [20260413-1840-fix-icon-and-parse-issues](../work/_archived/20260413-1840-fix-icon-and-parse-issues)
 - Task: TweetContent上で `>` が `&gt` になるのを修正 [20260413-1830-fix-gt-entity](../work/_archived/20260413-1830-fix-gt-entity)
 - Task: css moduleを利用するべきであるという内容をfrontend-development skillに記載する [20260413-1825-feat-skill-css-modules-doc](../work/_archived/20260413-1825-feat-skill-css-modules-doc)
 - Task: 既存のコンポーネントごとのスタイリングのcssを.module.cssとし、css modules化する [20260413-1500-feat-css-modules](../work/_archived/20260413-1500-feat-css-modules)

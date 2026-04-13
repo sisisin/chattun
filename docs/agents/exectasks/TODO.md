@@ -55,9 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: アイコンのリンク切れ・本文のパースに一部失敗
-  - 再現json: tmp/examples/message-linkmissing.json , tmp/examples/message-linkmissing2.json
-  - linkmissing2の元メッセージURL: https://knowledge-work.slack.com/archives/C044DHKG5GF/p1776068105261909
 - Task: スレッド画面のヘッダ表示が「すべての投稿」なのは誤り
 - Task: 未対応メッセージの対応
   - tmp/examples/message-unsupported.json , tmp/examples/message-unsupported2.json
