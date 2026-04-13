@@ -8,6 +8,9 @@ export const Menu: React.FC = () => {
   const { location } = useRouter();
   const isTimeline = location.pathname === '/';
   const isSetting = location.pathname === '/setting';
+  const isThread = location.pathname.startsWith('/thread/');
+
+  const headerTitle = isSetting ? '設定' : isThread ? 'スレッド' : 'すべての投稿';
 
   return (
     <ul className={styles.menu}>
@@ -22,11 +25,11 @@ export const Menu: React.FC = () => {
         </Link>
       </li>
       <li className={styles.menuTimeline}>
-        {isSetting ? (
-          <span className={styles.menuTimelineLink}>設定</span>
+        {isTimeline ? (
+          <span className={styles.menuTimelineLink}>{headerTitle}</span>
         ) : (
           <Link to="/" className={styles.menuTimelineLink}>
-            すべての投稿
+            {headerTitle}
           </Link>
         )}
       </li>
