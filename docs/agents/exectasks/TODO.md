@@ -55,9 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: onReactionRemoved の reduce+spread を Immer 直接操作に書き換える
-  - slack/module.ts:187-211 でドラフト内にも関わらず reduce+spread でコピーしている。findIndex+splice の直接操作にする
-
 # Backlog
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。

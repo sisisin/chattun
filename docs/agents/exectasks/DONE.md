@@ -1,5 +1,6 @@
 # Done
 
+- Task: onReactionRemoved の reduce+spread を Immer 直接操作に書き換える [20260413-2156-feat-immer-reaction-removed](../work/_archived/20260413-2156-feat-immer-reaction-removed/task.md)
 - Task: MrkdwnContent の parseMrkdwn 呼び出しを useMemo でメモ化する [20260413-2150-feat-memoize-parsemrkdwn](../work/_archived/20260413-2150-feat-memoize-parsemrkdwn/task.md)
 - Task: パフォーマンスチューニングしたほうがよさそうなところを探し、Task化する [20260413-2148-feat-perf-audit](../work/_archived/20260413-2148-feat-perf-audit/task.md)
 - Task: front/src/app/imports.ts と EmojiMenuViewの処理が被ってるように見える。どういう理屈なのか整理して、適切な処理に直して [20260413-2141-feat-fix-imports-emoji-overlap](../work/_archived/20260413-2141-feat-fix-imports-emoji-overlap/task.md)
