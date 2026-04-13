@@ -23,7 +23,10 @@ export function parseMrkdwn(input: string): MrkdwnNode[] {
     if (input.startsWith('```', pos)) {
       const endIndex = input.indexOf('```', pos + 3);
       if (endIndex !== -1) {
-        nodes.push({ type: 'codeblock', text: input.slice(pos + 3, endIndex) });
+        nodes.push({
+          type: 'codeblock',
+          text: decodeSlackEntities(input.slice(pos + 3, endIndex)),
+        });
         pos = endIndex + 3;
         continue;
       }
@@ -51,7 +54,7 @@ export function parseMrkdwn(input: string): MrkdwnNode[] {
     if (input[pos] === '`') {
       const endIndex = findClosing(input, '`', pos + 1, true);
       if (endIndex !== -1) {
-        nodes.push({ type: 'code', text: input.slice(pos + 1, endIndex) });
+        nodes.push({ type: 'code', text: decodeSlackEntities(input.slice(pos + 1, endIndex)) });
         pos = endIndex + 1;
         continue;
       }
@@ -101,7 +104,7 @@ export function parseMrkdwn(input: string): MrkdwnNode[] {
 }
 
 function decodeSlackEntities(text: string): string {
-  return text.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  return text.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
 }
 
 function parseInline(input: string): MrkdwnNode[] {

@@ -258,6 +258,18 @@ describe('parseMrkdwn', () => {
         { type: 'italic', children: [{ type: 'text', text: 'italic' }] },
       ]);
     });
+
+    it('does not double-decode &amp;gt;', () => {
+      expect(parseMrkdwn('&amp;gt;')).toEqual([{ type: 'text', text: '&gt;' }]);
+    });
+
+    it('decodes entities in inline code', () => {
+      expect(parseMrkdwn('`a &gt; b`')).toEqual([{ type: 'code', text: 'a > b' }]);
+    });
+
+    it('decodes entities in code block', () => {
+      expect(parseMrkdwn('```a &amp; b```')).toEqual([{ type: 'codeblock', text: 'a & b' }]);
+    });
   });
 
   describe('mixed content', () => {
