@@ -66,6 +66,7 @@ export interface Tweet {
   edited?: {
     ts: string;
   };
+  isHuddle: boolean;
   updatedAt: number;
 }
 

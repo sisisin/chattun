@@ -78,6 +78,7 @@ export function slackMessageToTweet(
     imageAttachments,
     slackLink: getSlackLink(profile, msg, deepLinking),
     edited: msg.edited,
+    isHuddle: msg.room?.call_family === 'huddle',
     updatedAt: msg.updatedAt,
   };
 }

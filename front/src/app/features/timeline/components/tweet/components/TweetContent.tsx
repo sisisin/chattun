@@ -45,7 +45,9 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
 
   return (
     <div className={styles.tweetContents}>
-      {hasContent ? (
+      {message.isHuddle ? (
+        <span className={styles.tweetContentsHuddle}>ハドルが開始されました</span>
+      ) : hasContent ? (
         <>
           <MrkdwnContent text={message.text} context={mrkdwnContext} />
           {message.files.map((file, i) => {
@@ -63,7 +65,7 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
         </>
       ) : (
         <span className={styles.tweetContentsUnsupported}>
-          対応していないメッセージ形式です。Slack appで確認してください。
+          [chattun] 未対応のメッセージ形式です。Slack appで確認してください。
         </span>
       )}
     </div>

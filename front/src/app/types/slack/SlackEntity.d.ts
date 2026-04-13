@@ -91,7 +91,7 @@ export namespace SlackEntity {
       count: number;
     }
     export interface Basic extends AbstractMessage {
-      subtype?: undefined;
+      subtype?: string;
       suppress_notification?: boolean;
       user?: string;
       text?: string;
@@ -107,6 +107,10 @@ export namespace SlackEntity {
         user: string;
       };
       reactions?: Reaction[];
+      room?: {
+        call_family?: string;
+      };
+      permalink?: string;
     }
   }
 }
