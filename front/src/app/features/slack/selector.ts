@@ -1,5 +1,5 @@
 import { getSlackState, Message, SlackState } from 'app/features/slack/interface';
-import { SlackEntity } from 'app/types/slack';
+import { BlockKit, SlackEntity } from 'app/types/slack';
 import { assertNever } from 'app/types/typeAssertions';
 import { createSelector } from 'typeless';
 import { GlobalSettingState } from '../globalSetting/interface';
@@ -80,9 +80,7 @@ export function slackMessageToTweet(
     slackLink: getSlackLink(profile, msg, deepLinking),
     edited: msg.edited,
     isHuddle: msg.room?.call_family === 'huddle',
-    blocks: msg.blocks?.filter(
-      (b): b is import('app/types/slack').BlockKit.RichTextBlock => b.type === 'rich_text',
-    ),
+    blocks: msg.blocks?.filter((b): b is BlockKit.RichTextBlock => b.type === 'rich_text'),
     updatedAt: msg.updatedAt,
   };
 }

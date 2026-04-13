@@ -42,20 +42,19 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
   );
 
   const hasBlocks = message.blocks && message.blocks.length > 0;
-  const hasContent =
-    message.text !== '' || message.files.length > 0 || message.imageAttachments.length > 0;
+  const hasText = message.text !== '';
 
   const textContent = message.isHuddle ? (
     <span className={styles.tweetContentsSystemMessage}>ハドルが開始されました</span>
   ) : hasBlocks ? (
     <BlockKitContent blocks={message.blocks!} context={resolveContext} />
-  ) : hasContent ? (
+  ) : hasText ? (
     <MrkdwnContent text={message.text} context={resolveContext} />
-  ) : (
+  ) : message.files.length === 0 && message.imageAttachments.length === 0 ? (
     <span className={styles.tweetContentsSystemMessage}>
       [chattun] 未対応のメッセージ形式です。Slack appで確認してください。
     </span>
-  );
+  ) : null;
 
   return (
     <div className={styles.tweetContents}>
