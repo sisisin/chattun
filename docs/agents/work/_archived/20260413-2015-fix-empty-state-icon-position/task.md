@@ -33,3 +33,8 @@ CSS Modules移行（720dbdf）時の元のCSS:
 
 1. 元のCSSの意図（上20vh、下30vh によるやや上寄りの配置）を再現しつつ、ヘッダとロゴの間のスペースは確保する
 2. 縦スクロールが発生しない
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
