@@ -7,10 +7,10 @@
   list-style: none;
 }
 
-.tweetlist-empty {
+.menu-parent .tweetlist-empty {
   display: grid;
-  min-height: calc(100vh - var(--spacing-2xl) * 2);
-  place-content: center;
+  height: calc(100vh - var(--spacing-2xl));
+  padding: 20vh 0 30vh;
   list-style: none;
 }
 

@@ -13,7 +13,7 @@ export const ThreadView = () => {
   return (
     <>
       <EmojiMenuModule />
-      <div>
+      <div className={styles.menuParent}>
         <Menu />
         {messages.length === 0 ? (
           <div className={styles.tweetlistEmpty}>
