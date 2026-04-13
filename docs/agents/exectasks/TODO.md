@@ -55,9 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 未対応メッセージの対応
-  - tmp/examples/message-unsupported.json , tmp/examples/message-unsupported2.json
-  - あと、「対応してない」の表記、chattunからのものであるとわかるような表記にしたい
 - Task: TweetContentで電話番号がリンクになっていない
   - tmp/examples/message-tel-link.json
 - Task: リアクションした人をマウスホバーした瞬間に出したい。あとホバーしたときの表示名を投稿の表示名と同じになるようにしたい
