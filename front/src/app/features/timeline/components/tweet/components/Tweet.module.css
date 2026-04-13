@@ -124,12 +124,7 @@
   border-radius: var(--border-radius-lg);
 }
 
-.tweet-contents-huddle {
-  color: var(--text-sub);
-  font-style: italic;
-}
-
-.tweet-contents-unsupported {
+.tweet-contents-system-message {
   color: var(--text-sub);
   font-style: italic;
 }
