@@ -54,3 +54,8 @@ emoji-mart は2つの初期化方法を提供する:
 - imports.ts の事前ロードはそのまま維持
 - lint / type-check が通る
 - 絵文字ピッカーが正常に動作する（ブラウザ確認）
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
