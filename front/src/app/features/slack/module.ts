@@ -181,34 +181,21 @@ export const reducer = handle
         const message = state[reaction.item.channel]![reaction.item.ts]!;
         message.updatedAt = getUpdatedAt().updatedAt;
 
-        if (message.reactions === undefined) {
+        const reactions = message.reactions;
+        if (reactions === undefined) {
           return;
+        }
+
+        const idx = reactions.findIndex(
+          r => r.name === reaction.reaction && r.users.includes(reaction.user),
+        );
+        if (idx === -1) return;
+
+        if (reactions[idx].count === 1) {
+          reactions.splice(idx, 1);
         } else {
-          message.reactions = message.reactions.reduce<SlackEntity.Message.Reaction[]>(
-            (acc, curr) => {
-              if (curr.name !== reaction.reaction) {
-                return [...acc, curr];
-              }
-
-              if (!curr.users.includes(reaction.user)) {
-                return [...acc, curr];
-              }
-
-              if (curr.count === 1) {
-                return acc;
-              }
-
-              return [
-                ...acc,
-                {
-                  name: curr.name,
-                  count: curr.count - 1,
-                  users: curr.users.filter(u => u !== reaction.user),
-                },
-              ];
-            },
-            [],
-          );
+          reactions[idx].count -= 1;
+          reactions[idx].users = reactions[idx].users.filter(u => u !== reaction.user);
         }
       });
   })
