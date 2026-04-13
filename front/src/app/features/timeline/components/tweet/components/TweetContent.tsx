@@ -7,8 +7,9 @@ import { useMappedState } from 'typeless';
 import styles from './Tweet.module.css';
 
 export const TweetContent = ({ message }: { message: Tweet }) => {
-  const { users, emojis, myUserId } = useMappedState([getSlackState], s => ({
+  const { users, channels, emojis, myUserId } = useMappedState([getSlackState], s => ({
     users: s.users,
+    channels: s.channels,
     emojis: s.emojis,
     myUserId: s.profile.userId,
   }));
@@ -29,9 +30,14 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
         }
         return url;
       },
+      resolveChannel: (channelId: string) => {
+        const channel = channels[channelId];
+        if (!channel) return undefined;
+        return channel.name;
+      },
       myUserId,
     }),
-    [users, emojis, myUserId],
+    [users, channels, emojis, myUserId],
   );
 
   const hasContent =

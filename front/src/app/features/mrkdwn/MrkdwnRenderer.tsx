@@ -5,6 +5,7 @@ import styles from './MrkdwnRenderer.module.css';
 
 export interface MrkdwnContext {
   resolveUser?: (userId: string) => { displayName: string } | undefined;
+  resolveChannel?: (channelId: string) => string | undefined;
   resolveEmoji?: (name: string) => string | undefined;
   myUserId?: string;
 }
@@ -51,8 +52,10 @@ function RenderNode({ node }: { node: MrkdwnNode }) {
       const isSelf = ctx.myUserId === node.userId;
       return <span className={isSelf ? styles.mentionSelf : undefined}>{displayName}</span>;
     }
-    case 'channel_ref':
-      return <span>#{node.name}</span>;
+    case 'channel_ref': {
+      const channelName = ctx.resolveChannel?.(node.channelId) ?? node.name;
+      return <span>#{channelName}</span>;
+    }
     case 'group_mention':
       return <span>{node.name}</span>;
     case 'special_mention':

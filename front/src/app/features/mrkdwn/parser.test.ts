@@ -152,9 +152,10 @@ describe('parseMrkdwn', () => {
       ]);
     });
 
-    it('treats <#CID> without pipe as plain text angle bracket', () => {
-      // Slack always sends channel refs with pipe, so pipe-less is not a valid channel ref
-      expect(parseMrkdwn('<#C123ABC>')).toEqual([{ type: 'text', text: '<#C123ABC>' }]);
+    it('parses <#CID> without pipe as channel ref with ID as name', () => {
+      expect(parseMrkdwn('<#C123ABC>')).toEqual([
+        { type: 'channel_ref', channelId: 'C123ABC', name: 'C123ABC' },
+      ]);
     });
   });
 

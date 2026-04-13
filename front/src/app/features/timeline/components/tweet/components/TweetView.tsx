@@ -52,7 +52,7 @@ export const TweetView = ({ message, parentRef }: Props) => {
           ts: linkingTs,
         }}
       >
-        <img src={message.iconUrl} alt={message.displayName} />
+        <img src={message.iconUrl || '/assets/logo_chattun_gray.svg'} alt={message.displayName} />
       </AppLink>
 
       <div className={styles.tweetStatus}>

@@ -117,7 +117,7 @@ function parseAngleBracket(inner: string): MrkdwnNode | null {
     return { type: 'user_mention', userId: inner.slice(1) };
   }
 
-  // Channel reference: #CID|name
+  // Channel reference: #CID|name or #CID
   if (inner.startsWith('#')) {
     const pipeIndex = inner.indexOf('|');
     if (pipeIndex !== -1) {
@@ -127,6 +127,11 @@ function parseAngleBracket(inner: string): MrkdwnNode | null {
         name: inner.slice(pipeIndex + 1),
       };
     }
+    return {
+      type: 'channel_ref',
+      channelId: inner.slice(1),
+      name: inner.slice(1),
+    };
   }
 
   // Special mention: !here, !channel
