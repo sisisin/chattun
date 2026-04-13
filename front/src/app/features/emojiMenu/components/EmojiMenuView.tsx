@@ -1,6 +1,5 @@
 import { getMartEmojis } from 'app/features/slack/selector';
 import React from 'react';
-import OutsideClickHandler from 'react-outside-click-handler';
 import { useActions, useMappedState, useSelector } from 'typeless';
 import { EmojiMenuActions, getEmojiMenuState } from '../interface';
 
@@ -25,6 +24,7 @@ export const EmojiMenuView = () => {
     },
   );
   const { addReaction, closeEmojiMenu } = useActions(EmojiMenuActions);
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     if (!isEmojiMenuVisible) return;
@@ -33,8 +33,17 @@ export const EmojiMenuView = () => {
         closeEmojiMenu();
       }
     };
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        closeEmojiMenu();
+      }
+    };
     document.addEventListener('keydown', handleKeyDown, true);
-    return () => document.removeEventListener('keydown', handleKeyDown, true);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown, true);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, [isEmojiMenuVisible, closeEmojiMenu]);
 
   const picker = React.useMemo(
@@ -52,7 +61,5 @@ export const EmojiMenuView = () => {
     ),
     [addReaction, clientY, martEmojis, targetMessage],
   );
-  return isEmojiMenuVisible ? (
-    <OutsideClickHandler onOutsideClick={closeEmojiMenu}>{picker}</OutsideClickHandler>
-  ) : null;
+  return isEmojiMenuVisible ? <div ref={containerRef}>{picker}</div> : null;
 };

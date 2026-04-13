@@ -28,12 +28,10 @@
     "@types/node-emoji": "1.8.1",
     "@types/react": "18.3.28",
     "@types/react-dom": "18.3.7",
-    "@types/react-outside-click-handler": "1.3.0",
     "autoprefixer": "9.7.4",
     "jsdom": "29.0.2",
     "node-emoji": "2.2.0",
     "plop": "2.5.4",
-    "react-outside-click-handler": "1.3.0",
     "rxjs": "7.8.2",
     "socket.io-client": "4.8.3",
     "typeless": "1.7.0"
