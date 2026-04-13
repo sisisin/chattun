@@ -55,8 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: MrkdwnContent の parseMrkdwn 呼び出しを useMemo でメモ化する
-  - MrkdwnRenderer.tsx:88 で毎レンダリング parseMrkdwn(text) が呼ばれている。text が変わらなければ再パース不要
 - Task: onReactionRemoved の reduce+spread を Immer 直接操作に書き換える
   - slack/module.ts:187-211 でドラフト内にも関わらず reduce+spread でコピーしている。findIndex+splice の直接操作にする
 
