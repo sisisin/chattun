@@ -10,3 +10,8 @@
 - MrkdwnContent で parseMrkdwn(text) の結果を useMemo でキャッシュする
 - text が同じなら再パースしない
 - lint / type-check が通る
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
