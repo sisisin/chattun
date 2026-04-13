@@ -228,7 +228,7 @@
 }
 
 .tweet-actions-copy-feedback {
-  font-size: 10px;
+  font-size: var(--font-small-ex);
   line-height: 1;
   color: var(--icon);
 }

@@ -29,8 +29,13 @@ const CopyButton = ({ message }: { message: Tweet }) => {
   const handleClick = () => {
     copyClicked(message);
     setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
   };
+
+  React.useEffect(() => {
+    if (!copied) return;
+    const id = setTimeout(() => setCopied(false), 1500);
+    return () => clearTimeout(id);
+  }, [copied]);
 
   return (
     <span className={styles.tweetActionsReaction} onClick={handleClick}>
