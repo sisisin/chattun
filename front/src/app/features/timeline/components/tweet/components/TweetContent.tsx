@@ -6,10 +6,21 @@ import { type TextAttachment, Tweet } from 'app/features/timeline/interface';
 import * as React from 'react';
 import styles from './Tweet.module.css';
 
+const colorKeywords: Record<string, string> = {
+  good: '#2eb886',
+  warning: '#daa038',
+  danger: '#a30200',
+};
+
+function resolveColor(color: string | undefined): string | undefined {
+  if (!color) return undefined;
+  return colorKeywords[color] ?? `#${color}`;
+}
+
 const AttachmentView = ({ att }: { att: TextAttachment }) => (
   <div
     className={styles.tweetAttachment}
-    style={att.color ? { borderLeftColor: `#${att.color}` } : undefined}
+    style={att.color ? { borderLeftColor: resolveColor(att.color) } : undefined}
   >
     {att.authorName && (
       <div className={styles.tweetAttachmentAuthor}>
@@ -29,7 +40,7 @@ const AttachmentView = ({ att }: { att: TextAttachment }) => (
       ) : (
         <div className={styles.tweetAttachmentTitle}>{att.title}</div>
       ))}
-    {att.pretext && <div>{att.pretext}</div>}
+    {att.pretext && <div className={styles.tweetAttachmentText}>{att.pretext}</div>}
     {att.text && <div className={styles.tweetAttachmentText}>{att.text}</div>}
     {att.imageUrl && <img className={styles.tweetContentsImage} src={att.imageUrl} alt="" />}
     {att.footer && <div className={styles.tweetAttachmentFooter}>{att.footer}</div>}
