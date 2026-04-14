@@ -42,3 +42,8 @@
 - テキスト付き attachment（メッセージ unfurl 含む）が TweetContent に表示される
 - 画像 attachment の既存動作を維持
 - lint / type-check が通る
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
