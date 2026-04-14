@@ -2,6 +2,7 @@ import { AppLink } from 'app/components/AppLink';
 import { IconAddReaction, IconThread } from 'app/components/icons/Icons';
 import { EmojiMenuActions } from 'app/features/emojiMenu/interface';
 import { getGlobalSettingState } from 'app/features/globalSetting/interface';
+import { ToastActions } from 'app/features/toast/interface';
 import { Tweet } from 'app/features/timeline/interface';
 import * as React from 'react';
 import { useActions, useMappedState } from 'typeless';
@@ -24,26 +25,16 @@ function parseSkinTone(name: string): { id: string; skin?: number } {
 
 const CopyButton = ({ message }: { message: Tweet }) => {
   const { copyClicked } = useActions(TweetActions);
-  const [copied, setCopied] = React.useState(false);
+  const { showToast } = useActions(ToastActions);
 
   const handleClick = () => {
     copyClicked(message);
-    setCopied(true);
+    showToast('Copied!');
   };
-
-  React.useEffect(() => {
-    if (!copied) return;
-    const id = setTimeout(() => setCopied(false), 1500);
-    return () => clearTimeout(id);
-  }, [copied]);
 
   return (
     <span className={styles.tweetActionsReaction} onClick={handleClick}>
-      {copied ? (
-        <span className={styles.tweetActionsCopyFeedback}>Copied!</span>
-      ) : (
-        <span className={styles.tweetActionsCopyText}>C</span>
-      )}
+      <span className={styles.tweetActionsCopyText}>C</span>
     </span>
   );
 };
