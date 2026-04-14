@@ -16,3 +16,8 @@ CopyButton コンポーネント（TweetView.tsx）で:
 - コピーボタンクリック時にtoastで「Copied!」が表示される
 - ボタンの文言が変化しなくなる
 - lint / type-check が通る
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
