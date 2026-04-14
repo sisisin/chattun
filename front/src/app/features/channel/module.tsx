@@ -20,8 +20,9 @@ export const ChannelModule = () => {
   handle();
   const { params } = useRouter<ChannelParam>();
   const { mounted } = useActions(ChannelActions);
+  const { channelId } = params;
   React.useEffect(() => {
-    mounted(params);
-  }, [mounted, params]);
+    mounted({ channelId });
+  }, [mounted, channelId]);
   return <ChannelView />;
 };

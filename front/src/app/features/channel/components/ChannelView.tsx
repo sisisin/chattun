@@ -2,10 +2,10 @@ import { Menu } from 'app/components/menu/Menu';
 import { EmojiMenuModule } from 'app/features/emojiMenu/module';
 import { ResolveContextProvider } from 'app/features/mrkdwn/ResolveContext';
 import { Tweet } from 'app/features/timeline/components/tweet/module';
-import styles from 'app/features/timeline/components/TimelineView.module.css';
 import { getChannelDisplayName, getChannelMessages } from '../selector';
 import React from 'react';
 import { useSelector } from 'typeless';
+import styles from './ChannelView.module.css';
 
 export const ChannelView = () => {
   const messages = useSelector(getChannelMessages);
@@ -16,7 +16,7 @@ export const ChannelView = () => {
     <>
       <EmojiMenuModule />
       <ResolveContextProvider>
-        <div className={styles.menuParent}>
+        <div>
           <Menu />
           <h2 className={styles.channelHeader}>{channelName}</h2>
           {messages.length === 0 ? (

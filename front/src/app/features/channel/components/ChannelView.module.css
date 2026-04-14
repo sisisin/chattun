@@ -1,5 +1,8 @@
-.menu-parent {
-  position: relative;
+.channel-header {
+  padding: var(--spacing-sm);
+  margin: 0;
+  font-size: var(--font-large);
+  border-bottom: 1px solid var(--border-sub);
 }
 
 .tweetlist {
@@ -7,7 +10,7 @@
   list-style: none;
 }
 
-.menu-parent .tweetlist-empty {
+.tweetlist-empty {
   display: grid;
   height: calc(100vh - var(--spacing-2xl));
   padding: 20vh 0 30vh;
