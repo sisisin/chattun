@@ -18,3 +18,8 @@
 - `TweetView.tsx` — スレッドボタン（`IconThread` 付きの `AppLink`）を削除
 - `Tweet.module.css` — `.tweet-thread-reply` から `background` を削除、スレッドボタン関連の未使用CSSを削除
 - `Icons.tsx` — `IconThread` が他で使われていなければ削除
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
