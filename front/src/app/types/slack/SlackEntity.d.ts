@@ -114,6 +114,16 @@ export namespace SlackEntity {
       };
       permalink?: string;
       blocks?: BlockKit.Block[];
+      bot_id?: string;
+      bot_profile?: {
+        id: string;
+        name: string;
+        icons: {
+          image_36?: string;
+          image_48?: string;
+          image_72?: string;
+        };
+      };
     }
   }
 }

@@ -22,15 +22,15 @@ export function getChannelName(
 }
 
 export const getMessageProfile = (map: SlackState['users'], msg: Message) => {
-  const member = map[msg.user!];
+  const member = msg.user ? map[msg.user] : undefined;
   if (!member) {
-    const name = msg.user ?? msg.username ?? '';
-    if (msg.icons) {
-      const iconUrl = msg.icons.image_48 || '';
-      return { displayName: name, fullName: name, iconUrl };
-    } else {
-      return { displayName: name, fullName: name, iconUrl: '' };
-    }
+    const name = msg.user ?? msg.username ?? msg.bot_profile?.name ?? '';
+    const iconUrl =
+      msg.icons?.image_48 ||
+      msg.bot_profile?.icons?.image_48 ||
+      msg.bot_profile?.icons?.image_72 ||
+      '';
+    return { displayName: name, fullName: name, iconUrl };
   }
   return {
     displayName: member.profile.display_name || member.real_name,

@@ -71,6 +71,7 @@ app.get('/api/mock/bootstrap', c => {
     teamInfo: {
       ok: true,
       team: {
+        id: 'TMOCKTEAM01',
         domain: 'mock-workspace',
       },
     },

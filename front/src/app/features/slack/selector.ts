@@ -85,8 +85,8 @@ export function slackMessageToTweet(
   };
 }
 
-function getTeamId(msg: Message): string | undefined {
-  return msg.team ?? msg.files?.[0]?.user_team;
+function getTeamId(msg: Message, profile: SlackState['profile']): string | undefined {
+  return msg.team ?? msg.files?.[0]?.user_team ?? profile.teamId;
 }
 
 function getSlackLink(
@@ -95,6 +95,12 @@ function getSlackLink(
   deepLinking: GlobalSettingState['deepLinking'],
 ): Tweet['slackLink'] {
   const base = { type: deepLinking };
+
+  // ハドルメッセージは permalink を優先
+  if (msg.permalink) {
+    return { ...base, link: msg.permalink };
+  }
+
   const channelId = msg.channel!;
   const ts = msg.ts;
   const timestamp = 'p' + ts.replace('.', '');
@@ -111,7 +117,7 @@ function getSlackLink(
               }`,
       };
     case 'directly': {
-      const teamId = getTeamId(msg);
+      const teamId = getTeamId(msg, profile);
       return {
         ...base,
         link:
@@ -145,7 +151,7 @@ function getChannelLink(
             : `https://${profile.domain}.slack.com/archives/${channelId}`,
       };
     case 'directly': {
-      const teamId = getTeamId(msg);
+      const teamId = getTeamId(msg, profile);
       return {
         ...base,
         link: teamId === undefined ? undefined : `slack://channel?team=${teamId}&id=${channelId}`,

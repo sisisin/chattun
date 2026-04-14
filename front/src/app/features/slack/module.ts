@@ -70,6 +70,7 @@ export const reducer = handle
     state.profile = { userId };
   })
   .on(SlackActions.fetchTeamInfo, (state, { teamInfo }) => {
+    state.profile.teamId = teamInfo.team.id;
     state.profile.domain = teamInfo.team.domain;
   })
   .on(SlackActions.fetchEmojis, (state, { emojis }) => {

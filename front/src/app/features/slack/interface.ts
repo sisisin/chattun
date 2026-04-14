@@ -32,6 +32,7 @@ export interface SlackState {
   markedByChannels: Record<ChannelId, Ts>;
   profile: {
     userId: string;
+    teamId?: string;
     domain?: string;
   };
 }

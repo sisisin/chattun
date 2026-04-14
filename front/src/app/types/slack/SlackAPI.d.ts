@@ -36,6 +36,7 @@ export namespace SlackAPI {
   export namespace Team {
     export interface Info extends Response {
       team: {
+        id: string;
         domain: string;
       };
     }
