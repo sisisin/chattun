@@ -1,5 +1,5 @@
 import { AppLink } from 'app/components/AppLink';
-import { IconAddReaction, IconThread } from 'app/components/icons/Icons';
+import { IconAddReaction } from 'app/components/icons/Icons';
 import { EmojiMenuActions } from 'app/features/emojiMenu/interface';
 import { getGlobalSettingState } from 'app/features/globalSetting/interface';
 import { ToastActions } from 'app/features/toast/interface';
@@ -135,18 +135,6 @@ export const TweetView = ({ message, parentRef, inThread }: Props) => {
             <IconAddReaction className={styles.tweetActionsReactionIcon} />
           </span>
           {developerMode && <CopyButton message={message} />}
-          <AppLink
-            className={styles.tweetActionsListThread}
-            to="/thread/$channelId/$ts"
-            params={{
-              channelId: message.channelId,
-              ts: linkingTs,
-            }}
-          >
-            <span>
-              <IconThread className={styles.tweetActionsListThreadIcon} />
-            </span>
-          </AppLink>
           <DeepLinkingButton {...message.slackLink} />
           {!inThread && message.threadTs && (
             <AppLink

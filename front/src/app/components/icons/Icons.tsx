@@ -35,26 +35,6 @@ export const IconSetting = ({ className: additional }: IconProps) => {
   );
 };
 
-export const IconThread = ({ className: additional }: IconProps) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 96 96"
-      className={`chaticon ${additional}`}
-      width="48"
-    >
-      <path d="M48.71,57.8,34,62l4.67-14A29.51,29.51,0,0,1,34,32,30,30,0,1,1,48.71,57.8Z" />
-      <line x1="49.65" y1="24.48" x2="78.35" y2="24.48" />
-      <line x1="49.65" y1="33.3" x2="78.35" y2="33.3" />
-      <line x1="49.65" y1="42.13" x2="78.35" y2="42.13" />
-      <path d="M20.32,36.36A30,30,0,0,0,32,94a31.1,31.1,0,0,0,4.12-.28,30.25,30.25,0,0,0,3.94-.82,29,29,0,0,0,3.74-1.32,29.35,29.35,0,0,0,3.49-1.78l3.68,1,3.67,1.05,3.68,1L62,94l-1.17-3.5L59.67,87l-1.17-3.5L57.33,80a29.49,29.49,0,0,0,3.45-7.53" />
-      <line x1="27.65" y1="56.48" x2="17.65" y2="56.48" />
-      <line x1="25.65" y1="65.3" x2="17.65" y2="65.3" />
-      <line x1="46.35" y1="74.13" x2="17.65" y2="74.13" />
-    </svg>
-  );
-};
-
 export const IconOpenSlack = ({ className: additional }: IconProps) => {
   return (
     <svg

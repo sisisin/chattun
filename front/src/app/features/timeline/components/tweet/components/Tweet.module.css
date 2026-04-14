@@ -181,7 +181,6 @@
 }
 
 .tweet-actions-reaction,
-.tweet-actions-list-thread,
 .tweet-actions-list-openslack {
   display: flex;
   align-items: center;
@@ -258,7 +257,6 @@
   vertical-align: middle;
 }
 
-.tweet-actions-list-thread-icon,
 .tweet-actions-reaction-icon,
 .tweet-actions-list-openslack-icon {
   width: 16px;
@@ -279,7 +277,6 @@
 
 .tweet-thread-reply {
   border-left: 3px solid var(--border-main);
-  background: var(--background-sub);
 }
 
 .tweet-actions-thread-link {
