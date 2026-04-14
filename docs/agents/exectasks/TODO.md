@@ -55,9 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: チャンネルページを作り、指定されているチャンネルの投稿のみを表示する
-  - Tweetのchannelへのリンクはslack appからこのチャンネルページにする
-
 # Backlog
 
 着手条件が揃っていない、または優先度が低いタスク。Ready になったら Tasks セクションに移動する。
