@@ -44,6 +44,18 @@ export interface ImageAttachment {
   imageUrl: string;
 }
 
+export interface TextAttachment {
+  text?: string;
+  pretext?: string;
+  title?: string;
+  titleLink?: string;
+  authorName?: string;
+  authorIcon?: string;
+  footer?: string;
+  color?: string;
+  imageUrl?: string;
+}
+
 export interface Tweet {
   threadTs?: string;
   ts: string;
@@ -67,6 +79,7 @@ export interface Tweet {
   edited?: {
     ts: string;
   };
+  textAttachments: TextAttachment[];
   isHuddle: boolean;
   blocks?: BlockKit.RichTextBlock[];
   updatedAt: number;

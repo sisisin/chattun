@@ -4,8 +4,18 @@ export namespace SlackEntity {
   export interface Attachment {
     fallback: string;
     image_url?: string;
-    original_url: string;
-    [key: string]: any;
+    original_url?: string;
+    text?: string;
+    pretext?: string;
+    title?: string;
+    title_link?: string;
+    author_name?: string;
+    author_icon?: string;
+    author_link?: string;
+    footer?: string;
+    color?: string;
+    is_msg_unfurl?: boolean;
+    from_url?: string;
   }
 
   export interface Mark {
@@ -114,6 +124,7 @@ export namespace SlackEntity {
       };
       permalink?: string;
       blocks?: BlockKit.Block[];
+      attachments?: SlackEntity.Attachment[];
       bot_id?: string;
       bot_profile?: {
         id: string;

@@ -129,6 +129,53 @@
   font-style: italic;
 }
 
+.tweet-attachment {
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border-left: 3px solid var(--border-base);
+  background: var(--background-sub);
+  border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+}
+
+.tweet-attachment-author {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-small-ex);
+  font-weight: bold;
+}
+
+.tweet-attachment-author-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--border-radius-sm);
+}
+
+.tweet-attachment-title {
+  font-weight: bold;
+  margin-bottom: var(--spacing-xs);
+
+  & a {
+    color: var(--button-primary);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.tweet-attachment-text {
+  white-space: pre-wrap;
+}
+
+.tweet-attachment-footer {
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-small-ex);
+  color: var(--text-sub);
+}
+
 .tweet-actions {
   grid-column: span 2;
 }

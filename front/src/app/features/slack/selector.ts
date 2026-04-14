@@ -7,6 +7,7 @@ import {
   type CustomEmojiInfo,
   type FileAttachment,
   type ImageAttachment,
+  type TextAttachment,
   Reaction,
   Tweet,
 } from '../timeline/interface';
@@ -63,6 +64,7 @@ export function slackMessageToTweet(
   const text = msg.text ?? '';
   const files = getFileAttachments(msg);
   const imageAttachments = getImageAttachments(msg);
+  const textAttachments = getTextAttachments(msg);
 
   return {
     threadTs: msg.thread_ts,
@@ -77,6 +79,7 @@ export function slackMessageToTweet(
     text,
     files,
     imageAttachments,
+    textAttachments,
     slackLink: getSlackLink(profile, msg, deepLinking),
     edited: msg.edited,
     isHuddle: msg.room?.call_family === 'huddle',
@@ -181,6 +184,23 @@ function getImageAttachments(msg: Message): ImageAttachment[] {
     .map(a => ({
       fallback: a.fallback,
       imageUrl: a.image_url!,
+    }));
+}
+
+function getTextAttachments(msg: Message): TextAttachment[] {
+  if (!msg.attachments) return [];
+  return msg.attachments
+    .filter(a => a.text || a.pretext || a.title)
+    .map(a => ({
+      text: a.text,
+      pretext: a.pretext,
+      title: a.title,
+      titleLink: a.title_link,
+      authorName: a.author_name,
+      authorIcon: a.author_icon,
+      footer: a.footer,
+      color: a.color,
+      imageUrl: a.image_url,
     }));
 }
 
