@@ -38,3 +38,8 @@
 - bot message の Slack リンクが生成される
 - ハドルメッセージのリンクが permalink を使用する
 - lint / type-check が通る
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
