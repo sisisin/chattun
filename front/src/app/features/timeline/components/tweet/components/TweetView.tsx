@@ -77,20 +77,13 @@ export const TweetView = ({ message, parentRef, inThread }: Props) => {
         <TweetTimestamp datetime={new Date(+message.ts * 1000)} />
         <TweetEditedMarker edit={message.edited} />
       </div>
-      <div className={styles.tweetChannelname}>
-        {message.channelLink.link ? (
-          <a
-            href={message.channelLink.link}
-            {...(message.channelLink.type === 'viaBrowser'
-              ? { target: '_blank', rel: 'noopener noreferrer' }
-              : {})}
-          >
-            {message.channelName}
-          </a>
-        ) : (
-          message.channelName
-        )}
-      </div>
+      <AppLink
+        className={styles.tweetChannelname}
+        to="/channel/$channelId"
+        params={{ channelId: message.channelId }}
+      >
+        {message.channelName}
+      </AppLink>
       <TweetContent message={message} />
       <div className={styles.tweetActions}>
         <div className={styles.tweetActionsListEmojis}>

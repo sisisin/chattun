@@ -43,6 +43,12 @@ const threadRoute = createRoute({
   component: lazyRouteComponent(() => import('app/features/thread/module'), 'ThreadModule'),
 });
 
+const channelRoute = createRoute({
+  getParentRoute: () => authLayout,
+  path: '/channel/$channelId',
+  component: lazyRouteComponent(() => import('app/features/channel/module'), 'ChannelModule'),
+});
+
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/login',
@@ -50,7 +56,7 @@ const loginRoute = createRoute({
 });
 
 const routeTree = rootRoute.addChildren([
-  authLayout.addChildren([timelineRoute, settingRoute, threadRoute]),
+  authLayout.addChildren([timelineRoute, settingRoute, threadRoute, channelRoute]),
   loginRoute,
 ]);
 

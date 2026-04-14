@@ -24,3 +24,10 @@
 .tweetlist-empty-text {
   text-align: center;
 }
+
+.channel-header {
+  padding: var(--spacing-sm) var(--spacing-sm);
+  margin: 0;
+  font-size: var(--font-large);
+  border-bottom: 1px solid var(--border-sub);
+}

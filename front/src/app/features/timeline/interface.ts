@@ -63,10 +63,6 @@ export interface Tweet {
   displayName: string;
   fullName: string;
   channelName: string;
-  channelLink: {
-    type: DeepLinking;
-    link: string | undefined;
-  };
   iconUrl: string;
   text: string;
   files: FileAttachment[];

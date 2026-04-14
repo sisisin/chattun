@@ -49,6 +49,7 @@
 }
 
 .tweet-channelname {
+  display: block;
   max-width: 144px;
   height: 16px;
   margin: 6px 0;
@@ -58,13 +59,9 @@
   line-height: 16px;
   color: var(--text-revert);
   text-align: center;
+  text-decoration: none;
   background: var(--label-base);
   border-radius: var(--border-radius-sm);
-
-  & a {
-    color: inherit;
-    text-decoration: none;
-  }
 }
 
 .tweet-icon-link {
