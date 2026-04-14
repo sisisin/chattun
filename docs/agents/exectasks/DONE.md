@@ -1,5 +1,6 @@
 # Done
 
+- Task: スレッド強調、背景色は変えなくていい。あとスレッドボタンなくして良いかな [20260414-2042-feat-simplify-thread-reply-style](../work/_archived/20260414-2042-feat-simplify-thread-reply-style/task.md)
 - Task: copyボタン押したときのフィードバックはボタンの文言変更じゃなくてtoastがいい [20260414-2033-feat-copy-toast-feedback](../work/_archived/20260414-2033-feat-copy-toast-feedback/task.md)
 - Task: messageのattachmentの解決してTweetContentに表示させる [20260414-2022-feat-display-attachments](../work/_archived/20260414-2022-feat-display-attachments/task.md)
 - Task: botの投稿やハドル開始メッセージでいろいろなものを解決できていないのを修正 [20260414-2014-feat-fix-bot-huddle-messages](../work/_archived/20260414-2014-feat-fix-bot-huddle-messages/task.md)
