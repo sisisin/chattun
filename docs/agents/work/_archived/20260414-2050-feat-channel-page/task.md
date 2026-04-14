@@ -20,3 +20,8 @@
 - `features/slack/selector.ts` — `getChannelLink` を Slack リンクからチャンネルページリンクに変更
 - `features/timeline/interface.ts` — `channelLink` 型を内部リンク対応に変更
 - `TweetView.tsx` — channelName 表示部分を `AppLink` に変更
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
