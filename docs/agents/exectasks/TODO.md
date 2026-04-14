@@ -55,10 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: botの投稿やハドル開始メッセージでいろいろなものを解決できていないのを修正
-  - アイコン・投稿リンクが死んでる。多分bot messageだとbot profile取りに行く必要があるのではないか。
-  - slack url: https://knowledge-work.slack.com/archives/C03AC1TQJCQ/p1776087230167729 , tmp/examples/message-bot.json
-  - tmp/examples/message-huddle.json
 - Task: messageのattachmentの解決してTweetContentに表示させる
 - Task: copyボタン押したときのフィードバックはボタンの文言変更じゃなくてtoastがいい
 - Task: スレッド強調、背景色は変えなくていい。あとスレッドボタンなくして良いかな

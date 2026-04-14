@@ -1,5 +1,6 @@
 # Done
 
+- Task: botの投稿やハドル開始メッセージでいろいろなものを解決できていないのを修正 [20260414-2014-feat-fix-bot-huddle-messages](../work/_archived/20260414-2014-feat-fix-bot-huddle-messages/task.md)
 - Task: onReactionRemoved の reduce+spread を Immer 直接操作に書き換える [20260413-2156-feat-immer-reaction-removed](../work/_archived/20260413-2156-feat-immer-reaction-removed/task.md)
 - Task: MrkdwnContent の parseMrkdwn 呼び出しを useMemo でメモ化する [20260413-2150-feat-memoize-parsemrkdwn](../work/_archived/20260413-2150-feat-memoize-parsemrkdwn/task.md)
 - Task: パフォーマンスチューニングしたほうがよさそうなところを探し、Task化する [20260413-2148-feat-perf-audit](../work/_archived/20260413-2148-feat-perf-audit/task.md)
