@@ -96,9 +96,9 @@ function getSlackLink(
 ): Tweet['slackLink'] {
   const base = { type: deepLinking };
 
-  // ハドルメッセージは permalink を優先
+  // ハドルメッセージは permalink を優先（常に HTTPS URL なので viaBrowser 固定）
   if (msg.permalink) {
-    return { ...base, link: msg.permalink };
+    return { type: 'viaBrowser', link: msg.permalink };
   }
 
   const channelId = msg.channel!;
