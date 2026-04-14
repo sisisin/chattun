@@ -14,8 +14,7 @@
 
   & + div,
   & + ul,
-  & + a,
-  & + h2 {
+  & + a {
     padding-top: var(--spacing-2xl);
   }
 }

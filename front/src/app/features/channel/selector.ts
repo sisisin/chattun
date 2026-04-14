@@ -18,13 +18,3 @@ export const getChannelMessages = createSelector(
     return filterMutedUsers(tweets, mutedUsers);
   },
 );
-
-export const getChannelDisplayName = createSelector(
-  [getSlackState, slack => slack.channels],
-  [getChannelState, channel => channel.channelId],
-  (channels, channelId) => {
-    if (!channelId) return '';
-    const channel = channels[channelId];
-    return channel ? `#${channel.name}` : `#${channelId}`;
-  },
-);
