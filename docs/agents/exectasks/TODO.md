@@ -55,9 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: TweetContentに画像があるときに横並びになることがあるのを修正。ちゃんと縦に並ぶようにする
-  - tmp/examples/message-horizontal-image.json
-  - なんか過去にTaskにした気がするので、過去の作業ログを検めたうえで対応方針を検討してもらうのが良さそうな気がする
 - Task: 動画投稿の表示に対応する
   - tmp/examples/message-video.json , https://knowledge-work.slack.com/files/U05V1TFDXAM/F0AU6GQH45Q/_____________2026-04-21_10.50.50.mov
 
