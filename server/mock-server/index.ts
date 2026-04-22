@@ -108,6 +108,37 @@ app.get('/api/mock/presets', c => {
   return c.json({ presets: listPresets() });
 });
 
+// ファイルプロキシ (本番 /api/file の簡易版: target_url がモックアセットパスならそのファイルを返す)
+app.get('/api/file', async c => {
+  const targetUrl = c.req.query('target_url');
+  if (!targetUrl) return c.body(null, 400);
+
+  // モックアセットパス (/api/mock/assets/...) の場合、該当ファイルを直接返す
+  const mockPrefix = '/api/mock/assets/';
+  if (targetUrl.startsWith(mockPrefix)) {
+    const fileName = targetUrl.slice(mockPrefix.length);
+    const filePath = path.resolve(import.meta.dirname, '../mock-assets', fileName);
+    try {
+      const data = fs.readFileSync(filePath);
+      const ext = path.extname(fileName).toLowerCase();
+      const mimeTypes: Record<string, string> = {
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.gif': 'image/gif',
+        '.svg': 'image/svg+xml',
+      };
+      return new Response(data, {
+        headers: { 'Content-Type': mimeTypes[ext] || 'application/octet-stream' },
+      });
+    } catch {
+      return c.body(null, 404);
+    }
+  }
+
+  return c.body(null, 400);
+});
+
 // その他の /api/* は 404
 app.all('/api/*', c => c.body(null, 404));
 
