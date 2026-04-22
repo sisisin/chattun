@@ -55,9 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: attachmentが長い場合に畳んでshow moreしてほしい。あとattachmentに画像が付いてるときに表示されてなさそう
-  - tmp/examples/message-long-attachment.json , tmp/examples/SCR-20260415-nmoi.png
-  - tmp/examples/message-attachment-with-image.json
 - Task: TweetContentに画像があるときに横並びになることがあるのを修正。ちゃんと縦に並ぶようにする
   - tmp/examples/message-horizontal-image.json
   - なんか過去にTaskにした気がするので、過去の作業ログを検めたうえで対応方針を検討してもらうのが良さそうな気がする
