@@ -1,5 +1,6 @@
 # Done
 
+- Task: リストのインデントが解釈されていない [20260422-2300-feat-list-indent](../work/_archived/20260422-2300-feat-list-indent/task.md)
 - Task: スキップされたブラウザ検証をまとめて実施する [20260422-2250-feat-catch-up-browser-verification](../work/_archived/20260422-2250-feat-catch-up-browser-verification/task.md)
 - Task: attachment内のリンクやメンションが解決されていないのを修正 [20260422-0900-feat-resolve-attachment-mrkdwn](../work/_archived/20260422-0900-feat-resolve-attachment-mrkdwn/task.md)
 - Task: チャンネルページを作り、指定されているチャンネルの投稿のみを表示する [20260414-2050-feat-channel-page](../work/_archived/20260414-2050-feat-channel-page/task.md)
