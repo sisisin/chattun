@@ -157,10 +157,19 @@ function getImageAttachments(msg: Message): ImageAttachment[] {
     }));
 }
 
+function getAttachmentFiles(files: NonNullable<SlackEntity.Attachment['files']>): FileAttachment[] {
+  return files
+    .filter(({ filetype }) => imgFileRegexp.test(filetype))
+    .map(({ thumb_360, url_private }) => ({
+      thumb360: thumb_360,
+      urlPrivate: url_private,
+    }));
+}
+
 function getTextAttachments(msg: Message): TextAttachment[] {
   if (!msg.attachments) return [];
   return msg.attachments
-    .filter(a => a.text || a.pretext || a.title)
+    .filter(a => a.text || a.pretext || a.title || (a.files && a.files.length > 0))
     .map(a => ({
       text: a.text,
       pretext: a.pretext,
@@ -171,6 +180,7 @@ function getTextAttachments(msg: Message): TextAttachment[] {
       footer: a.footer,
       color: a.color,
       imageUrl: a.image_url,
+      files: a.files ? getAttachmentFiles(a.files) : undefined,
     }));
 }
 

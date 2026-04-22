@@ -163,6 +163,26 @@
   }
 }
 
+.tweet-attachment-body-collapsed {
+  max-height: 200px;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+.tweet-attachment-toggle {
+  padding: var(--spacing-xs) 0;
+  font-size: var(--font-small-ex);
+  font-weight: bold;
+  color: var(--button-primary);
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .tweet-attachment-text {
   white-space: pre-wrap;
 }

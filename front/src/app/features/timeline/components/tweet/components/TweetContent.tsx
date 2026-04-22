@@ -17,49 +17,95 @@ function resolveColor(color: string | undefined): string | undefined {
   return colorKeywords[color] ?? `#${color}`;
 }
 
+const COLLAPSED_MAX_HEIGHT = 200;
+
 const AttachmentView = ({
   att,
   resolveContext,
 }: {
   att: TextAttachment;
   resolveContext: ResolveContext;
-}) => (
-  <div
-    className={styles.tweetAttachment}
-    style={att.color ? { borderLeftColor: resolveColor(att.color) } : undefined}
-  >
-    {att.authorName && (
-      <div className={styles.tweetAttachmentAuthor}>
-        {att.authorIcon && (
-          <img className={styles.tweetAttachmentAuthorIcon} src={att.authorIcon} alt="" />
-        )}
-        {att.authorName}
-      </div>
-    )}
-    {att.title &&
-      (att.titleLink ? (
-        <div className={styles.tweetAttachmentTitle}>
-          <a href={att.titleLink} target="_blank" rel="noopener noreferrer">
-            {att.title}
-          </a>
+}) => {
+  const textRef = React.useRef<HTMLDivElement>(null);
+  const [isOverflowing, setIsOverflowing] = React.useState(false);
+  const [isExpanded, setIsExpanded] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = textRef.current;
+    if (el) {
+      setIsOverflowing(el.scrollHeight > COLLAPSED_MAX_HEIGHT);
+    }
+  }, [att.text, att.pretext]);
+
+  const hasText = att.text || att.pretext;
+
+  return (
+    <div
+      className={styles.tweetAttachment}
+      style={att.color ? { borderLeftColor: resolveColor(att.color) } : undefined}
+    >
+      {att.authorName && (
+        <div className={styles.tweetAttachmentAuthor}>
+          {att.authorIcon && (
+            <img className={styles.tweetAttachmentAuthorIcon} src={att.authorIcon} alt="" />
+          )}
+          {att.authorName}
         </div>
-      ) : (
-        <div className={styles.tweetAttachmentTitle}>{att.title}</div>
-      ))}
-    {att.pretext && (
-      <div className={styles.tweetAttachmentText}>
-        <MrkdwnContent text={att.pretext} context={resolveContext} />
-      </div>
-    )}
-    {att.text && (
-      <div className={styles.tweetAttachmentText}>
-        <MrkdwnContent text={att.text} context={resolveContext} />
-      </div>
-    )}
-    {att.imageUrl && <img className={styles.tweetContentsImage} src={att.imageUrl} alt="" />}
-    {att.footer && <div className={styles.tweetAttachmentFooter}>{att.footer}</div>}
-  </div>
-);
+      )}
+      {att.title &&
+        (att.titleLink ? (
+          <div className={styles.tweetAttachmentTitle}>
+            <a href={att.titleLink} target="_blank" rel="noopener noreferrer">
+              {att.title}
+            </a>
+          </div>
+        ) : (
+          <div className={styles.tweetAttachmentTitle}>{att.title}</div>
+        ))}
+      {hasText && (
+        <div
+          ref={textRef}
+          className={
+            isOverflowing && !isExpanded
+              ? `${styles.tweetAttachmentBody} ${styles.tweetAttachmentBodyCollapsed}`
+              : styles.tweetAttachmentBody
+          }
+        >
+          {att.pretext && (
+            <div className={styles.tweetAttachmentText}>
+              <MrkdwnContent text={att.pretext} context={resolveContext} />
+            </div>
+          )}
+          {att.text && (
+            <div className={styles.tweetAttachmentText}>
+              <MrkdwnContent text={att.text} context={resolveContext} />
+            </div>
+          )}
+        </div>
+      )}
+      {isOverflowing && (
+        <button
+          type="button"
+          className={styles.tweetAttachmentToggle}
+          onClick={() => setIsExpanded(prev => !prev)}
+        >
+          {isExpanded ? 'Show less' : 'Show more'}
+        </button>
+      )}
+      {att.imageUrl && <img className={styles.tweetContentsImage} src={att.imageUrl} alt="" />}
+      {att.files?.map((file, i) => {
+        const params = new URLSearchParams();
+        params.append('target_url', file.thumb360);
+        return (
+          <a key={i} href={file.urlPrivate} target="_blank" rel="noopener">
+            <img className={styles.tweetContentsImage} src={`${basePath}/api/file?${params}`} />
+          </a>
+        );
+      })}
+      {att.footer && <div className={styles.tweetAttachmentFooter}>{att.footer}</div>}
+    </div>
+  );
+};
 
 export const TweetContent = ({ message }: { message: Tweet }) => {
   const resolveContext = useResolveContext();

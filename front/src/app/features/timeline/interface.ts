@@ -54,6 +54,7 @@ export interface TextAttachment {
   footer?: string;
   color?: string;
   imageUrl?: string;
+  files?: FileAttachment[];
 }
 
 export interface Tweet {

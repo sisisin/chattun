@@ -294,6 +294,100 @@ const presetFactories: Record<string, () => object> = {
     };
   },
 
+  'long-attachment': () => {
+    const ts = nowTs();
+    const lines = Array.from(
+      { length: 60 },
+      (_, i) =>
+        `• <https://github.com/example/repo/pull/${1000 + i}|#${1000 + i}> by <https://github.com/user${i}|@user${i}>`,
+    );
+    return {
+      type: 'message',
+      user: MOCK_USER,
+      ts,
+      client_msg_id: `mock-${Date.now()}`,
+      text: '<https://github.com/example/repo/pull/999>',
+      team: MOCK_TEAM,
+      blocks: [
+        {
+          type: 'rich_text',
+          block_id: `mock-block-${Date.now()}`,
+          elements: [
+            {
+              type: 'rich_text_section',
+              elements: [{ type: 'link', url: 'https://github.com/example/repo/pull/999' }],
+            },
+          ],
+        },
+      ],
+      attachments: [
+        {
+          id: 1,
+          color: '36a64f',
+          fallback: '#999 build: release',
+          text: `Important\nUpon merging this pull request, a new Git tag will be automatically created.\n\n*What's Changed*\n\n*:sparkles: Features & Fixes*\n\n${lines.join('\n')}\n\n---\n\n_Change…`,
+          title: '#999 build: release',
+          title_link: 'https://github.com/example/repo/pull/999',
+          footer: '<https://github.com/example/repo|example/repo>',
+          mrkdwn_in: ['text'],
+        },
+      ],
+      channel: MOCK_CHANNEL,
+      event_ts: ts,
+      channel_type: 'channel',
+    };
+  },
+
+  'attachment-with-image': () => {
+    const ts = nowTs();
+    return {
+      type: 'message',
+      user: MOCK_USER,
+      ts,
+      client_msg_id: `mock-${Date.now()}`,
+      text: '<https://example.slack.com/archives/C001/p1234567890>',
+      team: MOCK_TEAM,
+      blocks: [
+        {
+          type: 'rich_text',
+          block_id: `mock-block-${Date.now()}`,
+          elements: [
+            {
+              type: 'rich_text_section',
+              elements: [
+                { type: 'link', url: 'https://example.slack.com/archives/C001/p1234567890' },
+              ],
+            },
+          ],
+        },
+      ],
+      attachments: [
+        {
+          from_url: 'https://example.slack.com/archives/C001/p1234567890',
+          is_msg_unfurl: true,
+          id: 1,
+          fallback: 'メッセージの引用',
+          text: 'これは画像付きの引用メッセージです',
+          author_name: 'Mock User',
+          author_icon: '/api/mock/assets/sample.png',
+          mrkdwn_in: ['text'],
+          footer: 'Thread in Slack Conversation',
+          files: [
+            {
+              id: `mock-file-${Date.now()}`,
+              filetype: 'png',
+              thumb_360: '/api/mock/assets/sample.png',
+              url_private: '/api/mock/assets/sample.png',
+            },
+          ],
+        },
+      ],
+      channel: MOCK_CHANNEL,
+      event_ts: ts,
+      channel_type: 'channel',
+    };
+  },
+
   'threaded-reply': () => {
     const parentTs = nowTs();
     const ts = nowTs();

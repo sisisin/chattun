@@ -16,6 +16,13 @@ export namespace SlackEntity {
     color?: string;
     is_msg_unfurl?: boolean;
     from_url?: string;
+    files?: {
+      id: string;
+      filetype: string;
+      thumb_360: string;
+      url_private: string;
+      user_team?: string;
+    }[];
   }
 
   export interface Mark {
