@@ -1,5 +1,6 @@
 # Done
 
+- Task: 動画投稿の表示に対応する [20260423-0005-feat-video-display](../work/_archived/20260423-0005-feat-video-display/task.md)
 - Task: TweetContentに画像があるときに横並びになることがあるのを修正 [20260422-2355-feat-fix-horizontal-image](../work/_archived/20260422-2355-feat-fix-horizontal-image/task.md)
 - Task: attachmentが長い場合に畳んでshow moreしてほしい。あとattachmentに画像が付いてるときに表示されてなさそう [20260422-2345-feat-attachment-collapse-and-images](../work/_archived/20260422-2345-feat-attachment-collapse-and-images/task.md)
 - Task: モックサーバーに /api/file エンドポイントを追加 [20260422-2350-feat-mock-api-file](../work/_archived/20260422-2350-feat-mock-api-file/task.md)

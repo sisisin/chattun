@@ -55,8 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: 動画投稿の表示に対応する
-  - tmp/examples/message-video.json , https://knowledge-work.slack.com/files/U05V1TFDXAM/F0AU6GQH45Q/_____________2026-04-21_10.50.50.mov
 
 # Backlog
 
