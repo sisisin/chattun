@@ -1,5 +1,6 @@
 # Done
 
+- Task: モックサーバーに /api/file エンドポイントを追加 [20260422-2350-feat-mock-api-file](../work/_archived/20260422-2350-feat-mock-api-file/task.md)
 - Task: チャンネルページがemptyのときの表示がtimelineの表示と揃っていない [20260422-2330-feat-channel-empty-style](../work/_archived/20260422-2330-feat-channel-empty-style/task.md)
 - Task: リストのインデントが解釈されていない [20260422-2300-feat-list-indent](../work/_archived/20260422-2300-feat-list-indent/task.md)
 - Task: スキップされたブラウザ検証をまとめて実施する [20260422-2250-feat-catch-up-browser-verification](../work/_archived/20260422-2250-feat-catch-up-browser-verification/task.md)
