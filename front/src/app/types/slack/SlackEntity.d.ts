@@ -22,6 +22,9 @@ export namespace SlackEntity {
       thumb_360: string;
       url_private: string;
       user_team?: string;
+      mp4?: string;
+      thumb_video?: string;
+      media_display_type?: string;
     }[];
   }
 
@@ -100,6 +103,9 @@ export namespace SlackEntity {
         thumb_360: string;
         url_private: string;
         user_team?: string;
+        mp4?: string;
+        thumb_video?: string;
+        media_display_type?: string;
       }[];
       event_ts: string;
     }

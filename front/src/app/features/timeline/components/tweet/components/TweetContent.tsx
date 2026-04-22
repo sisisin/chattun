@@ -90,6 +90,19 @@ const AttachmentView = ({
       )}
       {att.imageUrl && <img className={styles.tweetContentsImage} src={att.imageUrl} alt="" />}
       {att.files?.map((file, i) => {
+        if (file.type === 'video' && file.mp4) {
+          const videoParams = new URLSearchParams();
+          videoParams.append('target_url', file.mp4);
+          return (
+            <video
+              key={i}
+              className={styles.tweetContentsVideo}
+              controls
+              preload="metadata"
+              src={`${basePath}/api/file?${videoParams}`}
+            />
+          );
+        }
         const params = new URLSearchParams();
         params.append('target_url', file.thumb360);
         return (
@@ -141,6 +154,19 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
     <div className={styles.tweetContents}>
       {textContent}
       {message.files.map((file, i) => {
+        if (file.type === 'video' && file.mp4) {
+          const videoParams = new URLSearchParams();
+          videoParams.append('target_url', file.mp4);
+          return (
+            <video
+              key={i}
+              className={styles.tweetContentsVideo}
+              controls
+              preload="metadata"
+              src={`${basePath}/api/file?${videoParams}`}
+            />
+          );
+        }
         const params = new URLSearchParams();
         params.append('target_url', file.thumb360);
         return (

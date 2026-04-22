@@ -388,6 +388,35 @@ const presetFactories: Record<string, () => object> = {
     };
   },
 
+  'message-with-video': () => {
+    const ts = nowTs();
+    return {
+      type: 'message',
+      user: MOCK_USER,
+      ts,
+      client_msg_id: `mock-${Date.now()}`,
+      text: '',
+      team: MOCK_TEAM,
+      subtype: 'file_share',
+      files: [
+        {
+          id: `mock-video-${Date.now()}`,
+          name: 'sample-video.mp4',
+          filetype: 'mp4',
+          mimetype: 'video/mp4',
+          media_display_type: 'video',
+          mp4: '/api/mock/assets/sample-video.mp4',
+          url_private: '/api/mock/assets/sample-video.mp4',
+          thumb_360: '/api/mock/assets/sample.png',
+          thumb_video: '/api/mock/assets/sample.png',
+        },
+      ],
+      channel: MOCK_CHANNEL,
+      event_ts: ts,
+      channel_type: 'channel',
+    };
+  },
+
   'threaded-reply': () => {
     const parentTs = nowTs();
     const ts = nowTs();

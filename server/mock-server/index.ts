@@ -127,6 +127,8 @@ app.get('/api/file', async c => {
         '.jpeg': 'image/jpeg',
         '.gif': 'image/gif',
         '.svg': 'image/svg+xml',
+        '.mp4': 'video/mp4',
+        '.mov': 'video/quicktime',
       };
       return new Response(data, {
         headers: { 'Content-Type': mimeTypes[ext] || 'application/octet-stream' },

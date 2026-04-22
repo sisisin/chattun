@@ -140,10 +140,13 @@ const imgFileRegexp = /(png|jpg|jpeg|gif)/;
 function getFileAttachments(msg: Message): FileAttachment[] {
   if (!msg.files) return [];
   return msg.files
-    .filter(({ filetype }) => imgFileRegexp.test(filetype))
-    .map(({ thumb_360, url_private }) => ({
-      thumb360: thumb_360,
-      urlPrivate: url_private,
+    .filter(f => imgFileRegexp.test(f.filetype) || f.media_display_type === 'video')
+    .map(f => ({
+      thumb360: f.thumb_360,
+      urlPrivate: f.url_private,
+      type: (f.media_display_type === 'video' ? 'video' : 'image') as 'image' | 'video',
+      mp4: f.mp4,
+      thumbVideo: f.thumb_video,
     }));
 }
 
@@ -159,10 +162,13 @@ function getImageAttachments(msg: Message): ImageAttachment[] {
 
 function getAttachmentFiles(files: NonNullable<SlackEntity.Attachment['files']>): FileAttachment[] {
   return files
-    .filter(({ filetype }) => imgFileRegexp.test(filetype))
-    .map(({ thumb_360, url_private }) => ({
-      thumb360: thumb_360,
-      urlPrivate: url_private,
+    .filter(f => imgFileRegexp.test(f.filetype) || f.media_display_type === 'video')
+    .map(f => ({
+      thumb360: f.thumb_360,
+      urlPrivate: f.url_private,
+      type: (f.media_display_type === 'video' ? 'video' : 'image') as 'image' | 'video',
+      mp4: f.mp4,
+      thumbVideo: f.thumb_video,
     }));
 }
 

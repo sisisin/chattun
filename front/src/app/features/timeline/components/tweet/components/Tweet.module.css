@@ -126,6 +126,13 @@
   border-radius: var(--border-radius-lg);
 }
 
+.tweet-contents-video {
+  display: block;
+  max-width: 90%;
+  margin-bottom: var(--spacing-sm);
+  border-radius: var(--border-radius-lg);
+}
+
 .tweet-contents-system-message {
   color: var(--text-sub);
   font-style: italic;
