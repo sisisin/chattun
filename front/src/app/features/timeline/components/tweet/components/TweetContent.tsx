@@ -2,7 +2,7 @@ import { basePath } from 'app/config';
 import { BlockKitContent } from 'app/features/mrkdwn/BlockKitRenderer';
 import { MrkdwnContent } from 'app/features/mrkdwn/MrkdwnRenderer';
 import { type ResolveContext, useResolveContext } from 'app/features/mrkdwn/ResolveContext';
-import { type TextAttachment, Tweet } from 'app/features/timeline/interface';
+import { type FileAttachment, type TextAttachment, Tweet } from 'app/features/timeline/interface';
 import * as React from 'react';
 import styles from './Tweet.module.css';
 
@@ -16,6 +16,36 @@ function resolveColor(color: string | undefined): string | undefined {
   if (!color) return undefined;
   return colorKeywords[color] ?? `#${color}`;
 }
+
+function fileProxyUrl(targetUrl: string): string {
+  const params = new URLSearchParams();
+  params.append('target_url', targetUrl);
+  return `${basePath}/api/file?${params}`;
+}
+
+const FileView = ({ file }: { file: FileAttachment }) => {
+  if (file.type === 'video' && file.mp4) {
+    return (
+      <video
+        className={styles.tweetContentsVideo}
+        controls
+        preload="metadata"
+        src={fileProxyUrl(file.mp4)}
+      />
+    );
+  }
+  if (!file.thumb360) return null;
+  return (
+    <a
+      className={styles.tweetContentsImageLink}
+      href={file.urlPrivate}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img className={styles.tweetContentsImage} src={fileProxyUrl(file.thumb360)} alt="" />
+    </a>
+  );
+};
 
 const COLLAPSED_MAX_HEIGHT = 200;
 
@@ -89,38 +119,9 @@ const AttachmentView = ({
         </button>
       )}
       {att.imageUrl && <img className={styles.tweetContentsImage} src={att.imageUrl} alt="" />}
-      {att.files?.map((file, i) => {
-        if (file.type === 'video' && file.mp4) {
-          const videoParams = new URLSearchParams();
-          videoParams.append('target_url', file.mp4);
-          return (
-            <video
-              key={i}
-              className={styles.tweetContentsVideo}
-              controls
-              preload="metadata"
-              src={`${basePath}/api/file?${videoParams}`}
-            />
-          );
-        }
-        const params = new URLSearchParams();
-        params.append('target_url', file.thumb360);
-        return (
-          <a
-            key={i}
-            className={styles.tweetContentsImageLink}
-            href={file.urlPrivate}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              className={styles.tweetContentsImage}
-              src={`${basePath}/api/file?${params}`}
-              alt=""
-            />
-          </a>
-        );
-      })}
+      {att.files?.map((file, i) => (
+        <FileView key={i} file={file} />
+      ))}
       {att.footer && <div className={styles.tweetAttachmentFooter}>{att.footer}</div>}
     </div>
   );
@@ -153,34 +154,9 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
   return (
     <div className={styles.tweetContents}>
       {textContent}
-      {message.files.map((file, i) => {
-        if (file.type === 'video' && file.mp4) {
-          const videoParams = new URLSearchParams();
-          videoParams.append('target_url', file.mp4);
-          return (
-            <video
-              key={i}
-              className={styles.tweetContentsVideo}
-              controls
-              preload="metadata"
-              src={`${basePath}/api/file?${videoParams}`}
-            />
-          );
-        }
-        const params = new URLSearchParams();
-        params.append('target_url', file.thumb360);
-        return (
-          <a
-            key={i}
-            className={styles.tweetContentsImageLink}
-            href={file.urlPrivate}
-            target="_blank"
-            rel="noopener"
-          >
-            <img className={styles.tweetContentsImage} src={`${basePath}/api/file?${params}`} />
-          </a>
-        );
-      })}
+      {message.files.map((file, i) => (
+        <FileView key={i} file={file} />
+      ))}
       {message.imageAttachments.map((att, i) => (
         <img
           key={`att-${i}`}

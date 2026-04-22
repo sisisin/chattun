@@ -35,7 +35,7 @@ export interface Reaction {
 }
 
 export interface FileAttachment {
-  thumb360: string;
+  thumb360?: string;
   urlPrivate: string;
   type: 'image' | 'video';
   mp4?: string;

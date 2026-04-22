@@ -144,7 +144,7 @@ function getFileAttachments(msg: Message): FileAttachment[] {
     .map(f => ({
       thumb360: f.thumb_360,
       urlPrivate: f.url_private,
-      type: (f.media_display_type === 'video' ? 'video' : 'image') as 'image' | 'video',
+      type: f.media_display_type === 'video' ? ('video' as const) : ('image' as const),
       mp4: f.mp4,
       thumbVideo: f.thumb_video,
     }));
@@ -166,7 +166,7 @@ function getAttachmentFiles(files: NonNullable<SlackEntity.Attachment['files']>)
     .map(f => ({
       thumb360: f.thumb_360,
       urlPrivate: f.url_private,
-      type: (f.media_display_type === 'video' ? 'video' : 'image') as 'image' | 'video',
+      type: f.media_display_type === 'video' ? ('video' as const) : ('image' as const),
       mp4: f.mp4,
       thumbVideo: f.thumb_video,
     }));
