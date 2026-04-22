@@ -55,6 +55,8 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
+- Task: モックサーバーに /api/file エンドポイントを追加し、モック環境でも画像プロキシが動作するようにする
+  - 現状モックプリセットの画像が /api/file プロキシ経由で404になり、ブラウザ検証できない
 - Task: attachmentが長い場合に畳んでshow moreしてほしい。あとattachmentに画像が付いてるときに表示されてなさそう
   - tmp/examples/message-long-attachment.json , tmp/examples/SCR-20260415-nmoi.png
   - tmp/examples/message-attachment-with-image.json
