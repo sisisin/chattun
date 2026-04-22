@@ -20,3 +20,8 @@ BlockKitRenderer の `rich_text_list` 要素は `indent` フィールド（0, 1,
 ### スコープ
 
 - `BlockKitRenderer.tsx` — `rich_text_list` のレンダリングに indent 対応を追加
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
