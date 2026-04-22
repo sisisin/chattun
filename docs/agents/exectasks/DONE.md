@@ -1,5 +1,6 @@
 # Done
 
+- Task: attachment内のリンクやメンションが解決されていないのを修正 [20260422-0900-feat-resolve-attachment-mrkdwn](../work/_archived/20260422-0900-feat-resolve-attachment-mrkdwn/task.md)
 - Task: チャンネルページを作り、指定されているチャンネルの投稿のみを表示する [20260414-2050-feat-channel-page](../work/_archived/20260414-2050-feat-channel-page/task.md)
 - Task: スレッド強調、背景色は変えなくていい。あとスレッドボタンなくして良いかな [20260414-2042-feat-simplify-thread-reply-style](../work/_archived/20260414-2042-feat-simplify-thread-reply-style/task.md)
 - Task: copyボタン押したときのフィードバックはボタンの文言変更じゃなくてtoastがいい [20260414-2033-feat-copy-toast-feedback](../work/_archived/20260414-2033-feat-copy-toast-feedback/task.md)
