@@ -65,11 +65,7 @@ const AttachmentView = ({
       {hasText && (
         <div
           ref={textRef}
-          className={
-            isOverflowing && !isExpanded
-              ? `${styles.tweetAttachmentBody} ${styles.tweetAttachmentBodyCollapsed}`
-              : styles.tweetAttachmentBody
-          }
+          className={isOverflowing && !isExpanded ? styles.tweetAttachmentBodyCollapsed : undefined}
         >
           {att.pretext && (
             <div className={styles.tweetAttachmentText}>
