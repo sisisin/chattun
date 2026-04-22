@@ -93,7 +93,13 @@ const AttachmentView = ({
         const params = new URLSearchParams();
         params.append('target_url', file.thumb360);
         return (
-          <a key={i} href={file.urlPrivate} target="_blank" rel="noopener noreferrer">
+          <a
+            key={i}
+            className={styles.tweetContentsImageLink}
+            href={file.urlPrivate}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img
               className={styles.tweetContentsImage}
               src={`${basePath}/api/file?${params}`}
@@ -138,13 +144,24 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
         const params = new URLSearchParams();
         params.append('target_url', file.thumb360);
         return (
-          <a key={i} href={file.urlPrivate} target="_blank" rel="noopener">
+          <a
+            key={i}
+            className={styles.tweetContentsImageLink}
+            href={file.urlPrivate}
+            target="_blank"
+            rel="noopener"
+          >
             <img className={styles.tweetContentsImage} src={`${basePath}/api/file?${params}`} />
           </a>
         );
       })}
       {message.imageAttachments.map((att, i) => (
-        <img key={`att-${i}`} alt={att.fallback} src={att.imageUrl} />
+        <img
+          key={`att-${i}`}
+          className={styles.tweetContentsImage}
+          alt={att.fallback}
+          src={att.imageUrl}
+        />
       ))}
       {message.textAttachments.map((att, i) => (
         <AttachmentView key={`text-att-${i}`} att={att} resolveContext={resolveContext} />

@@ -116,6 +116,10 @@
   }
 }
 
+.tweet-contents-image-link {
+  display: block;
+}
+
 .tweet-contents-image {
   display: block;
   margin-bottom: var(--spacing-sm);

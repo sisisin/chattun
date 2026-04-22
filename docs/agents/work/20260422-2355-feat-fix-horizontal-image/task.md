@@ -23,3 +23,8 @@
 ## 参考
 
 - `tmp/examples/message-horizontal-image.json`: テキスト「割と高め」+ 横長スクリーンショット1枚。`<span>割と高め</span>` の直後に `<a><img></a>` がインラインで横並びになる
+
+## 検証ステップ
+
+- [ ] review
+- [ ] browser-verification
