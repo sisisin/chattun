@@ -1,7 +1,7 @@
 import { basePath } from 'app/config';
 import { BlockKitContent } from 'app/features/mrkdwn/BlockKitRenderer';
 import { MrkdwnContent } from 'app/features/mrkdwn/MrkdwnRenderer';
-import { useResolveContext } from 'app/features/mrkdwn/ResolveContext';
+import { type ResolveContext, useResolveContext } from 'app/features/mrkdwn/ResolveContext';
 import { type TextAttachment, Tweet } from 'app/features/timeline/interface';
 import * as React from 'react';
 import styles from './Tweet.module.css';
@@ -17,7 +17,13 @@ function resolveColor(color: string | undefined): string | undefined {
   return colorKeywords[color] ?? `#${color}`;
 }
 
-const AttachmentView = ({ att }: { att: TextAttachment }) => (
+const AttachmentView = ({
+  att,
+  resolveContext,
+}: {
+  att: TextAttachment;
+  resolveContext: ResolveContext;
+}) => (
   <div
     className={styles.tweetAttachment}
     style={att.color ? { borderLeftColor: resolveColor(att.color) } : undefined}
@@ -40,8 +46,16 @@ const AttachmentView = ({ att }: { att: TextAttachment }) => (
       ) : (
         <div className={styles.tweetAttachmentTitle}>{att.title}</div>
       ))}
-    {att.pretext && <div className={styles.tweetAttachmentText}>{att.pretext}</div>}
-    {att.text && <div className={styles.tweetAttachmentText}>{att.text}</div>}
+    {att.pretext && (
+      <div className={styles.tweetAttachmentText}>
+        <MrkdwnContent text={att.pretext} context={resolveContext} />
+      </div>
+    )}
+    {att.text && (
+      <div className={styles.tweetAttachmentText}>
+        <MrkdwnContent text={att.text} context={resolveContext} />
+      </div>
+    )}
     {att.imageUrl && <img className={styles.tweetContentsImage} src={att.imageUrl} alt="" />}
     {att.footer && <div className={styles.tweetAttachmentFooter}>{att.footer}</div>}
   </div>
@@ -87,7 +101,7 @@ export const TweetContent = ({ message }: { message: Tweet }) => {
         <img key={`att-${i}`} alt={att.fallback} src={att.imageUrl} />
       ))}
       {message.textAttachments.map((att, i) => (
-        <AttachmentView key={`text-att-${i}`} att={att} />
+        <AttachmentView key={`text-att-${i}`} att={att} resolveContext={resolveContext} />
       ))}
     </div>
   );
