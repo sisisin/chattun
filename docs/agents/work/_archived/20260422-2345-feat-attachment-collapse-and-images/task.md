@@ -27,3 +27,8 @@
 - `tmp/examples/message-long-attachment.json`: 長いattachmentの実例（GitHub PRのunfurl）
 - `tmp/examples/SCR-20260415-nmoi.png`: Slackでの「Show more」UIのスクリーンショット
 - `tmp/examples/message-attachment-with-image.json`: attachment内にfilesがある実例（メッセージunfurlに画像添付）
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
