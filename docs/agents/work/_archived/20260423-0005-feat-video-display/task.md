@@ -31,3 +31,8 @@
   - `mp4` フィールド: mp4ストリーミングURL
   - `thumb_video`: サムネイルURL
   - `media_display_type: "video"`: 動画判定フラグ
+
+## 検証ステップ
+
+- [x] review
+- [x] browser-verification
