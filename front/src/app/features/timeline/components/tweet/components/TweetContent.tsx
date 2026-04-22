@@ -97,8 +97,12 @@ const AttachmentView = ({
         const params = new URLSearchParams();
         params.append('target_url', file.thumb360);
         return (
-          <a key={i} href={file.urlPrivate} target="_blank" rel="noopener">
-            <img className={styles.tweetContentsImage} src={`${basePath}/api/file?${params}`} />
+          <a key={i} href={file.urlPrivate} target="_blank" rel="noopener noreferrer">
+            <img
+              className={styles.tweetContentsImage}
+              src={`${basePath}/api/file?${params}`}
+              alt=""
+            />
           </a>
         );
       })}
