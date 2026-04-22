@@ -15,7 +15,7 @@ export const ChannelView = () => {
     <>
       <EmojiMenuModule />
       <ResolveContextProvider>
-        <div>
+        <div className={styles.menuParent}>
           <Menu />
           {messages.length === 0 ? (
             <div className={styles.tweetlistEmpty}>

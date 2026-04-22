@@ -1,9 +1,13 @@
+.menu-parent {
+  position: relative;
+}
+
 .tweetlist {
   padding: 0;
   list-style: none;
 }
 
-.tweetlist-empty {
+.menu-parent .tweetlist-empty {
   display: grid;
   height: calc(100vh - var(--spacing-2xl));
   padding: 20vh 0 30vh;
