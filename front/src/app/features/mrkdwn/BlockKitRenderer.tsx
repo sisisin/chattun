@@ -95,12 +95,27 @@ function RichTextElement({ element }: { element: BlockKit.RichTextElement }) {
         </span>
       );
     case 'rich_text_list': {
+      const indent = element.indent ?? 0;
+      const bulletStyles = ['disc', 'circle', 'square'] as const;
+      const listStyle =
+        element.style === 'ordered' ? undefined : bulletStyles[indent % bulletStyles.length];
       const items = element.elements.map((section, i) => (
         <li key={i}>
           <InlineElements elements={section.elements} />
         </li>
       ));
-      return element.style === 'ordered' ? <ol>{items}</ol> : <ul>{items}</ul>;
+      const Tag = element.style === 'ordered' ? 'ol' : 'ul';
+      return (
+        <Tag
+          style={{
+            paddingLeft: `${(indent + 1) * 1.5}em`,
+            margin: 0,
+            ...(listStyle ? { listStyleType: listStyle } : {}),
+          }}
+        >
+          {items}
+        </Tag>
+      );
     }
     case 'rich_text_preformatted':
       return (
