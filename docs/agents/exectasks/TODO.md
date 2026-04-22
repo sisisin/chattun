@@ -55,8 +55,6 @@ Task 完了時、マージ前に作業ディレクトリを `docs/agents/work/_a
 
 # Tasks
 
-- Task: チャンネルページがemptyのときの表示がtimelineの表示と揃っていない。アイコンが上にズレている
-  - Timelineと同じようなスタイルのアサインにするのがいいんじゃないすか
 - Task: attachmentが長い場合に畳んでshow moreしてほしい。あとattachmentに画像が付いてるときに表示されてなさそう
   - tmp/examples/message-long-attachment.json , tmp/examples/SCR-20260415-nmoi.png
   - tmp/examples/message-attachment-with-image.json
